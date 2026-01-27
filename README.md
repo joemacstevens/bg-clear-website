@@ -1,26 +1,19 @@
-# sv
+# BG Clear Website
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+SvelteKit marketing site for BG Clear.
 
-## Creating a project
+## Design tokens
 
-If you're seeing this, you've probably already done this step. Congrats!
+Global tokens live in `src/app.css` and include:
 
-```sh
-# create a new project
-npx sv create my-app
-```
-
-To recreate this project with the same configuration:
-
-```sh
-# recreate this project
-npx sv create --template minimal --types ts --install npm website
-```
+- Colors: `--color-ink`, `--color-primary`, `--color-accent`, `--color-bg`, `--color-surface`
+- Typography: `--font-heading`, `--font-body`, `--text-h1`, `--text-h2`, `--text-h3`
+- Spacing: `--space-1` through `--space-8`, `--section-padding`
+- Radii/shadow: `--radius-sm`, `--radius-md`, `--radius-pill`, `--shadow-sm`
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Once you've installed dependencies with `npm install`, start a development server:
 
 ```sh
 npm run dev
@@ -38,5 +31,3 @@ npm run build
 ```
 
 You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
