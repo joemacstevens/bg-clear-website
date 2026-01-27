@@ -175,9 +175,57 @@ main {
 	gap: var(--space-5);
 }
 
+.grid-2 {
+	display: grid;
+	gap: var(--space-4);
+}
+
+.grid-3 {
+	display: grid;
+	gap: var(--space-4);
+}
+
 .capability-list {
 	display: grid;
 	gap: var(--space-4);
+}
+
+.list {
+	margin: 0;
+	padding-left: 1.25rem;
+}
+
+.list li {
+	margin: 0.25rem 0;
+	color: var(--color-text);
+}
+
+.steps {
+	display: grid;
+	gap: var(--space-4);
+}
+
+.step {
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	padding: var(--space-4);
+}
+
+.cta-band {
+	background: linear-gradient(180deg, rgba(29, 78, 216, 0.06), rgba(20, 184, 166, 0.05));
+	border-top: 1px solid var(--color-border);
+	border-bottom: 1px solid var(--color-border);
+}
+
+.cta-inner {
+	display: grid;
+	gap: var(--space-3);
+	align-items: center;
+}
+
+.cta-inner p {
+	margin-bottom: 0;
 }
 
 .capability-card {
@@ -217,6 +265,22 @@ main {
 
 	.capabilities {
 		grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+	}
+
+	.grid-2 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.grid-3 {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.steps {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+
+	.cta-inner {
+		grid-template-columns: minmax(0, 1.2fr) auto;
 	}
 }
 
