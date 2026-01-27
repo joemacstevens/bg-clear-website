@@ -229,6 +229,7 @@ main {
 }
 
 .capability-card {
+	position: relative;
 	background: var(--color-surface);
 	border: 1px solid var(--color-border);
 	border-radius: var(--radius-md);
@@ -237,6 +238,8 @@ main {
 }
 
 .capability-number {
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
 	font-family: var(--font-heading);
 	font-weight: 600;
 	color: var(--color-accent);
@@ -295,5 +298,31 @@ main {
 		transition-duration: 0.01ms !important;
 		animation-duration: 0.01ms !important;
 		scroll-behavior: auto !important;
+	}
+}
+
+/* Signature section (sticky intro + reveal cards) */
+.sticky-intro {
+	position: sticky;
+	top: 6rem;
+	align-self: start;
+}
+
+.reveal {
+	opacity: 0;
+	transform: translateY(10px);
+	transition: opacity 320ms ease, transform 320ms ease;
+	will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+@media (max-width: 959px) {
+	.sticky-intro {
+		position: static;
+		top: auto;
 	}
 }

@@ -1,3 +1,7 @@
+<script lang="ts">
+	import { revealOnScroll } from '$lib/scrollReveal';
+</script>
+
 <svelte:head>
 	<title>BG Clear — Tech-forward DME distribution</title>
 	<meta
@@ -35,7 +39,7 @@
 
 	<section class="section">
 		<div class="container capabilities">
-			<div>
+			<div class="sticky-intro">
 				<p class="eyebrow">Capabilities</p>
 				<h2>Built for providers who need speed and trust.</h2>
 				<p>
@@ -44,23 +48,25 @@
 				</p>
 			</div>
 			<div class="capability-list">
-				<article class="capability-card">
+				<article class="capability-card reveal" use:revealOnScroll>
 					<span class="capability-number">01</span>
 					<h3>Compliance & integrity</h3>
 					<p>FDA/CMS-aware processes with documentation you can trust.</p>
 				</article>
-				<article class="capability-card">
+				<article class="capability-card reveal" use:revealOnScroll>
 					<span class="capability-number">02</span>
 					<h3>Fulfillment & logistics</h3>
 					<p>Fast inventory coordination to reduce downtime and keep care on track.</p>
 				</article>
-				<article class="capability-card">
+				<article class="capability-card reveal" use:revealOnScroll>
 					<span class="capability-number">03</span>
 					<h3>Tech-forward DME</h3>
 					<p>Modern equipment selection with a roadmap for connected monitoring.</p>
 				</article>
 			</div>
 		</div>
+	</section>
+
 	</section>
 
 	<section class="section">
