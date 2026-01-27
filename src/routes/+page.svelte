@@ -1,6 +1,61 @@
 <script lang="ts">
 	import { revealOnScroll } from '$lib/scrollReveal';
 	import { env } from '$env/dynamic/public';
+
+	type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
+
+	let status: FormStatus = 'idle';
+	let errorMessage = '';
+	let formEl: HTMLFormElement | null = null;
+
+	async function handleSubmit(event: SubmitEvent) {
+		// If JS is running, we take over the submission to provide inline success/error states.
+		event.preventDefault();
+
+		if (status === 'submitting') return;
+		status = 'submitting';
+		errorMessage = '';
+
+		const endpoint = (env.PUBLIC_FORMSPREE_ENDPOINT || '').trim();
+		if (!endpoint) {
+			status = 'error';
+			errorMessage = 'Form is not configured yet (missing Formspree endpoint).';
+			return;
+		}
+
+		try {
+			const fd = new FormData(event.currentTarget as HTMLFormElement);
+
+			const res = await fetch(endpoint, {
+				method: 'POST',
+				body: fd,
+				headers: {
+					Accept: 'application/json'
+				}
+			});
+
+			if (!res.ok) {
+				// Formspree returns JSON for errors; fall back to text.
+				let msg = 'Something went wrong. Please try again.';
+				try {
+					const j = (await res.json()) as { errors?: Array<{ message?: string }> };
+					const m = j?.errors?.[0]?.message;
+					if (m) msg = m;
+				} catch {
+					// ignore
+				}
+				status = 'error';
+				errorMessage = msg;
+				return;
+			}
+
+			status = 'success';
+			formEl?.reset();
+		} catch (err) {
+			status = 'error';
+			errorMessage = 'Network error. Please try again.';
+		}
+	}
 </script>
 
 <svelte:head>
@@ -181,7 +236,13 @@
 				<p class="note">For urgent patient needs, call your standard clinical escalation path first.</p>
 			</div>
 
-			<form class="request-form" method="POST" action={env.PUBLIC_FORMSPREE_ENDPOINT || '#'}>
+			<form
+				class="request-form"
+				method="POST"
+				action={env.PUBLIC_FORMSPREE_ENDPOINT || '#'}
+				on:submit={handleSubmit}
+				bind:this={formEl}
+			>
 				<div class="field-row">
 					<label class="field">
 						<span>Name</span>
@@ -215,7 +276,22 @@
 				</label>
 
 				<input type="hidden" name="_subject" value="BG Clear — Request a call" />
-				<button class="button button-primary" type="submit">Send request</button>
+
+				<div class="form-status" aria-live="polite" aria-atomic="true">
+					{#if status === 'success'}
+						<p class="form-success">
+							Thanks — we got your request. We’ll follow up shortly.
+						</p>
+					{:else if status === 'error'}
+						<p class="form-error">
+							{errorMessage}
+						</p>
+					{/if}
+				</div>
+
+				<button class="button button-primary" type="submit" disabled={status === 'submitting'}>
+					{status === 'submitting' ? 'Sending…' : 'Send request'}
+				</button>
 				<p class="form-footnote">By submitting, you agree we can contact you about this request.</p>
 			</form>
 		</div>

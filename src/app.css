@@ -336,18 +336,18 @@ main {
 }
 
 .request-intro .note {
-	color: var(--muted);
+	color: var(--color-muted);
 	font-size: 0.95rem;
 	margin-top: 0.75rem;
 	max-width: 52ch;
 }
 
 .request-form {
-	border: 1px solid rgba(255, 255, 255, 0.08);
-	background: rgba(255, 255, 255, 0.03);
-	border-radius: 16px;
-	padding: 1.25rem;
-	backdrop-filter: blur(10px);
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	padding: 1.5rem;
+	box-shadow: var(--shadow-sm);
 }
 
 .field-row {
@@ -365,24 +365,61 @@ main {
 
 .field span {
 	font-size: 0.9rem;
-	color: rgba(255, 255, 255, 0.82);
+	color: var(--color-ink);
 }
 
 .field input,
 .field textarea {
 	width: 100%;
-	color: var(--text);
-	background: rgba(10, 12, 16, 0.6);
-	border: 1px solid rgba(255, 255, 255, 0.12);
+	color: var(--color-text);
+	background: #ffffff;
+	border: 1px solid var(--color-border);
 	border-radius: 12px;
 	padding: 0.75rem 0.85rem;
 	outline: none;
+	transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+	color: color-mix(in srgb, var(--color-muted), transparent 20%);
 }
 
 .field input:focus,
 .field textarea:focus {
-	border-color: rgba(255, 255, 255, 0.28);
-	box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.06);
+	border-color: color-mix(in srgb, var(--color-primary), #ffffff 30%);
+	box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-primary), transparent 88%);
+}
+
+.form-status {
+	min-height: 1.25rem;
+	margin: 0 0 0.75rem;
+}
+
+.form-success {
+	margin: 0;
+	padding: 0.75rem 0.85rem;
+	border-radius: 12px;
+	border: 1px solid color-mix(in srgb, #16a34a, #ffffff 70%);
+	background: color-mix(in srgb, #16a34a, #ffffff 92%);
+	color: #14532d;
+	font-size: 0.95rem;
+}
+
+.form-error {
+	margin: 0;
+	padding: 0.75rem 0.85rem;
+	border-radius: 12px;
+	border: 1px solid color-mix(in srgb, #dc2626, #ffffff 70%);
+	background: color-mix(in srgb, #dc2626, #ffffff 94%);
+	color: #7f1d1d;
+	font-size: 0.95rem;
+}
+
+.button[disabled] {
+	opacity: 0.65;
+	cursor: not-allowed;
+	transform: none;
 }
 
 .honeypot {
@@ -396,7 +433,7 @@ main {
 
 .form-footnote {
 	margin-top: 0.75rem;
-	color: var(--muted);
+	color: var(--color-muted);
 	font-size: 0.9rem;
 }
 
