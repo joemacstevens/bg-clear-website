@@ -67,8 +67,6 @@
 		</div>
 	</section>
 
-	</section>
-
 	<section class="section">
 		<div class="container">
 			<p class="eyebrow">Who we serve</p>
