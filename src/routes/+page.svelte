@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { revealOnScroll } from '$lib/scrollReveal';
+	import { env } from '$env/dynamic/public';
 </script>
 
 <svelte:head>
@@ -19,7 +20,7 @@
 				<p class="subhead">
 					Fast, compliant access to durable medical equipment for providers and care partners.
 				</p>
-				<a class="button button-primary" href="/">Request a call</a>
+				<a class="button button-primary" href="#request-call">Request a call</a>
 			</div>
 		</div>
 	</section>
@@ -164,11 +165,62 @@
 					Request a call — we’ll confirm needs, timelines, and the right equipment mix.
 				</p>
 			</div>
-			<a class="button button-primary" href="/">Request a call</a>
+			<a class="button button-primary" href="#request-call">Request a call</a>
 		</div>
 	</section>
 
-	<footer class="footer">
+	
+	<section class="section" id="request-call">
+		<div class="container request">
+			<div class="request-intro">
+				<p class="eyebrow">Request a call</p>
+				<h2>Tell us what you need — we’ll follow up quickly.</h2>
+				<p class="subhead">
+					Share the equipment category, timeline, and who we should coordinate with.
+				</p>
+				<p class="note">For urgent patient needs, call your standard clinical escalation path first.</p>
+			</div>
+
+			<form class="request-form" method="POST" action={env.PUBLIC_FORMSPREE_ENDPOINT || '#'}>
+				<div class="field-row">
+					<label class="field">
+						<span>Name</span>
+						<input name="name" autocomplete="name" required />
+					</label>
+					<label class="field">
+						<span>Organization</span>
+						<input name="organization" autocomplete="organization" />
+					</label>
+				</div>
+
+				<div class="field-row">
+					<label class="field">
+						<span>Email</span>
+						<input type="email" name="email" autocomplete="email" required />
+					</label>
+					<label class="field">
+						<span>Phone</span>
+						<input type="tel" name="phone" autocomplete="tel" />
+					</label>
+				</div>
+
+				<label class="field">
+					<span>Message</span>
+					<textarea name="message" rows="5" placeholder="Equipment category, quantities, timeline, location(s), and any compliance constraints…" required></textarea>
+				</label>
+
+				<label class="field honeypot">
+					<span>Don’t fill this out</span>
+					<input name="_gotcha" tabindex="-1" autocomplete="off" />
+				</label>
+
+				<input type="hidden" name="_subject" value="BG Clear — Request a call" />
+				<button class="button button-primary" type="submit">Send request</button>
+				<p class="form-footnote">By submitting, you agree we can contact you about this request.</p>
+			</form>
+		</div>
+	</section>
+<footer class="footer">
 		<div class="container footer-content">
 			<span>BG Clear — tech-forward DME distribution.</span>
 			<span>Footer placeholder for navigation, contact, and compliance details.</span>
