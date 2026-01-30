@@ -2,6 +2,9 @@
 	import { revealOnScroll } from '$lib/scrollReveal';
 	import { env } from '$env/dynamic/public';
 	import logo from '$lib/assets/bg-clear-logo-640.png';
+	import imgHealth from '$lib/assets/categories/jpg/health-monitoring.jpg';
+	import imgMobility from '$lib/assets/categories/jpg/mobility-safety.jpg';
+	import imgSpecialized from '$lib/assets/categories/jpg/specialized-support.jpg';
 
 	type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -75,6 +78,24 @@
 	@media (max-width: 480px) {
 		.brand-logo {
 			height: 64px;
+		}
+	}
+
+	.product-card {
+		overflow: hidden;
+	}
+	.product-image {
+		width: 100%;
+		height: 180px;
+		object-fit: cover;
+		border-radius: 14px;
+		background: radial-gradient(100% 120% at 20% 10%, rgba(0, 194, 255, 0.20) 0%, rgba(12, 18, 28, 0) 60%);
+		margin-bottom: var(--space-4);
+		box-shadow: var(--shadow-sm);
+	}
+	@media (max-width: 640px) {
+		.product-image {
+			height: 160px;
 		}
 	}
 </style>
@@ -175,7 +196,8 @@
 				inspection-ready.
 			</p>
 			<div class="grid-3">
-				<article class="capability-card">
+				<article class="capability-card product-card">
+					<img class="product-image" src={imgHealth} alt="Health monitoring and management equipment" loading="lazy" />
 					<span class="capability-number">A</span>
 					<h3>Health monitoring &amp; management equipment</h3>
 					<ul class="list">
@@ -186,7 +208,8 @@
 						<li>Thermometers (infrared &amp; digital)</li>
 					</ul>
 				</article>
-				<article class="capability-card">
+				<article class="capability-card product-card">
+					<img class="product-image" src={imgMobility} alt="Mobility and safety equipment" loading="lazy" />
 					<span class="capability-number">B</span>
 					<h3>Mobility &amp; safety equipment</h3>
 					<ul class="list">
@@ -198,7 +221,8 @@
 						<li>Fall prevention devices</li>
 					</ul>
 				</article>
-				<article class="capability-card">
+				<article class="capability-card product-card">
+					<img class="product-image" src={imgSpecialized} alt="Specialized medical support equipment" loading="lazy" />
 					<span class="capability-number">C</span>
 					<h3>Specialized medical support equipment</h3>
 					<ul class="list">
