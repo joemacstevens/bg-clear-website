@@ -146,36 +146,44 @@
 	<section class="section">
 		<div class="container">
 			<p class="eyebrow">Products</p>
-			<h2>Core categories for chronic care and everyday equipment needs.</h2>
+			<h2>Primary product categories.</h2>
+			<p class="subhead">
+				These categories come directly from the BG Clear 2026 business plan and are intended to be
+				inspection-ready.
+			</p>
 			<div class="grid-3">
 				<article class="capability-card">
 					<span class="capability-number">A</span>
-					<h3>Health monitoring & management</h3>
+					<h3>Health monitoring &amp; management equipment</h3>
 					<ul class="list">
-						<li>Blood pressure monitors</li>
-						<li>Glucometers & diabetes tools</li>
+						<li>Blood pressure monitors (digital &amp; manual)</li>
+						<li>Glucometers &amp; diabetes management tools</li>
 						<li>Pulse oximeters</li>
-						<li>RPM-ready devices</li>
+						<li>Telehealth-enabled remote patient monitoring (RPM) devices</li>
+						<li>Thermometers (infrared &amp; digital)</li>
 					</ul>
 				</article>
 				<article class="capability-card">
 					<span class="capability-number">B</span>
-					<h3>Mobility & safety</h3>
+					<h3>Mobility &amp; safety equipment</h3>
 					<ul class="list">
-						<li>Walkers, wheelchairs, canes</li>
-						<li>Bathroom safety products</li>
-						<li>Patient lifts & slings</li>
+						<li>Walkers (standard &amp; rollators)</li>
+						<li>Wheelchairs (manual &amp; transport)</li>
+						<li>Canes &amp; crutches</li>
+						<li>Patient lifts &amp; slings</li>
+						<li>Bathroom safety products (grab bars &amp; shower chairs)</li>
 						<li>Fall prevention devices</li>
 					</ul>
 				</article>
 				<article class="capability-card">
 					<span class="capability-number">C</span>
-					<h3>Specialized support</h3>
+					<h3>Specialized medical support equipment</h3>
 					<ul class="list">
-						<li>CPAP/BiPAP & respiratory therapy</li>
-						<li>Nebulizers</li>
-						<li>Hospital beds & support surfaces</li>
-						<li>Compression therapy</li>
+						<li>Nebulizers &amp; respiratory therapy devices</li>
+						<li>Sleep apnea equipment (CPAP/BiPAP)</li>
+						<li>Hospital beds &amp; support surfaces</li>
+						<li>Wound care devices</li>
+						<li>Compression therapy equipment</li>
 					</ul>
 				</article>
 			</div>
