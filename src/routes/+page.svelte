@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { revealOnScroll } from '$lib/scrollReveal';
 	import { env } from '$env/dynamic/public';
+	import logo from '$lib/assets/bg-clear-logo-320.png';
 
 	type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -58,6 +59,26 @@
 	}
 </script>
 
+<style>
+	.brand-lockup {
+		display: flex;
+		align-items: center;
+		gap: var(--space-3);
+		margin-bottom: var(--space-3);
+	}
+	.brand-logo {
+		height: 44px;
+		width: auto;
+		object-fit: contain;
+		filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.18));
+	}
+	@media (max-width: 480px) {
+		.brand-logo {
+			height: 36px;
+		}
+	}
+</style>
+
 <svelte:head>
 	<title>BG Clear — Tech-forward DME distribution</title>
 	<meta
@@ -70,7 +91,10 @@
 	<section class="hero section">
 		<div class="container">
 			<div class="hero-content">
-				<p class="eyebrow">BG Clear</p>
+				<div class="brand-lockup" aria-label="BG Clear">
+					<img class="brand-logo" src={logo} alt="BG Clear" />
+					<p class="eyebrow">BG Clear</p>
+				</div>
 				<h1>Tech-forward DME distribution, delivered reliably.</h1>
 				<p class="subhead">
 					Fast, compliant access to durable medical equipment for providers and care partners.
