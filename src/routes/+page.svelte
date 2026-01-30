@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { revealOnScroll } from '$lib/scrollReveal';
 	import { env } from '$env/dynamic/public';
-	import logo from '$lib/assets/bg-clear-logo-320.png';
+	import logo from '$lib/assets/bg-clear-logo-640.png';
 
 	type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -67,14 +67,14 @@
 		margin-bottom: var(--space-3);
 	}
 	.brand-logo {
-		height: 44px;
+		height: 72px;
 		width: auto;
 		object-fit: contain;
 		filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.18));
 	}
 	@media (max-width: 480px) {
 		.brand-logo {
-			height: 36px;
+			height: 56px;
 		}
 	}
 </style>
