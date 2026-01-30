@@ -67,14 +67,14 @@
 		margin-bottom: var(--space-3);
 	}
 	.brand-logo {
-		height: 72px;
+		height: 88px;
 		width: auto;
 		object-fit: contain;
 		filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.18));
 	}
 	@media (max-width: 480px) {
 		.brand-logo {
-			height: 56px;
+			height: 64px;
 		}
 	}
 </style>
@@ -93,7 +93,6 @@
 			<div class="hero-content">
 				<div class="brand-lockup" aria-label="BG Clear">
 					<img class="brand-logo" src={logo} alt="BG Clear" />
-					<p class="eyebrow">BG Clear</p>
 				</div>
 				<h1>Tech-forward DME distribution, delivered reliably.</h1>
 				<p class="subhead">
