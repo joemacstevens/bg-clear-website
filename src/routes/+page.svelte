@@ -120,6 +120,7 @@
 				<p class="subhead">
 					Fast, compliant access to durable medical equipment for providers and care partners.
 				</p>
+				<p class="note">BG Clear, LLC · 550 Sylvan Ave, Suite 202 · Englewood Cliffs, NJ 07632 · Led by Evens Barthelemy + Gina M. Barthelemy</p>
 				<a class="button button-primary" href="#request-call">Request a call</a>
 			</div>
 		</div>
@@ -132,8 +133,7 @@
 				<h2>Operational excellence for modern care teams.</h2>
 			</div>
 			<p>
-				BG Clear delivers reliable, affordable, clinically effective equipment backed by fast
-				fulfillment, logistics coordination, and partner-first support.
+				BG Clear delivers reliable, affordable, clinically effective tech-forward durable medical equipment, backed by exceptional service, fast fulfillment, and trusted partnerships.
 			</p>
 		</div>
 	</section>
@@ -166,6 +166,32 @@
 				</article>
 			</div>
 		</div>
+	</section>
+
+	<section class="section">
+		<div class="container">
+			<p class="eyebrow">Why BG Clear</p>
+			<h2>Compliance-first distribution for modern care.</h2>
+			<p class="subhead">We're building a streamlined distribution model to reduce downtime and support continuity of care — with documentation and operational rigor clinics can trust.</p>
+			<div class="grid-2">
+				<div>
+					<h3>Mission</h3>
+					<p>Improve patient outcomes by delivering reliable, affordable, clinically effective tech-forward durable medical equipment — supported by exceptional service, fast fulfillment, and trusted partnerships.</p>
+				</div>
+				<div>
+					<h3>Core capabilities</h3>
+					<ul class="list">
+						<li>FDA and CMS compliance knowledge</li>
+						<li>Efficient supply chain and logistics</li>
+						<li>Strong relationships with manufacturers</li>
+						<li>Customer service and provider education</li>
+						<li>Inventory management and fulfillment</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	</section>
 
 	<section class="section">
