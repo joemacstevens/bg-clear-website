@@ -69,7 +69,7 @@
 		gap: var(--space-3);
 		margin-bottom: var(--space-3);
 	}
-	 (max-width: 480px) {
+	@media (max-width: 480px) {
 		.brand-lockup {
 			margin-bottom: var(--space-4);
 		}
@@ -82,7 +82,8 @@
 	}
 	@media (max-width: 480px) {
 		.brand-logo {
-			height: 64px;
+			height: 88px;
+			width: auto;
 		}
 	}
 
