@@ -82,7 +82,7 @@
 	}
 	@media (max-width: 480px) {
 		.brand-logo {
-			height: 88px;
+			height: 110px;
 			width: auto;
 		}
 	}
