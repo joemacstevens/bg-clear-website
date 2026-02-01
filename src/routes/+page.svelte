@@ -115,6 +115,7 @@
 				<div class="brand-lockup" aria-label="BG Clear">
 					<img class="brand-logo" src={logo} alt="BG Clear" />
 				</div>
+				<p class="eyebrow">Where Clear Innovation Meets Everyday Care</p>
 				<h1>Tech-forward DME distribution, delivered reliably.</h1>
 				<p class="subhead">
 					Fast, compliant access to durable medical equipment for providers and care partners.
