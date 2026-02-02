@@ -3,6 +3,8 @@
 	import { env } from '$env/dynamic/public';
 	import { onMount } from 'svelte';
 	import logo from '$lib/assets/bg-clear-logo-640.png';
+	import heroArt from '$lib/assets/hero-distribution.svg';
+	import Hero3D from '$lib/components/Hero3D.svelte';
 
 	type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -130,10 +132,9 @@
 		align-items: center;
 		gap: var(--space-6);
 	}
-	.hero-art img {
+	.hero-art {
 		width: 100%;
-		height: auto;
-		max-width: 520px;
+		max-width: 560px;
 		margin-left: auto;
 	}
 	@media (max-width: 900px) {
@@ -196,7 +197,9 @@
 				<a class="button button-primary" href="#request-call">Request a call</a>
 				</div>
 				<div class="hero-art" aria-hidden="true">
-					<img src={heroArt} alt="" loading="eager" />
+					<Hero3D />
+					<!-- Hidden img to preload SVG for fallback (no layout impact) -->
+					<img src={heroArt} alt="" loading="eager" style="display:none" />
 				</div>
 			</div>
 		</div>
