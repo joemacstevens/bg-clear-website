@@ -123,6 +123,31 @@
 		font-weight: 700;
 		letter-spacing: -0.025em;
 	}
+
+	.hero-grid {
+		display: grid;
+		grid-template-columns: 1.05fr 0.95fr;
+		align-items: center;
+		gap: var(--space-6);
+	}
+	.hero-art img {
+		width: 100%;
+		height: auto;
+		max-width: 520px;
+		margin-left: auto;
+	}
+	@media (max-width: 900px) {
+		.hero-grid {
+			grid-template-columns: 1fr;
+		}
+		.hero-art {
+			margin-top: var(--space-5);
+		}
+		.hero-art img {
+			max-width: 560px;
+			margin: 0;
+		}
+	}
 </style>
 
 <svelte:head>
@@ -158,7 +183,8 @@
 <main class="page">
 	<section class="hero section">
 		<div class="container">
-			<div class="hero-content">
+			<div class="hero-grid">
+				<div class="hero-content">
 				<div class="brand-lockup" aria-label="BG Clear">
 					<img class="brand-logo" src={logo} alt="BG Clear" />
 				</div>
@@ -168,6 +194,10 @@
 					Fast, compliant access to durable medical equipment for providers and care partners.
 				</p>
 				<a class="button button-primary" href="#request-call">Request a call</a>
+				</div>
+				<div class="hero-art" aria-hidden="true">
+					<img src={heroArt} alt="" loading="eager" />
+				</div>
 			</div>
 		</div>
 	</section>
