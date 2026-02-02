@@ -1,0 +1,136 @@
+<svg width="960" height="640" viewBox="0 0 960 640" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BG Clear distribution center sending equipment to care partners">
+  <defs>
+    <linearGradient id="gSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F8FAFC"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="gBlue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1D4ED8"/>
+      <stop offset="1" stop-color="#1E40AF"/>
+    </linearGradient>
+    <linearGradient id="gYellow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FBBF24"/>
+      <stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+    <filter id="shadow" x="-40" y="-40" width="400" height="400" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#0F172A" flood-opacity="0.10"/>
+    </filter>
+    <filter id="soft" x="-40" y="-40" width="400" height="400" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.08"/>
+    </filter>
+    <style>
+      .muted { stroke: #CBD5E1; }
+      .line { stroke: #CBD5E1; stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 2 10; }
+      .route { stroke: #94A3B8; stroke-width: 3; stroke-linecap: round; }
+      .routeAccent { stroke: #1D4ED8; stroke-width: 3; stroke-linecap: round; }
+      .tile { fill: #FFFFFF; stroke: #E5E7EB; }
+      .ink { stroke: #0B1220; }
+    </style>
+  </defs>
+
+  <!-- background -->
+  <rect x="0" y="0" width="960" height="640" fill="url(#gSky)"/>
+  <path d="M120 520C210 445 320 425 460 455C600 485 710 475 840 420" class="line"/>
+  <path d="M100 420C220 360 360 345 500 380C640 415 750 405 860 360" class="line" opacity="0.65"/>
+
+  <!-- central distribution center (warehouse) -->
+  <g transform="translate(360 210)" filter="url(#shadow)">
+    <!-- base card -->
+    <rect x="0" y="0" width="240" height="220" rx="22" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <!-- roof -->
+    <path d="M26 78L120 26L214 78" fill="url(#gBlue)" opacity="0.95"/>
+    <path d="M26 78L120 26L214 78" fill="none" stroke="#1E40AF" stroke-width="2"/>
+    <!-- body -->
+    <rect x="36" y="78" width="168" height="112" rx="14" fill="#F8FAFC" stroke="#E5E7EB"/>
+    <!-- roll-up door -->
+    <rect x="92" y="104" width="56" height="78" rx="10" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <path d="M100 118H140M100 132H140M100 146H140M100 160H140" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round"/>
+    <!-- windows -->
+    <rect x="54" y="104" width="26" height="22" rx="6" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <rect x="160" y="104" width="26" height="22" rx="6" fill="#FFFFFF" stroke="#CBD5E1"/>
+
+    <!-- accent mark -->
+    <circle cx="198" cy="46" r="10" fill="url(#gYellow)"/>
+    <circle cx="198" cy="46" r="10" fill="none" stroke="#F59E0B" stroke-width="2"/>
+
+    <!-- label line -->
+    <rect x="52" y="196" width="136" height="10" rx="5" fill="#E2E8F0"/>
+    <rect x="52" y="196" width="92" height="10" rx="5" fill="#CBD5E1"/>
+  </g>
+
+  <!-- routes from center to tiles -->
+  <path d="M480 280C430 250 365 215 290 190" class="route"/>
+  <path d="M480 280C545 242 630 210 720 190" class="route"/>
+  <path d="M480 312C405 330 320 370 250 418" class="route"/>
+  <path d="M480 312C565 330 650 370 720 420" class="route"/>
+  <path d="M480 330C480 390 480 445 480 498" class="routeAccent"/>
+
+  <!-- endpoint tiles (5) -->
+  <!-- tile 1: BP cuff -->
+  <g transform="translate(170 138)" filter="url(#soft)">
+    <rect width="170" height="118" rx="18" class="tile"/>
+    <rect x="18" y="18" width="64" height="64" rx="16" fill="#F1F5F9" stroke="#E2E8F0"/>
+    <path d="M38 38h24a10 10 0 0 1 10 10v10a10 10 0 0 1-10 10H46a8 8 0 0 1-8-8V48a10 10 0 0 1 10-10Z" fill="#FFFFFF" stroke="#94A3B8" stroke-width="3"/>
+    <path d="M70 56c10 0 18 8 18 18v6" stroke="#1D4ED8" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="108" cy="54" r="10" fill="url(#gBlue)"/>
+    <path d="M103 54h10" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+    <path d="M108 49v10" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+    <rect x="92" y="74" width="56" height="12" rx="6" fill="#E2E8F0"/>
+  </g>
+
+  <!-- tile 2: Glucometer -->
+  <g transform="translate(620 138)" filter="url(#soft)">
+    <rect width="170" height="118" rx="18" class="tile"/>
+    <rect x="18" y="18" width="64" height="64" rx="16" fill="#F1F5F9" stroke="#E2E8F0"/>
+    <rect x="34" y="28" width="32" height="52" rx="10" fill="#FFFFFF" stroke="#94A3B8" stroke-width="3"/>
+    <rect x="40" y="38" width="20" height="14" rx="4" fill="#DBEAFE"/>
+    <path d="M40 62h20" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round"/>
+    <path d="M50 20v10" stroke="#F59E0B" stroke-width="4" stroke-linecap="round"/>
+    <rect x="92" y="32" width="60" height="12" rx="6" fill="#E2E8F0"/>
+    <rect x="92" y="54" width="46" height="12" rx="6" fill="#E2E8F0"/>
+    <rect x="92" y="76" width="52" height="12" rx="6" fill="#E2E8F0"/>
+  </g>
+
+  <!-- tile 3: Wheelchair -->
+  <g transform="translate(150 384)" filter="url(#soft)">
+    <rect width="190" height="128" rx="18" class="tile"/>
+    <rect x="18" y="22" width="72" height="72" rx="18" fill="#F1F5F9" stroke="#E2E8F0"/>
+    <circle cx="52" cy="78" r="18" fill="#FFFFFF" stroke="#1D4ED8" stroke-width="4"/>
+    <path d="M52 60v18h18" stroke="#1D4ED8" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="78" cy="98" r="10" fill="#FFFFFF" stroke="#94A3B8" stroke-width="3"/>
+    <path d="M64 54h20" stroke="#94A3B8" stroke-width="3" stroke-linecap="round"/>
+    <rect x="104" y="36" width="70" height="12" rx="6" fill="#E2E8F0"/>
+    <rect x="104" y="60" width="56" height="12" rx="6" fill="#E2E8F0"/>
+    <rect x="104" y="84" width="62" height="12" rx="6" fill="#E2E8F0"/>
+  </g>
+
+  <!-- tile 4: CPAP -->
+  <g transform="translate(620 388)" filter="url(#soft)">
+    <rect width="190" height="128" rx="18" class="tile"/>
+    <rect x="18" y="22" width="72" height="72" rx="18" fill="#F1F5F9" stroke="#E2E8F0"/>
+    <rect x="34" y="44" width="48" height="32" rx="12" fill="#FFFFFF" stroke="#94A3B8" stroke-width="3"/>
+    <path d="M82 56c10 0 18 8 18 18" stroke="#1D4ED8" stroke-width="3" stroke-linecap="round"/>
+    <path d="M96 74c14 0 24 10 24 24" stroke="#1D4ED8" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+    <circle cx="58" cy="60" r="5" fill="url(#gYellow)"/>
+    <rect x="104" y="36" width="70" height="12" rx="6" fill="#E2E8F0"/>
+    <rect x="104" y="60" width="56" height="12" rx="6" fill="#E2E8F0"/>
+    <rect x="104" y="84" width="62" height="12" rx="6" fill="#E2E8F0"/>
+  </g>
+
+  <!-- tile 5: RPM device (phone + heart) -->
+  <g transform="translate(395 498)" filter="url(#soft)">
+    <rect width="170" height="122" rx="18" class="tile"/>
+    <rect x="20" y="20" width="60" height="82" rx="16" fill="#F1F5F9" stroke="#E2E8F0"/>
+    <rect x="34" y="30" width="32" height="62" rx="10" fill="#FFFFFF" stroke="#94A3B8" stroke-width="3"/>
+    <path d="M44 58l6 8 10-16 8 12" stroke="#1D4ED8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M112 36c10 0 18 8 18 18 0 16-18 28-18 28S94 70 94 54c0-10 8-18 18-18Z" fill="#DBEAFE" stroke="#1D4ED8" stroke-width="3"/>
+    <rect x="92" y="90" width="58" height="12" rx="6" fill="#E2E8F0"/>
+  </g>
+
+  <!-- small route dots -->
+  <circle cx="324" cy="214" r="4" fill="#1D4ED8"/>
+  <circle cx="632" cy="214" r="4" fill="#1D4ED8"/>
+  <circle cx="298" cy="402" r="4" fill="#1D4ED8"/>
+  <circle cx="662" cy="404" r="4" fill="#1D4ED8"/>
+  <circle cx="480" cy="444" r="4" fill="#F59E0B"/>
+</svg>
