@@ -3,6 +3,7 @@
 	import { env } from '$env/dynamic/public';
 	import { onMount } from 'svelte';
 	import logo from '$lib/assets/bg-clear-logo-640.png';
+	import heroArt from '$lib/assets/hero-distribution.svg';
 
 	type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
