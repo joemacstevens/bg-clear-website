@@ -63,9 +63,10 @@
 		scene.background = new THREE.Color(COLORS.offWhite);
 		scene.fog = new THREE.Fog(COLORS.offWhite, 6, 18);
 
-		const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 60);
-		camera.position.set(0.0, 1.35, 6.9);
-		camera.lookAt(0, 0.7, 0);
+		// Camera framing: slightly wider/less zoomed so the full scene fits on desktop
+		const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 60);
+		camera.position.set(0.0, 1.45, 7.9);
+		camera.lookAt(0, 0.85, 0);
 
 		const renderer = new THREE.WebGLRenderer({
 			canvas: canvasEl,
@@ -243,8 +244,8 @@
 
 			// camera parallax (subtle)
 			camera.position.x = currentX * 0.42;
-			camera.position.y = 1.35 + currentY * -0.22;
-			camera.lookAt(0, 0.8, 0);
+			camera.position.y = 1.45 + currentY * -0.22;
+			camera.lookAt(0, 0.9, 0);
 
 			// gentle idle float
 			cards.rotation.y = currentX * 0.08;
@@ -315,9 +316,10 @@
 	.wrap {
 		position: relative;
 		width: 100%;
-		aspect-ratio: 1 / 1;
-		min-height: 340px;
-		max-height: 520px;
+		/* Slightly taller than square so the full scene doesn't feel cropped on desktop */
+		aspect-ratio: 4 / 3;
+		min-height: 360px;
+		max-height: 560px;
 		border-radius: 28px;
 		overflow: hidden;
 		background:
@@ -382,6 +384,8 @@
 
 	@media (max-width: 900px) {
 		.wrap {
+			/* go back to a squarer frame on smaller screens */
+			aspect-ratio: 1 / 1;
 			max-height: 560px;
 			min-height: 360px;
 		}
