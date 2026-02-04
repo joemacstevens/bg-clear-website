@@ -12,11 +12,23 @@
 
 		// Autoplay can be finicky depending on browser timing.
 		// Try immediately, then retry shortly after mount.
-		const tryPlay = () => videoEl?.play().catch(() => {});
+		const tryPlay = () => {
+			if (!videoEl) return;
+			// Be explicit - some browsers are picky.
+			videoEl.muted = true;
+			videoEl.playsInline = true;
+			videoEl.autoplay = true;
+			videoEl.loop = true;
+			videoEl.play().catch(() => {});
+		};
 		tryPlay();
-		const t = window.setTimeout(tryPlay, 250);
+		const t1 = window.setTimeout(tryPlay, 250);
+		const t2 = window.setTimeout(tryPlay, 1200);
 
-		return () => window.clearTimeout(t);
+		return () => {
+			window.clearTimeout(t1);
+			window.clearTimeout(t2);
+		};
 	});
 </script>
 

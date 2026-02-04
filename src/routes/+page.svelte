@@ -134,7 +134,7 @@
 		display: grid;
 		align-items: center;
 		/* lift overall luminance so the background doesn't feel crushed */
-		background: radial-gradient(900px 520px at 22% 22%, rgba(0, 56, 94, 0.42) 0%, rgba(0, 43, 74, 0.86) 60%, rgba(6, 18, 28, 1) 100%);
+		background: radial-gradient(900px 520px at 22% 22%, rgba(0, 56, 94, 0.55) 0%, rgba(0, 43, 74, 0.78) 58%, rgba(10, 32, 50, 1) 100%);
 	}
 
 	.hero-shell :global(.hero-media) {
