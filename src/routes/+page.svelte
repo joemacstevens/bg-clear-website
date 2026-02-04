@@ -3,8 +3,7 @@
 	import { env } from '$env/dynamic/public';
 	import { onMount } from 'svelte';
 	import logo from '$lib/assets/bg-clear-logo-640.png';
-	import heroArt from '$lib/assets/hero-distribution.svg';
-	import Hero3D from '$lib/components/Hero3D.svelte';
+	import HeroVideo from '$lib/components/HeroVideo.svelte';
 
 	type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -126,27 +125,43 @@
 		letter-spacing: -0.025em;
 	}
 
-	.hero-grid {
+	.hero-shell {
+		position: relative;
+		border-radius: 24px;
+		overflow: hidden;
+		padding: clamp(2.25rem, 4vw, 3.25rem);
+		min-height: 520px;
 		display: grid;
-		grid-template-columns: 1.05fr 0.95fr;
 		align-items: center;
-		gap: var(--space-6);
+		/* lift overall luminance so the background doesn't feel crushed */
+		background: radial-gradient(900px 520px at 22% 22%, rgba(0, 56, 94, 0.55) 0%, rgba(0, 43, 74, 0.78) 58%, rgba(10, 32, 50, 1) 100%);
 	}
-	.hero-art {
-		width: 100%;
-		max-width: 560px;
-		margin-left: auto;
+
+	.hero-shell :global(.hero-media) {
+		/* background layer */
+		position: absolute;
+		inset: 0;
 	}
+
+	.hero-content {
+		position: relative;
+		z-index: 1;
+		max-width: 680px;
+		color: #F7F8FA;
+		text-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+	}
+	.hero-content :global(h1) {
+		color: #F7F8FA;
+	}
+	.hero-content :global(p),
+	.hero-content :global(.subhead),
+	.hero-content :global(.eyebrow) {
+		color: rgba(247, 248, 250, 0.88);
+	}
+
 	@media (max-width: 900px) {
-		.hero-grid {
-			grid-template-columns: 1fr;
-		}
-		.hero-art {
-			margin-top: var(--space-5);
-		}
-		.hero-art img {
-			max-width: 560px;
-			margin: 0;
+		.hero-shell {
+			min-height: 520px;
 		}
 	}
 </style>
@@ -184,22 +199,18 @@
 <main class="page">
 	<section class="hero section">
 		<div class="container">
-			<div class="hero-grid">
+			<div class="hero-shell">
+				<HeroVideo />
 				<div class="hero-content">
-				<div class="brand-lockup" aria-label="BG Clear">
-					<img class="brand-logo" src={logo} alt="BG Clear" />
-				</div>
-				<p class="eyebrow">Where Clear Innovation Meets Everyday Care</p>
-				<h1>Tech-forward DME distribution, delivered reliably.</h1>
-				<p class="subhead">
-					Fast, compliant access to durable medical equipment for providers and care partners.
-				</p>
-				<a class="button button-primary" href="#request-call">Request a call</a>
-				</div>
-				<div class="hero-art" aria-hidden="true">
-					<Hero3D />
-					<!-- Hidden img to preload SVG for fallback (no layout impact) -->
-					<img src={heroArt} alt="" loading="eager" style="display:none" />
+					<div class="brand-lockup" aria-label="BG Clear">
+						<img class="brand-logo" src={logo} alt="BG Clear" />
+					</div>
+					<p class="eyebrow">Where Clear Innovation Meets Everyday Care</p>
+					<h1>Tech-forward DME distribution, delivered reliably.</h1>
+					<p class="subhead">
+						Fast, compliant access to durable medical equipment for providers and care partners.
+					</p>
+					<a class="button button-primary" href="#request-call">Request a call</a>
 				</div>
 			</div>
 		</div>
