@@ -10,23 +10,13 @@
 		reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false;
 		if (reducedMotion) return;
 
-		// Pause video when offscreen (battery/perf)
-		if (!videoEl) return;
-		const io = new IntersectionObserver(
-			(entries) => {
-				for (const e of entries) {
-					if (!videoEl) return;
-					if (e.isIntersecting) {
-						videoEl.play().catch(() => {});
-					} else {
-						videoEl.pause();
-					}
-				}
-			},
-			{ threshold: 0.05 }
-		);
-		io.observe(videoEl);
-		return () => io.disconnect();
+		// Autoplay can be finicky depending on browser timing.
+		// Try immediately, then retry shortly after mount.
+		const tryPlay = () => videoEl?.play().catch(() => {});
+		tryPlay();
+		const t = window.setTimeout(tryPlay, 250);
+
+		return () => window.clearTimeout(t);
 	});
 </script>
 
@@ -41,8 +31,9 @@
 			muted
 			playsinline
 			loop
-			preload="metadata"
+			preload="auto"
 			poster="/hero/bgclear-hero-poster.jpg"
+			disablepictureinpicture
 		>
 			<source src="/hero/bgclear-hero-loop.webm" type="video/webm" />
 			<source src="/hero/bgclear-hero-loop.mp4" type="video/mp4" />
@@ -71,8 +62,8 @@
 		object-fit: cover;
 	}
 
-	/* Slight dim so type always reads */
+	/* Keep it readable but not crushed */
 	.bg {
-		filter: brightness(0.9) saturate(1.05);
+		filter: brightness(1.18) contrast(1.05) saturate(1.12);
 	}
 </style>
