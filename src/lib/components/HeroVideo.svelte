@@ -94,7 +94,7 @@
 		z-index: 0;
 		overflow: hidden;
 		border-radius: 24px;
-		background: radial-gradient(900px 520px at 22% 22%, rgba(0, 56, 94, 0.35) 0%, rgba(0, 43, 74, 0.9) 60%, rgba(6, 18, 28, 1) 100%);
+		background: radial-gradient(900px 520px at 18% 12%, rgba(247, 248, 250, 1) 0%, rgba(238, 242, 247, 1) 52%, rgba(233, 238, 245, 1) 100%);
 	}
 
 	.bg,
@@ -106,8 +106,8 @@
 		object-fit: cover;
 	}
 
-	/* Keep it readable but not crushed */
+	/* Light hero: keep it crisp */
 	.bg {
-		filter: brightness(1.18) contrast(1.05) saturate(1.12);
+		filter: brightness(1.02) contrast(1.04) saturate(1.0);
 	}
 </style>
