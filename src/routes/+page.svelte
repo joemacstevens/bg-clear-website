@@ -147,16 +147,16 @@
 		position: relative;
 		z-index: 1;
 		max-width: 680px;
-		color: #F7F8FA;
-		text-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+		color: #002B4A;
+		text-shadow: 0 10px 28px rgba(255, 255, 255, 0.35);
 	}
 	.hero-content :global(h1) {
-		color: #F7F8FA;
+		color: #002B4A;
 	}
 	.hero-content :global(p),
 	.hero-content :global(.subhead),
 	.hero-content :global(.eyebrow) {
-		color: rgba(247, 248, 250, 0.88);
+		color: rgba(0, 43, 74, 0.82);
 	}
 
 	@media (max-width: 900px) {
