@@ -44,11 +44,11 @@
 			playsinline
 			loop
 			preload="auto"
-			poster="/hero/bgclear-hero-poster.jpg"
+			poster="/hero/bgclear-hero-poster.jpg?v=3"
 			disablepictureinpicture
 		>
-			<source src="/hero/bgclear-hero-loop.webm" type="video/webm" />
-			<source src="/hero/bgclear-hero-loop.mp4" type="video/mp4" />
+			<source src="/hero/bgclear-hero-loop.webm?v=3" type="video/webm" />
+			<source src="/hero/bgclear-hero-loop.mp4?v=3" type="video/mp4" />
 			<!-- Last resort -->
 			<img class="fallback" src={heroArt} alt="" loading="eager" />
 		</video>
