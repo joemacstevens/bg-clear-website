@@ -200,9 +200,7 @@
 <!-- Navigation Header -->
 <header class="site-header" class:scrolled>
 	<div class="container header-inner">
-		{#if heroPassed}
-			<img class="header-logo" src={logo} alt="BG Clear" />
-		{/if}
+		<img class="header-logo" class:is-hidden={!heroPassed} src={logo} alt="BG Clear" />
 		<nav class="header-nav">
 			<a href="#capabilities">Capabilities</a>
 			<a href="#products">Products</a>

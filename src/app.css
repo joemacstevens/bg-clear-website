@@ -506,6 +506,12 @@ html {
 .header-logo {
 	height: 36px;
 	width: auto;
+	transition: opacity 180ms ease;
+}
+
+.header-logo.is-hidden {
+	opacity: 0;
+	pointer-events: none;
 }
 
 .header-nav {
