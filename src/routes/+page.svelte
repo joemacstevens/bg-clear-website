@@ -275,20 +275,35 @@
 				</p>
 			</div>
 			<div class="capability-list">
-				<article class="capability-card reveal" use:revealOnScroll>
-					<span class="capability-number">01</span>
-					<h3>Compliance & integrity</h3>
-					<p>FDA/CMS-aware processes with documentation you can trust.</p>
+				<article class="capability-card cap-panel reveal" use:revealOnScroll>
+					<div class="cap-visual cap-visual--compliance">
+						<span class="cap-visual-label">Illustration coming soon</span>
+					</div>
+					<div class="cap-panel-body">
+						<span class="capability-number">01</span>
+						<h3>Compliance & integrity</h3>
+						<p>FDA/CMS-aware processes with documentation you can trust. Every product we distribute meets regulatory requirements, so your team can focus on patient care — not paperwork.</p>
+					</div>
 				</article>
-				<article class="capability-card reveal" use:revealOnScroll>
-					<span class="capability-number">02</span>
-					<h3>Fulfillment & logistics</h3>
-					<p>Fast inventory coordination to reduce downtime and keep care on track.</p>
+				<article class="capability-card cap-panel reveal" use:revealOnScroll>
+					<div class="cap-visual cap-visual--fulfillment">
+						<span class="cap-visual-label">Illustration coming soon</span>
+					</div>
+					<div class="cap-panel-body">
+						<span class="capability-number">02</span>
+						<h3>Fulfillment & logistics</h3>
+						<p>Fast inventory coordination to reduce downtime and keep care on track. We manage sourcing, warehousing, and delivery so equipment arrives when and where your providers need it.</p>
+					</div>
 				</article>
-				<article class="capability-card reveal" use:revealOnScroll>
-					<span class="capability-number">03</span>
-					<h3>Tech-forward DME</h3>
-					<p>Modern equipment selection with a roadmap for connected monitoring.</p>
+				<article class="capability-card cap-panel reveal" use:revealOnScroll>
+					<div class="cap-visual cap-visual--tech">
+						<span class="cap-visual-label">Illustration coming soon</span>
+					</div>
+					<div class="cap-panel-body">
+						<span class="capability-number">03</span>
+						<h3>Tech-forward DME</h3>
+						<p>Modern equipment selection with a roadmap for connected monitoring. From telehealth-enabled RPM devices to smart diagnostics, we're building the bridge between traditional DME and digital health.</p>
+					</div>
 				</article>
 			</div>
 		</div>
