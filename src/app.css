@@ -233,9 +233,33 @@ main {
 }
 
 .cta-band {
-	background: linear-gradient(135deg, rgba(30, 58, 95, 0.04) 0%, rgba(13, 148, 136, 0.06) 100%);
-	border-top: 1px solid var(--color-border);
-	border-bottom: 1px solid var(--color-border);
+	background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+	border-top: none;
+	border-bottom: none;
+}
+
+.cta-eyebrow {
+	color: var(--color-accent);
+}
+
+.cta-heading {
+	color: #ffffff;
+}
+
+.cta-subhead {
+	color: rgba(255, 255, 255, 0.72);
+}
+
+.button-light {
+	background: #ffffff;
+	color: var(--color-primary);
+	box-shadow: var(--shadow-sm);
+}
+
+.button-light:hover {
+	background: rgba(255, 255, 255, 0.92);
+	transform: translateY(-1px);
+	box-shadow: var(--shadow-md);
 }
 
 .cta-inner {
