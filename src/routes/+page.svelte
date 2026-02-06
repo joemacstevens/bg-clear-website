@@ -8,13 +8,35 @@
 	type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
 	let scrolled = false;
+	let heroPassed = false;
 
 	onMount(() => {
+		const heroEl = document.querySelector('.hero') as HTMLElement | null;
+		let heroBottom = 0;
+
+		const computeHeroBottom = () => {
+			if (!heroEl) return;
+			const rect = heroEl.getBoundingClientRect();
+			// rect.top is viewport-relative; add scrollY to convert to document coords.
+			heroBottom = window.scrollY + rect.top + rect.height;
+		};
+
+		computeHeroBottom();
+
 		const handleScroll = () => {
 			scrolled = window.scrollY > 20;
+			// Hide the nav logo until we’ve scrolled past the hero.
+			heroPassed = window.scrollY > heroBottom - 60;
 		};
+
 		window.addEventListener('scroll', handleScroll, { passive: true });
-		return () => window.removeEventListener('scroll', handleScroll);
+		window.addEventListener('resize', computeHeroBottom, { passive: true });
+		handleScroll();
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+			window.removeEventListener('resize', computeHeroBottom);
+		};
 	});
 
 	let status: FormStatus = 'idle';
@@ -91,7 +113,8 @@
 	}
 	@media (max-width: 480px) {
 		.brand-logo {
-			height: 110px;
+			/* Make the hero logo more prominent on mobile */
+			height: 140px;
 			width: auto;
 		}
 	}
@@ -177,7 +200,9 @@
 <!-- Navigation Header -->
 <header class="site-header" class:scrolled>
 	<div class="container header-inner">
-		<img class="header-logo" src={logo} alt="BG Clear" />
+		{#if heroPassed}
+			<img class="header-logo" src={logo} alt="BG Clear" />
+		{/if}
 		<nav class="header-nav">
 			<a href="#capabilities">Capabilities</a>
 			<a href="#products">Products</a>
