@@ -28,7 +28,7 @@
 
 		const handleScroll = () => {
 			scrolled = window.scrollY > 20;
-			// Hide the nav logo until we’ve scrolled past the hero.
+			// Hide the nav logo until we've scrolled past the hero.
 			heroPassed = window.scrollY > heroBottom - 60;
 		};
 
@@ -109,12 +109,12 @@
 		}
 	}
 	.brand-logo {
-		height: 88px;
+		height: 140px;
 		width: auto;
 		object-fit: contain;
-		filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.18));
+		filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.15));
 	}
-	@media (max-width: 480px) {
+	@media (max-width: 640px) {
 		.brand-logo {
 			/* Make the hero logo more prominent on mobile */
 			height: 140px;
@@ -192,6 +192,15 @@
 		color: rgba(0, 43, 74, 0.82);
 	}
 
+	/* Hero trust note */
+	.hero-trust-note {
+		font-size: var(--text-small);
+		color: rgba(0, 43, 74, 0.7);
+		margin-top: var(--space-2);
+		margin-bottom: 0;
+		text-shadow: none;
+	}
+
 	@media (max-width: 900px) {
 		.hero-shell {
 			min-height: 520px;
@@ -200,10 +209,10 @@
 </style>
 
 <svelte:head>
-	<title>BG Clear — Tech-forward DME distribution</title>
+	<title>BG Clear — Durable Medical Equipment Distribution</title>
 	<meta
 		name="description"
-		content="Reliable, clinically effective DME distribution with fast fulfillment and trusted partnerships."
+		content="DME distribution for healthcare providers. Compliant equipment, fast fulfillment, and a team that picks up the phone."
 	/>
 </svelte:head>
 
@@ -226,7 +235,7 @@
 				</svg>
 				<span>(201) 765-7171</span>
 			</a>
-			<a class="button button-primary button-header" href="#request-call">Request a Call</a>
+			<a class="button button-primary button-header" href="#request-call">Talk to a Specialist</a>
 		</div>
 	</div>
 </header>
@@ -241,12 +250,42 @@
 						<img class="brand-logo" src={logo} alt="BG Clear" />
 					</div>
 					<p class="eyebrow">Where Clear Innovation Meets Everyday Care</p>
-					<h1>Tech-forward DME distribution, delivered reliably.</h1>
+					<h1>DME Distribution With Real People Who Answer the Phone</h1>
 					<p class="subhead">
 						Fast, compliant access to durable medical equipment for providers and care partners.
 					</p>
-					<a class="button button-primary" href="#request-call">Request a call</a>
+					<a class="button button-primary" href="#request-call">Talk to a DME Specialist</a>
+					<p class="hero-trust-note">No obligation • Most inquiries answered within 4 hours</p>
 				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="trust-strip">
+		<div class="container trust-strip-inner">
+			<div class="trust-item">
+				<svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+				</svg>
+				<span>FDA-Registered Suppliers</span>
+			</div>
+			<div class="trust-item">
+				<svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+				</svg>
+				<span>Compliant Documentation</span>
+			</div>
+			<div class="trust-item">
+				<svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+				</svg>
+				<span>Ships Within 48 Hours</span>
+			</div>
+			<div class="trust-item">
+				<svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+				</svg>
+				<span>Satisfaction Guaranteed</span>
 			</div>
 		</div>
 	</section>
@@ -255,11 +294,10 @@
 		<div class="container section-intro">
 			<div>
 				<p class="eyebrow">What we do</p>
-				<h2>Operational excellence for modern care teams.</h2>
+				<h2>DME distribution that keeps your practice stocked and compliant.</h2>
 			</div>
 			<p>
-				BG Clear delivers reliable, affordable, clinically effective equipment backed by fast
-				fulfillment, logistics coordination, and partner-first support.
+				We source quality equipment from trusted manufacturers and get it to you fast — so you can focus on patients, not inventory.
 			</p>
 		</div>
 	</section>
@@ -267,11 +305,10 @@
 	<section class="section" id="capabilities">
 		<div class="container capabilities">
 			<div class="sticky-intro">
-				<p class="eyebrow">Capabilities</p>
-				<h2>Built for providers who need speed and trust.</h2>
+				<p class="eyebrow">Why BG Clear</p>
+				<h2>A distribution partner you can count on.</h2>
 				<p>
-					A calm, transparent approach to distribution that keeps clinics compliant, stocked, and
-					ready for continuity of care.
+					We handle the equipment so you can handle the care. Compliant sourcing, reliable inventory, and real people when you call.
 				</p>
 			</div>
 			<div class="capability-list capability-list--bleed">
@@ -312,8 +349,8 @@
 	<section class="section">
 		<div class="container">
 			<p class="eyebrow">Who we serve</p>
-			<h2>Partnering with care teams across the continuum.</h2>
-			<p class="subhead">Built for provider workflows — from outpatient clinics to home-based care.</p>
+			<h2>Built for the teams delivering care.</h2>
+			<p class="subhead">From primary care to home health, we serve providers who need equipment they can count on.</p>
 			<div class="grid-2">
 				<ul class="list">
 					<li>Primary care clinics</li>
@@ -322,7 +359,7 @@
 				</ul>
 				<ul class="list">
 					<li>Home health agencies</li>
-					<li>Assisted living & long-term care</li>
+					<li>Assisted living & long-term care facilities</li>
 					<li>Pharmacies and medical supply retailers</li>
 				</ul>
 			</div>
@@ -332,7 +369,7 @@
 	<section class="section section-alt" id="products">
 		<div class="container">
 			<p class="eyebrow">Products</p>
-			<h2>Primary product categories.</h2>
+			<h2>Equipment for chronic care, mobility, and specialized support.</h2>
 			<p class="subhead">
 				FDA/CMS-compliant equipment across core DME categories, ready for provider workflows.
 			</p>
@@ -390,27 +427,27 @@
 	<section class="section" id="how-we-work">
 		<div class="container">
 			<p class="eyebrow">How we work</p>
-			<h2>A simple workflow designed for speed and clarity.</h2>
+			<h2>From inquiry to delivery — here's how it works.</h2>
 			<div class="steps">
 				<article class="step">
 					<span class="capability-number">01</span>
-					<h3>Provider inquiry</h3>
-					<p>Tell us what you need, your volume, and your timelines.</p>
+					<h3>Reach out</h3>
+					<p>Tell us what you need. Equipment type, quantity, timeline.</p>
 				</article>
 				<article class="step">
 					<span class="capability-number">02</span>
-					<h3>Product fit & pricing</h3>
-					<p>We confirm selection, compliance requirements, and contract pricing.</p>
+					<h3>We confirm fit</h3>
+					<p>We verify product availability, compliance requirements, and pricing.</p>
 				</article>
 				<article class="step">
 					<span class="capability-number">03</span>
-					<h3>Fulfillment</h3>
-					<p>Fast logistics coordination to reduce downtime and keep care on track.</p>
+					<h3>Fast fulfillment</h3>
+					<p>Your order ships. We handle logistics so you don't have to.</p>
 				</article>
 				<article class="step">
 					<span class="capability-number">04</span>
 					<h3>Ongoing support</h3>
-					<p>Provider account support, education, and after-sales assistance.</p>
+					<p>Questions after delivery? We're here. Training, warranty, reorders — covered.</p>
 				</article>
 			</div>
 		</div>
@@ -449,12 +486,12 @@
 		<div class="container cta-inner">
 			<div>
 				<p class="eyebrow cta-eyebrow">Next step</p>
-				<h2 class="cta-heading">Ready to partner with BG Clear?</h2>
+				<h2 class="cta-heading">Let's talk about what you need.</h2>
 				<p class="subhead cta-subhead">
-					Request a call — we'll confirm needs, timelines, and the right equipment mix.
+					Tell us about your practice and equipment requirements — we'll follow up with options and pricing.
 				</p>
 			</div>
-			<a class="button button-light" href="#request-call">Request a call</a>
+			<a class="button button-light" href="#request-call">Talk to a DME Specialist</a>
 		</div>
 	</section>
 
@@ -462,12 +499,11 @@
 	<section class="section" id="request-call">
 		<div class="container request">
 			<div class="request-intro">
-				<p class="eyebrow">Request a call</p>
-				<h2>Tell us what you need — we’ll follow up quickly.</h2>
+				<p class="eyebrow">Get in touch</p>
+				<h2>Tell us what you need.</h2>
 				<p class="subhead">
-					Share the equipment category, timeline, and who we should coordinate with.
+					Share your equipment requirements and we'll reach out to discuss options and pricing.
 				</p>
-				<p class="note">For urgent patient needs, call your standard clinical escalation path first.</p>
 			</div>
 
 			<form
@@ -494,18 +530,30 @@
 						<input type="email" name="email" autocomplete="email" required />
 					</label>
 					<label class="field">
-						<span>Phone</span>
+						<span>Phone <span class="optional-label">(optional)</span></span>
 						<input type="tel" name="phone" autocomplete="tel" />
 					</label>
 				</div>
 
 				<label class="field">
+					<span>What are you looking for?</span>
+					<select name="inquiry_type" required>
+						<option value="" disabled selected>Select an option...</option>
+						<option value="pricing">Pricing / Quote</option>
+						<option value="availability">Product Availability</option>
+						<option value="compliance">Compliance Questions</option>
+						<option value="partnership">Become a Partner</option>
+						<option value="other">Other</option>
+					</select>
+				</label>
+
+				<label class="field">
 					<span>Message</span>
-					<textarea name="message" rows="5" placeholder="Equipment category, quantities, timeline, location(s), and any compliance constraints…" required></textarea>
+					<textarea name="message" rows="4" placeholder="Equipment category, quantities, timeline, or any other details…" required></textarea>
 				</label>
 
 				<label class="field honeypot">
-					<span>Don’t fill this out</span>
+					<span>Don't fill this out</span>
 					<input name="_gotcha" tabindex="-1" autocomplete="off" />
 				</label>
 
@@ -514,7 +562,7 @@
 				<div class="form-status" aria-live="polite" aria-atomic="true">
 					{#if status === 'success'}
 						<p class="form-success">
-							Thanks — we got your request. We’ll follow up shortly.
+							Thanks — we got your request. We'll follow up shortly.
 						</p>
 					{:else if status === 'error'}
 						<p class="form-error">
@@ -524,9 +572,9 @@
 				</div>
 
 				<button class="button button-primary" type="submit" disabled={status === 'submitting'}>
-					{status === 'submitting' ? 'Sending…' : 'Send request'}
+					{status === 'submitting' ? 'Sending…' : 'Talk to a DME Specialist'}
 				</button>
-				<p class="form-footnote">By submitting, you agree we can contact you about this request.</p>
+				<p class="form-footnote">No obligation • We respond within 4 business hours</p>
 			</form>
 		</div>
 	</section>

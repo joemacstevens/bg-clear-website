@@ -5,7 +5,7 @@
 	line-height: 1.625;
 	font-weight: 400;
 
-	--font-heading: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+	--font-heading: 'Montserrat', 'Inter', system-ui, sans-serif;
 	--font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
 	/* Premium color palette - deeper, more sophisticated */
@@ -84,8 +84,8 @@ h2,
 h3 {
 	margin: 0 0 var(--space-2);
 	font-family: var(--font-heading);
-	font-weight: 600;
-	letter-spacing: -0.02em;
+	font-weight: 700;
+	letter-spacing: -0.01em;
 	color: var(--color-ink);
 }
 
@@ -568,6 +568,77 @@ html {
 	.field-row {
 		grid-template-columns: 1fr;
 	}
+}
+
+/* Trust Strip */
+.trust-strip {
+	background: var(--color-surface);
+	border-top: 1px solid var(--color-border);
+	border-bottom: 1px solid var(--color-border);
+	padding: var(--space-4) 0;
+}
+
+.trust-strip-inner {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: var(--space-4) var(--space-5);
+}
+
+.trust-item {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: var(--text-small);
+	font-weight: 500;
+	color: var(--color-ink);
+}
+
+.trust-icon {
+	width: 20px;
+	height: 20px;
+	color: var(--color-accent);
+	flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+	.trust-strip-inner {
+		gap: var(--space-3);
+	}
+	.trust-item {
+		flex: 0 0 calc(50% - var(--space-2));
+		font-size: 0.8rem;
+	}
+}
+
+/* Form select styling */
+.field select {
+	width: 100%;
+	color: var(--color-text);
+	background: #ffffff;
+	border: 1px solid var(--color-border);
+	border-radius: 12px;
+	padding: 0.75rem 0.85rem;
+	outline: none;
+	transition: border-color 160ms ease, box-shadow 160ms ease;
+	font-size: 1rem;
+	cursor: pointer;
+	appearance: none;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 0.85rem center;
+	padding-right: 2.5rem;
+}
+
+.field select:focus {
+	border-color: color-mix(in srgb, var(--color-primary), #ffffff 30%);
+	box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-primary), transparent 88%);
+}
+
+/* Optional label styling */
+.optional-label {
+	font-weight: 400;
+	color: var(--color-muted);
 }
 
 /* Navigation header */
