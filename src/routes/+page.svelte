@@ -4,6 +4,9 @@
 	import { onMount } from 'svelte';
 	import logo from '$lib/assets/bg-clear-logo-640.png';
 	import HeroVideo from '$lib/components/HeroVideo.svelte';
+	import imgHealth from '$lib/assets/categories/jpg/health-monitoring.jpg';
+	import imgMobility from '$lib/assets/categories/jpg/mobility-safety.jpg';
+	import imgSpecialized from '$lib/assets/categories/jpg/specialized-support.jpg';
 
 	type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -119,24 +122,31 @@
 		}
 	}
 
-	/* Product category icons */
+	/* Product cards with image headers */
 	.product-card {
 		overflow: hidden;
-	}
-	.product-icon {
-		width: 56px;
-		height: 56px;
-		border-radius: 14px;
-		background: linear-gradient(135deg, var(--color-accent-light) 0%, color-mix(in srgb, var(--color-accent), transparent 85%) 100%);
+		padding: 0;
 		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin-bottom: var(--space-3);
+		flex-direction: column;
 	}
-	.product-icon svg {
-		width: 28px;
-		height: 28px;
-		color: var(--color-accent);
+	.product-card-img {
+		position: relative;
+		width: 100%;
+		height: 200px;
+		overflow: hidden;
+		background: linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%);
+	}
+	.product-card-img img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 400ms ease;
+	}
+	.product-card:hover .product-card-img img {
+		transform: scale(1.04);
+	}
+	.product-card-body {
+		padding: var(--space-4);
 	}
 
 	/* Hero enhancements */
@@ -265,20 +275,35 @@
 				</p>
 			</div>
 			<div class="capability-list">
-				<article class="capability-card reveal" use:revealOnScroll>
-					<span class="capability-number">01</span>
-					<h3>Compliance & integrity</h3>
-					<p>FDA/CMS-aware processes with documentation you can trust.</p>
+				<article class="capability-card cap-panel reveal" use:revealOnScroll>
+					<div class="cap-visual cap-visual--compliance">
+						<span class="cap-visual-label">Illustration coming soon</span>
+					</div>
+					<div class="cap-panel-body">
+						<span class="capability-number">01</span>
+						<h3>Compliance & integrity</h3>
+						<p>FDA/CMS-aware processes with documentation you can trust. Every product we distribute meets regulatory requirements, so your team can focus on patient care — not paperwork.</p>
+					</div>
 				</article>
-				<article class="capability-card reveal" use:revealOnScroll>
-					<span class="capability-number">02</span>
-					<h3>Fulfillment & logistics</h3>
-					<p>Fast inventory coordination to reduce downtime and keep care on track.</p>
+				<article class="capability-card cap-panel reveal" use:revealOnScroll>
+					<div class="cap-visual cap-visual--fulfillment">
+						<span class="cap-visual-label">Illustration coming soon</span>
+					</div>
+					<div class="cap-panel-body">
+						<span class="capability-number">02</span>
+						<h3>Fulfillment & logistics</h3>
+						<p>Fast inventory coordination to reduce downtime and keep care on track. We manage sourcing, warehousing, and delivery so equipment arrives when and where your providers need it.</p>
+					</div>
 				</article>
-				<article class="capability-card reveal" use:revealOnScroll>
-					<span class="capability-number">03</span>
-					<h3>Tech-forward DME</h3>
-					<p>Modern equipment selection with a roadmap for connected monitoring.</p>
+				<article class="capability-card cap-panel reveal" use:revealOnScroll>
+					<div class="cap-visual cap-visual--tech">
+						<span class="cap-visual-label">Illustration coming soon</span>
+					</div>
+					<div class="cap-panel-body">
+						<span class="capability-number">03</span>
+						<h3>Tech-forward DME</h3>
+						<p>Modern equipment selection with a roadmap for connected monitoring. From telehealth-enabled RPM devices to smart diagnostics, we're building the bridge between traditional DME and digital health.</p>
+					</div>
 				</article>
 			</div>
 		</div>
@@ -313,50 +338,50 @@
 			</p>
 			<div class="grid-3">
 				<article class="capability-card product-card">
-					<div class="product-icon">
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-						</svg>
+					<div class="product-card-img">
+						<img src={imgHealth} alt="Health monitoring devices including blood pressure monitor, glucometer, pulse oximeter, and thermometer" loading="lazy" />
 					</div>
-					<h3>Health monitoring &amp; management</h3>
-					<ul class="list">
-						<li>Blood pressure monitors (digital &amp; manual)</li>
-						<li>Glucometers &amp; diabetes management tools</li>
-						<li>Pulse oximeters</li>
-						<li>Telehealth-enabled RPM devices</li>
-						<li>Thermometers (infrared &amp; digital)</li>
-					</ul>
+					<div class="product-card-body">
+						<h3>Health monitoring &amp; management</h3>
+						<ul class="list">
+							<li>Blood pressure monitors (digital &amp; manual)</li>
+							<li>Glucometers &amp; diabetes management tools</li>
+							<li>Pulse oximeters</li>
+							<li>Telehealth-enabled RPM devices</li>
+							<li>Thermometers (infrared &amp; digital)</li>
+						</ul>
+					</div>
 				</article>
 				<article class="capability-card product-card">
-					<div class="product-icon">
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-						</svg>
+					<div class="product-card-img">
+						<img src={imgMobility} alt="Mobility equipment including walker, wheelchair, shower chair, and grab bars" loading="lazy" />
 					</div>
-					<h3>Mobility &amp; safety equipment</h3>
-					<ul class="list">
-						<li>Walkers (standard &amp; rollators)</li>
-						<li>Wheelchairs (manual &amp; transport)</li>
-						<li>Canes &amp; crutches</li>
-						<li>Patient lifts &amp; slings</li>
-						<li>Bathroom safety (grab bars, shower chairs)</li>
-						<li>Fall prevention devices</li>
-					</ul>
+					<div class="product-card-body">
+						<h3>Mobility &amp; safety equipment</h3>
+						<ul class="list">
+							<li>Walkers (standard &amp; rollators)</li>
+							<li>Wheelchairs (manual &amp; transport)</li>
+							<li>Canes &amp; crutches</li>
+							<li>Patient lifts &amp; slings</li>
+							<li>Bathroom safety (grab bars, shower chairs)</li>
+							<li>Fall prevention devices</li>
+						</ul>
+					</div>
 				</article>
 				<article class="capability-card product-card">
-					<div class="product-icon">
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
-						</svg>
+					<div class="product-card-img">
+						<img src={imgSpecialized} alt="Specialized medical equipment including CPAP machine, nebulizer, hospital bed, and wound care device" loading="lazy" />
 					</div>
-					<h3>Specialized medical support</h3>
-					<ul class="list">
-						<li>Nebulizers &amp; respiratory therapy</li>
-						<li>Sleep apnea equipment (CPAP/BiPAP)</li>
-						<li>Hospital beds &amp; support surfaces</li>
-						<li>Wound care devices</li>
-						<li>Compression therapy equipment</li>
-					</ul>
+					<div class="product-card-body">
+						<h3>Specialized medical support</h3>
+						<ul class="list">
+							<li>Nebulizers &amp; respiratory therapy</li>
+							<li>Sleep apnea equipment (CPAP/BiPAP)</li>
+							<li>Hospital beds &amp; support surfaces</li>
+							<li>Wound care devices</li>
+							<li>Compression therapy equipment</li>
+						</ul>
+					</div>
 				</article>
 			</div>
 		</div>
@@ -423,13 +448,13 @@
 	<section class="section cta-band">
 		<div class="container cta-inner">
 			<div>
-				<p class="eyebrow">Next step</p>
-				<h2>Ready to partner with BG Clear?</h2>
-				<p class="subhead">
+				<p class="eyebrow cta-eyebrow">Next step</p>
+				<h2 class="cta-heading">Ready to partner with BG Clear?</h2>
+				<p class="subhead cta-subhead">
 					Request a call — we'll confirm needs, timelines, and the right equipment mix.
 				</p>
 			</div>
-			<a class="button button-primary" href="#request-call">Request a call</a>
+			<a class="button button-light" href="#request-call">Request a call</a>
 		</div>
 	</section>
 
