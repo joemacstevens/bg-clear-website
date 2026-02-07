@@ -198,6 +198,27 @@ main {
 	gap: var(--space-6);
 }
 
+/* Make the sticky Capabilities cards feel more dramatic on desktop */
+@media (min-width: 960px) {
+	/* Prevent right-bleed causing horizontal scrolling on some browsers */
+	.capabilities {
+		overflow-x: clip;
+	}
+
+	.capability-list--bleed {
+		/* bleed to the right edge while keeping alignment with the container */
+		margin-right: calc(50% - 50vw);
+		/* clamp padding to avoid weird overflow calculations */
+		padding-right: max(2rem, calc(50vw - 50% + 2rem));
+		box-sizing: border-box;
+	}
+	.capability-list--bleed .capability-card {
+		border-top-right-radius: 34px;
+		border-bottom-right-radius: 34px;
+		padding: calc(var(--space-4) + 0.25rem);
+	}
+}
+
 .list {
 	margin: 0;
 	padding-left: 1.25rem;
