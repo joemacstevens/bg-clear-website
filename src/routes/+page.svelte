@@ -274,7 +274,7 @@
 					ready for continuity of care.
 				</p>
 			</div>
-			<div class="capability-list">
+			<div class="capability-list capability-list--bleed">
 				<article class="capability-card cap-panel reveal" use:revealOnScroll>
 					<div class="cap-visual cap-visual--compliance">
 						<span class="cap-visual-label">Illustration coming soon</span>
