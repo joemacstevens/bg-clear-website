@@ -127,6 +127,11 @@
 		object-fit: contain;
 		filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.15));
 	}
+	@media (min-width: 1024px) {
+		.brand-logo {
+			height: clamp(140px, 9vw, 180px);
+		}
+	}
 	@media (max-width: 640px) {
 		.brand-logo {
 			/* Make the hero logo more prominent on mobile */
@@ -238,11 +243,16 @@
 	.hero-shell--wide .hero-content {
 		position: relative;
 		z-index: 1;
-		max-width: 520px;
-		padding: var(--space-5);
-		padding-left: max(1.5rem, calc((100vw - 1240px) / 2 + 1.5rem));
+		max-width: clamp(560px, 44vw, 780px);
+		margin-left: max(1.5rem, calc((100vw - 1240px) / 2 + 1.5rem));
+		margin-right: 1.5rem;
+		padding: clamp(2rem, 3.5vw, 3.25rem);
 		color: var(--color-ink);
 		text-shadow: none;
+		background: rgba(255, 255, 255, 0.92);
+		border-radius: var(--radius-lg);
+		box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+		backdrop-filter: blur(6px);
 	}
 	.hero-shell--wide .hero-content h1 {
 		color: var(--color-ink);
@@ -261,11 +271,8 @@
 		}
 		.hero-shell--wide .hero-content {
 			max-width: calc(100% - 2rem);
-			background: rgba(255, 255, 255, 0.92);
-			border-radius: var(--radius-lg);
 			margin: var(--space-3) 1rem;
 			padding: var(--space-4);
-			padding-left: var(--space-4);
 		}
 	}
 
