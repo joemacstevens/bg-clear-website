@@ -668,8 +668,17 @@ html {
 }
 
 .header-logo {
-	height: 36px;
+	height: clamp(36px, 3vw, 48px);
 	width: auto;
+	flex: 0 0 auto;
+	opacity: 0;
+	transform: translateY(-4px);
+	transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.header-logo.is-visible {
+	opacity: 1;
+	transform: translateY(0);
 }
 
 .header-nav {

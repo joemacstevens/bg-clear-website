@@ -4,15 +4,15 @@
 	import { onMount } from 'svelte';
 	import logo from '$lib/assets/bg-clear-logo-640.png';
 	import HeroVideo from '$lib/components/HeroVideo.svelte';
-	import imgHealth from '$lib/assets/categories/jpg/health-monitoring.jpg';
-	import imgMobility from '$lib/assets/categories/jpg/mobility-safety.jpg';
-	import imgSpecialized from '$lib/assets/categories/jpg/specialized-support.jpg';
+	import imgHealth from '$lib/assets/visuals/product-health-monitoring.png';
+	import imgMobility from '$lib/assets/visuals/product-mobility-safety.png';
+	import imgSpecialized from '$lib/assets/visuals/product-specialized.png';
 
 	// New visual assets
 	import capCompliance from '$lib/assets/visuals/cap-compliance.png';
 	import capFulfillment from '$lib/assets/visuals/cap-fulfillment.png';
 	import capTech from '$lib/assets/visuals/cap-tech.png';
-	import processCompact from '$lib/assets/visuals/process-compact.png';
+	import processWide from '$lib/assets/visuals/process-wide.png';
 	import heroWide from '$lib/assets/visuals/hero-wide-v2.png';
 	import iconPrimaryCare from '$lib/assets/visuals/icon-primary-care.png';
 	import iconSpecialty from '$lib/assets/visuals/icon-specialty.png';
@@ -386,9 +386,7 @@
 <!-- Navigation Header -->
 <header class="site-header" class:scrolled>
 	<div class="container header-inner">
-		{#if heroPassed}
-			<img class="header-logo" src={logo} alt="BG Clear" />
-		{/if}
+		<img class="header-logo" class:is-visible={heroPassed} src={logo} alt="BG Clear" />
 		<nav class="header-nav">
 			<a href="#capabilities">Capabilities</a>
 			<a href="#products">Products</a>
@@ -610,7 +608,7 @@
 			<p class="eyebrow">How we work</p>
 			<h2>From inquiry to delivery — here's how it works.</h2>
 			<div class="process-flow-container">
-				<img class="process-flow-img process-flow-compact" src={processCompact} alt="Our 4-step process: Reach out, Confirm fit, Fulfillment, Ongoing support" loading="lazy" />
+				<img class="process-flow-img" src={processWide} alt="Our 4-step process: Reach out, Confirm fit, Fulfillment, Ongoing support" loading="lazy" />
 			</div>
 			<div class="steps">
 				<article class="step">
