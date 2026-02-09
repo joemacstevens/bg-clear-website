@@ -8,6 +8,19 @@
 	import imgMobility from '$lib/assets/categories/jpg/mobility-safety.jpg';
 	import imgSpecialized from '$lib/assets/categories/jpg/specialized-support.jpg';
 
+	// New visual assets
+	import capCompliance from '$lib/assets/visuals/cap-compliance.png';
+	import capFulfillment from '$lib/assets/visuals/cap-fulfillment.png';
+	import capTech from '$lib/assets/visuals/cap-tech.png';
+	import processCompact from '$lib/assets/visuals/process-compact.png';
+	import heroWide from '$lib/assets/visuals/hero-wide-v2.png';
+	import iconPrimaryCare from '$lib/assets/visuals/icon-primary-care.png';
+	import iconSpecialty from '$lib/assets/visuals/icon-specialty.png';
+	import iconHospital from '$lib/assets/visuals/icon-hospital.png';
+	import iconHomeHealth from '$lib/assets/visuals/icon-home-health.png';
+	import iconLongTermCare from '$lib/assets/visuals/icon-long-term-care.png';
+	import iconPharmacy from '$lib/assets/visuals/icon-pharmacy.png';
+
 	type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
 	let scrolled = false;
@@ -201,9 +214,156 @@
 		text-shadow: none;
 	}
 
+	/* New wide hero with background image */
+	.hero-shell--wide {
+		position: relative;
+		border-radius: 0;
+		overflow: hidden;
+		min-height: 520px;
+		display: grid;
+		align-items: center;
+		background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+		margin-left: calc(-50vw + 50%);
+		margin-right: calc(-50vw + 50%);
+		width: 100vw;
+	}
+	.hero-bg-img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 85% center;
+	}
+	.hero-shell--wide .hero-content {
+		position: relative;
+		z-index: 1;
+		max-width: 520px;
+		padding: var(--space-5);
+		padding-left: max(1.5rem, calc((100vw - 1240px) / 2 + 1.5rem));
+		color: var(--color-ink);
+		text-shadow: none;
+	}
+	.hero-shell--wide .hero-content h1 {
+		color: var(--color-ink);
+	}
+	.hero-shell--wide .hero-content p,
+	.hero-shell--wide .hero-content .subhead,
+	.hero-shell--wide .hero-content .eyebrow {
+		color: var(--color-text);
+	}
+	@media (max-width: 900px) {
+		.hero-shell--wide {
+			min-height: 600px;
+		}
+		.hero-bg-img {
+			object-position: 75% center;
+		}
+		.hero-shell--wide .hero-content {
+			max-width: calc(100% - 2rem);
+			background: rgba(255, 255, 255, 0.92);
+			border-radius: var(--radius-lg);
+			margin: var(--space-3) 1rem;
+			padding: var(--space-4);
+			padding-left: var(--space-4);
+		}
+	}
+
 	@media (max-width: 900px) {
 		.hero-shell {
 			min-height: 520px;
+		}
+	}
+
+	/* Capability visual images */
+	.cap-visual-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		position: absolute;
+		inset: 0;
+	}
+
+	/* Provider grid */
+	.provider-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--space-4);
+		margin-top: var(--space-4);
+	}
+	.provider-item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: var(--space-2);
+		padding: var(--space-3);
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+	}
+	.provider-item:hover {
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-sm);
+		border-color: color-mix(in srgb, var(--color-accent), transparent 70%);
+	}
+	.provider-icon {
+		width: 72px;
+		height: 72px;
+		object-fit: contain;
+	}
+	.provider-item span {
+		font-size: var(--text-small);
+		font-weight: 500;
+		color: var(--color-ink);
+	}
+	@media (max-width: 768px) {
+		.provider-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	@media (max-width: 480px) {
+		.provider-grid {
+			grid-template-columns: 1fr 1fr;
+			gap: var(--space-3);
+		}
+		.provider-icon {
+			width: 56px;
+			height: 56px;
+		}
+	}
+
+	/* Process flow */
+	.process-flow-container {
+		margin: var(--space-4) 0 var(--space-5);
+	}
+	.process-flow-img {
+		width: 100%;
+		max-width: 1100px;
+		height: auto;
+		margin: 0 auto;
+		display: block;
+		border-radius: var(--radius-lg);
+	}
+	.process-flow-compact {
+		max-height: 140px;
+		object-fit: contain;
+		border-radius: var(--radius-sm);
+	}
+
+	/* Contact illustration */
+	.contact-illustration {
+		width: 100%;
+		max-width: 320px;
+		height: auto;
+		margin-top: var(--space-4);
+		border-radius: var(--radius-md);
+	}
+	@media (max-width: 959px) {
+		.contact-illustration {
+			max-width: 260px;
+			margin: var(--space-4) auto 0;
 		}
 	}
 </style>
@@ -243,8 +403,8 @@
 <main class="page">
 	<section class="hero section">
 		<div class="container">
-			<div class="hero-shell">
-				<HeroVideo />
+			<div class="hero-shell hero-shell--wide">
+				<img class="hero-bg-img" src={heroWide} alt="" />
 				<div class="hero-content">
 					<div class="brand-lockup" aria-label="BG Clear">
 						<img class="brand-logo" src={logo} alt="BG Clear" />
@@ -314,7 +474,7 @@
 			<div class="capability-list capability-list--bleed">
 				<article class="capability-card cap-panel reveal" use:revealOnScroll>
 					<div class="cap-visual cap-visual--compliance">
-						<span class="cap-visual-label">Illustration coming soon</span>
+						<img class="cap-visual-img" src={capCompliance} alt="Compliance and integrity illustration" loading="lazy" />
 					</div>
 					<div class="cap-panel-body">
 						<span class="capability-number">01</span>
@@ -324,7 +484,7 @@
 				</article>
 				<article class="capability-card cap-panel reveal" use:revealOnScroll>
 					<div class="cap-visual cap-visual--fulfillment">
-						<span class="cap-visual-label">Illustration coming soon</span>
+						<img class="cap-visual-img" src={capFulfillment} alt="Fulfillment and logistics illustration" loading="lazy" />
 					</div>
 					<div class="cap-panel-body">
 						<span class="capability-number">02</span>
@@ -334,7 +494,7 @@
 				</article>
 				<article class="capability-card cap-panel reveal" use:revealOnScroll>
 					<div class="cap-visual cap-visual--tech">
-						<span class="cap-visual-label">Illustration coming soon</span>
+						<img class="cap-visual-img" src={capTech} alt="Tech-forward DME illustration" loading="lazy" />
 					</div>
 					<div class="cap-panel-body">
 						<span class="capability-number">03</span>
@@ -351,17 +511,31 @@
 			<p class="eyebrow">Who we serve</p>
 			<h2>Built for the teams delivering care.</h2>
 			<p class="subhead">From primary care to home health, we serve providers who need equipment they can count on.</p>
-			<div class="grid-2">
-				<ul class="list">
-					<li>Primary care clinics</li>
-					<li>Specialty clinics (cardiology, pulmonology, endocrinology)</li>
-					<li>Hospitals and outpatient centers</li>
-				</ul>
-				<ul class="list">
-					<li>Home health agencies</li>
-					<li>Assisted living & long-term care facilities</li>
-					<li>Pharmacies and medical supply retailers</li>
-				</ul>
+			<div class="provider-grid">
+				<div class="provider-item">
+					<img class="provider-icon" src={iconPrimaryCare} alt="" loading="lazy" />
+					<span>Primary care clinics</span>
+				</div>
+				<div class="provider-item">
+					<img class="provider-icon" src={iconSpecialty} alt="" loading="lazy" />
+					<span>Specialty clinics</span>
+				</div>
+				<div class="provider-item">
+					<img class="provider-icon" src={iconHospital} alt="" loading="lazy" />
+					<span>Hospitals & outpatient</span>
+				</div>
+				<div class="provider-item">
+					<img class="provider-icon" src={iconHomeHealth} alt="" loading="lazy" />
+					<span>Home health agencies</span>
+				</div>
+				<div class="provider-item">
+					<img class="provider-icon" src={iconLongTermCare} alt="" loading="lazy" />
+					<span>Long-term care</span>
+				</div>
+				<div class="provider-item">
+					<img class="provider-icon" src={iconPharmacy} alt="" loading="lazy" />
+					<span>Pharmacies & retailers</span>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -428,6 +602,9 @@
 		<div class="container">
 			<p class="eyebrow">How we work</p>
 			<h2>From inquiry to delivery — here's how it works.</h2>
+			<div class="process-flow-container">
+				<img class="process-flow-img process-flow-compact" src={processCompact} alt="Our 4-step process: Reach out, Confirm fit, Fulfillment, Ongoing support" loading="lazy" />
+			</div>
 			<div class="steps">
 				<article class="step">
 					<span class="capability-number">01</span>
