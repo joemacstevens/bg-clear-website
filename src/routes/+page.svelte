@@ -28,30 +28,35 @@
 
 	onMount(() => {
 		const heroEl = document.querySelector('.hero') as HTMLElement | null;
-		let heroBottom = 0;
+		let heroTop = 0;
+		let heroHeight = 0;
+		let heroTrigger = 0;
 
-		const computeHeroBottom = () => {
+		const computeHeroMetrics = () => {
 			if (!heroEl) return;
 			const rect = heroEl.getBoundingClientRect();
 			// rect.top is viewport-relative; add scrollY to convert to document coords.
-			heroBottom = window.scrollY + rect.top + rect.height;
+			heroTop = window.scrollY + rect.top;
+			heroHeight = rect.height;
+			// Show nav logo once we've scrolled ~25% into the hero.
+			heroTrigger = heroTop + heroHeight * 0.25;
 		};
 
-		computeHeroBottom();
+		computeHeroMetrics();
 
 		const handleScroll = () => {
 			scrolled = window.scrollY > 20;
-			// Hide the nav logo until we've scrolled past the hero.
-			heroPassed = window.scrollY > heroBottom - 60;
+			// Show the nav logo once the user is ~25% past the hero top.
+			heroPassed = window.scrollY > heroTrigger;
 		};
 
 		window.addEventListener('scroll', handleScroll, { passive: true });
-		window.addEventListener('resize', computeHeroBottom, { passive: true });
+		window.addEventListener('resize', computeHeroMetrics, { passive: true });
 		handleScroll();
 
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
-			window.removeEventListener('resize', computeHeroBottom);
+			window.removeEventListener('resize', computeHeroMetrics);
 		};
 	});
 
