@@ -668,7 +668,8 @@ html {
 }
 
 .header-logo {
-	height: clamp(36px, 3vw, 48px);
+	/* 50% bigger than prior clamp(36px, 3vw, 48px) */
+	height: clamp(54px, 4.5vw, 72px);
 	width: auto;
 	flex: 0 0 auto;
 	opacity: 0;
