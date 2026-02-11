@@ -259,14 +259,14 @@
 		height: 100%;
 		object-fit: cover;
 		/* Keep the key subject (wheelchair) visible on wide screens */
-		object-position: 92% center;
+		object-position: 96% center;
 	}
 	.hero-shell--wide .hero-content {
 		position: relative;
 		z-index: 1;
-		/* Float left on wide screens so the hero doesn't cover the product image */
-		max-width: clamp(520px, 38vw, 660px);
-		margin-left: max(1.5rem, calc((100vw - 1240px) / 2 + 1.5rem));
+		/* Keep copy hard-left on large desktops so it never blocks the product image */
+		max-width: clamp(480px, 34vw, 620px);
+		margin-left: 1.5rem;
 		margin-right: auto;
 		padding: clamp(1.75rem, 3vw, 3rem);
 		color: var(--color-ink);
