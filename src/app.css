@@ -183,6 +183,15 @@ main {
 	gap: var(--space-5);
 }
 
+.capabilities--stack {
+	grid-template-columns: 1fr;
+}
+
+.capabilities--stack .sticky-intro {
+	position: static;
+	top: auto;
+}
+
 .grid-2 {
 	display: grid;
 	gap: var(--space-4);
@@ -203,6 +212,10 @@ main {
 	/* Prevent right-bleed causing horizontal scrolling on some browsers */
 	.capabilities {
 		overflow-x: clip;
+	}
+
+	.capabilities--stack {
+		grid-template-columns: 1fr;
 	}
 
 	.capability-list--bleed {

@@ -370,7 +370,7 @@
 	}
 	@media (min-width: 900px) {
 		.why-grid {
-			grid-template-columns: repeat(4, minmax(0, 1fr));
+			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 	}
 	.why-card {
@@ -532,7 +532,7 @@
 	</section>
 
 	<section class="section" id="capabilities">
-		<div class="container capabilities">
+		<div class="container capabilities capabilities--stack">
 			<div class="sticky-intro">
 				<p class="eyebrow">Why BG Clear</p>
 				<h2>A distribution partner you can count on.</h2>
