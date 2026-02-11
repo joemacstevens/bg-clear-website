@@ -284,6 +284,18 @@
 	.hero-shell--wide .hero-content .eyebrow {
 		color: var(--color-text);
 	}
+	/* Tablet / small desktop: keep the card comfortably wide */
+	@media (min-width: 901px) and (max-width: 1200px) {
+		.hero-shell--wide .hero-content {
+			max-width: min(760px, calc(100% - 3rem));
+			margin-left: clamp(2rem, 3vw, 3.25rem);
+			margin-right: auto;
+		}
+		.hero-bg-img {
+			object-position: 90% center;
+		}
+	}
+
 	@media (max-width: 900px) {
 		.hero-shell--wide {
 			min-height: 600px;
