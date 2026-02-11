@@ -209,6 +209,21 @@
 	.hero-content :global(h1) {
 		color: #002B4A;
 	}
+
+	.hero-ctas {
+		margin-top: var(--space-4);
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-3);
+	}
+	.button-secondary {
+		background: rgba(255, 255, 255, 0.9);
+		color: var(--color-primary);
+		border: 1px solid rgba(0, 43, 74, 0.18);
+	}
+	.button-secondary:hover {
+		background: #ffffff;
+	}
 	.hero-content :global(p),
 	.hero-content :global(.subhead),
 	.hero-content :global(.eyebrow) {
@@ -346,6 +361,47 @@
 		}
 	}
 
+	/* Why BG Clear card grid (Gina) */
+	.why-grid {
+		display: grid;
+		grid-template-columns: repeat(1, minmax(0, 1fr));
+		gap: var(--space-4);
+		margin-top: var(--space-5);
+	}
+	@media (min-width: 900px) {
+		.why-grid {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+	}
+	.why-card {
+		border: 1px solid rgba(0, 43, 74, 0.14);
+		border-radius: 16px;
+		padding: var(--space-4);
+		background: #ffffff;
+		box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+	}
+	.why-card h3 {
+		margin: var(--space-3) 0 var(--space-2);
+		font-size: 1.05rem;
+	}
+	.why-card p {
+		margin: 0;
+		color: rgba(0, 43, 74, 0.78);
+	}
+	.why-icon {
+		width: 44px;
+		height: 44px;
+		border-radius: 12px;
+		background: rgba(0, 43, 74, 0.06);
+		display: grid;
+		place-items: center;
+		color: var(--color-primary);
+	}
+	.why-icon svg {
+		width: 24px;
+		height: 24px;
+	}
+
 	/* Process flow */
 	.process-flow-container {
 		margin: var(--space-4) 0 var(--space-5);
@@ -424,7 +480,10 @@
 					<p class="subhead">
 						Fast, compliant access to durable medical equipment for providers and care partners.
 					</p>
-					<a class="button button-primary" href="#request-call">Talk to a DME Specialist</a>
+					<div class="hero-ctas">
+						<a class="button button-primary" href="#request-call">Talk to a DME Specialist</a>
+						<a class="button button-secondary" href="#products">View Product Categories</a>
+					</div>
 					<p class="hero-trust-note">No obligation • Most inquiries answered within 4 hours</p>
 				</div>
 			</div>
@@ -481,39 +540,41 @@
 					We handle the equipment so you can handle the care. Compliant sourcing, reliable inventory, and real people when you call.
 				</p>
 			</div>
-			<div class="capability-list capability-list--bleed">
-				<article class="capability-card cap-panel reveal" use:revealOnScroll>
-					<div class="cap-visual cap-visual--compliance">
-						<img class="cap-visual-img" src={capCompliance} alt="Compliance and integrity illustration" loading="lazy" />
+			
+			<div class="why-grid">
+				<article class="why-card reveal" use:revealOnScroll>
+					<div class="why-icon" aria-hidden="true">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M7 12l3-3m-3 3l3 3"/></svg>
 					</div>
-					<div class="cap-panel-body">
-						<span class="capability-number">01</span>
-						<h3>Compliance & integrity</h3>
-						<p>FDA/CMS-aware processes with documentation you can trust. Every product we distribute meets regulatory requirements, so your team can focus on patient care — not paperwork.</p>
-					</div>
+					<h3>Reliable Distribution</h3>
+					<p>Fast, compliant DME fulfillment with real-time support.</p>
 				</article>
-				<article class="capability-card cap-panel reveal" use:revealOnScroll>
-					<div class="cap-visual cap-visual--fulfillment">
-						<img class="cap-visual-img" src={capFulfillment} alt="Fulfillment and logistics illustration" loading="lazy" />
+
+				<article class="why-card reveal" use:revealOnScroll>
+					<div class="why-icon" aria-hidden="true">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
 					</div>
-					<div class="cap-panel-body">
-						<span class="capability-number">02</span>
-						<h3>Fulfillment & logistics</h3>
-						<p>Fast inventory coordination to reduce downtime and keep care on track. We manage sourcing, warehousing, and delivery so equipment arrives when and where your providers need it.</p>
-					</div>
+					<h3>Real People, Real Support</h3>
+					<p>Dedicated specialists who answer the phone.</p>
 				</article>
-				<article class="capability-card cap-panel reveal" use:revealOnScroll>
-					<div class="cap-visual cap-visual--tech">
-						<img class="cap-visual-img" src={capTech} alt="Tech-forward DME illustration" loading="lazy" />
+
+				<article class="why-card reveal" use:revealOnScroll>
+					<div class="why-icon" aria-hidden="true">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
 					</div>
-					<div class="cap-panel-body">
-						<span class="capability-number">03</span>
-						<h3>Tech-forward DME</h3>
-						<p>Modern equipment selection with a roadmap for connected monitoring. From telehealth-enabled RPM devices to smart diagnostics, we're building the bridge between traditional DME and digital health.</p>
+					<h3>Regulatory Compliance</h3>
+					<p>HIPAA-conscious processes and industry standards.</p>
+				</article>
+
+				<article class="why-card reveal" use:revealOnScroll>
+					<div class="why-icon" aria-hidden="true">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v5l3 3"/><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
 					</div>
+					<h3>Fast Turnaround</h3>
+					<p>Streamlined logistics that reduce delays.</p>
 				</article>
 			</div>
-		</div>
+</div>
 	</section>
 
 	<section class="section">
