@@ -702,10 +702,19 @@ html {
 }
 
 .header-nav a {
-	font-size: 0.925rem;
+	font-size: 0.95rem;
 	font-weight: 500;
 	color: var(--color-text);
 	transition: color 160ms ease;
+}
+
+@media (min-width: 1100px) {
+	.header-nav {
+		gap: var(--space-5);
+	}
+	.header-nav a {
+		font-size: 1rem;
+	}
 }
 
 .header-nav a:hover {
