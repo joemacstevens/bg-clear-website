@@ -264,11 +264,12 @@
 	.hero-shell--wide .hero-content {
 		position: relative;
 		z-index: 1;
-		/* Keep copy left so it doesn't block the product image, but not flush-left */
-		max-width: clamp(560px, 40vw, 760px);
+		/* Keep copy left so it doesn't block the product image, but avoid getting too narrow */
+		max-width: clamp(640px, 46vw, 860px);
 		margin-left: clamp(2.25rem, 4vw, 5rem);
 		margin-right: auto;
-		padding: clamp(1.75rem, 3vw, 3rem);
+		/* Reduce side padding a touch so the usable text area stays wide */
+		padding: clamp(1.5rem, 2.6vw, 2.75rem);
 		color: var(--color-ink);
 		text-shadow: none;
 		background: rgba(255, 255, 255, 0.92);
