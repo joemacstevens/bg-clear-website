@@ -383,6 +383,22 @@
 	.cap-stack-wrap {
 		margin-top: var(--space-6);
 	}
+
+	/* Separator between "What we do" and Capabilities stack */
+	.section-capabilities {
+		position: relative;
+		padding-top: calc(var(--section-padding) * 0.65);
+	}
+	.section-capabilities::before {
+		content: '';
+		position: absolute;
+		left: 50%;
+		top: 0;
+		transform: translateX(-50%);
+		width: min(1240px, calc(100% - 3rem));
+		height: 1px;
+		background: color-mix(in srgb, var(--color-border), transparent 20%);
+	}
 	.cap-stack-intro {
 		padding: 0 0 var(--space-5);
 	}
@@ -602,7 +618,7 @@
 		</div>
 	</section>
 
-	<section class="section" id="capabilities">
+	<section class="section section-capabilities" id="capabilities">
 		<div class="cap-stack-wrap">
 			<div class="cap-stack-intro">
 				<div class="container">
