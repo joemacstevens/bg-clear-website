@@ -4,9 +4,9 @@
 	import { onMount } from 'svelte';
 	import logo from '$lib/assets/bg-clear-logo-640.png';
 	import HeroVideo from '$lib/components/HeroVideo.svelte';
-	import imgHealth from '$lib/assets/visuals/product-health-monitoring.png';
-	import imgMobility from '$lib/assets/visuals/product-mobility-safety.png';
-	import imgSpecialized from '$lib/assets/visuals/product-specialized.png';
+	import imgHealth from '$lib/assets/visuals/product-health-monitoring.jpg';
+	import imgMobility from '$lib/assets/visuals/product-mobility-safety.jpg';
+	import imgSpecialized from '$lib/assets/visuals/product-specialized-support.jpg';
 
 	// New visual assets
 	import capCompliance from '$lib/assets/visuals/cap-compliance.png';
