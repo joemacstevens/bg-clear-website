@@ -24,6 +24,13 @@
 	import iconLongTermCare from '$lib/assets/visuals/icon-long-term-care.png';
 	import iconPharmacy from '$lib/assets/visuals/icon-pharmacy.png';
 
+	// Partner logos
+	import logoMckesson from '$lib/assets/partners/mckesson.svg';
+	import logoDrive from '$lib/assets/partners/drive-medical.svg';
+	import logoPride from '$lib/assets/partners/pride-mobility.png';
+	import logoInvacare from '$lib/assets/partners/invacare.svg';
+	import logoMedline from '$lib/assets/partners/medline.svg';
+
 	type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
 	let scrolled = false;
@@ -688,6 +695,19 @@
 			<p>
 				Send us the prescription, we handle the rest. BG Clear fulfills orders, manages documentation, and bills Medicare, Medicaid, and private insurance directly — so your team stays focused on care, not claims.
 			</p>
+		</div>
+	</section>
+
+	<section class="partner-logos">
+		<div class="container">
+			<p class="partner-logos-label">Trusted manufacturers &amp; distributors we work with</p>
+			<div class="partner-logos-strip">
+				<img src={logoMckesson} alt="McKesson" class="partner-logo" />
+				<img src={logoDrive} alt="Drive Medical" class="partner-logo" />
+				<img src={logoMedline} alt="Medline" class="partner-logo" />
+				<img src={logoInvacare} alt="Invacare" class="partner-logo" />
+				<img src={logoPride} alt="Pride Mobility" class="partner-logo" />
+			</div>
 		</div>
 	</section>
 

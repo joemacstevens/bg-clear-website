@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50">
+  <rect x="0" y="5" width="40" height="40" rx="4" fill="#003087"/>
+  <path d="M20 12 L20 22 M15 17 L25 17 M14 26 Q20 38 26 26" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <text x="48" y="34" font-family="'Helvetica Neue', Arial, sans-serif" font-size="28" font-weight="700" fill="#003087">Medline</text>
+</svg>

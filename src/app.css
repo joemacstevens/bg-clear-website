@@ -583,6 +583,64 @@ html {
 	}
 }
 
+/* Partner Logos Strip */
+.partner-logos {
+	padding: var(--space-5) 0 var(--space-6);
+}
+
+.partner-logos-label {
+	text-align: center;
+	font-size: var(--text-small);
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--color-muted);
+	margin-bottom: var(--space-4);
+}
+
+.partner-logos-strip {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: var(--space-5) var(--space-6);
+}
+
+.partner-logo {
+	height: 36px;
+	width: auto;
+	object-fit: contain;
+	opacity: 0.55;
+	filter: grayscale(100%);
+	transition: opacity 200ms ease, filter 200ms ease;
+}
+
+.partner-logo:hover {
+	opacity: 1;
+	filter: grayscale(0%);
+}
+
+@media (max-width: 768px) {
+	.partner-logos {
+		padding: var(--space-4) 0 var(--space-5);
+	}
+	.partner-logos-strip {
+		gap: var(--space-4) var(--space-5);
+	}
+	.partner-logo {
+		height: 28px;
+	}
+}
+
+@media (max-width: 480px) {
+	.partner-logos-strip {
+		gap: var(--space-3) var(--space-4);
+	}
+	.partner-logo {
+		height: 24px;
+	}
+}
+
 /* Trust Strip */
 .trust-strip {
 	background: var(--color-surface);
