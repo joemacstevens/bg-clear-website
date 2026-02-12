@@ -305,15 +305,15 @@
 		.hero {
 			padding-top: 6.25rem;
 		}
+		/* Kill container side padding inside hero so the hero can truly go edge-to-edge */
 		.hero > .container {
-			padding-left: 0;
-			padding-right: 0;
-			max-width: none;
+			max-width: none !important;
+			padding-left: 0 !important;
+			padding-right: 0 !important;
 		}
 		.hero-shell--wide {
-			width: 100vw;
-			margin-left: calc(-50vw + 50%);
-			margin-right: calc(-50vw + 50%);
+			width: 100% !important;
+			margin: 0 !important;
 			border-radius: 0;
 			min-height: auto;
 			display: block;
@@ -332,7 +332,7 @@
 		.hero-shell--wide .hero-content {
 			max-width: 760px;
 			margin: 0 auto;
-			padding: var(--space-4) 1.25rem;
+			padding: var(--space-4) 1rem;
 			background: rgba(255, 255, 255, 0.98);
 			border-radius: 0;
 			box-shadow: none;
