@@ -301,16 +301,41 @@
 	}
 
 	@media (max-width: 900px) {
+		/* Option A mobile hero: image first, copy below (no overlay) */
 		.hero-shell--wide {
-			min-height: 600px;
+			width: 100%;
+			margin-left: 0;
+			margin-right: 0;
+			border-radius: 24px;
+			min-height: auto;
+			display: block;
+			background: transparent;
 		}
 		.hero-bg-img {
-			object-position: 75% center;
+			position: relative;
+			inset: auto;
+			display: block;
+			width: 100%;
+			height: 42vh;
+			min-height: 280px;
+			max-height: 420px;
+			object-position: 85% 50%;
 		}
 		.hero-shell--wide .hero-content {
-			max-width: calc(100% - 2rem);
-			margin: var(--space-3) 1rem;
+			max-width: 100%;
+			margin: 0;
 			padding: var(--space-4);
+			background: rgba(255, 255, 255, 0.98);
+			border-radius: 0;
+			box-shadow: none;
+			backdrop-filter: none;
+		}
+		.hero-shell--wide .hero-content h1 {
+			font-size: clamp(2rem, 6.4vw, 2.6rem);
+			line-height: 1.1;
+		}
+		.hero-shell--wide .hero-content .subhead {
+			font-size: 1rem;
 		}
 	}
 
