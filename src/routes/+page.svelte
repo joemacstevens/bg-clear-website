@@ -422,7 +422,8 @@
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		object-position: 70% center;
+		/* Avoid awkward cropping: default to centered framing */
+		object-position: 50% center;
 		z-index: -2;
 	}
 
@@ -430,9 +431,8 @@
 		position: absolute;
 		inset: 0;
 		z-index: -1;
-		background:
-			linear-gradient(90deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.88) 42%, rgba(255,255,255,0.0) 72%),
-			linear-gradient(180deg, rgba(11,18,32,0.10) 0%, rgba(11,18,32,0.18) 100%);
+		/* Keep it clean: the text card already has its own background */
+		background: linear-gradient(180deg, rgba(11,18,32,0.06) 0%, rgba(11,18,32,0.14) 100%);
 	}
 
 	.cap-stack-inner {
@@ -466,9 +466,7 @@
 			min-height: calc(100vh - 76px);
 		}
 		.cap-stack-overlay {
-			background:
-				linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.85) 52%, rgba(255,255,255,0.0) 100%),
-				linear-gradient(180deg, rgba(11,18,32,0.10) 0%, rgba(11,18,32,0.18) 100%);
+			background: linear-gradient(180deg, rgba(11,18,32,0.04) 0%, rgba(11,18,32,0.12) 100%);
 		}
 		.cap-stack-card {
 			max-width: min(760px, 100%);
