@@ -302,6 +302,14 @@
 
 	@media (max-width: 900px) {
 		/* Option A mobile hero: full-bleed image first, copy below */
+		.hero {
+			padding-top: 6.25rem;
+		}
+		.hero > .container {
+			padding-left: 0;
+			padding-right: 0;
+			max-width: none;
+		}
 		.hero-shell--wide {
 			width: 100vw;
 			margin-left: calc(-50vw + 50%);
@@ -316,15 +324,15 @@
 			inset: auto;
 			display: block;
 			width: 100%;
-			height: 42vh;
-			min-height: 280px;
-			max-height: 420px;
+			height: 44vh;
+			min-height: 300px;
+			max-height: 460px;
 			object-position: 85% 50%;
 		}
 		.hero-shell--wide .hero-content {
 			max-width: 760px;
 			margin: 0 auto;
-			padding: var(--space-4) 1.5rem;
+			padding: var(--space-4) 1.25rem;
 			background: rgba(255, 255, 255, 0.98);
 			border-radius: 0;
 			box-shadow: none;
