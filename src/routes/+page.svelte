@@ -126,7 +126,7 @@
 	}
 	@media (max-width: 480px) {
 		.brand-lockup {
-			margin-bottom: var(--space-4);
+			margin-bottom: var(--space-2);
 		}
 	}
 	.brand-logo {
@@ -303,7 +303,8 @@
 	@media (max-width: 900px) {
 		/* Option A mobile hero: full-bleed image first, copy below */
 		.hero {
-			padding-top: 6.25rem;
+			padding-top: 5rem;
+			padding-bottom: 0;
 		}
 		/* Kill container side padding inside hero so the hero can truly go edge-to-edge */
 		.hero > .container {
@@ -325,14 +326,14 @@
 			display: block;
 			width: 100%;
 			height: 44vh;
-			min-height: 300px;
-			max-height: 460px;
+			min-height: 260px;
+			max-height: 420px;
 			object-position: 85% 50%;
 		}
 		.hero-shell--wide .hero-content {
 			max-width: 760px;
 			margin: 0 auto;
-			padding: var(--space-4) 1rem;
+			padding: var(--space-3) var(--space-3);
 			background: rgba(255, 255, 255, 0.98);
 			border-radius: 0;
 			box-shadow: none;
@@ -344,6 +345,13 @@
 		}
 		.hero-shell--wide .hero-content .subhead {
 			font-size: 1rem;
+			margin-bottom: var(--space-3);
+		}
+		.brand-lockup {
+			margin-bottom: var(--space-2);
+		}
+		.brand-logo {
+			height: 160px;
 		}
 	}
 
@@ -612,29 +620,61 @@
 
 	<section class="trust-strip">
 		<div class="container trust-strip-inner">
-			<div class="trust-item">
-				<svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+			<div class="trust-badge">
+				<svg class="trust-badge-seal" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<circle cx="40" cy="40" r="38" stroke="#1e3a5f" stroke-width="2" fill="#f0f6fc"/>
+					<circle cx="40" cy="40" r="32" stroke="#1e3a5f" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
+					<path d="M40 14 L44 24 L40 22 L36 24 Z" fill="#1e3a5f"/>
+					<path d="M28 30 Q40 26 52 30 L52 48 Q40 58 28 48 Z" fill="#1e3a5f"/>
+					<path d="M34 40 L38 44 L47 35" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
 				</svg>
-				<span>FDA-Registered Suppliers</span>
+				<div class="trust-badge-text">
+					<span class="trust-badge-label">ACHC</span>
+					<span class="trust-badge-sub">Accredited</span>
+				</div>
 			</div>
-			<div class="trust-item">
-				<svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+			<div class="trust-badge">
+				<svg class="trust-badge-seal" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<circle cx="40" cy="40" r="38" stroke="#0d5e3a" stroke-width="2" fill="#f0faf5"/>
+					<circle cx="40" cy="40" r="32" stroke="#0d5e3a" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
+					<rect x="28" y="28" width="24" height="18" rx="2" fill="#0d5e3a"/>
+					<path d="M28 33 L40 40 L52 33" stroke="#f0faf5" stroke-width="1.5" fill="none"/>
+					<rect x="35" y="48" width="10" height="6" rx="1" fill="#0d5e3a"/>
+					<path d="M37 50 L43 50 M37 52 L41 52" stroke="#f0faf5" stroke-width="0.8"/>
+					<text x="40" y="26" text-anchor="middle" font-size="5" font-weight="700" fill="#0d5e3a" font-family="system-ui">CMS</text>
 				</svg>
-				<span>Compliant Documentation</span>
+				<div class="trust-badge-text">
+					<span class="trust-badge-label">Medicare</span>
+					<span class="trust-badge-sub">Approved Supplier</span>
+				</div>
 			</div>
-			<div class="trust-item">
-				<svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+			<div class="trust-badge">
+				<svg class="trust-badge-seal" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<circle cx="40" cy="40" r="38" stroke="#4338ca" stroke-width="2" fill="#f0f0ff"/>
+					<circle cx="40" cy="40" r="32" stroke="#4338ca" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
+					<path d="M30 30 L40 24 L50 30 L50 46 Q40 56 30 46 Z" fill="#4338ca"/>
+					<rect x="36" y="32" width="8" height="10" rx="4" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+					<rect x="34" y="40" width="12" height="8" rx="1" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+					<circle cx="40" cy="44" r="1.5" fill="#ffffff"/>
 				</svg>
-				<span>Ships Within 48 Hours</span>
+				<div class="trust-badge-text">
+					<span class="trust-badge-label">HIPAA</span>
+					<span class="trust-badge-sub">Compliant</span>
+				</div>
 			</div>
-			<div class="trust-item">
-				<svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+			<div class="trust-badge">
+				<svg class="trust-badge-seal" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<circle cx="40" cy="40" r="38" stroke="#1a5276" stroke-width="2" fill="#f0f4f8"/>
+					<circle cx="40" cy="40" r="32" stroke="#1a5276" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
+					<path d="M30 30 Q40 26 50 30 L50 50 Q40 56 30 50 Z" fill="#1a5276"/>
+					<text x="40" y="38" text-anchor="middle" font-size="7" font-weight="800" fill="#ffffff" font-family="system-ui">FDA</text>
+					<path d="M33 42 L47 42" stroke="#ffffff" stroke-width="0.8"/>
+					<text x="40" y="48" text-anchor="middle" font-size="4.5" font-weight="600" fill="#ffffff" font-family="system-ui">REG.</text>
 				</svg>
-				<span>Satisfaction Guaranteed</span>
+				<div class="trust-badge-text">
+					<span class="trust-badge-label">FDA</span>
+					<span class="trust-badge-sub">Registered</span>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -643,10 +683,10 @@
 		<div class="container section-intro">
 			<div>
 				<p class="eyebrow">What we do</p>
-				<h2>DME distribution that keeps your practice stocked and compliant.</h2>
+				<h2>Your DME fulfillment partner — from prescription to patient doorstep.</h2>
 			</div>
 			<p>
-				We source quality equipment from trusted manufacturers and get it to you fast — so you can focus on patients, not inventory.
+				Send us the prescription, we handle the rest. BG Clear fulfills orders, manages documentation, and bills Medicare, Medicaid, and private insurance directly — so your team stays focused on care, not claims.
 			</p>
 		</div>
 	</section>

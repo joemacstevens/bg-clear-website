@@ -595,32 +595,69 @@ html {
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
-	gap: var(--space-4) var(--space-5);
+	gap: var(--space-4) var(--space-6);
 }
 
-.trust-item {
+.trust-badge {
 	display: flex;
 	align-items: center;
-	gap: 0.5rem;
-	font-size: var(--text-small);
-	font-weight: 500;
-	color: var(--color-ink);
+	gap: 0.75rem;
 }
 
-.trust-icon {
-	width: 20px;
-	height: 20px;
-	color: var(--color-accent);
+.trust-badge-seal {
+	width: 56px;
+	height: 56px;
 	flex-shrink: 0;
 }
 
-@media (max-width: 640px) {
+.trust-badge-text {
+	display: flex;
+	flex-direction: column;
+	line-height: 1.2;
+}
+
+.trust-badge-label {
+	font-size: 0.95rem;
+	font-weight: 700;
+	color: var(--color-ink);
+	letter-spacing: 0.02em;
+}
+
+.trust-badge-sub {
+	font-size: 0.8rem;
+	font-weight: 500;
+	color: var(--color-muted);
+}
+
+@media (max-width: 768px) {
 	.trust-strip-inner {
-		gap: var(--space-3);
+		gap: var(--space-3) var(--space-4);
 	}
-	.trust-item {
+	.trust-badge {
+		flex: 0 0 calc(50% - var(--space-3));
+	}
+	.trust-badge-seal {
+		width: 44px;
+		height: 44px;
+	}
+	.trust-badge-label {
+		font-size: 0.85rem;
+	}
+	.trust-badge-sub {
+		font-size: 0.72rem;
+	}
+}
+
+@media (max-width: 400px) {
+	.trust-strip-inner {
+		gap: var(--space-2) var(--space-3);
+	}
+	.trust-badge {
 		flex: 0 0 calc(50% - var(--space-2));
-		font-size: 0.8rem;
+	}
+	.trust-badge-seal {
+		width: 38px;
+		height: 38px;
 	}
 }
 
@@ -693,6 +730,15 @@ html {
 .header-logo.is-visible {
 	opacity: 1;
 	transform: translateY(0);
+}
+
+/* On mobile, always show the nav logo (hero logo is below the fold) */
+@media (max-width: 900px) {
+	.header-logo {
+		opacity: 1;
+		transform: translateY(0);
+		height: 52px;
+	}
 }
 
 .header-nav {
