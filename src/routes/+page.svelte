@@ -13,10 +13,10 @@
 	import capFulfillment from '$lib/assets/visuals/cap-fulfillment.png';
 	import capTech from '$lib/assets/visuals/cap-tech.png';
 	import processWide from '$lib/assets/visuals/process-wide.png';
-	import heroWide from '$lib/assets/visuals/hero-wide-photo-wheelchair-v1.jpg';
-	import capStackCompliance from '$lib/assets/visuals/cap-stack-compliance-1.jpg';
-	import capStackFulfillment from '$lib/assets/visuals/cap-stack-fulfillment-2.jpg';
-	import capStackSupport from '$lib/assets/visuals/cap-stack-support-3.jpg';
+	import heroWide from '$lib/assets/visuals/hero-wide-photo-wheelchair-v2-productforward.jpg';
+	import capStackCompliance from '$lib/assets/visuals/cap-stack-compliance-2-macro.jpg';
+	import capStackFulfillment from '$lib/assets/visuals/cap-stack-fulfillment-3-macro.jpg';
+	import capStackSupport from '$lib/assets/visuals/cap-stack-support-4-macro.jpg';
 	import iconPrimaryCare from '$lib/assets/visuals/icon-primary-care.png';
 	import iconSpecialty from '$lib/assets/visuals/icon-specialty.png';
 	import iconHospital from '$lib/assets/visuals/icon-hospital.png';
