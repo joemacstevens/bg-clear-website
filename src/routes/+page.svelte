@@ -607,9 +607,9 @@
 			<div class="cap-stack-intro">
 				<div class="container">
 					<p class="eyebrow">Why BG Clear</p>
-					<h2>A distribution partner you can count on.</h2>
+					<h2>Why BG Clear — built for compliance, speed, and real support.</h2>
 					<p>
-						We handle the equipment so you can handle the care. Compliant sourcing, reliable inventory, and real people when you call.
+						Scroll to see what makes us different: compliance-first processes, reliable fulfillment, and specialists who actually answer.
 					</p>
 				</div>
 			</div>
@@ -779,6 +779,19 @@
 		</div>
 	</section>
 
+	<section class="section cta-band">
+		<div class="container cta-inner">
+			<div>
+				<p class="eyebrow cta-eyebrow">Next step</p>
+				<h2 class="cta-heading">Let's talk about what you need.</h2>
+				<p class="subhead cta-subhead">
+					Tell us about your practice and equipment requirements — we'll follow up with options and pricing.
+				</p>
+			</div>
+			<a class="button button-light" href="#request-call">Talk to a DME Specialist</a>
+		</div>
+	</section>
+
 	<section class="section section-alt" id="faq">
 		<div class="container">
 			<p class="eyebrow">FAQ</p>
@@ -805,19 +818,6 @@
 					<p class="faq-answer">Yes. If you have specific DME needs outside our core categories, reach out—we have supplier relationships that often allow us to source specialized equipment.</p>
 				</article>
 			</div>
-		</div>
-	</section>
-
-	<section class="section cta-band">
-		<div class="container cta-inner">
-			<div>
-				<p class="eyebrow cta-eyebrow">Next step</p>
-				<h2 class="cta-heading">Let's talk about what you need.</h2>
-				<p class="subhead cta-subhead">
-					Tell us about your practice and equipment requirements — we'll follow up with options and pricing.
-				</p>
-			</div>
-			<a class="button button-light" href="#request-call">Talk to a DME Specialist</a>
 		</div>
 	</section>
 
