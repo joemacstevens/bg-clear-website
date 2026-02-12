@@ -179,14 +179,14 @@
 	}
 	@media (max-width: 640px) {
 		.logo-arc-wrap {
-			width: 280px;
-			height: 280px;
+			width: 240px;
+			height: 240px;
 		}
 		.arc-text {
-			font-size: 12.5px;
+			font-size: 11px;
 		}
 		.brand-logo {
-			height: 140px;
+			height: 125px;
 		}
 	}
 
@@ -376,6 +376,7 @@
 			max-width: 760px;
 			margin: 0 auto;
 			padding: var(--space-3) var(--space-3);
+			padding-top: 0;
 			background: rgba(255, 255, 255, 0.98);
 			border-radius: 0;
 			box-shadow: none;
@@ -389,18 +390,24 @@
 			font-size: 1rem;
 			margin-bottom: var(--space-3);
 		}
+		/* Pull logo-arc up so it overlaps the hero image bottom edge */
 		.brand-lockup {
+			margin-top: -120px;
 			margin-bottom: 0.25rem;
+			position: relative;
+			z-index: 2;
 		}
 		.logo-arc-wrap {
-			width: 300px;
-			height: 300px;
+			width: 260px;
+			height: 260px;
+			background: radial-gradient(circle, rgba(255,255,255,0.95) 40%, rgba(255,255,255,0.7) 65%, transparent 72%);
+			border-radius: 50%;
 		}
 		.brand-logo {
-			height: 160px;
+			height: 140px;
 		}
 		.arc-text {
-			font-size: 13px;
+			font-size: 12px;
 		}
 	}
 
