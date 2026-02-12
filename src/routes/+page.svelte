@@ -412,8 +412,8 @@
 	}
 
 	.cap-stack-item + .cap-stack-item {
-		/* A little separation so the stack feels layered */
-		margin-top: 10vh;
+		/* Less separation = quicker, more dynamic transitions */
+		margin-top: 4vh;
 	}
 
 	.cap-stack-bg {
@@ -617,7 +617,8 @@
 			</div>
 
 			<div class="cap-stack">
-				<section class="cap-stack-item" style="--cap-z: 3">
+				<!-- z-index increases as you scroll so the next card can cover the previous -->
+				<section class="cap-stack-item" style="--cap-z: 1">
 					<img class="cap-stack-bg" src={capStackCompliance} alt="" loading="lazy" />
 					<div class="cap-stack-overlay" aria-hidden="true"></div>
 					<div class="container cap-stack-inner">
@@ -636,14 +637,12 @@
 						<div class="cap-stack-card">
 							<p class="eyebrow">Fulfillment</p>
 							<h3>Fast, reliable distribution.</h3>
-							<p class="subhead">Consistent inventory, clean logistics, and dependable turnaround
-so your patients get what they need
-without delays.</p>
+							<p class="subhead">Consistent inventory, clean logistics, and dependable turnaround so your patients get what they need without delays.</p>
 						</div>
 					</div>
 				</section>
 
-				<section class="cap-stack-item" style="--cap-z: 1">
+				<section class="cap-stack-item" style="--cap-z: 3">
 					<img class="cap-stack-bg" src={capStackSupport} alt="" loading="lazy" />
 					<div class="cap-stack-overlay" aria-hidden="true"></div>
 					<div class="container cap-stack-inner">
