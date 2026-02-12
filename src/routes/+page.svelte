@@ -301,12 +301,12 @@
 	}
 
 	@media (max-width: 900px) {
-		/* Option A mobile hero: image first, copy below (no overlay) */
+		/* Option A mobile hero: full-bleed image first, copy below */
 		.hero-shell--wide {
-			width: 100%;
-			margin-left: 0;
-			margin-right: 0;
-			border-radius: 24px;
+			width: 100vw;
+			margin-left: calc(-50vw + 50%);
+			margin-right: calc(-50vw + 50%);
+			border-radius: 0;
 			min-height: auto;
 			display: block;
 			background: transparent;
@@ -322,9 +322,9 @@
 			object-position: 85% 50%;
 		}
 		.hero-shell--wide .hero-content {
-			max-width: 100%;
-			margin: 0;
-			padding: var(--space-4);
+			max-width: 760px;
+			margin: 0 auto;
+			padding: var(--space-4) 1.5rem;
 			background: rgba(255, 255, 255, 0.98);
 			border-radius: 0;
 			box-shadow: none;
