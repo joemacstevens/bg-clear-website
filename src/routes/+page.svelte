@@ -128,30 +128,65 @@
 	.brand-lockup {
 		display: flex;
 		align-items: center;
-		gap: var(--space-3);
-		margin-bottom: var(--space-3);
+		justify-content: center;
+		margin-bottom: var(--space-1, 0.5rem);
 	}
 	@media (max-width: 480px) {
 		.brand-lockup {
-			margin-bottom: var(--space-2);
+			margin-bottom: 0.25rem;
 		}
 	}
+
+	/* Circular-text logo wrapper */
+	.logo-arc-wrap {
+		position: relative;
+		width: 340px;
+		height: 340px;
+		flex-shrink: 0;
+	}
+	.logo-arc-svg {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+	}
+	.arc-text {
+		font-family: var(--font-heading, 'Montserrat', sans-serif);
+		font-size: 14px;
+		font-weight: 600;
+		fill: var(--color-primary, #1e3a5f);
+		letter-spacing: 0.04em;
+	}
 	.brand-logo {
-		height: 140px;
+		position: absolute;
+		top: 52%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		height: 180px;
 		width: auto;
 		object-fit: contain;
-		filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.15));
+		filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.12));
 	}
+
 	@media (min-width: 1024px) {
+		.logo-arc-wrap {
+			width: clamp(340px, 24vw, 420px);
+			height: clamp(340px, 24vw, 420px);
+		}
 		.brand-logo {
-			height: clamp(140px, 9vw, 180px);
+			height: clamp(180px, 12vw, 220px);
 		}
 	}
 	@media (max-width: 640px) {
+		.logo-arc-wrap {
+			width: 280px;
+			height: 280px;
+		}
+		.arc-text {
+			font-size: 12.5px;
+		}
 		.brand-logo {
-			/* Make the hero logo more prominent on mobile */
 			height: 140px;
-			width: auto;
 		}
 	}
 
@@ -355,10 +390,17 @@
 			margin-bottom: var(--space-3);
 		}
 		.brand-lockup {
-			margin-bottom: var(--space-2);
+			margin-bottom: 0.25rem;
+		}
+		.logo-arc-wrap {
+			width: 300px;
+			height: 300px;
 		}
 		.brand-logo {
 			height: 160px;
+		}
+		.arc-text {
+			font-size: 13px;
 		}
 	}
 
@@ -607,13 +649,26 @@
 			<div class="hero-shell hero-shell--wide">
 				<img class="hero-bg-img" src={heroWide} alt="" />
 				<div class="hero-content">
-					<div class="brand-lockup" aria-label="BG Clear">
-						<img class="brand-logo" src={logo} alt="BG Clear" />
+					<div class="brand-lockup" aria-label="BG Clear — A Tech-Forward DME &amp; HME Distribution and Wholesale Company">
+						<div class="logo-arc-wrap">
+							<svg class="logo-arc-svg" viewBox="0 0 300 300" aria-hidden="true">
+								<defs>
+									<!-- Arc from ~7-o'clock clockwise up and around to ~5-o'clock, r=120 for tighter fit -->
+									<path id="arc-full"
+										d="M 65,228
+										   A 120,120 0 1,1 235,228"
+										fill="none" />
+								</defs>
+								<text class="arc-text">
+									<textPath href="#arc-full" startOffset="50%" text-anchor="middle">A Tech-Forward DME &amp; HME Distribution and Wholesale Company</textPath>
+								</text>
+							</svg>
+							<img class="brand-logo" src={logo} alt="BG Clear" />
+						</div>
 					</div>
-					<p class="eyebrow">Where Clear Innovation Meets Everyday Care</p>
-					<h1>DME Distribution With Real People Who Answer the Phone</h1>
+					<h1>Real People Who Answer the Phone</h1>
 					<p class="subhead">
-						Fast, compliant access to durable medical equipment for providers and care partners.
+						Fast, compliant DME access for providers and care partners.
 					</p>
 					<div class="hero-ctas">
 						<a class="button button-primary" href="#request-call">Talk to a DME Specialist</a>
