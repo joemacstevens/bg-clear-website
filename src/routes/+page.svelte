@@ -13,7 +13,7 @@
 	import capFulfillment from '$lib/assets/visuals/cap-fulfillment.png';
 	import capTech from '$lib/assets/visuals/cap-tech.png';
 	import processWide from '$lib/assets/visuals/process-wide.png';
-	import heroWide from '$lib/assets/visuals/hero-wide-v2.png';
+	import heroWide from '$lib/assets/visuals/hero-wide-photo-wheelchair-v1.jpg';
 	import iconPrimaryCare from '$lib/assets/visuals/icon-primary-care.png';
 	import iconSpecialty from '$lib/assets/visuals/icon-specialty.png';
 	import iconHospital from '$lib/assets/visuals/icon-hospital.png';
