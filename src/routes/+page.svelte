@@ -14,6 +14,9 @@
 	import capTech from '$lib/assets/visuals/cap-tech.png';
 	import processWide from '$lib/assets/visuals/process-wide.png';
 	import heroWide from '$lib/assets/visuals/hero-wide-photo-wheelchair-v1.jpg';
+	import capStackCompliance from '$lib/assets/visuals/cap-stack-compliance-1.jpg';
+	import capStackFulfillment from '$lib/assets/visuals/cap-stack-fulfillment-2.jpg';
+	import capStackSupport from '$lib/assets/visuals/cap-stack-support-3.jpg';
 	import iconPrimaryCare from '$lib/assets/visuals/icon-primary-care.png';
 	import iconSpecialty from '$lib/assets/visuals/icon-specialty.png';
 	import iconHospital from '$lib/assets/visuals/icon-hospital.png';
@@ -376,45 +379,100 @@
 		}
 	}
 
-	/* Why BG Clear card grid (Gina) */
-	.why-grid {
-		display: grid;
-		grid-template-columns: repeat(1, minmax(0, 1fr));
-		gap: var(--space-4);
-		margin-top: var(--space-5);
+	/* Capabilities sticky stack (premium full-bleed tiles) */
+	.cap-stack-wrap {
+		margin-top: var(--space-6);
 	}
-	@media (min-width: 900px) {
-		.why-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
+	.cap-stack-intro {
+		padding: 0 0 var(--space-5);
 	}
-	.why-card {
-		border: 1px solid rgba(0, 43, 74, 0.14);
-		border-radius: 16px;
-		padding: var(--space-4);
-		background: #ffffff;
-		box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+
+	.cap-stack {
+		/* Full-bleed inside a container page */
+		margin-left: calc(-50vw + 50%);
+		margin-right: calc(-50vw + 50%);
+		width: 100vw;
+		/* Create enough scroll room for sticky stacking */
+		padding-bottom: var(--space-6);
 	}
-	.why-card h3 {
-		margin: var(--space-3) 0 var(--space-2);
-		font-size: 1.05rem;
+
+	.cap-stack-item {
+		position: sticky;
+		/* Account for the fixed header */
+		top: 92px;
+		min-height: calc(100vh - 92px);
+		display: flex;
+		align-items: flex-end;
+		justify-content: stretch;
+		isolation: isolate;
+		z-index: var(--cap-z, 1);
+		border-radius: 0;
+		overflow: hidden;
+		background: #0b1220;
 	}
-	.why-card p {
+
+	.cap-stack-item + .cap-stack-item {
+		/* A little separation so the stack feels layered */
+		margin-top: 10vh;
+	}
+
+	.cap-stack-bg {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 70% center;
+		z-index: -2;
+	}
+
+	.cap-stack-overlay {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background:
+			linear-gradient(90deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.88) 42%, rgba(255,255,255,0.0) 72%),
+			linear-gradient(180deg, rgba(11,18,32,0.10) 0%, rgba(11,18,32,0.18) 100%);
+	}
+
+	.cap-stack-inner {
+		width: 100%;
+		padding-bottom: var(--space-6);
+	}
+
+	.cap-stack-card {
+		max-width: clamp(560px, 44vw, 760px);
+		padding: clamp(1.75rem, 3vw, 3rem);
+		background: rgba(255, 255, 255, 0.92);
+		border: 1px solid rgba(0, 43, 74, 0.12);
+		border-radius: var(--radius-lg);
+		box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+		backdrop-filter: blur(6px);
+	}
+
+	.cap-stack-card h3 {
+		font-size: clamp(1.4rem, 2.4vw, 2rem);
+		margin: 0 0 var(--space-2);
+	}
+
+	.cap-stack-card .subhead {
 		margin: 0;
-		color: rgba(0, 43, 74, 0.78);
+		max-width: 60ch;
 	}
-	.why-icon {
-		width: 44px;
-		height: 44px;
-		border-radius: 12px;
-		background: rgba(0, 43, 74, 0.06);
-		display: grid;
-		place-items: center;
-		color: var(--color-primary);
-	}
-	.why-icon svg {
-		width: 24px;
-		height: 24px;
+
+	@media (max-width: 900px) {
+		.cap-stack-item {
+			top: 76px;
+			min-height: calc(100vh - 76px);
+		}
+		.cap-stack-overlay {
+			background:
+				linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.85) 52%, rgba(255,255,255,0.0) 100%),
+				linear-gradient(180deg, rgba(11,18,32,0.10) 0%, rgba(11,18,32,0.18) 100%);
+		}
+		.cap-stack-card {
+			max-width: min(760px, 100%);
+		}
 	}
 
 	/* Process flow */
@@ -547,49 +605,57 @@
 	</section>
 
 	<section class="section" id="capabilities">
-		<div class="container capabilities capabilities--stack">
-			<div class="sticky-intro">
-				<p class="eyebrow">Why BG Clear</p>
-				<h2>A distribution partner you can count on.</h2>
-				<p>
-					We handle the equipment so you can handle the care. Compliant sourcing, reliable inventory, and real people when you call.
-				</p>
+		<div class="cap-stack-wrap">
+			<div class="cap-stack-intro">
+				<div class="container">
+					<p class="eyebrow">Why BG Clear</p>
+					<h2>A distribution partner you can count on.</h2>
+					<p>
+						We handle the equipment so you can handle the care. Compliant sourcing, reliable inventory, and real people when you call.
+					</p>
+				</div>
 			</div>
-			
-			<div class="why-grid">
-				<article class="why-card reveal" use:revealOnScroll>
-					<div class="why-icon" aria-hidden="true">
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M7 12l3-3m-3 3l3 3"/></svg>
-					</div>
-					<h3>Reliable Distribution</h3>
-					<p>Fast, compliant DME fulfillment with real-time support.</p>
-				</article>
 
-				<article class="why-card reveal" use:revealOnScroll>
-					<div class="why-icon" aria-hidden="true">
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
+			<div class="cap-stack">
+				<section class="cap-stack-item" style="--cap-z: 3">
+					<img class="cap-stack-bg" src={capStackCompliance} alt="" loading="lazy" />
+					<div class="cap-stack-overlay" aria-hidden="true"></div>
+					<div class="container cap-stack-inner">
+						<div class="cap-stack-card">
+							<p class="eyebrow">Compliance</p>
+							<h3>Compliant by default.</h3>
+							<p class="subhead">Documentation, sourcing standards, and process rigor that keeps your team moving fast without cutting corners.</p>
+						</div>
 					</div>
-					<h3>Real People, Real Support</h3>
-					<p>Dedicated specialists who answer the phone.</p>
-				</article>
+				</section>
 
-				<article class="why-card reveal" use:revealOnScroll>
-					<div class="why-icon" aria-hidden="true">
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+				<section class="cap-stack-item" style="--cap-z: 2">
+					<img class="cap-stack-bg" src={capStackFulfillment} alt="" loading="lazy" />
+					<div class="cap-stack-overlay" aria-hidden="true"></div>
+					<div class="container cap-stack-inner">
+						<div class="cap-stack-card">
+							<p class="eyebrow">Fulfillment</p>
+							<h3>Fast, reliable distribution.</h3>
+							<p class="subhead">Consistent inventory, clean logistics, and dependable turnaround
+so your patients get what they need
+without delays.</p>
+						</div>
 					</div>
-					<h3>Regulatory Compliance</h3>
-					<p>HIPAA-conscious processes and industry standards.</p>
-				</article>
+				</section>
 
-				<article class="why-card reveal" use:revealOnScroll>
-					<div class="why-icon" aria-hidden="true">
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v5l3 3"/><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+				<section class="cap-stack-item" style="--cap-z: 1">
+					<img class="cap-stack-bg" src={capStackSupport} alt="" loading="lazy" />
+					<div class="cap-stack-overlay" aria-hidden="true"></div>
+					<div class="container cap-stack-inner">
+						<div class="cap-stack-card">
+							<p class="eyebrow">Support</p>
+							<h3>Real people when you call.</h3>
+							<p class="subhead">Dedicated specialists who answer the phone, troubleshoot fast, and make sure the equipment fits the workflow.</p>
+						</div>
 					</div>
-					<h3>Fast Turnaround</h3>
-					<p>Streamlined logistics that reduce delays.</p>
-				</article>
+				</section>
 			</div>
-</div>
+		</div>
 	</section>
 
 	<section class="section">
