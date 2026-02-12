@@ -422,8 +422,8 @@
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		/* Avoid awkward cropping: default to centered framing */
-		object-position: 50% center;
+		/* Avoid awkward cropping: allow per-tile focal point overrides */
+		object-position: var(--cap-pos, 50% 35%);
 		z-index: -2;
 	}
 
@@ -616,7 +616,7 @@
 
 			<div class="cap-stack">
 				<!-- z-index increases as you scroll so the next card can cover the previous -->
-				<section class="cap-stack-item" style="--cap-z: 1">
+				<section class="cap-stack-item" style="--cap-z: 1; --cap-pos: 50% 40%">
 					<img class="cap-stack-bg" src={capStackCompliance} alt="" loading="lazy" />
 					<div class="cap-stack-overlay" aria-hidden="true"></div>
 					<div class="container cap-stack-inner">
@@ -628,7 +628,7 @@
 					</div>
 				</section>
 
-				<section class="cap-stack-item" style="--cap-z: 2">
+				<section class="cap-stack-item" style="--cap-z: 2; --cap-pos: 68% 18%">
 					<img class="cap-stack-bg" src={capStackFulfillment} alt="" loading="lazy" />
 					<div class="cap-stack-overlay" aria-hidden="true"></div>
 					<div class="container cap-stack-inner">
@@ -640,7 +640,7 @@
 					</div>
 				</section>
 
-				<section class="cap-stack-item" style="--cap-z: 3">
+				<section class="cap-stack-item" style="--cap-z: 3; --cap-pos: 50% 32%">
 					<img class="cap-stack-bg" src={capStackSupport} alt="" loading="lazy" />
 					<div class="cap-stack-overlay" aria-hidden="true"></div>
 					<div class="container cap-stack-inner">
