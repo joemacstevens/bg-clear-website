@@ -538,7 +538,7 @@
 				</svg>
 				<span>(201) 765-7171</span>
 			</a>
-			<a class="button button-primary button-header" href="#request-call">Talk to a Specialist</a>
+			<a class="button button-primary button-header" href="#request-call">Contact Us</a>
 		</div>
 	</div>
 </header>
@@ -555,7 +555,7 @@
 						Fast, compliant DME access for providers and care partners.
 					</p>
 					<div class="hero-ctas">
-						<a class="button button-primary" href="#request-call">Talk to a DME Specialist</a>
+						<a class="button button-primary" href="#request-call">Contact a DME Specialist</a>
 						<a class="button button-secondary" href="#products">View Product Categories</a>
 					</div>
 					<p class="hero-trust-note">No obligation • Most inquiries answered within 4 hours</p>
@@ -836,7 +836,7 @@
 					Tell us about your practice and equipment requirements — we'll follow up with options and pricing.
 				</p>
 			</div>
-			<a class="button button-light" href="#request-call">Talk to a DME Specialist</a>
+			<a class="button button-light" href="#request-call">Contact a DME Specialist</a>
 		</div>
 	</section>
 
@@ -946,7 +946,7 @@
 				</div>
 
 				<button class="button button-primary" type="submit" disabled={status === 'submitting'}>
-					{status === 'submitting' ? 'Sending…' : 'Talk to a DME Specialist'}
+					{status === 'submitting' ? 'Sending…' : 'Contact a DME Specialist'}
 				</button>
 				<p class="form-footnote">No obligation • We respond within 4 business hours</p>
 			</form>
