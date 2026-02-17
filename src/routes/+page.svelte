@@ -515,6 +515,7 @@
 		</div>
 	</section>
 
+	<!-- WHAT WE DO -->
 	<section class="section">
 		<div class="container section-intro">
 			<div>
@@ -527,20 +528,7 @@
 		</div>
 	</section>
 
-	<section class="partner-logos">
-		<div class="container">
-			<p class="partner-logos-label">Trusted manufacturers &amp; distributors we work with</p>
-			<div class="partner-logos-strip">
-				<img src={logoMckesson} alt="McKesson" class="partner-logo" />
-				<img src={logoDrive} alt="Drive Medical" class="partner-logo" />
-				<img src={logoMedline} alt="Medline" class="partner-logo" />
-				<img src={logoInvacare} alt="Invacare" class="partner-logo" />
-				<img src={logoPride} alt="Pride Mobility" class="partner-logo" />
-			</div>
-		</div>
-	</section>
-
-
+	<!-- WHO WE SERVE -->
 	<section class="section">
 		<div class="container">
 			<p class="eyebrow">Who we serve</p>
@@ -633,6 +621,47 @@
 		</div>
 	</section>
 
+	<!-- WHY BG CLEAR (placeholder — waiting on client copy) -->
+	<section class="section" id="why-bg-clear">
+		<div class="container">
+			<p class="eyebrow">Why BG Clear</p>
+			<h2>Built for compliance, speed, and real support.</h2>
+			<!-- TODO: Client copy needed — mission statement + differentiator copy from Gina/Evan -->
+			<p class="subhead">
+				We combine PDAC-approved compliance, fast fulfillment, and dedicated specialists who actually answer the phone — so your team stays focused on patient care.
+			</p>
+			<div class="grid-3">
+				<article class="capability-card">
+					<h3>Compliance-first</h3>
+					<p>Documentation, sourcing standards, and process rigor that keeps your team moving fast without cutting corners.</p>
+				</article>
+				<article class="capability-card">
+					<h3>Fast fulfillment</h3>
+					<p>Consistent inventory, clean logistics, and dependable turnaround so your patients get what they need without delays.</p>
+				</article>
+				<article class="capability-card">
+					<h3>Real people</h3>
+					<p>Dedicated specialists who answer the phone, troubleshoot fast, and make sure the equipment fits the workflow.</p>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<!-- TRUSTED MANUFACTURERS -->
+	<section class="partner-logos">
+		<div class="container">
+			<p class="partner-logos-label">Trusted manufacturers &amp; distributors we work with</p>
+			<div class="partner-logos-strip">
+				<img src={logoMckesson} alt="McKesson" class="partner-logo" />
+				<img src={logoDrive} alt="Drive Medical" class="partner-logo" />
+				<img src={logoMedline} alt="Medline" class="partner-logo" />
+				<img src={logoInvacare} alt="Invacare" class="partner-logo" />
+				<img src={logoPride} alt="Pride Mobility" class="partner-logo" />
+			</div>
+		</div>
+	</section>
+
+	<!-- HOW WE WORK -->
 	<section class="section" id="how-we-work">
 		<div class="container">
 			<p class="eyebrow">How we work</p>
@@ -660,6 +689,29 @@
 					<span class="capability-number">04</span>
 					<h3>Ongoing support</h3>
 					<p>Questions after delivery? We're here. Training, warranty, reorders — covered.</p>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<!-- BLOG (placeholder) -->
+	<section class="section section-alt" id="blog">
+		<div class="container">
+			<p class="eyebrow">Blog</p>
+			<h2>Insights for DME providers.</h2>
+			<!-- TODO: Automated blog generation for SEO — separate task -->
+			<div class="grid-3">
+				<article class="capability-card">
+					<h3>Coming soon</h3>
+					<p>Industry insights, compliance updates, and best practices for DME providers. Check back soon.</p>
+				</article>
+				<article class="capability-card">
+					<h3>Coming soon</h3>
+					<p>Tips for streamlining your DME ordering process and improving patient outcomes.</p>
+				</article>
+				<article class="capability-card">
+					<h3>Coming soon</h3>
+					<p>The latest in Medicare/Medicaid compliance and what it means for your practice.</p>
 				</article>
 			</div>
 		</div>
