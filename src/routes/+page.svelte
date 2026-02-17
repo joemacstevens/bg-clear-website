@@ -14,9 +14,6 @@
 	import capTech from '$lib/assets/visuals/cap-tech.png';
 	import processWide from '$lib/assets/visuals/process-wide.png';
 	import heroWide from '$lib/assets/visuals/hero-wide-photo-wheelchair-v2-productforward.jpg';
-	import capStackCompliance from '$lib/assets/visuals/cap-stack-compliance-2-macro.jpg';
-	import capStackFulfillment from '$lib/assets/visuals/cap-stack-fulfillment-3-macro.jpg';
-	import capStackSupport from '$lib/assets/visuals/cap-stack-support-4-macro.jpg';
 	import iconPrimaryCare from '$lib/assets/visuals/icon-primary-care.png';
 	import iconSpecialty from '$lib/assets/visuals/icon-specialty.png';
 	import iconHospital from '$lib/assets/visuals/icon-hospital.png';
@@ -310,15 +307,6 @@
 		}
 	}
 
-	/* Capability visual images */
-	.cap-visual-img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		position: absolute;
-		inset: 0;
-	}
-
 	/* Provider grid */
 	.provider-grid {
 		display: grid;
@@ -366,116 +354,6 @@
 		.provider-icon {
 			width: 56px;
 			height: 56px;
-		}
-	}
-
-	/* Capabilities sticky stack (premium full-bleed tiles) */
-	.cap-stack-wrap {
-		margin-top: var(--space-6);
-	}
-
-	/* Separator between "What we do" and Capabilities stack */
-	.section-capabilities {
-		position: relative;
-		padding-top: calc(var(--section-padding) * 0.65);
-	}
-	.section-capabilities::before {
-		content: '';
-		position: absolute;
-		left: 50%;
-		top: 0;
-		transform: translateX(-50%);
-		width: min(1240px, calc(100% - 3rem));
-		height: 1px;
-		background: color-mix(in srgb, var(--color-border), transparent 20%);
-	}
-	.cap-stack-intro {
-		padding: 0 0 var(--space-5);
-	}
-
-	.cap-stack {
-		/* Full-bleed inside a container page */
-		margin-left: calc(-50vw + 50%);
-		margin-right: calc(-50vw + 50%);
-		width: 100vw;
-		/* Create enough scroll room for sticky stacking */
-		padding-bottom: var(--space-6);
-	}
-
-	.cap-stack-item {
-		position: sticky;
-		/* Account for the fixed header */
-		top: 92px;
-		min-height: calc(100vh - 92px);
-		display: flex;
-		align-items: flex-end;
-		justify-content: stretch;
-		isolation: isolate;
-		z-index: var(--cap-z, 1);
-		border-radius: 0;
-		overflow: hidden;
-		background: #0b1220;
-	}
-
-	.cap-stack-item + .cap-stack-item {
-		/* Less separation = quicker, more dynamic transitions */
-		margin-top: 4vh;
-	}
-
-	.cap-stack-bg {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		/* Avoid awkward cropping: allow per-tile focal point overrides */
-		object-position: var(--cap-pos, 50% 35%);
-		z-index: -2;
-	}
-
-	.cap-stack-overlay {
-		position: absolute;
-		inset: 0;
-		z-index: -1;
-		/* Keep it clean: the text card already has its own background */
-		background: linear-gradient(180deg, rgba(11,18,32,0.06) 0%, rgba(11,18,32,0.14) 100%);
-	}
-
-	.cap-stack-inner {
-		width: 100%;
-		padding-bottom: var(--space-6);
-	}
-
-	.cap-stack-card {
-		max-width: clamp(560px, 44vw, 760px);
-		padding: clamp(1.75rem, 3vw, 3rem);
-		background: rgba(255, 255, 255, 0.92);
-		border: 1px solid rgba(0, 43, 74, 0.12);
-		border-radius: var(--radius-lg);
-		box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
-		backdrop-filter: blur(6px);
-	}
-
-	.cap-stack-card h3 {
-		font-size: clamp(1.4rem, 2.4vw, 2rem);
-		margin: 0 0 var(--space-2);
-	}
-
-	.cap-stack-card .subhead {
-		margin: 0;
-		max-width: 60ch;
-	}
-
-	@media (max-width: 900px) {
-		.cap-stack-item {
-			top: 76px;
-			min-height: calc(100vh - 76px);
-		}
-		.cap-stack-overlay {
-			background: linear-gradient(180deg, rgba(11,18,32,0.04) 0%, rgba(11,18,32,0.12) 100%);
-		}
-		.cap-stack-card {
-			max-width: min(760px, 100%);
 		}
 	}
 
@@ -662,58 +540,6 @@
 		</div>
 	</section>
 
-	<section class="section section-capabilities" id="capabilities">
-		<div class="cap-stack-wrap">
-			<div class="cap-stack-intro">
-				<div class="container">
-					<p class="eyebrow">Why BG Clear</p>
-					<h2>Why BG Clear — built for compliance, speed, and real support.</h2>
-					<p>
-						Scroll to see what makes us different: compliance-first processes, reliable fulfillment, and specialists who actually answer.
-					</p>
-				</div>
-			</div>
-
-			<div class="cap-stack">
-				<!-- z-index increases as you scroll so the next card can cover the previous -->
-				<section class="cap-stack-item" style="--cap-z: 1; --cap-pos: 50% 40%">
-					<img class="cap-stack-bg" src={capStackCompliance} alt="" loading="lazy" />
-					<div class="cap-stack-overlay" aria-hidden="true"></div>
-					<div class="container cap-stack-inner">
-						<div class="cap-stack-card">
-							<p class="eyebrow">Compliance</p>
-							<h3>Compliant by default.</h3>
-							<p class="subhead">Documentation, sourcing standards, and process rigor that keeps your team moving fast without cutting corners.</p>
-						</div>
-					</div>
-				</section>
-
-				<section class="cap-stack-item" style="--cap-z: 2; --cap-pos: 68% 18%">
-					<img class="cap-stack-bg" src={capStackFulfillment} alt="" loading="lazy" />
-					<div class="cap-stack-overlay" aria-hidden="true"></div>
-					<div class="container cap-stack-inner">
-						<div class="cap-stack-card">
-							<p class="eyebrow">Fulfillment</p>
-							<h3>Fast, reliable distribution.</h3>
-							<p class="subhead">Consistent inventory, clean logistics, and dependable turnaround so your patients get what they need without delays.</p>
-						</div>
-					</div>
-				</section>
-
-				<section class="cap-stack-item" style="--cap-z: 3; --cap-pos: 50% 32%">
-					<img class="cap-stack-bg" src={capStackSupport} alt="" loading="lazy" />
-					<div class="cap-stack-overlay" aria-hidden="true"></div>
-					<div class="container cap-stack-inner">
-						<div class="cap-stack-card">
-							<p class="eyebrow">Support</p>
-							<h3>Real people when you call.</h3>
-							<p class="subhead">Dedicated specialists who answer the phone, troubleshoot fast, and make sure the equipment fits the workflow.</p>
-						</div>
-					</div>
-				</section>
-			</div>
-		</div>
-	</section>
 
 	<section class="section">
 		<div class="container">
