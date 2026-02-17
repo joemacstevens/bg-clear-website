@@ -776,26 +776,16 @@ html {
 }
 
 .header-logo {
-	/* ~60% bigger than prior clamp(36px, 3vw, 48px) */
-	height: clamp(60px, 5vw, 80px);
+	height: clamp(52px, 4.5vw, 72px);
 	width: auto;
 	flex: 0 0 auto;
-	opacity: 0;
-	transform: translateY(-4px);
-	transition: opacity 200ms ease, transform 200ms ease;
-}
-
-.header-logo.is-visible {
 	opacity: 1;
-	transform: translateY(0);
+	transform: none;
 }
 
-/* On mobile, always show the nav logo (hero logo is below the fold) */
 @media (max-width: 900px) {
 	.header-logo {
-		opacity: 1;
-		transform: translateY(0);
-		height: 52px;
+		height: 48px;
 	}
 }
 

@@ -34,39 +34,17 @@
 	type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
 	let scrolled = false;
-	let heroPassed = false;
 
 	onMount(() => {
-		const heroEl = document.querySelector('.hero') as HTMLElement | null;
-		let heroTop = 0;
-		let heroHeight = 0;
-		let heroTrigger = 0;
-
-		const computeHeroMetrics = () => {
-			if (!heroEl) return;
-			const rect = heroEl.getBoundingClientRect();
-			// rect.top is viewport-relative; add scrollY to convert to document coords.
-			heroTop = window.scrollY + rect.top;
-			heroHeight = rect.height;
-			// Show nav logo once we've scrolled ~25% into the hero.
-			heroTrigger = heroTop + heroHeight * 0.25;
-		};
-
-		computeHeroMetrics();
-
 		const handleScroll = () => {
 			scrolled = window.scrollY > 20;
-			// Show the nav logo once the user is ~25% past the hero top.
-			heroPassed = window.scrollY > heroTrigger;
 		};
 
 		window.addEventListener('scroll', handleScroll, { passive: true });
-		window.addEventListener('resize', computeHeroMetrics, { passive: true });
 		handleScroll();
 
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
-			window.removeEventListener('resize', computeHeroMetrics);
 		};
 	});
 
@@ -125,71 +103,6 @@
 </script>
 
 <style>
-	.brand-lockup {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin-bottom: var(--space-1, 0.5rem);
-	}
-	@media (max-width: 480px) {
-		.brand-lockup {
-			margin-bottom: 0.25rem;
-		}
-	}
-
-	/* Circular-text logo wrapper */
-	.logo-arc-wrap {
-		position: relative;
-		width: 340px;
-		height: 340px;
-		flex-shrink: 0;
-	}
-	.logo-arc-svg {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-	}
-	.arc-text {
-		font-family: var(--font-heading, 'Montserrat', sans-serif);
-		font-size: 14px;
-		font-weight: 600;
-		fill: var(--color-primary, #1e3a5f);
-		letter-spacing: 0.04em;
-	}
-	.brand-logo {
-		position: absolute;
-		top: 52%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		height: 180px;
-		width: auto;
-		object-fit: contain;
-		filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.12));
-	}
-
-	@media (min-width: 1024px) {
-		.logo-arc-wrap {
-			width: clamp(340px, 24vw, 420px);
-			height: clamp(340px, 24vw, 420px);
-		}
-		.brand-logo {
-			height: clamp(180px, 12vw, 220px);
-		}
-	}
-	@media (max-width: 640px) {
-		.logo-arc-wrap {
-			width: 280px;
-			height: 280px;
-		}
-		.arc-text {
-			font-size: 12.5px;
-		}
-		.brand-logo {
-			height: 140px;
-		}
-	}
-
 	/* Product cards with image headers */
 	.product-card {
 		overflow: hidden;
@@ -388,19 +301,6 @@
 		.hero-shell--wide .hero-content .subhead {
 			font-size: 1rem;
 			margin-bottom: var(--space-3);
-		}
-		.brand-lockup {
-			margin-bottom: 0.25rem;
-		}
-		.logo-arc-wrap {
-			width: 300px;
-			height: 300px;
-		}
-		.brand-logo {
-			height: 160px;
-		}
-		.arc-text {
-			font-size: 13px;
 		}
 	}
 
@@ -624,7 +524,7 @@
 <!-- Navigation Header -->
 <header class="site-header" class:scrolled>
 	<div class="container header-inner">
-		<img class="header-logo" class:is-visible={heroPassed} src={logo} alt="BG Clear" />
+		<img class="header-logo is-visible" src={logo} alt="BG Clear" />
 		<nav class="header-nav">
 			<a href="#capabilities">Capabilities</a>
 			<a href="#products">Products</a>
@@ -649,23 +549,7 @@
 			<div class="hero-shell hero-shell--wide">
 				<img class="hero-bg-img" src={heroWide} alt="" />
 				<div class="hero-content">
-					<div class="brand-lockup" aria-label="BG Clear — A Tech-Forward DME &amp; HME Distribution and Wholesale Company">
-						<div class="logo-arc-wrap">
-							<svg class="logo-arc-svg" viewBox="0 0 300 300" aria-hidden="true">
-								<defs>
-									<!-- Arc from ~7-o'clock clockwise up and around to ~5-o'clock, r=120 for tighter fit -->
-									<path id="arc-full"
-										d="M 65,228
-										   A 120,120 0 1,1 235,228"
-										fill="none" />
-								</defs>
-								<text class="arc-text">
-									<textPath href="#arc-full" startOffset="50%" text-anchor="middle">A Tech-Forward DME &amp; HME Distribution and Wholesale Company</textPath>
-								</text>
-							</svg>
-							<img class="brand-logo" src={logo} alt="BG Clear" />
-						</div>
-					</div>
+					<p class="eyebrow">A Tech-Forward DME &amp; HME Distribution and Wholesale Company</p>
 					<h1>Real People Who Answer the Phone</h1>
 					<p class="subhead">
 						Fast, compliant DME access for providers and care partners.
