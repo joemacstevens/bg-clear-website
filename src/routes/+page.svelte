@@ -125,6 +125,13 @@
 	}
 	.product-card-body {
 		padding: var(--space-4);
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+	}
+	.product-card-btn {
+		margin-top: auto;
+		align-self: flex-start;
 	}
 
 	/* Hero enhancements */
@@ -584,6 +591,7 @@
 							<li>Telehealth-enabled RPM devices</li>
 							<li>Thermometers (infrared &amp; digital)</li>
 						</ul>
+						<a class="button button-primary product-card-btn" href="#request-call">Learn More</a>
 					</div>
 				</article>
 				<article class="capability-card product-card">
@@ -600,6 +608,7 @@
 							<li>Bathroom safety (grab bars, shower chairs)</li>
 							<li>Fall prevention devices</li>
 						</ul>
+						<a class="button button-primary product-card-btn" href="#request-call">Learn More</a>
 					</div>
 				</article>
 				<article class="capability-card product-card">
@@ -615,6 +624,7 @@
 							<li>Wound care devices</li>
 							<li>Compression therapy equipment</li>
 						</ul>
+						<a class="button button-primary product-card-btn" href="#request-call">Learn More</a>
 					</div>
 				</article>
 			</div>
