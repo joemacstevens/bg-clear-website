@@ -821,18 +821,33 @@ html {
 	gap: var(--space-3);
 }
 
-.header-phone {
-	font-size: 0.925rem;
-	font-weight: 600;
-	color: var(--color-primary);
+.header-icon-buttons {
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
 }
 
-.header-phone svg {
-	width: 18px;
-	height: 18px;
+.header-icon-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	border: 1px solid var(--color-border);
+	color: var(--color-primary);
+	transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.header-icon-btn:hover {
+	background: var(--color-primary);
+	border-color: var(--color-primary);
+	color: #ffffff;
+}
+
+.header-icon-btn svg {
+	width: 16px;
+	height: 16px;
 }
 
 .button-header {
