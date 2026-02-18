@@ -19,8 +19,8 @@
 	--color-border-subtle: #f1f5f9;
 	--color-primary: #1e3a5f;
 	--color-primary-dark: #0f2744;
-	--color-accent: #0d9488;
-	--color-accent-light: #ccfbf1;
+	--color-accent: #d4a234;
+	--color-accent-light: #fdf3dc;
 	--color-gold: #d4a234;
 	--color-gold-light: #f5e6c4;
 
@@ -355,11 +355,11 @@ main {
 }
 
 .cap-visual--fulfillment {
-	background: linear-gradient(135deg, #0d9488 0%, #0a7569 100%);
+	background: linear-gradient(135deg, #d4a234 0%, #b8882a 100%);
 }
 
 .cap-visual--tech {
-	background: linear-gradient(135deg, #1e3a5f 0%, #0d9488 100%);
+	background: linear-gradient(135deg, #1e3a5f 0%, #d4a234 100%);
 }
 
 .cap-visual-label {
