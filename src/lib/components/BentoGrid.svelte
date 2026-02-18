@@ -324,7 +324,13 @@
 
 	.bento-tile--has-bg.bento-tile--gold,
 	.bento-tile--has-bg.bento-tile--navy {
-		color: #fff;
+		color: #ffffff !important;
+	}
+
+	.bento-tile--has-bg .bento-tile__label,
+	.bento-tile--has-bg .bento-tile__subtitle,
+	.bento-tile--has-bg .bento-tile__arrow {
+		color: #ffffff !important;
 	}
 
 	.bento-tile__subtitle {
