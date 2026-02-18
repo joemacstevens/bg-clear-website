@@ -295,103 +295,90 @@
 		margin: 0;
 	}
 
-	/* Right side: hexagon honeycomb cluster */
+	/* Right side: photo circles + hex wireframe grid */
 	.hero-visual {
 		position: absolute;
-		right: 5%;
-		top: 50%;
-		transform: translateY(-50%) rotate(2deg);
-		z-index: 1;
-		pointer-events: none;
-	}
-	.hero-glow {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: 500px;
-		height: 500px;
-		background: radial-gradient(circle, rgba(212, 162, 52, 0.18) 0%, transparent 70%);
-		pointer-events: none;
-	}
-
-	/* Honeycomb 2-3-2 layout */
-	.hex-grid {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-	.hex-row {
-		display: flex;
-		gap: 8px;
-	}
-	.hex-row-mid {
-		display: flex;
-		gap: 8px;
-		margin-top: -40px;
-		margin-left: -84px; /* offset left by half hex width */
-	}
-
-	/* Individual hexagon */
-	.hex {
-		width: 160px;
-		height: 160px;
-		clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-		position: relative;
-		opacity: 0;
-		animation: hexFadeIn 0.5s ease forwards, hexFloat 6s ease-in-out infinite;
-		pointer-events: auto;
-		cursor: default;
-		transition: transform 300ms ease, filter 300ms ease;
-		flex-shrink: 0;
-	}
-	.hex:hover {
-		transform: scale(1.05);
-		filter: drop-shadow(0 0 16px rgba(212, 162, 52, 0.5));
-	}
-	.hex img {
-		width: 100%;
+		right: 0;
+		top: 0;
+		width: 55%;
 		height: 100%;
-		object-fit: cover;
-		clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-		display: block;
+		overflow: visible;
+		pointer-events: none;
 	}
 
-	/* Gold accent hex */
-	.hex-accent {
+	/* Layer 1: Hex wireframe grid background */
+	.hex-wireframe {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		animation: hexDrift 20s ease-in-out infinite alternate;
+	}
+	@keyframes hexDrift {
+		0%   { transform: translate(0, 0); }
+		100% { transform: translate(20px, 20px); }
+	}
+
+	/* Layer 2: Gold accent blocks */
+	.gold-block {
+		position: absolute;
 		background: #d4a234;
-		opacity: 0;
-		animation: hexFadeIn 0.5s ease forwards, hexFloat 6s ease-in-out infinite;
+		z-index: 2;
+	}
+	.gold-block-1 {
+		width: 120px;
+		height: 100px;
+		border-radius: 12px;
+		opacity: 0.7;
+		top: 12%;
+		right: 8%;
+	}
+	.gold-block-2 {
+		width: 80px;
+		height: 80px;
+		border-radius: 12px;
+		opacity: 0.5;
+		bottom: 18%;
+		right: 6%;
 	}
 
-	/* Navy hex with cross icon */
-	.hex-navy {
-		background: #0f2744;
-		opacity: 0;
-		animation: hexFadeIn 0.5s ease forwards, hexFloat 6s ease-in-out infinite;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+	/* Layer 3: Photo shapes */
+	.hero-photo {
+		position: absolute;
+		z-index: 3;
+		object-fit: cover;
+		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+		animation: photoFloat 6s ease-in-out infinite;
 	}
-	.hex-navy svg {
-		width: 44px;
-		height: 44px;
+	.hero-photo-1 {
+		width: 280px;
+		height: 280px;
+		border-radius: 50%;
+		border: 4px solid rgba(212, 162, 52, 0.6);
+		top: 8%;
+		right: 5%;
+		animation-delay: 0s;
 	}
-
-	@keyframes hexFadeIn {
-		from { opacity: 0; transform: scale(0.85) translateY(20px); }
-		to   { opacity: 1; transform: scale(1) translateY(0); }
+	.hero-photo-2 {
+		width: 260px;
+		height: 200px;
+		border-radius: 20px;
+		border: 4px solid rgba(212, 162, 52, 0.4);
+		top: 38%;
+		left: 10%;
+		animation-delay: -2s;
 	}
-	@keyframes hexFloat {
+	.hero-photo-3 {
+		width: 220px;
+		height: 220px;
+		border-radius: 50%;
+		border: 4px solid rgba(212, 162, 52, 0.5);
+		bottom: 8%;
+		right: 10%;
+		animation-delay: -4s;
+	}
+	@keyframes photoFloat {
 		0%, 100% { transform: translateY(0); }
-		50%      { transform: translateY(8px); }
-	}
-
-	/* Row 3 has same offset as row 1 */
-	.hex-row-bottom {
-		display: flex;
-		gap: 8px;
-		margin-top: -40px;
+		50%      { transform: translateY(10px); }
 	}
 
 	/* Responsive: tablet */
@@ -416,17 +403,8 @@
 			text-align: center;
 		}
 		.hero-visual {
-			position: relative;
-			right: auto;
-			top: auto;
-			transform: none;
-			display: flex;
-			justify-content: center;
-			margin: 1.5rem auto 0;
-			opacity: 1;
-		}
-		.hero-glow {
-			display: none;
+			opacity: 0.3;
+			width: 100%;
 		}
 		.hero-content {
 			z-index: 2;
@@ -435,28 +413,10 @@
 			font-size: clamp(2rem, 7vw, 2.75rem);
 		}
 	}
-	/* Mobile: show only 3 hexagons in a single row */
+	/* Mobile: hide visual or show as faint background */
 	@media (max-width: 768px) {
 		.hero-visual {
-			position: relative;
-			right: auto;
-			top: auto;
-			transform: none;
-			display: flex;
-			justify-content: center;
-			margin: 1rem auto 0;
-		}
-		.hex-row,
-		.hex-row-bottom {
 			display: none;
-		}
-		.hex-row-mid {
-			margin-top: 0;
-			margin-left: 0;
-		}
-		.hex {
-			width: 100px;
-			height: 100px;
 		}
 	}
 	@media (max-width: 480px) {
@@ -466,10 +426,6 @@
 		.hero-ctas {
 			flex-direction: column;
 			align-items: center;
-		}
-		.hex {
-			width: 85px;
-			height: 85px;
 		}
 	}
 
@@ -597,45 +553,27 @@
 			<p class="hero-trust-note">No obligation · Most inquiries answered within 4 hours</p>
 		</div>
 
-		<!-- Right: honeycomb hexagon cluster (2-3-2 pattern) -->
+		<!-- Right: photo circles + gold hex wireframe grid -->
 		<div class="hero-visual">
-			<div class="hero-glow"></div>
+			<!-- Layer 1: Hex wireframe grid -->
+			<svg class="hex-wireframe" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+				<defs>
+					<pattern id="hexGrid" width="80" height="138.56" patternUnits="userSpaceOnUse" patternTransform="translate(0,0)">
+						<polygon points="40,0 80,23.09 80,69.28 40,92.38 0,69.28 0,23.09" fill="none" stroke="#d4a234" stroke-width="1" opacity="0.15"/>
+						<polygon points="80,46.19 120,69.28 120,115.47 80,138.56 40,115.47 40,69.28" fill="none" stroke="#d4a234" stroke-width="1" opacity="0.15"/>
+					</pattern>
+				</defs>
+				<rect width="100%" height="100%" fill="url(#hexGrid)" />
+			</svg>
 
-			<div class="hex-grid">
-				<!-- Row 1: 2 photo hexagons -->
-				<div class="hex-row">
-					<div class="hex" style="animation-delay: 0s, 0s;">
-						<img src="/generated-photos/hero-technician.png" alt="DME technician" />
-					</div>
-					<div class="hex" style="animation-delay: 0.15s, 1s;">
-						<img src="/generated-photos/hero-products.png" alt="Medical equipment" />
-					</div>
-				</div>
+			<!-- Layer 2: Gold accent blocks -->
+			<div class="gold-block gold-block-1"></div>
+			<div class="gold-block gold-block-2"></div>
 
-				<!-- Row 2: 3 hexagons (offset left) — photo, gold accent, photo -->
-				<div class="hex-row-mid">
-					<div class="hex" style="animation-delay: 0.3s, 2s;">
-						<img src="/generated-photos/hero-delivery.png" alt="DME delivery" />
-					</div>
-					<div class="hex hex-accent" style="animation-delay: 0.45s, 0.5s; opacity: 0.85;"></div>
-					<div class="hex" style="animation-delay: 0.6s, 3s;">
-						<img src="/generated-photos/hex-walker.png" alt="Walker equipment" />
-					</div>
-				</div>
-
-				<!-- Row 3: 2 hexagons — photo, navy+cross -->
-				<div class="hex-row-bottom">
-					<div class="hex" style="animation-delay: 0.75s, 1.5s;">
-						<img src="/generated-photos/hex-cpap.png" alt="CPAP equipment" />
-					</div>
-					<div class="hex hex-navy" style="animation-delay: 0.9s, 2.5s;">
-						<svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<rect x="18" y="4" width="8" height="36" rx="2" fill="#d4a234"/>
-							<rect x="4" y="18" width="36" height="8" rx="2" fill="#d4a234"/>
-						</svg>
-					</div>
-				</div>
-			</div>
+			<!-- Layer 3: Photo shapes -->
+			<img class="hero-photo hero-photo-1" src="/generated-photos/hero-technician.png" alt="DME technician" />
+			<img class="hero-photo hero-photo-2" src="/generated-photos/hero-products.png" alt="Medical equipment" />
+			<img class="hero-photo hero-photo-3" src="/generated-photos/hero-delivery.png" alt="DME delivery" />
 		</div>
 	</section>
 
