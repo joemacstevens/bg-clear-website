@@ -295,7 +295,7 @@
 		margin: 0;
 	}
 
-	/* Right side: animated composition */
+	/* Right side: photo collage composition */
 	.hero-visual {
 		position: absolute;
 		right: 0;
@@ -316,52 +316,117 @@
 		background: radial-gradient(circle, rgba(212, 162, 52, 0.22) 0%, transparent 70%);
 		pointer-events: none;
 	}
-	.hero-shapes {
+
+	/* Gold accent blocks behind photos */
+	.collage-accent {
 		position: absolute;
-		inset: 0;
+		background: #d4a234;
+		opacity: 0.8;
+		border-radius: 4px;
+	}
+	.accent-block-1 {
+		width: 120px;
+		height: 180px;
+		top: 12%;
+		right: 8%;
+		transform: rotate(-6deg);
+	}
+	.accent-block-2 {
+		width: 80px;
+		height: 100px;
+		top: 52%;
+		left: 18%;
+		transform: rotate(4deg);
+	}
+	.accent-block-3 {
+		width: 60px;
+		height: 60px;
+		bottom: 18%;
+		right: 28%;
+		transform: rotate(12deg);
+	}
+
+	/* Decorative gold cross */
+	.collage-cross {
+		position: absolute;
+		top: 38%;
+		left: 10%;
+		width: 80px;
+		height: 80px;
+		opacity: 0.25;
+	}
+	.collage-cross::before,
+	.collage-cross::after {
+		content: '';
+		position: absolute;
+		background: #d4a234;
+		border-radius: 2px;
+	}
+	.collage-cross::before {
+		top: 50%;
+		left: 0;
+		width: 100%;
+		height: 16px;
+		transform: translateY(-50%);
+	}
+	.collage-cross::after {
+		left: 50%;
+		top: 0;
+		width: 16px;
+		height: 100%;
+		transform: translateX(-50%);
+	}
+
+	/* Photo collage items */
+	.collage-photo {
+		position: absolute;
+		overflow: hidden;
+		will-change: transform;
+	}
+	.collage-photo img {
 		width: 100%;
 		height: 100%;
-		overflow: visible;
+		object-fit: cover;
+		display: block;
 	}
 
-	/* Floating shape animations */
-	@keyframes float1 {
-		0%, 100% { transform: translateY(0) rotate(0deg); }
-		50% { transform: translateY(-30px) rotate(8deg); }
-	}
-	@keyframes float2 {
-		0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
-		50% { transform: translateY(20px) rotate(-6deg) scale(1.05); }
-	}
-	@keyframes float3 {
-		0%, 100% { transform: translateY(0) rotate(0deg); }
-		33% { transform: translateY(-20px) rotate(5deg); }
-		66% { transform: translateY(10px) rotate(-3deg); }
-	}
-	@keyframes float4 {
-		0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
-		50% { transform: translateY(-15px) rotate(-12deg) scale(0.97); }
-	}
-	@keyframes float5 {
-		0%, 100% { transform: translateY(0) rotate(0deg); }
-		50% { transform: translateY(25px) rotate(12deg); }
-	}
-	@keyframes floatSlow {
-		0%, 100% { transform: translateY(0) rotate(0deg); }
-		50% { transform: translateY(-12px) rotate(4deg); }
+	/* Large circle — technician (top-right) */
+	.collage-circle-lg {
+		width: clamp(240px, 22vw, 340px);
+		height: clamp(240px, 22vw, 340px);
+		border-radius: 50%;
+		top: 8%;
+		right: 6%;
+		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+		animation: collageFloat 6s ease-in-out infinite;
 	}
 
-	.shape { will-change: transform; }
-	.shape-1 { animation: float1 18s ease-in-out infinite; }
-	.shape-2 { animation: float2 22s ease-in-out infinite; }
-	.shape-3 { animation: float3 25s ease-in-out infinite; }
-	.shape-4 { animation: float4 20s ease-in-out infinite; }
-	.shape-5 { animation: float5 28s ease-in-out infinite; }
-	.shape-6 { animation: floatSlow 30s ease-in-out infinite; }
-	.shape-7 { animation: float1 24s ease-in-out infinite; }
-	.shape-8 { animation: float2 16s ease-in-out infinite; }
-	.shape-9 { animation: float3 26s ease-in-out infinite; }
-	.shape-10 { animation: float4 15s ease-in-out infinite; }
+	/* Medium rounded rectangle — products (middle-right, overlapping) */
+	.collage-rect-md {
+		width: clamp(200px, 18vw, 280px);
+		height: clamp(150px, 14vw, 210px);
+		border-radius: 16px;
+		top: 44%;
+		left: 14%;
+		box-shadow: 0 10px 32px rgba(0, 0, 0, 0.3);
+		animation: collageFloat 6s ease-in-out 2s infinite;
+	}
+
+	/* Small circle — delivery (bottom, overlapping) */
+	.collage-circle-sm {
+		width: clamp(160px, 14vw, 220px);
+		height: clamp(160px, 14vw, 220px);
+		border-radius: 50%;
+		bottom: 10%;
+		right: 20%;
+		box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
+		animation: collageFloat 6s ease-in-out 4s infinite;
+	}
+
+	@keyframes collageFloat {
+		0%, 100% { transform: translateY(0); }
+		50% { transform: translateY(-10px); }
+	}
 
 	/* Responsive: mobile */
 	@media (max-width: 900px) {
@@ -391,7 +456,7 @@
 			top: 0;
 			width: 100%;
 			height: 100%;
-			opacity: 0.3;
+			opacity: 0.25;
 			z-index: 0;
 		}
 		.hero-content {
@@ -399,6 +464,23 @@
 		}
 		.hero h1 {
 			font-size: clamp(2rem, 7vw, 2.75rem);
+		}
+		/* Hide smaller photos on mobile, show only main circle */
+		.collage-rect-md,
+		.collage-circle-sm {
+			display: none;
+		}
+		.collage-circle-lg {
+			width: 280px;
+			height: 280px;
+			top: 50%;
+			left: 50%;
+			right: auto;
+			transform: translate(-50%, -50%);
+		}
+		.collage-accent,
+		.collage-cross {
+			display: none;
 		}
 	}
 	@media (max-width: 480px) {
@@ -535,65 +617,32 @@
 			<p class="hero-trust-note">No obligation · Most inquiries answered within 4 hours</p>
 		</div>
 
-		<!-- Right: animated geometric composition -->
+		<!-- Right: photo collage composition -->
 		<div class="hero-visual">
 			<div class="hero-glow"></div>
-			<svg class="hero-shapes" viewBox="0 0 600 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
 
-				<!-- 1. Large gold FILLED cross — 150px wide, slowly rotating -->
-				<g class="shape shape-1" transform="translate(350, 200)">
-					<path d="M-25,-75 L25,-75 L25,-25 L75,-25 L75,25 L25,25 L25,75 L-25,75 L-25,25 L-75,25 L-75,-25 L-25,-25 Z" fill="#d4a234" opacity="0.3"/>
-				</g>
+			<!-- Gold accent blocks behind photos for depth -->
+			<div class="collage-accent accent-block-1"></div>
+			<div class="collage-accent accent-block-2"></div>
+			<div class="collage-accent accent-block-3"></div>
 
-				<!-- 2. Big gold circle ring — 120px diameter, floating -->
-				<g class="shape shape-2" transform="translate(180, 350)">
-					<circle cx="0" cy="0" r="60" fill="none" stroke="#d4a234" stroke-width="3" opacity="0.25"/>
-				</g>
+			<!-- Decorative gold cross peeking behind photos -->
+			<div class="collage-cross"></div>
 
-				<!-- 3. Cluster of gold dots — scattered, drifting -->
-				<circle class="shape shape-3" cx="450" cy="420" r="12" fill="#d4a234" opacity="0.4"/>
-				<circle class="shape shape-8" cx="490" cy="380" r="8" fill="#d4a234" opacity="0.35"/>
-				<circle class="shape shape-10" cx="420" cy="390" r="15" fill="#d4a234" opacity="0.3"/>
-				<circle class="shape shape-5" cx="470" cy="450" r="10" fill="#d4a234" opacity="0.4"/>
+			<!-- Large circle — technician photo -->
+			<div class="collage-photo collage-circle-lg">
+				<img src="/generated-photos/hero-technician.png" alt="DME technician assisting with wheelchair" />
+			</div>
 
-				<!-- 4. Large white cross outline — ~100px, rotating opposite -->
-				<g class="shape shape-4" transform="translate(500, 150)">
-					<path d="M-15,-50 L15,-50 L15,-15 L50,-15 L50,15 L15,15 L15,50 L-15,50 L-15,15 L-50,15 L-50,-15 L-15,-15 Z" fill="none" stroke="#ffffff" stroke-width="2.5" opacity="0.15"/>
-				</g>
+			<!-- Medium rounded rectangle — products photo -->
+			<div class="collage-photo collage-rect-md">
+				<img src="/generated-photos/hero-products.png" alt="Medical equipment and products" />
+			</div>
 
-				<!-- 5. Bold swoosh/arc curve — gold -->
-				<g class="shape shape-5" transform="translate(280, 560)">
-					<path d="M-100,30 Q-40,-60 60,-40 Q140,-20 100,40" fill="none" stroke="#d4a234" stroke-width="4" stroke-linecap="round" opacity="0.35"/>
-				</g>
-
-				<!-- 6. Wheelchair silhouette — BIG ~100px, white -->
-				<g class="shape shape-6" transform="translate(420, 280)" opacity="0.12">
-					<circle cx="-30" cy="35" r="22" fill="none" stroke="#ffffff" stroke-width="3"/>
-					<circle cx="30" cy="35" r="22" fill="none" stroke="#ffffff" stroke-width="3"/>
-					<path d="M-30,-45 L-30,0 L20,0 L35,35 L50,35" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-					<path d="M-42,-45 L-18,-45" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
-				</g>
-
-				<!-- 7. Diagonal gold lines — subtle grid pattern -->
-				<g class="shape shape-7" opacity="0.2">
-					<line x1="50" y1="0" x2="250" y2="200" stroke="#d4a234" stroke-width="1.5"/>
-					<line x1="100" y1="0" x2="300" y2="200" stroke="#d4a234" stroke-width="1.5"/>
-					<line x1="150" y1="0" x2="350" y2="200" stroke="#d4a234" stroke-width="1"/>
-					<line x1="350" y1="500" x2="550" y2="700" stroke="#d4a234" stroke-width="1.5"/>
-					<line x1="400" y1="500" x2="600" y2="700" stroke="#d4a234" stroke-width="1"/>
-				</g>
-
-				<!-- Extra accent dots -->
-				<circle class="shape shape-9" cx="130" cy="520" r="6" fill="#d4a234" opacity="0.35"/>
-				<circle class="shape shape-10" cx="540" cy="600" r="9" fill="#d4a234" opacity="0.3"/>
-				<circle class="shape shape-3" cx="300" cy="120" r="5" fill="#ffffff" opacity="0.2"/>
-
-				<!-- Second swoosh near top -->
-				<g class="shape shape-9" transform="translate(480, 550)">
-					<path d="M-70,20 Q-20,-40 50,-25 Q100,-10 80,30" fill="none" stroke="#d4a234" stroke-width="3" stroke-linecap="round" opacity="0.25"/>
-				</g>
-
-			</svg>
+			<!-- Small circle — delivery photo -->
+			<div class="collage-photo collage-circle-sm">
+				<img src="/generated-photos/hero-delivery.png" alt="Equipment delivery at healthcare clinic" />
+			</div>
 		</div>
 	</section>
 
