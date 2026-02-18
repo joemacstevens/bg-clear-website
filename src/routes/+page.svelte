@@ -531,53 +531,53 @@
 		<!-- Right: animated geometric composition -->
 		<div class="hero-visual">
 			<div class="hero-glow"></div>
-			<svg class="hero-shapes" viewBox="0 0 800 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+			<svg class="hero-shapes" viewBox="0 0 600 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
 				<!-- Gold geometric shapes inspired by BG Clear cross motif -->
 
 				<!-- Large angular cross -->
 				<g class="shape shape-1" transform="translate(380, 200)">
-					<path d="M-12,-50 L12,-50 L12,-12 L50,-12 L50,12 L12,12 L12,50 L-12,50 L-12,12 L-50,12 L-50,-12 L-12,-12 Z" fill="none" stroke="#d4a234" stroke-width="2" opacity="0.5"/>
+					<path d="M-12,-50 L12,-50 L12,-12 L50,-12 L50,12 L12,12 L12,50 L-12,50 L-12,12 L-50,12 L-50,-12 L-12,-12 Z" fill="none" stroke="#d4a234" stroke-width="2" opacity="0.7"/>
 				</g>
 
 				<!-- Diamond shape -->
 				<g class="shape shape-2" transform="translate(600, 380)">
-					<path d="M0,-40 L35,0 L0,40 L-35,0 Z" fill="none" stroke="#d4a234" stroke-width="1.5" opacity="0.4"/>
+					<path d="M0,-40 L35,0 L0,40 L-35,0 Z" fill="none" stroke="#d4a234" stroke-width="1.5" opacity="0.6"/>
 				</g>
 
 				<!-- Small filled cross -->
 				<g class="shape shape-3" transform="translate(200, 500)">
-					<path d="M-6,-22 L6,-22 L6,-6 L22,-6 L22,6 L6,6 L6,22 L-6,22 L-6,6 L-22,6 L-22,-6 L-6,-6 Z" fill="#d4a234" opacity="0.25"/>
+					<path d="M-6,-22 L6,-22 L6,-6 L22,-6 L22,6 L6,6 L6,22 L-6,22 L-6,6 L-22,6 L-22,-6 L-6,-6 Z" fill="#d4a234" opacity="0.45"/>
 				</g>
 
 				<!-- Swoosh curve -->
 				<g class="shape shape-4" transform="translate(500, 600)">
-					<path d="M-60,20 Q-20,-30 40,-20 Q80,-10 60,25" fill="none" stroke="#d4a234" stroke-width="2" stroke-linecap="round" opacity="0.35"/>
+					<path d="M-60,20 Q-20,-30 40,-20 Q80,-10 60,25" fill="none" stroke="#d4a234" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
 				</g>
 
 				<!-- Small diamond -->
 				<g class="shape shape-5" transform="translate(150, 250)">
-					<path d="M0,-18 L15,0 L0,18 L-15,0 Z" fill="#d4a234" opacity="0.2"/>
+					<path d="M0,-18 L15,0 L0,18 L-15,0 Z" fill="#d4a234" opacity="0.4"/>
 				</g>
 
 				<!-- Angular cross outline (smaller) -->
 				<g class="shape shape-8" transform="translate(650, 150)">
-					<path d="M-8,-28 L8,-28 L8,-8 L28,-8 L28,8 L8,8 L8,28 L-8,28 L-8,8 L-28,8 L-28,-8 L-8,-8 Z" fill="none" stroke="#d4a234" stroke-width="1" opacity="0.3"/>
+					<path d="M-8,-28 L8,-28 L8,-8 L28,-8 L28,8 L8,8 L8,28 L-8,28 L-8,8 L-28,8 L-28,-8 L-8,-8 Z" fill="none" stroke="#d4a234" stroke-width="1" opacity="0.5"/>
 				</g>
 
 				<!-- Swoosh curve 2 -->
 				<g class="shape shape-10" transform="translate(300, 750)">
-					<path d="M-40,15 Q0,-25 50,-10 Q70,0 45,20" fill="none" stroke="#d4a234" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
+					<path d="M-40,15 Q0,-25 50,-10 Q70,0 45,20" fill="none" stroke="#d4a234" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
 				</g>
 
 				<!-- DME silhouettes — very subtle -->
 
 				<!-- Wheelchair silhouette -->
-				<g class="shape shape-6" transform="translate(480, 460)" opacity="0.1">
+				<g class="shape shape-6" transform="translate(480, 460)" opacity="0.3">
 					<path d="M-15,-25 L-15,-10 L5,-10 L15,10 L25,10 M-15,10 A12,12 0 1,0 -3,22 M10,10 A12,12 0 1,0 22,22" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 				</g>
 
 				<!-- Blood pressure cuff silhouette -->
-				<g class="shape shape-7" transform="translate(250, 150)" opacity="0.08">
+				<g class="shape shape-7" transform="translate(250, 150)" opacity="0.25">
 					<rect x="-18" y="-25" width="36" height="50" rx="6" fill="none" stroke="#d4a234" stroke-width="1.5"/>
 					<circle cx="0" cy="-2" r="12" fill="none" stroke="#d4a234" stroke-width="1"/>
 					<path d="M0,-14 L0,10" stroke="#d4a234" stroke-width="0.8"/>
@@ -585,22 +585,22 @@
 				</g>
 
 				<!-- Stethoscope silhouette -->
-				<g class="shape shape-9" transform="translate(680, 550)" opacity="0.1">
+				<g class="shape shape-9" transform="translate(680, 550)" opacity="0.3">
 					<path d="M-10,-30 Q-10,-10 0,0 Q10,-10 10,-30" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
 					<circle cx="0" cy="8" r="8" fill="none" stroke="#ffffff" stroke-width="1.5"/>
-					<circle cx="0" cy="8" r="2" fill="#ffffff" opacity="0.5"/>
+					<circle cx="0" cy="8" r="2" fill="#ffffff" opacity="0.7"/>
 				</g>
 
 				<!-- Medical cross silhouette -->
-				<g class="shape shape-5" transform="translate(100, 700)" opacity="0.12">
+				<g class="shape shape-5" transform="translate(100, 700)" opacity="0.35">
 					<path d="M-5,-18 L5,-18 L5,-5 L18,-5 L18,5 L5,5 L5,18 L-5,18 L-5,5 L-18,5 L-18,-5 L-5,-5 Z" fill="none" stroke="#ffffff" stroke-width="1.2"/>
 				</g>
 
 				<!-- Extra floating dots / accents -->
-				<circle class="shape shape-3" cx="120" cy="400" r="3" fill="#d4a234" opacity="0.3"/>
-				<circle class="shape shape-8" cx="700" cy="300" r="4" fill="#d4a234" opacity="0.2"/>
-				<circle class="shape shape-1" cx="550" cy="800" r="2.5" fill="#d4a234" opacity="0.25"/>
-				<circle class="shape shape-10" cx="350" cy="100" r="3.5" fill="#ffffff" opacity="0.1"/>
+				<circle class="shape shape-3" cx="120" cy="400" r="3" fill="#d4a234" opacity="0.5"/>
+				<circle class="shape shape-8" cx="700" cy="300" r="4" fill="#d4a234" opacity="0.4"/>
+				<circle class="shape shape-1" cx="550" cy="800" r="2.5" fill="#d4a234" opacity="0.45"/>
+				<circle class="shape shape-10" cx="350" cy="100" r="3.5" fill="#ffffff" opacity="0.3"/>
 			</svg>
 		</div>
 	</section>
