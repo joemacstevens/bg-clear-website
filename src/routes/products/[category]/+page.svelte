@@ -72,6 +72,7 @@
 	<div class="container header-inner">
 		<a href="/"><img class="header-logo" src={logo} alt="BG Clear" /></a>
 		<nav class="header-nav">
+			<a href="/about">About Us</a>
 			<a href="/#capabilities">Capabilities</a>
 			<a href="/#products">Products</a>
 			<a href="/#how-we-work">Process</a>

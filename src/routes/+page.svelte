@@ -465,6 +465,7 @@
 	<div class="container header-inner">
 		<img class="header-logo is-visible" src={logo} alt="BG Clear" />
 		<nav class="header-nav">
+			<a href="/about">About Us</a>
 			<a href="#capabilities" class:nav-active={activeSection === 'capabilities'}>Capabilities</a>
 			<a href="#products" class:nav-active={activeSection === 'products'}>Products</a>
 			<a href="#how-we-work" class:nav-active={activeSection === 'how-we-work'}>Process</a>
@@ -888,6 +889,7 @@
 				<div>
 					<h4 class="footer-heading">Company</h4>
 					<ul class="footer-links">
+						<li><a href="/about">About Us</a></li>
 						<li><a href="#capabilities">Capabilities</a></li>
 						<li><a href="#products">Products</a></li>
 						<li><a href="#how-we-work">Process</a></li>
