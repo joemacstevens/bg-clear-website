@@ -116,6 +116,98 @@
 </script>
 
 <style>
+	.brand-lockup {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: var(--space-1, 0.5rem);
+	}
+	@media (max-width: 480px) {
+		.brand-lockup {
+			margin-bottom: 0.25rem;
+		}
+	}
+
+	/* Circular-text logo wrapper */
+	.logo-arc-wrap {
+		position: relative;
+		width: 340px;
+		height: 340px;
+		flex-shrink: 0;
+	}
+	.logo-arc-svg {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+	}
+	.arc-text {
+		font-family: var(--font-heading, 'Montserrat', sans-serif);
+		font-size: 14px;
+		font-weight: 600;
+		fill: var(--color-primary, #1e3a5f);
+		letter-spacing: 0.04em;
+	}
+	.brand-logo {
+		position: absolute;
+		top: 52%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		height: 180px;
+		width: auto;
+		object-fit: contain;
+		filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.12));
+	}
+
+	@media (min-width: 1024px) {
+		.logo-arc-wrap {
+			width: clamp(340px, 24vw, 420px);
+			height: clamp(340px, 24vw, 420px);
+		}
+		.brand-logo {
+			height: clamp(180px, 12vw, 220px);
+		}
+	}
+	@media (max-width: 640px) {
+		.logo-arc-wrap {
+			width: 240px;
+			height: 240px;
+		}
+		.arc-text {
+			font-size: 11px;
+		}
+		.brand-logo {
+			height: 125px;
+		}
+	}
+
+	/* Product cards with image headers */
+	.product-card {
+		overflow: hidden;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+	}
+	.product-card-img {
+		position: relative;
+		width: 100%;
+		height: 200px;
+		overflow: hidden;
+		background: linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%);
+	}
+	.product-card-img img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 400ms ease;
+	}
+	.product-card:hover .product-card-img img {
+		transform: scale(1.04);
+	}
+	.product-card-body {
+		padding: var(--space-4);
+	}
+
 	/* Hero enhancements */
 	.hero {
 		padding-top: clamp(7rem, 14vw, 10rem);
@@ -275,6 +367,7 @@
 			max-width: 760px;
 			margin: 0 auto;
 			padding: var(--space-3) var(--space-3);
+			padding-top: 0;
 			background: rgba(255, 255, 255, 0.98);
 			border-radius: 0;
 			box-shadow: none;
@@ -287,6 +380,25 @@
 		.hero-shell--wide .hero-content .subhead {
 			font-size: 1rem;
 			margin-bottom: var(--space-3);
+		}
+		/* Pull logo-arc up so it overlaps the hero image bottom edge */
+		.brand-lockup {
+			margin-top: -120px;
+			margin-bottom: 0.25rem;
+			position: relative;
+			z-index: 2;
+		}
+		.logo-arc-wrap {
+			width: 260px;
+			height: 260px;
+			background: radial-gradient(circle, rgba(255,255,255,0.95) 40%, rgba(255,255,255,0.7) 65%, transparent 72%);
+			border-radius: 50%;
+		}
+		.brand-logo {
+			height: 140px;
+		}
+		.arc-text {
+			font-size: 12px;
 		}
 	}
 
