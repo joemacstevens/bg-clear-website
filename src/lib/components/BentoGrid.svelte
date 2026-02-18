@@ -76,12 +76,23 @@
 
 	const tiles: Tile[] = [
 		claims[0],
-		{ id: 'photo-warehouse', type: 'photo', alt: 'Warehouse Photo', color: '#3a5a7f', colSpan: 1, rowSpan: 1 },
+		{ id: 'photo-warehouse', type: 'photo', alt: 'BG Clear warehouse interior', color: '#3a5a7f', colSpan: 1, rowSpan: 1 },
 		claims[1],
 		{ id: 'color-gold', type: 'color', bg: 'gold', colSpan: 1, rowSpan: 2 },
 		claims[2],
-		{ id: 'photo-team', type: 'photo', alt: 'Team Photo', color: '#2a4a6f', colSpan: 2, rowSpan: 1 },
+		{ id: 'photo-team', type: 'photo', alt: 'BG Clear team photo', color: '#2a4a6f', colSpan: 2, rowSpan: 1 },
 	];
+
+	const photoSources: Record<string, string> = {
+		'photo-warehouse': '/generated-photos/warehouse.png',
+		'photo-team': '/generated-photos/team.png',
+	};
+
+	const claimBackgrounds: Record<string, string> = {
+		compliance: '/generated-photos/compliance.png',
+		fulfillment: '/generated-photos/fulfillment.png',
+		people: '/generated-photos/support-person.png',
+	};
 
 	let expandedId: string | null = $state(null);
 	let gridEl: HTMLElement | null = $state(null);
@@ -127,6 +138,7 @@
 			<div
 				class="bento-tile"
 				class:bento-tile--claim={isClaim}
+				class:bento-tile--has-bg={isClaim && claimBackgrounds[tile.id]}
 				class:bento-tile--photo={tile.type === 'photo'}
 				class:bento-tile--color={tile.type === 'color'}
 				class:bento-tile--navy={isClaim ? (tile as ClaimTile).bg === 'navy' : tile.type === 'color' && (tile as ColorTile).bg === 'navy'}
@@ -142,14 +154,23 @@
 			>
 				{#if isClaim}
 					{@const claim = tile as ClaimTile}
+					{#if claimBackgrounds[tile.id]}
+						<img class="bento-tile__bg-img" src={claimBackgrounds[tile.id]} alt="" loading="lazy" />
+						<div class="bento-tile__bg-overlay"></div>
+					{/if}
 					<span class="bento-tile__subtitle">{claim.subtitle}</span>
 					<h3 class="bento-tile__label">{claim.label}</h3>
 					<svg class="bento-tile__arrow" class:bento-tile__arrow--open={isExpanded} width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
 						<path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
 				{:else if tile.type === 'photo'}
-					<div class="bento-tile__photo" style="background-color: {(tile as PhotoTile).color}">
-						<span class="bento-tile__photo-label">{(tile as PhotoTile).alt}</span>
+					<div class="bento-tile__photo">
+						<img
+							class="bento-tile__photo-img"
+							src={photoSources[tile.id]}
+							alt={(tile as PhotoTile).alt}
+							loading="lazy"
+						/>
 					</div>
 				{/if}
 			</div>
@@ -254,6 +275,57 @@
 		color: var(--color-primary, #1e3a5f);
 	}
 
+	/* ─── Claim tile background images ─── */
+	.bento-tile__bg-img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		z-index: 0;
+	}
+
+	.bento-tile__bg-overlay {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		background: linear-gradient(
+			to top,
+			rgba(15, 39, 68, 0.92) 0%,
+			rgba(15, 39, 68, 0.75) 40%,
+			rgba(15, 39, 68, 0.55) 100%
+		);
+	}
+
+	.bento-tile--gold .bento-tile__bg-overlay {
+		background: linear-gradient(
+			to top,
+			rgba(180, 130, 30, 0.92) 0%,
+			rgba(180, 130, 30, 0.75) 40%,
+			rgba(140, 100, 20, 0.6) 100%
+		);
+	}
+
+	.bento-tile--has-bg .bento-tile__subtitle,
+	.bento-tile--has-bg .bento-tile__label,
+	.bento-tile--has-bg .bento-tile__arrow {
+		position: relative;
+		z-index: 2;
+	}
+
+	.bento-tile--has-bg .bento-tile__subtitle {
+		opacity: 0.85;
+		text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+	}
+
+	.bento-tile--has-bg .bento-tile__label {
+		text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+	}
+
+	.bento-tile--has-bg.bento-tile--gold {
+		color: #fff;
+	}
+
 	.bento-tile__subtitle {
 		font-size: var(--text-small, 0.875rem);
 		font-weight: 600;
@@ -295,18 +367,15 @@
 	.bento-tile__photo {
 		width: 100%;
 		height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
 		border-radius: inherit;
+		overflow: hidden;
 	}
 
-	.bento-tile__photo-label {
-		font-size: var(--text-small, 0.875rem);
-		font-weight: 600;
-		color: rgba(255, 255, 255, 0.6);
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
+	.bento-tile__photo-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
 	}
 
 	/* ─── Color block tiles ─── */
