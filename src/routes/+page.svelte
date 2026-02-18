@@ -12,7 +12,6 @@
 	import capFulfillment from '$lib/assets/visuals/cap-fulfillment.png';
 	import capTech from '$lib/assets/visuals/cap-tech.png';
 	import processWide from '$lib/assets/visuals/process-wide.png';
-	import heroWide from '$lib/assets/visuals/hero-wide-photo-wheelchair-v2-productforward.jpg';
 	import iconPrimaryCare from '$lib/assets/visuals/icon-primary-care.png';
 	import iconSpecialty from '$lib/assets/visuals/icon-specialty.png';
 	import iconHospital from '$lib/assets/visuals/icon-hospital.png';
@@ -208,203 +207,200 @@
 		padding: var(--space-4);
 	}
 
-	/* Hero enhancements */
+	/* ── Animated Geometric Hero ── */
 	.hero {
-		padding-top: clamp(7rem, 14vw, 10rem);
-	}
-	.hero h1 {
-		font-weight: 700;
-		letter-spacing: -0.025em;
-	}
-
-	.hero-shell {
 		position: relative;
-		border-radius: 24px;
-		overflow: hidden;
-		padding: clamp(2.25rem, 4vw, 3.25rem);
-		min-height: 520px;
+		width: 100%;
+		min-height: 100vh;
 		display: grid;
+		grid-template-columns: 1fr 1fr;
 		align-items: center;
-		/* lift overall luminance so the background doesn't feel crushed */
-		background: radial-gradient(900px 520px at 22% 22%, rgba(0, 56, 94, 0.55) 0%, rgba(0, 43, 74, 0.78) 58%, rgba(10, 32, 50, 1) 100%);
+		background: linear-gradient(105deg, #1e3a5f 0%, #0f2744 100%);
+		overflow: hidden;
+		padding: 0;
 	}
-
-	.hero-shell :global(.hero-media) {
-		/* background layer */
-		position: absolute;
-		inset: 0;
-	}
-
 	.hero-content {
 		position: relative;
-		z-index: 1;
-		max-width: 680px;
-		color: #002B4A;
-		text-shadow: 0 10px 28px rgba(255, 255, 255, 0.35);
+		z-index: 2;
+		padding: clamp(2rem, 5vw, 5rem);
+		padding-left: clamp(2rem, 6vw, 7rem);
+		color: #ffffff;
 	}
-	.hero-content :global(h1) {
-		color: #002B4A;
+	.hero .eyebrow {
+		color: #d4a234;
+		font-size: 0.8125rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		margin-bottom: 1rem;
 	}
-
+	.hero h1 {
+		font-size: clamp(2.5rem, 4.5vw, 4rem);
+		font-weight: 700;
+		letter-spacing: -0.025em;
+		line-height: 1.08;
+		color: #ffffff;
+		margin-bottom: 1.25rem;
+	}
+	.hero .subhead {
+		font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+		color: rgba(255, 255, 255, 0.8);
+		line-height: 1.5;
+		margin-bottom: 2rem;
+		max-width: 520px;
+	}
 	.hero-ctas {
-		margin-top: var(--space-4);
 		display: flex;
 		flex-wrap: wrap;
-		gap: var(--space-3);
+		gap: 1rem;
+		margin-bottom: 1.25rem;
 	}
-	.button-secondary {
-		background: rgba(255, 255, 255, 0.9);
-		color: var(--color-primary);
-		border: 1px solid rgba(0, 43, 74, 0.18);
-	}
-	.button-secondary:hover {
-		background: #ffffff;
-	}
-	.hero-content :global(p),
-	.hero-content :global(.subhead),
-	.hero-content :global(.eyebrow) {
-		color: rgba(0, 43, 74, 0.82);
-	}
-
-	/* Hero trust note */
-	.hero-trust-note {
-		font-size: var(--text-small);
-		color: rgba(0, 43, 74, 0.7);
-		margin-top: var(--space-2);
-		margin-bottom: 0;
-		text-shadow: none;
-	}
-
-	/* New wide hero with background image */
-	.hero-shell--wide {
-		position: relative;
-		border-radius: 0;
-		overflow: hidden;
-		min-height: 520px;
-		display: grid;
+	.hero-btn-gold {
+		display: inline-flex;
 		align-items: center;
-		background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-		margin-left: calc(-50vw + 50%);
-		margin-right: calc(-50vw + 50%);
-		width: 100vw;
+		padding: 0.875rem 2rem;
+		background: #d4a234;
+		color: #0f2744;
+		font-weight: 700;
+		font-size: 0.9375rem;
+		border-radius: 8px;
+		text-decoration: none;
+		transition: background 200ms ease, transform 200ms ease;
 	}
-	.hero-bg-img {
+	.hero-btn-gold:hover {
+		background: #e0b24a;
+		transform: translateY(-1px);
+	}
+	.hero-btn-outline {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.875rem 2rem;
+		background: transparent;
+		color: #ffffff;
+		font-weight: 600;
+		font-size: 0.9375rem;
+		border: 2px solid rgba(255, 255, 255, 0.5);
+		border-radius: 8px;
+		text-decoration: none;
+		transition: border-color 200ms ease, background 200ms ease, transform 200ms ease;
+	}
+	.hero-btn-outline:hover {
+		border-color: #ffffff;
+		background: rgba(255, 255, 255, 0.08);
+		transform: translateY(-1px);
+	}
+	.hero-trust-note {
+		font-size: 0.8125rem;
+		color: rgba(255, 255, 255, 0.55);
+		margin: 0;
+	}
+
+	/* Right side: animated composition */
+	.hero-visual {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		min-height: 100vh;
+		overflow: hidden;
+	}
+	.hero-glow {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 600px;
+		height: 600px;
+		background: radial-gradient(circle, rgba(212, 162, 52, 0.18) 0%, transparent 70%);
+		pointer-events: none;
+	}
+	.hero-shapes {
 		position: absolute;
 		inset: 0;
 		width: 100%;
 		height: 100%;
-		object-fit: cover;
-		/* Keep the key subject (wheelchair) visible on wide screens */
-		object-position: 94% center;
 	}
-	.hero-shell--wide .hero-content {
-		position: relative;
-		z-index: 1;
-		/* Keep copy left so it doesn't block the product image, but avoid getting too narrow */
-		max-width: clamp(640px, 46vw, 860px);
-		margin-left: clamp(2.25rem, 4vw, 5rem);
-		margin-right: auto;
-		/* Reduce side padding a touch so the usable text area stays wide */
-		padding: clamp(1.5rem, 2.6vw, 2.75rem);
-		color: var(--color-ink);
-		text-shadow: none;
-		background: rgba(255, 255, 255, 0.92);
-		border-radius: var(--radius-lg);
-		box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
-		backdrop-filter: blur(6px);
+
+	/* Floating shape animations */
+	@keyframes float1 {
+		0%, 100% { transform: translateY(0) rotate(0deg); }
+		50% { transform: translateY(-30px) rotate(8deg); }
 	}
-	.hero-shell--wide .hero-content h1 {
-		color: var(--color-ink);
+	@keyframes float2 {
+		0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+		50% { transform: translateY(20px) rotate(-6deg) scale(1.05); }
 	}
-	.hero-shell--wide .hero-content p,
-	.hero-shell--wide .hero-content .subhead,
-	.hero-shell--wide .hero-content .eyebrow {
-		color: var(--color-text);
+	@keyframes float3 {
+		0%, 100% { transform: translateY(0) rotate(0deg); }
+		33% { transform: translateY(-20px) rotate(5deg); }
+		66% { transform: translateY(10px) rotate(-3deg); }
 	}
-	/* Tablet / small desktop: keep the card comfortably wide */
-	@media (min-width: 901px) and (max-width: 1200px) {
-		.hero-shell--wide .hero-content {
-			max-width: min(760px, calc(100% - 3rem));
-			margin-left: clamp(2rem, 3vw, 3.25rem);
+	@keyframes float4 {
+		0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+		50% { transform: translateY(-15px) rotate(-10deg) scale(0.95); }
+	}
+	@keyframes float5 {
+		0%, 100% { transform: translateY(0) rotate(0deg); }
+		50% { transform: translateY(25px) rotate(12deg); }
+	}
+	@keyframes floatSlow {
+		0%, 100% { transform: translateY(0) rotate(0deg); }
+		50% { transform: translateY(-12px) rotate(4deg); }
+	}
+
+	.shape { will-change: transform; }
+	.shape-1 { animation: float1 18s ease-in-out infinite; }
+	.shape-2 { animation: float2 22s ease-in-out infinite; }
+	.shape-3 { animation: float3 25s ease-in-out infinite; }
+	.shape-4 { animation: float4 20s ease-in-out infinite; }
+	.shape-5 { animation: float5 28s ease-in-out infinite; }
+	.shape-6 { animation: floatSlow 30s ease-in-out infinite; }
+	.shape-7 { animation: float1 24s ease-in-out infinite; }
+	.shape-8 { animation: float2 16s ease-in-out infinite; }
+	.shape-9 { animation: float3 26s ease-in-out infinite; }
+	.shape-10 { animation: float4 15s ease-in-out infinite; }
+
+	/* Responsive: mobile */
+	@media (max-width: 900px) {
+		.hero {
+			grid-template-columns: 1fr;
+			min-height: auto;
+			padding-top: 5rem;
+		}
+		.hero-content {
+			padding: 2.5rem 1.5rem 2rem;
+			text-align: center;
+		}
+		.hero .subhead {
+			margin-left: auto;
 			margin-right: auto;
 		}
-		.hero-bg-img {
-			object-position: 90% center;
+		.hero-ctas {
+			justify-content: center;
 		}
-	}
-
-	@media (max-width: 900px) {
-		/* Option A mobile hero: full-bleed image first, copy below */
-		.hero {
-			padding-top: 5rem;
-			padding-bottom: 0;
+		.hero-trust-note {
+			text-align: center;
 		}
-		/* Kill container side padding inside hero so the hero can truly go edge-to-edge */
-		.hero > .container {
-			max-width: none !important;
-			padding-left: 0 !important;
-			padding-right: 0 !important;
+		.hero-visual {
+			position: absolute;
+			inset: 0;
+			min-height: 0;
+			opacity: 0.3;
+			z-index: 0;
 		}
-		.hero-shell--wide {
-			width: 100% !important;
-			margin: 0 !important;
-			border-radius: 0;
-			min-height: auto;
-			display: block;
-			background: transparent;
-		}
-		.hero-bg-img {
-			position: relative;
-			inset: auto;
-			display: block;
-			width: 100%;
-			height: 44vh;
-			min-height: 260px;
-			max-height: 420px;
-			object-position: 85% 50%;
-		}
-		.hero-shell--wide .hero-content {
-			max-width: 760px;
-			margin: 0 auto;
-			padding: var(--space-3) var(--space-3);
-			padding-top: 0;
-			background: rgba(255, 255, 255, 0.98);
-			border-radius: 0;
-			box-shadow: none;
-			backdrop-filter: none;
-		}
-		.hero-shell--wide .hero-content h1 {
-			font-size: clamp(2rem, 6.4vw, 2.6rem);
-			line-height: 1.1;
-		}
-		.hero-shell--wide .hero-content .subhead {
-			font-size: 1rem;
-			margin-bottom: var(--space-3);
-		}
-		/* Pull logo-arc up so it overlaps the hero image bottom edge */
-		.brand-lockup {
-			margin-top: -120px;
-			margin-bottom: 0.25rem;
-			position: relative;
+		.hero-content {
 			z-index: 2;
 		}
-		.logo-arc-wrap {
-			width: 260px;
-			height: 260px;
-			background: radial-gradient(circle, rgba(255,255,255,0.95) 40%, rgba(255,255,255,0.7) 65%, transparent 72%);
-			border-radius: 50%;
-		}
-		.brand-logo {
-			height: 140px;
-		}
-		.arc-text {
-			font-size: 12px;
+		.hero h1 {
+			font-size: clamp(2rem, 7vw, 2.75rem);
 		}
 	}
-
-	@media (max-width: 900px) {
-		.hero-shell {
-			min-height: 520px;
+	@media (max-width: 480px) {
+		.hero-content {
+			padding: 2rem 1.25rem 1.5rem;
+		}
+		.hero-ctas {
+			flex-direction: column;
+			align-items: center;
 		}
 	}
 
@@ -517,23 +513,95 @@
 </header>
 
 <main class="page">
-	<section class="hero section">
-		<div class="container">
-			<div class="hero-shell hero-shell--wide">
-				<img class="hero-bg-img" src={heroWide} alt="" />
-				<div class="hero-content">
-					<p class="eyebrow">A Tech-Forward DME &amp; HME Distribution and Wholesale Company</p>
-					<h1>Real People Who Answer the Phone</h1>
-					<p class="subhead">
-						Fast, compliant DME access for providers and care partners.
-					</p>
-					<div class="hero-ctas">
-						<a class="button button-primary" href="#request-call">Contact a DME Specialist</a>
-						<a class="button button-secondary" href="#products">View Product Categories</a>
-					</div>
-					<p class="hero-trust-note">No obligation • Most inquiries answered within 4 hours</p>
-				</div>
+	<section class="hero">
+		<!-- Left: content -->
+		<div class="hero-content">
+			<p class="eyebrow">A Tech-Forward DME &amp; HME Distribution Company</p>
+			<h1>Real People Who<br/>Answer the Phone</h1>
+			<p class="subhead">
+				Fast, compliant DME access for providers and care partners.
+			</p>
+			<div class="hero-ctas">
+				<a class="hero-btn-gold" href="#request-call">Contact a DME Specialist</a>
+				<a class="hero-btn-outline" href="#products">View Product Categories</a>
 			</div>
+			<p class="hero-trust-note">No obligation · Most inquiries answered within 4 hours</p>
+		</div>
+
+		<!-- Right: animated geometric composition -->
+		<div class="hero-visual">
+			<div class="hero-glow"></div>
+			<svg class="hero-shapes" viewBox="0 0 800 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+				<!-- Gold geometric shapes inspired by BG Clear cross motif -->
+
+				<!-- Large angular cross -->
+				<g class="shape shape-1" transform="translate(380, 200)">
+					<path d="M-12,-50 L12,-50 L12,-12 L50,-12 L50,12 L12,12 L12,50 L-12,50 L-12,12 L-50,12 L-50,-12 L-12,-12 Z" fill="none" stroke="#d4a234" stroke-width="2" opacity="0.5"/>
+				</g>
+
+				<!-- Diamond shape -->
+				<g class="shape shape-2" transform="translate(600, 380)">
+					<path d="M0,-40 L35,0 L0,40 L-35,0 Z" fill="none" stroke="#d4a234" stroke-width="1.5" opacity="0.4"/>
+				</g>
+
+				<!-- Small filled cross -->
+				<g class="shape shape-3" transform="translate(200, 500)">
+					<path d="M-6,-22 L6,-22 L6,-6 L22,-6 L22,6 L6,6 L6,22 L-6,22 L-6,6 L-22,6 L-22,-6 L-6,-6 Z" fill="#d4a234" opacity="0.25"/>
+				</g>
+
+				<!-- Swoosh curve -->
+				<g class="shape shape-4" transform="translate(500, 600)">
+					<path d="M-60,20 Q-20,-30 40,-20 Q80,-10 60,25" fill="none" stroke="#d4a234" stroke-width="2" stroke-linecap="round" opacity="0.35"/>
+				</g>
+
+				<!-- Small diamond -->
+				<g class="shape shape-5" transform="translate(150, 250)">
+					<path d="M0,-18 L15,0 L0,18 L-15,0 Z" fill="#d4a234" opacity="0.2"/>
+				</g>
+
+				<!-- Angular cross outline (smaller) -->
+				<g class="shape shape-8" transform="translate(650, 150)">
+					<path d="M-8,-28 L8,-28 L8,-8 L28,-8 L28,8 L8,8 L8,28 L-8,28 L-8,8 L-28,8 L-28,-8 L-8,-8 Z" fill="none" stroke="#d4a234" stroke-width="1" opacity="0.3"/>
+				</g>
+
+				<!-- Swoosh curve 2 -->
+				<g class="shape shape-10" transform="translate(300, 750)">
+					<path d="M-40,15 Q0,-25 50,-10 Q70,0 45,20" fill="none" stroke="#d4a234" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
+				</g>
+
+				<!-- DME silhouettes — very subtle -->
+
+				<!-- Wheelchair silhouette -->
+				<g class="shape shape-6" transform="translate(480, 460)" opacity="0.1">
+					<path d="M-15,-25 L-15,-10 L5,-10 L15,10 L25,10 M-15,10 A12,12 0 1,0 -3,22 M10,10 A12,12 0 1,0 22,22" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+				</g>
+
+				<!-- Blood pressure cuff silhouette -->
+				<g class="shape shape-7" transform="translate(250, 150)" opacity="0.08">
+					<rect x="-18" y="-25" width="36" height="50" rx="6" fill="none" stroke="#d4a234" stroke-width="1.5"/>
+					<circle cx="0" cy="-2" r="12" fill="none" stroke="#d4a234" stroke-width="1"/>
+					<path d="M0,-14 L0,10" stroke="#d4a234" stroke-width="0.8"/>
+					<path d="M-8,-2 L8,-2" stroke="#d4a234" stroke-width="0.8"/>
+				</g>
+
+				<!-- Stethoscope silhouette -->
+				<g class="shape shape-9" transform="translate(680, 550)" opacity="0.1">
+					<path d="M-10,-30 Q-10,-10 0,0 Q10,-10 10,-30" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+					<circle cx="0" cy="8" r="8" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+					<circle cx="0" cy="8" r="2" fill="#ffffff" opacity="0.5"/>
+				</g>
+
+				<!-- Medical cross silhouette -->
+				<g class="shape shape-5" transform="translate(100, 700)" opacity="0.12">
+					<path d="M-5,-18 L5,-18 L5,-5 L18,-5 L18,5 L5,5 L5,18 L-5,18 L-5,5 L-18,5 L-18,-5 L-5,-5 Z" fill="none" stroke="#ffffff" stroke-width="1.2"/>
+				</g>
+
+				<!-- Extra floating dots / accents -->
+				<circle class="shape shape-3" cx="120" cy="400" r="3" fill="#d4a234" opacity="0.3"/>
+				<circle class="shape shape-8" cx="700" cy="300" r="4" fill="#d4a234" opacity="0.2"/>
+				<circle class="shape shape-1" cx="550" cy="800" r="2.5" fill="#d4a234" opacity="0.25"/>
+				<circle class="shape shape-10" cx="350" cy="100" r="3.5" fill="#ffffff" opacity="0.1"/>
+			</svg>
 		</div>
 	</section>
 
