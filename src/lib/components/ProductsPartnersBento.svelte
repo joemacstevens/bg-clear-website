@@ -16,9 +16,6 @@
 		tagline: string;
 		href: string;
 		img: string;
-		bg: 'navy' | 'white';
-		colSpan: number;
-		rowSpan: number;
 	}
 
 	interface AccentTile {
@@ -26,49 +23,17 @@
 		id: string;
 		claim: string;
 		bg: 'navy' | 'gold';
-		colSpan: number;
-		rowSpan: number;
 		verified: boolean;
 	}
 
-	interface PartnerTile {
-		type: 'partners';
-		id: string;
-		colSpan: number;
-		rowSpan: number;
-	}
-
-	type Tile = ProductTile | AccentTile | PartnerTile;
-
-	const tiles: Tile[] = [
+	const products: ProductTile[] = [
 		{
 			type: 'product',
 			id: 'health-monitoring',
 			name: 'Health Monitoring & Management',
 			tagline: 'Blood pressure monitors, glucometers, pulse oximeters, RPM devices',
 			href: '/products/health-monitoring',
-			img: imgHealth,
-			bg: 'white',
-			colSpan: 2,
-			rowSpan: 1
-		},
-		{
-			type: 'accent',
-			id: 'pdac',
-			claim: 'PDAC Approved',
-			bg: 'navy',
-			colSpan: 1,
-			rowSpan: 1,
-			verified: true
-		},
-		{
-			type: 'accent',
-			id: 'medicare',
-			claim: 'Medicare Eligible Products',
-			bg: 'gold',
-			colSpan: 1,
-			rowSpan: 1,
-			verified: true
+			img: imgHealth
 		},
 		{
 			type: 'product',
@@ -76,16 +41,7 @@
 			name: 'Mobility & Safety Equipment',
 			tagline: 'Walkers, wheelchairs, canes, patient lifts, bathroom safety',
 			href: '/products/mobility-safety',
-			img: imgMobility,
-			bg: 'navy',
-			colSpan: 1,
-			rowSpan: 1
-		},
-		{
-			type: 'partners',
-			id: 'partners',
-			colSpan: 2,
-			rowSpan: 1
+			img: imgMobility
 		},
 		{
 			type: 'product',
@@ -93,18 +49,30 @@
 			name: 'Specialized Medical Support',
 			tagline: 'Nebulizers, CPAP/BiPAP, hospital beds, wound care, compression therapy',
 			href: '/products/specialized-support',
-			img: imgSpecialized,
-			bg: 'white',
-			colSpan: 2,
-			rowSpan: 1
+			img: imgSpecialized
+		}
+	];
+
+	const accents: AccentTile[] = [
+		{
+			type: 'accent',
+			id: 'pdac',
+			claim: 'PDAC Approved',
+			bg: 'navy',
+			verified: true
+		},
+		{
+			type: 'accent',
+			id: 'medicare',
+			claim: 'Medicare Eligible Products',
+			bg: 'gold',
+			verified: true
 		},
 		{
 			type: 'accent',
 			id: 'people',
 			claim: 'Real People Who Answer The Phone',
 			bg: 'navy',
-			colSpan: 1,
-			rowSpan: 1,
 			verified: true
 		}
 	];
@@ -126,57 +94,48 @@
 			<p class="ppb-subhead">FDA/CMS-compliant equipment from manufacturers you trust, ready for provider workflows.</p>
 		</div>
 
-		<div class="ppb-grid">
-			{#each tiles as tile (tile.id)}
-				{#if tile.type === 'product'}
-					<a
-						class="ppb-tile ppb-tile--product"
-						class:ppb-tile--navy={tile.bg === 'navy'}
-						class:ppb-tile--white={tile.bg === 'white'}
-						class:ppb-tile--col2={tile.colSpan === 2}
-						class:ppb-tile--row2={tile.rowSpan === 2}
-						href={tile.href}
-					>
-						<img class="ppb-tile__img" src={tile.img} alt={tile.name} loading="lazy" />
-						<div class="ppb-tile__overlay"></div>
-						<div class="ppb-tile__content">
-							<h3 class="ppb-tile__name">{tile.name}</h3>
-							<p class="ppb-tile__tagline">{tile.tagline}</p>
-							<span class="ppb-tile__link">Explore &rarr;</span>
-						</div>
-					</a>
-				{:else if tile.type === 'accent'}
-					<div
-						class="ppb-tile ppb-tile--accent"
-						class:ppb-tile--navy={tile.bg === 'navy'}
-						class:ppb-tile--gold={tile.bg === 'gold'}
-						class:ppb-tile--col2={tile.colSpan === 2}
-						class:ppb-tile--row2={tile.rowSpan === 2}
-					>
-						<!-- Verified claim: {tile.claim} -->
-						<div class="ppb-tile__badge">
-							<svg class="ppb-tile__check" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-								<path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-								<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-							</svg>
-						</div>
-						<p class="ppb-tile__claim">{tile.claim}</p>
+		<!-- TOP: Product category tiles — most prominent -->
+		<div class="ppb-products-grid">
+			{#each products as tile (tile.id)}
+				<a class="ppb-tile ppb-tile--product" href={tile.href}>
+					<img class="ppb-tile__img" src={tile.img} alt={tile.name} loading="lazy" />
+					<div class="ppb-tile__overlay"></div>
+					<div class="ppb-tile__content">
+						<h3 class="ppb-tile__name">{tile.name}</h3>
+						<p class="ppb-tile__tagline">{tile.tagline}</p>
+						<span class="ppb-tile__link">Explore &rarr;</span>
 					</div>
-				{:else if tile.type === 'partners'}
-					<div
-						class="ppb-tile ppb-tile--partners"
-						class:ppb-tile--col2={tile.colSpan === 2}
-						class:ppb-tile--row2={tile.rowSpan === 2}
-					>
-						<p class="ppb-tile__partners-label">Trusted Manufacturers</p>
-						<div class="ppb-tile__logos">
-							{#each partners as partner}
-								<img class="ppb-tile__logo" src={partner.src} alt={partner.name} loading="lazy" />
-							{/each}
-						</div>
-					</div>
-				{/if}
+				</a>
 			{/each}
+		</div>
+
+		<!-- MIDDLE: Claim/badge tiles -->
+		<div class="ppb-accents-grid">
+			{#each accents as tile (tile.id)}
+				<div
+					class="ppb-tile ppb-tile--accent"
+					class:ppb-tile--navy={tile.bg === 'navy'}
+					class:ppb-tile--gold={tile.bg === 'gold'}
+				>
+					<div class="ppb-tile__badge">
+						<svg class="ppb-tile__check" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+							<path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+							<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+						</svg>
+					</div>
+					<p class="ppb-tile__claim">{tile.claim}</p>
+				</div>
+			{/each}
+		</div>
+
+		<!-- BOTTOM: Trusted Manufacturers — full-width social proof -->
+		<div class="ppb-partners-row">
+			<p class="ppb-partners-label">Trusted Manufacturers</p>
+			<div class="ppb-partners-logos">
+				{#each partners as partner}
+					<img class="ppb-partners-logo" src={partner.src} alt={partner.name} loading="lazy" />
+				{/each}
+			</div>
 		</div>
 	</div>
 </section>
@@ -224,28 +183,20 @@
 		margin: 0;
 	}
 
-	/* ─── Grid ─── */
-	.ppb-grid {
+	/* ─── Products Grid (TOP) ─── */
+	.ppb-products-grid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: var(--space-2, 1rem);
+		margin-bottom: var(--space-2, 1rem);
 	}
 
 	/* ─── Tile base ─── */
 	.ppb-tile {
 		border-radius: var(--radius-lg, 1.25rem);
-		min-height: 14rem;
 		position: relative;
 		overflow: hidden;
 		transition: transform 0.25s ease, box-shadow 0.25s ease;
-	}
-
-	.ppb-tile--col2 {
-		grid-column: span 2;
-	}
-
-	.ppb-tile--row2 {
-		grid-row: span 2;
 	}
 
 	/* ─── Product tiles ─── */
@@ -254,6 +205,7 @@
 		text-decoration: none;
 		color: inherit;
 		cursor: pointer;
+		min-height: 18rem;
 	}
 
 	.ppb-tile--product:hover {
@@ -278,14 +230,7 @@
 		position: absolute;
 		inset: 0;
 		z-index: 1;
-	}
-
-	.ppb-tile--product.ppb-tile--navy .ppb-tile__overlay {
-		background: linear-gradient(to top, rgba(15, 39, 68, 0.92) 0%, rgba(30, 58, 95, 0.55) 50%, rgba(30, 58, 95, 0.25) 100%);
-	}
-
-	.ppb-tile--product.ppb-tile--white .ppb-tile__overlay {
-		background: linear-gradient(to top, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.3) 100%);
+		background: linear-gradient(to top, rgba(15, 39, 68, 0.95) 0%, rgba(15, 39, 68, 0.7) 40%, rgba(15, 39, 68, 0.35) 100%);
 	}
 
 	.ppb-tile__content {
@@ -297,49 +242,45 @@
 		padding: var(--space-4, 2rem);
 		height: 100%;
 		width: 100%;
-	}
-
-	.ppb-tile--product.ppb-tile--navy .ppb-tile__content {
-		color: #fff;
-	}
-
-	.ppb-tile--product.ppb-tile--white .ppb-tile__content {
-		color: var(--color-primary, #1e3a5f);
+		color: #ffffff;
 	}
 
 	.ppb-tile__name {
-		font-size: clamp(1.25rem, 2vw, 1.5rem);
-		font-weight: 800;
+		font-size: clamp(1.375rem, 2.2vw, 1.625rem);
+		font-weight: 700;
 		line-height: 1.2;
 		margin: 0 0 0.35rem;
+		color: #ffffff;
 	}
 
 	.ppb-tile__tagline {
-		font-size: 0.875rem;
+		font-size: 0.9375rem;
+		font-weight: 500;
 		line-height: 1.5;
-		opacity: 0.8;
+		opacity: 0.9;
 		margin: 0 0 0.75rem;
+		color: #ffffff;
 	}
 
 	.ppb-tile__link {
 		font-weight: 700;
 		font-size: 0.9rem;
-		transition: opacity 0.2s ease;
-	}
-
-	.ppb-tile--product.ppb-tile--navy .ppb-tile__link {
 		color: var(--color-gold, #d4a234);
-	}
-
-	.ppb-tile--product.ppb-tile--white .ppb-tile__link {
-		color: var(--color-primary, #1e3a5f);
+		transition: opacity 0.2s ease;
 	}
 
 	.ppb-tile--product:hover .ppb-tile__link {
 		opacity: 0.85;
 	}
 
-	/* ─── Accent tiles ─── */
+	/* ─── Accent tiles (MIDDLE) ─── */
+	.ppb-accents-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--space-2, 1rem);
+		margin-bottom: var(--space-2, 1rem);
+	}
+
 	.ppb-tile--accent {
 		display: flex;
 		flex-direction: column;
@@ -348,16 +289,17 @@
 		text-align: center;
 		padding: var(--space-4, 2rem) var(--space-3, 1.5rem);
 		gap: var(--space-2, 1rem);
+		min-height: 10rem;
 	}
 
 	.ppb-tile--accent.ppb-tile--navy {
-		background: var(--color-primary, #1e3a5f);
-		color: #fff;
+		background: var(--color-navy-dark, #0f2744);
+		color: #ffffff;
 	}
 
 	.ppb-tile--accent.ppb-tile--gold {
 		background: var(--color-gold, #d4a234);
-		color: var(--color-primary, #1e3a5f);
+		color: #0f2744;
 	}
 
 	.ppb-tile__badge {
@@ -376,31 +318,32 @@
 	}
 
 	.ppb-tile--accent.ppb-tile--gold .ppb-tile__badge {
-		background: rgba(30, 58, 95, 0.12);
-		color: var(--color-primary, #1e3a5f);
+		background: rgba(15, 39, 68, 0.12);
+		color: #0f2744;
 	}
 
 	.ppb-tile__claim {
-		font-size: clamp(1.125rem, 1.8vw, 1.375rem);
-		font-weight: 800;
+		font-size: clamp(1.25rem, 2vw, 1.5rem);
+		font-weight: 700;
 		line-height: 1.2;
 		margin: 0;
 		letter-spacing: -0.01em;
 	}
 
-	/* ─── Partner tile ─── */
-	.ppb-tile--partners {
+	/* ─── Partners row (BOTTOM) ─── */
+	.ppb-partners-row {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		padding: var(--space-4, 2rem);
+		padding: var(--space-4, 2rem) var(--space-5, 3rem);
 		gap: var(--space-3, 1.5rem);
 		background: var(--color-surface, #fff);
 		border: 1px solid var(--color-border, #e2e8f0);
+		border-radius: var(--radius-lg, 1.25rem);
 	}
 
-	.ppb-tile__partners-label {
+	.ppb-partners-label {
 		font-size: var(--text-small, 0.875rem);
 		font-weight: 700;
 		letter-spacing: 0.06em;
@@ -409,7 +352,7 @@
 		margin: 0;
 	}
 
-	.ppb-tile__logos {
+	.ppb-partners-logos {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -417,7 +360,7 @@
 		gap: var(--space-4, 2rem) var(--space-5, 3rem);
 	}
 
-	.ppb-tile__logo {
+	.ppb-partners-logo {
 		height: 32px;
 		width: auto;
 		object-fit: contain;
@@ -426,22 +369,23 @@
 		transition: opacity 200ms ease, filter 200ms ease;
 	}
 
-	.ppb-tile__logo:hover {
+	.ppb-partners-logo:hover {
 		opacity: 1;
 		filter: grayscale(0%);
 	}
 
-	/* ─── Desktop 4-col ─── */
-	@media (min-width: 1200px) {
-		.ppb-grid {
-			grid-template-columns: repeat(4, 1fr);
-		}
-	}
-
 	/* ─── Tablet 2-col ─── */
-	@media (min-width: 769px) and (max-width: 1199px) {
-		.ppb-grid {
+	@media (max-width: 1024px) {
+		.ppb-products-grid {
 			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.ppb-products-grid .ppb-tile--product:last-child {
+			grid-column: span 2;
+		}
+
+		.ppb-accents-grid {
+			grid-template-columns: repeat(3, 1fr);
 		}
 	}
 
@@ -451,27 +395,35 @@
 			padding: var(--space-5, 3rem) 0;
 		}
 
-		.ppb-grid {
+		.ppb-products-grid {
 			grid-template-columns: 1fr;
 		}
 
-		.ppb-tile--col2 {
+		.ppb-products-grid .ppb-tile--product:last-child {
 			grid-column: span 1;
 		}
 
-		.ppb-tile--row2 {
-			grid-row: span 1;
+		.ppb-tile--product {
+			min-height: 14rem;
 		}
 
-		.ppb-tile {
-			min-height: 12rem;
+		.ppb-accents-grid {
+			grid-template-columns: 1fr;
 		}
 
-		.ppb-tile__logos {
+		.ppb-tile--accent {
+			min-height: 8rem;
+		}
+
+		.ppb-partners-row {
+			padding: var(--space-3, 1.5rem);
+		}
+
+		.ppb-partners-logos {
 			gap: var(--space-3, 1.5rem);
 		}
 
-		.ppb-tile__logo {
+		.ppb-partners-logo {
 			height: 26px;
 		}
 	}
