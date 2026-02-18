@@ -32,6 +32,7 @@
 	type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
 	let scrolled = false;
+	let activeSection = '';
 
 	onMount(() => {
 		const handleScroll = () => {
@@ -41,8 +42,30 @@
 		window.addEventListener('scroll', handleScroll, { passive: true });
 		handleScroll();
 
+		// IntersectionObserver for active nav highlighting
+		const sectionIds = ['capabilities', 'products', 'how-we-work', 'faq'];
+		const sectionEls = sectionIds
+			.map((id) => document.getElementById(id))
+			.filter((el): el is HTMLElement => el !== null);
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					if (entry.isIntersecting) {
+						activeSection = entry.target.id;
+					}
+				}
+			},
+			{ rootMargin: '-40% 0px -55% 0px', threshold: 0 }
+		);
+
+		for (const el of sectionEls) {
+			observer.observe(el);
+		}
+
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
+			observer.disconnect();
 		};
 	});
 
@@ -412,10 +435,10 @@
 	<div class="container header-inner">
 		<img class="header-logo is-visible" src={logo} alt="BG Clear" />
 		<nav class="header-nav">
-			<a href="#capabilities">Capabilities</a>
-			<a href="#products">Products</a>
-			<a href="#how-we-work">Process</a>
-			<a href="#faq">FAQ</a>
+			<a href="#capabilities" class:nav-active={activeSection === 'capabilities'}>Capabilities</a>
+			<a href="#products" class:nav-active={activeSection === 'products'}>Products</a>
+			<a href="#how-we-work" class:nav-active={activeSection === 'how-we-work'}>Process</a>
+			<a href="#faq" class:nav-active={activeSection === 'faq'}>FAQ</a>
 		</nav>
 		<div class="header-cta">
 			<div class="header-icon-buttons">
@@ -633,7 +656,9 @@
 	</section>
 
 	<!-- CAPABILITIES / VALUE GRID (bento mosaic) -->
-	<BentoGrid />
+	<div id="capabilities">
+		<BentoGrid />
+	</div>
 
 	<!-- TRUSTED MANUFACTURERS -->
 	<section class="partner-logos">
