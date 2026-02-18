@@ -295,58 +295,55 @@
 		margin: 0;
 	}
 
-	/* Right side: hexagon grid */
+	/* Right side: hexagon honeycomb cluster */
 	.hero-visual {
 		position: absolute;
-		right: 0;
-		top: 0;
-		width: 55%;
-		height: 100%;
-		overflow: visible;
-		pointer-events: none;
+		right: 5%;
+		top: 50%;
+		transform: translateY(-50%) rotate(2deg);
 		z-index: 1;
+		pointer-events: none;
 	}
 	.hero-glow {
 		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		width: 700px;
-		height: 700px;
-		background: radial-gradient(circle, rgba(212, 162, 52, 0.22) 0%, transparent 70%);
+		width: 500px;
+		height: 500px;
+		background: radial-gradient(circle, rgba(212, 162, 52, 0.18) 0%, transparent 70%);
 		pointer-events: none;
 	}
 
-	/* Hexagon grid layout */
+	/* Honeycomb 2-3-2 layout */
 	.hex-grid {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%) rotate(2deg);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 12px;
 	}
 	.hex-row {
 		display: flex;
-		gap: 14px;
+		gap: 8px;
 	}
-	.hex-row.offset {
-		margin-top: -20px;
+	.hex-row-mid {
+		display: flex;
+		gap: 8px;
+		margin-top: -40px;
+		margin-left: -84px; /* offset left by half hex width */
 	}
 
 	/* Individual hexagon */
 	.hex {
-		width: 170px;
-		height: 170px;
+		width: 160px;
+		height: 160px;
 		clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 		position: relative;
 		opacity: 0;
-		animation: hexFadeIn 0.5s ease forwards;
+		animation: hexFadeIn 0.5s ease forwards, hexFloat 6s ease-in-out infinite;
 		pointer-events: auto;
 		cursor: default;
 		transition: transform 300ms ease, filter 300ms ease;
+		flex-shrink: 0;
 	}
 	.hex:hover {
 		transform: scale(1.05);
@@ -356,6 +353,7 @@
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 		display: block;
 	}
 
@@ -363,59 +361,21 @@
 	.hex-accent {
 		background: #d4a234;
 		opacity: 0;
-		animation: hexFadeIn 0.5s ease forwards;
-	}
-	.hex-accent::after {
-		content: '';
-		display: block;
-		width: 100%;
-		height: 100%;
-		background: #d4a234;
-		opacity: 0.3;
+		animation: hexFadeIn 0.5s ease forwards, hexFloat 6s ease-in-out infinite;
 	}
 
 	/* Navy hex with cross icon */
 	.hex-navy {
-		background: #1e3a5f;
+		background: #0f2744;
 		opacity: 0;
-		animation: hexFadeIn 0.5s ease forwards;
+		animation: hexFadeIn 0.5s ease forwards, hexFloat 6s ease-in-out infinite;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
-	.hex-cross {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: 40px;
-		height: 40px;
-	}
-	.hex-cross::before,
-	.hex-cross::after {
-		content: '';
-		position: absolute;
-		background: #d4a234;
-		border-radius: 2px;
-	}
-	.hex-cross::before {
-		top: 50%;
-		left: 0;
-		width: 100%;
-		height: 8px;
-		transform: translateY(-50%);
-	}
-	.hex-cross::after {
-		left: 50%;
-		top: 0;
-		width: 8px;
-		height: 100%;
-		transform: translateX(-50%);
-	}
-
-	/* Float animation — each hex gets a custom delay via inline style */
-	.hex-float {
-		animation: hexFadeIn 0.5s ease forwards, hexFloat 6s ease-in-out infinite;
+	.hex-navy svg {
+		width: 44px;
+		height: 44px;
 	}
 
 	@keyframes hexFadeIn {
@@ -424,12 +384,17 @@
 	}
 	@keyframes hexFloat {
 		0%, 100% { transform: translateY(0); }
-		50%      { transform: translateY(-8px); }
+		50%      { transform: translateY(8px); }
 	}
 
-	/* Stagger delays (set via style attribute) */
+	/* Row 3 has same offset as row 1 */
+	.hex-row-bottom {
+		display: flex;
+		gap: 8px;
+		margin-top: -40px;
+	}
 
-	/* Responsive: mobile */
+	/* Responsive: tablet */
 	@media (max-width: 900px) {
 		.hero {
 			min-height: auto;
@@ -451,14 +416,17 @@
 			text-align: center;
 		}
 		.hero-visual {
-			position: absolute;
-			left: 0;
-			right: 0;
-			top: 0;
-			width: 100%;
-			height: 100%;
-			opacity: 0.2;
-			z-index: 0;
+			position: relative;
+			right: auto;
+			top: auto;
+			transform: none;
+			display: flex;
+			justify-content: center;
+			margin: 1.5rem auto 0;
+			opacity: 1;
+		}
+		.hero-glow {
+			display: none;
 		}
 		.hero-content {
 			z-index: 2;
@@ -466,20 +434,29 @@
 		.hero h1 {
 			font-size: clamp(2rem, 7vw, 2.75rem);
 		}
-		.hex-grid {
-			transform: translate(-50%, -50%) rotate(0deg);
+	}
+	/* Mobile: show only 3 hexagons in a single row */
+	@media (max-width: 768px) {
+		.hero-visual {
+			position: relative;
+			right: auto;
+			top: auto;
+			transform: none;
+			display: flex;
+			justify-content: center;
+			margin: 1rem auto 0;
 		}
-		/* Hide rows 1 and 3, show only middle row of 3 */
-		.hex-row:first-child,
-		.hex-row:last-child {
+		.hex-row,
+		.hex-row-bottom {
 			display: none;
 		}
-		.hex-row.offset {
+		.hex-row-mid {
 			margin-top: 0;
+			margin-left: 0;
 		}
 		.hex {
-			width: 120px;
-			height: 120px;
+			width: 100px;
+			height: 100px;
 		}
 	}
 	@media (max-width: 480px) {
@@ -491,8 +468,8 @@
 			align-items: center;
 		}
 		.hex {
-			width: 100px;
-			height: 100px;
+			width: 85px;
+			height: 85px;
 		}
 	}
 
@@ -620,43 +597,42 @@
 			<p class="hero-trust-note">No obligation · Most inquiries answered within 4 hours</p>
 		</div>
 
-		<!-- Right: animated hexagon photo grid -->
+		<!-- Right: honeycomb hexagon cluster (2-3-2 pattern) -->
 		<div class="hero-visual">
 			<div class="hero-glow"></div>
 
 			<div class="hex-grid">
-				<!-- Row 1: 2 photo hexagons + 1 gold accent -->
+				<!-- Row 1: 2 photo hexagons -->
 				<div class="hex-row">
-					<div class="hex hex-float" style="animation-delay: 0s, 0s;">
-						<img src="/generated-photos/hero-technician.png" alt="DME technician assisting with wheelchair" />
+					<div class="hex" style="animation-delay: 0s, 0s;">
+						<img src="/generated-photos/hero-technician.png" alt="DME technician" />
 					</div>
-					<div class="hex hex-float" style="animation-delay: 0.1s, 1s;">
-						<img src="/generated-photos/hex-cpap.png" alt="CPAP machine" />
-					</div>
-					<div class="hex hex-accent hex-float" style="animation-delay: 0.2s, 2s;"></div>
-				</div>
-
-				<!-- Row 2 (offset): 3 photo hexagons -->
-				<div class="hex-row offset">
-					<div class="hex hex-float" style="animation-delay: 0.3s, 1.5s;">
-						<img src="/generated-photos/hero-products.png" alt="Medical equipment and products" />
-					</div>
-					<div class="hex hex-navy hex-float" style="animation-delay: 0.4s, 3s;">
-						<div class="hex-cross"></div>
-					</div>
-					<div class="hex hex-float" style="animation-delay: 0.5s, 0.5s;">
-						<img src="/generated-photos/hex-walker.png" alt="Elderly person with walker" />
+					<div class="hex" style="animation-delay: 0.15s, 1s;">
+						<img src="/generated-photos/hero-products.png" alt="Medical equipment" />
 					</div>
 				</div>
 
-				<!-- Row 3: 2 photo hexagons + 1 gold accent -->
-				<div class="hex-row">
-					<div class="hex hex-accent hex-float" style="animation-delay: 0.6s, 2.5s;"></div>
-					<div class="hex hex-float" style="animation-delay: 0.7s, 1.2s;">
-						<img src="/generated-photos/hex-rehab.png" alt="Rehabilitation and wheelchair therapy" />
+				<!-- Row 2: 3 hexagons (offset left) — photo, gold accent, photo -->
+				<div class="hex-row-mid">
+					<div class="hex" style="animation-delay: 0.3s, 2s;">
+						<img src="/generated-photos/hero-delivery.png" alt="DME delivery" />
 					</div>
-					<div class="hex hex-float" style="animation-delay: 0.8s, 3.5s;">
-						<img src="/generated-photos/hex-monitoring.png" alt="Nurse with blood pressure monitor" />
+					<div class="hex hex-accent" style="animation-delay: 0.45s, 0.5s; opacity: 0.85;"></div>
+					<div class="hex" style="animation-delay: 0.6s, 3s;">
+						<img src="/generated-photos/hex-walker.png" alt="Walker equipment" />
+					</div>
+				</div>
+
+				<!-- Row 3: 2 hexagons — photo, navy+cross -->
+				<div class="hex-row-bottom">
+					<div class="hex" style="animation-delay: 0.75s, 1.5s;">
+						<img src="/generated-photos/hex-cpap.png" alt="CPAP equipment" />
+					</div>
+					<div class="hex hex-navy" style="animation-delay: 0.9s, 2.5s;">
+						<svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<rect x="18" y="4" width="8" height="36" rx="2" fill="#d4a234"/>
+							<rect x="4" y="18" width="36" height="8" rx="2" fill="#d4a234"/>
+						</svg>
 					</div>
 				</div>
 			</div>
