@@ -1,61 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import logo from '$lib/assets/bg-clear-logo-640.png';
-
-	interface Product {
-		name: string;
-		manufacturer: string;
-		pdacApproved: boolean;
-		medicareEligible: boolean;
-	}
-
-	interface Category {
-		title: string;
-		description: string;
-		products: Product[];
-	}
-
-	const categories: Record<string, Category> = {
-		'health-monitoring': {
-			title: 'Health Monitoring & Management',
-			description: 'FDA-compliant monitoring devices for chronic care management, telehealth, and patient vitals tracking.',
-			products: [
-				{ name: 'Digital Blood Pressure Monitor', manufacturer: 'Omron Healthcare', pdacApproved: true, medicareEligible: true },
-				{ name: 'Wireless Glucometer Kit', manufacturer: 'Roche Diagnostics', pdacApproved: true, medicareEligible: true },
-				{ name: 'Fingertip Pulse Oximeter', manufacturer: 'Nonin Medical', pdacApproved: true, medicareEligible: true },
-				{ name: 'RPM Telehealth Gateway', manufacturer: 'Biobeat', pdacApproved: false, medicareEligible: true },
-				{ name: 'Infrared Thermometer Pro', manufacturer: 'Braun', pdacApproved: true, medicareEligible: false },
-				{ name: 'Continuous Glucose Monitor', manufacturer: 'Dexcom', pdacApproved: true, medicareEligible: true },
-			]
-		},
-		'mobility-safety': {
-			title: 'Mobility & Safety Equipment',
-			description: 'Durable mobility aids and bathroom safety products built for daily use in clinical and home environments.',
-			products: [
-				{ name: 'Folding Rollator Walker', manufacturer: 'Drive Medical', pdacApproved: true, medicareEligible: true },
-				{ name: 'Lightweight Transport Wheelchair', manufacturer: 'Invacare', pdacApproved: true, medicareEligible: true },
-				{ name: 'Adjustable Quad Cane', manufacturer: 'Hugo Mobility', pdacApproved: true, medicareEligible: true },
-				{ name: 'Hydraulic Patient Lift', manufacturer: 'Hoyer', pdacApproved: true, medicareEligible: true },
-				{ name: 'Shower Transfer Bench', manufacturer: 'Medline', pdacApproved: true, medicareEligible: true },
-				{ name: 'Bed Assist Rail', manufacturer: 'Stander', pdacApproved: true, medicareEligible: false },
-			]
-		},
-		'specialized-support': {
-			title: 'Specialized Medical Support',
-			description: 'Respiratory therapy, sleep therapy, wound care, and hospital-grade support equipment for complex patient needs.',
-			products: [
-				{ name: 'Compressor Nebulizer System', manufacturer: 'Philips Respironics', pdacApproved: true, medicareEligible: true },
-				{ name: 'CPAP Machine with Humidifier', manufacturer: 'ResMed', pdacApproved: true, medicareEligible: true },
-				{ name: 'Semi-Electric Hospital Bed', manufacturer: 'Invacare', pdacApproved: true, medicareEligible: true },
-				{ name: 'Negative Pressure Wound Therapy', manufacturer: 'KCI Medical', pdacApproved: true, medicareEligible: true },
-				{ name: 'Graduated Compression Stockings', manufacturer: 'Jobst', pdacApproved: true, medicareEligible: true },
-				{ name: 'BiPAP Auto Machine', manufacturer: 'Philips Respironics', pdacApproved: true, medicareEligible: true },
-			]
-		}
-	};
+	import { categories, getProductsByCategory } from '$lib/data/products';
 
 	$: slug = $page.params.category;
 	$: category = categories[slug];
+	$: products = slug ? getProductsByCategory(slug) : [];
 </script>
 
 <svelte:head>
@@ -105,10 +55,9 @@
 		<section class="section">
 			<div class="container">
 				<div class="product-grid">
-					{#each category.products as product}
-						<article class="prod-card">
+					{#each products as product}
+						<a class="prod-card" href="/products/{slug}/{product.slug}">
 							<div class="prod-card-img">
-								<!-- TODO: Replace with real product images -->
 								<div class="prod-card-placeholder">
 									<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
 										<path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -126,8 +75,9 @@
 										<span class="badge badge-medicare">Medicare Eligible</span>
 									{/if}
 								</div>
+								<span class="prod-card-link">View Details &rarr;</span>
 							</div>
-						</article>
+						</a>
 					{/each}
 				</div>
 				<div class="cat-cta">
@@ -199,6 +149,8 @@
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-lg);
 		overflow: hidden;
+		text-decoration: none;
+		color: inherit;
 		transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
 	}
 	.prod-card:hover {
@@ -236,6 +188,7 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.375rem;
+		margin-bottom: var(--space-2);
 	}
 	.badge {
 		display: inline-block;
@@ -253,6 +206,16 @@
 	.badge-medicare {
 		background: color-mix(in srgb, var(--color-accent), #ffffff 88%);
 		color: #065f46;
+	}
+
+	.prod-card-link {
+		display: inline-block;
+		font-size: var(--text-small);
+		font-weight: 600;
+		color: var(--color-accent);
+	}
+	.prod-card:hover .prod-card-link {
+		text-decoration: underline;
 	}
 
 	.cat-cta {
