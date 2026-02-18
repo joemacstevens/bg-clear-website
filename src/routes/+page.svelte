@@ -212,8 +212,7 @@
 		position: relative;
 		width: 100%;
 		min-height: 100vh;
-		display: grid;
-		grid-template-columns: 1fr 1fr;
+		display: flex;
 		align-items: center;
 		background: linear-gradient(105deg, #1e3a5f 0%, #0f2744 100%);
 		overflow: hidden;
@@ -222,6 +221,7 @@
 	.hero-content {
 		position: relative;
 		z-index: 2;
+		width: 50%;
 		padding: clamp(2rem, 5vw, 5rem);
 		padding-left: clamp(2rem, 6vw, 7rem);
 		color: #ffffff;
@@ -297,20 +297,23 @@
 
 	/* Right side: animated composition */
 	.hero-visual {
-		position: relative;
-		width: 100%;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 55%;
 		height: 100%;
-		min-height: 100vh;
-		overflow: hidden;
+		overflow: visible;
+		pointer-events: none;
+		z-index: 1;
 	}
 	.hero-glow {
 		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		width: 600px;
-		height: 600px;
-		background: radial-gradient(circle, rgba(212, 162, 52, 0.18) 0%, transparent 70%);
+		width: 700px;
+		height: 700px;
+		background: radial-gradient(circle, rgba(212, 162, 52, 0.22) 0%, transparent 70%);
 		pointer-events: none;
 	}
 	.hero-shapes {
@@ -318,6 +321,7 @@
 		inset: 0;
 		width: 100%;
 		height: 100%;
+		overflow: visible;
 	}
 
 	/* Floating shape animations */
@@ -336,7 +340,7 @@
 	}
 	@keyframes float4 {
 		0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
-		50% { transform: translateY(-15px) rotate(-10deg) scale(0.95); }
+		50% { transform: translateY(-15px) rotate(-12deg) scale(0.97); }
 	}
 	@keyframes float5 {
 		0%, 100% { transform: translateY(0) rotate(0deg); }
@@ -362,11 +366,11 @@
 	/* Responsive: mobile */
 	@media (max-width: 900px) {
 		.hero {
-			grid-template-columns: 1fr;
 			min-height: auto;
 			padding-top: 5rem;
 		}
 		.hero-content {
+			width: 100%;
 			padding: 2.5rem 1.5rem 2rem;
 			text-align: center;
 		}
@@ -382,8 +386,11 @@
 		}
 		.hero-visual {
 			position: absolute;
-			inset: 0;
-			min-height: 0;
+			left: 0;
+			right: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
 			opacity: 0.3;
 			z-index: 0;
 		}
@@ -532,75 +539,60 @@
 		<div class="hero-visual">
 			<div class="hero-glow"></div>
 			<svg class="hero-shapes" viewBox="0 0 600 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-				<!-- Gold geometric shapes inspired by BG Clear cross motif -->
 
-				<!-- Large angular cross -->
-				<g class="shape shape-1" transform="translate(380, 200)">
-					<path d="M-12,-50 L12,-50 L12,-12 L50,-12 L50,12 L12,12 L12,50 L-12,50 L-12,12 L-50,12 L-50,-12 L-12,-12 Z" fill="none" stroke="#d4a234" stroke-width="2" opacity="0.7"/>
+				<!-- 1. Large gold FILLED cross — 150px wide, slowly rotating -->
+				<g class="shape shape-1" transform="translate(350, 200)">
+					<path d="M-25,-75 L25,-75 L25,-25 L75,-25 L75,25 L25,25 L25,75 L-25,75 L-25,25 L-75,25 L-75,-25 L-25,-25 Z" fill="#d4a234" opacity="0.3"/>
 				</g>
 
-				<!-- Diamond shape -->
-				<g class="shape shape-2" transform="translate(600, 380)">
-					<path d="M0,-40 L35,0 L0,40 L-35,0 Z" fill="none" stroke="#d4a234" stroke-width="1.5" opacity="0.6"/>
+				<!-- 2. Big gold circle ring — 120px diameter, floating -->
+				<g class="shape shape-2" transform="translate(180, 350)">
+					<circle cx="0" cy="0" r="60" fill="none" stroke="#d4a234" stroke-width="3" opacity="0.25"/>
 				</g>
 
-				<!-- Small filled cross -->
-				<g class="shape shape-3" transform="translate(200, 500)">
-					<path d="M-6,-22 L6,-22 L6,-6 L22,-6 L22,6 L6,6 L6,22 L-6,22 L-6,6 L-22,6 L-22,-6 L-6,-6 Z" fill="#d4a234" opacity="0.45"/>
+				<!-- 3. Cluster of gold dots — scattered, drifting -->
+				<circle class="shape shape-3" cx="450" cy="420" r="12" fill="#d4a234" opacity="0.4"/>
+				<circle class="shape shape-8" cx="490" cy="380" r="8" fill="#d4a234" opacity="0.35"/>
+				<circle class="shape shape-10" cx="420" cy="390" r="15" fill="#d4a234" opacity="0.3"/>
+				<circle class="shape shape-5" cx="470" cy="450" r="10" fill="#d4a234" opacity="0.4"/>
+
+				<!-- 4. Large white cross outline — ~100px, rotating opposite -->
+				<g class="shape shape-4" transform="translate(500, 150)">
+					<path d="M-15,-50 L15,-50 L15,-15 L50,-15 L50,15 L15,15 L15,50 L-15,50 L-15,15 L-50,15 L-50,-15 L-15,-15 Z" fill="none" stroke="#ffffff" stroke-width="2.5" opacity="0.15"/>
 				</g>
 
-				<!-- Swoosh curve -->
-				<g class="shape shape-4" transform="translate(500, 600)">
-					<path d="M-60,20 Q-20,-30 40,-20 Q80,-10 60,25" fill="none" stroke="#d4a234" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+				<!-- 5. Bold swoosh/arc curve — gold -->
+				<g class="shape shape-5" transform="translate(280, 560)">
+					<path d="M-100,30 Q-40,-60 60,-40 Q140,-20 100,40" fill="none" stroke="#d4a234" stroke-width="4" stroke-linecap="round" opacity="0.35"/>
 				</g>
 
-				<!-- Small diamond -->
-				<g class="shape shape-5" transform="translate(150, 250)">
-					<path d="M0,-18 L15,0 L0,18 L-15,0 Z" fill="#d4a234" opacity="0.4"/>
+				<!-- 6. Wheelchair silhouette — BIG ~100px, white -->
+				<g class="shape shape-6" transform="translate(420, 280)" opacity="0.12">
+					<circle cx="-30" cy="35" r="22" fill="none" stroke="#ffffff" stroke-width="3"/>
+					<circle cx="30" cy="35" r="22" fill="none" stroke="#ffffff" stroke-width="3"/>
+					<path d="M-30,-45 L-30,0 L20,0 L35,35 L50,35" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+					<path d="M-42,-45 L-18,-45" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
 				</g>
 
-				<!-- Angular cross outline (smaller) -->
-				<g class="shape shape-8" transform="translate(650, 150)">
-					<path d="M-8,-28 L8,-28 L8,-8 L28,-8 L28,8 L8,8 L8,28 L-8,28 L-8,8 L-28,8 L-28,-8 L-8,-8 Z" fill="none" stroke="#d4a234" stroke-width="1" opacity="0.5"/>
+				<!-- 7. Diagonal gold lines — subtle grid pattern -->
+				<g class="shape shape-7" opacity="0.2">
+					<line x1="50" y1="0" x2="250" y2="200" stroke="#d4a234" stroke-width="1.5"/>
+					<line x1="100" y1="0" x2="300" y2="200" stroke="#d4a234" stroke-width="1.5"/>
+					<line x1="150" y1="0" x2="350" y2="200" stroke="#d4a234" stroke-width="1"/>
+					<line x1="350" y1="500" x2="550" y2="700" stroke="#d4a234" stroke-width="1.5"/>
+					<line x1="400" y1="500" x2="600" y2="700" stroke="#d4a234" stroke-width="1"/>
 				</g>
 
-				<!-- Swoosh curve 2 -->
-				<g class="shape shape-10" transform="translate(300, 750)">
-					<path d="M-40,15 Q0,-25 50,-10 Q70,0 45,20" fill="none" stroke="#d4a234" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+				<!-- Extra accent dots -->
+				<circle class="shape shape-9" cx="130" cy="520" r="6" fill="#d4a234" opacity="0.35"/>
+				<circle class="shape shape-10" cx="540" cy="600" r="9" fill="#d4a234" opacity="0.3"/>
+				<circle class="shape shape-3" cx="300" cy="120" r="5" fill="#ffffff" opacity="0.2"/>
+
+				<!-- Second swoosh near top -->
+				<g class="shape shape-9" transform="translate(480, 550)">
+					<path d="M-70,20 Q-20,-40 50,-25 Q100,-10 80,30" fill="none" stroke="#d4a234" stroke-width="3" stroke-linecap="round" opacity="0.25"/>
 				</g>
 
-				<!-- DME silhouettes — very subtle -->
-
-				<!-- Wheelchair silhouette -->
-				<g class="shape shape-6" transform="translate(480, 460)" opacity="0.3">
-					<path d="M-15,-25 L-15,-10 L5,-10 L15,10 L25,10 M-15,10 A12,12 0 1,0 -3,22 M10,10 A12,12 0 1,0 22,22" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-				</g>
-
-				<!-- Blood pressure cuff silhouette -->
-				<g class="shape shape-7" transform="translate(250, 150)" opacity="0.25">
-					<rect x="-18" y="-25" width="36" height="50" rx="6" fill="none" stroke="#d4a234" stroke-width="1.5"/>
-					<circle cx="0" cy="-2" r="12" fill="none" stroke="#d4a234" stroke-width="1"/>
-					<path d="M0,-14 L0,10" stroke="#d4a234" stroke-width="0.8"/>
-					<path d="M-8,-2 L8,-2" stroke="#d4a234" stroke-width="0.8"/>
-				</g>
-
-				<!-- Stethoscope silhouette -->
-				<g class="shape shape-9" transform="translate(680, 550)" opacity="0.3">
-					<path d="M-10,-30 Q-10,-10 0,0 Q10,-10 10,-30" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
-					<circle cx="0" cy="8" r="8" fill="none" stroke="#ffffff" stroke-width="1.5"/>
-					<circle cx="0" cy="8" r="2" fill="#ffffff" opacity="0.7"/>
-				</g>
-
-				<!-- Medical cross silhouette -->
-				<g class="shape shape-5" transform="translate(100, 700)" opacity="0.35">
-					<path d="M-5,-18 L5,-18 L5,-5 L18,-5 L18,5 L5,5 L5,18 L-5,18 L-5,5 L-18,5 L-18,-5 L-5,-5 Z" fill="none" stroke="#ffffff" stroke-width="1.2"/>
-				</g>
-
-				<!-- Extra floating dots / accents -->
-				<circle class="shape shape-3" cx="120" cy="400" r="3" fill="#d4a234" opacity="0.5"/>
-				<circle class="shape shape-8" cx="700" cy="300" r="4" fill="#d4a234" opacity="0.4"/>
-				<circle class="shape shape-1" cx="550" cy="800" r="2.5" fill="#d4a234" opacity="0.45"/>
-				<circle class="shape shape-10" cx="350" cy="100" r="3.5" fill="#ffffff" opacity="0.3"/>
 			</svg>
 		</div>
 	</section>
