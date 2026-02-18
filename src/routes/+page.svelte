@@ -295,7 +295,7 @@
 		margin: 0;
 	}
 
-	/* Right side: photo collage composition */
+	/* Right side: hexagon grid */
 	.hero-visual {
 		position: absolute;
 		right: 0;
@@ -317,116 +317,117 @@
 		pointer-events: none;
 	}
 
-	/* Gold accent blocks behind photos */
-	.collage-accent {
+	/* Hexagon grid layout */
+	.hex-grid {
 		position: absolute;
-		background: #d4a234;
-		opacity: 0.8;
-		border-radius: 4px;
-	}
-	.accent-block-1 {
-		width: 120px;
-		height: 180px;
-		top: 12%;
-		right: 8%;
-		transform: rotate(-6deg);
-	}
-	.accent-block-2 {
-		width: 80px;
-		height: 100px;
-		top: 52%;
-		left: 18%;
-		transform: rotate(4deg);
-	}
-	.accent-block-3 {
-		width: 60px;
-		height: 60px;
-		bottom: 18%;
-		right: 28%;
-		transform: rotate(12deg);
-	}
-
-	/* Decorative gold cross */
-	.collage-cross {
-		position: absolute;
-		top: 38%;
-		left: 10%;
-		width: 80px;
-		height: 80px;
-		opacity: 0.25;
-	}
-	.collage-cross::before,
-	.collage-cross::after {
-		content: '';
-		position: absolute;
-		background: #d4a234;
-		border-radius: 2px;
-	}
-	.collage-cross::before {
 		top: 50%;
-		left: 0;
-		width: 100%;
-		height: 16px;
-		transform: translateY(-50%);
-	}
-	.collage-cross::after {
 		left: 50%;
-		top: 0;
-		width: 16px;
-		height: 100%;
-		transform: translateX(-50%);
+		transform: translate(-50%, -50%) rotate(2deg);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 12px;
+	}
+	.hex-row {
+		display: flex;
+		gap: 14px;
+	}
+	.hex-row.offset {
+		margin-top: -20px;
 	}
 
-	/* Photo collage items */
-	.collage-photo {
-		position: absolute;
-		overflow: hidden;
-		will-change: transform;
+	/* Individual hexagon */
+	.hex {
+		width: 170px;
+		height: 170px;
+		clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+		position: relative;
+		opacity: 0;
+		animation: hexFadeIn 0.5s ease forwards;
+		pointer-events: auto;
+		cursor: default;
+		transition: transform 300ms ease, filter 300ms ease;
 	}
-	.collage-photo img {
+	.hex:hover {
+		transform: scale(1.05);
+		filter: drop-shadow(0 0 16px rgba(212, 162, 52, 0.5));
+	}
+	.hex img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 		display: block;
 	}
 
-	/* Large circle — technician (top-right) */
-	.collage-circle-lg {
-		width: clamp(240px, 22vw, 340px);
-		height: clamp(240px, 22vw, 340px);
-		border-radius: 50%;
-		top: 8%;
-		right: 6%;
-		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
-		animation: collageFloat 6s ease-in-out infinite;
+	/* Gold accent hex */
+	.hex-accent {
+		background: #d4a234;
+		opacity: 0;
+		animation: hexFadeIn 0.5s ease forwards;
+	}
+	.hex-accent::after {
+		content: '';
+		display: block;
+		width: 100%;
+		height: 100%;
+		background: #d4a234;
+		opacity: 0.3;
 	}
 
-	/* Medium rounded rectangle — products (middle-right, overlapping) */
-	.collage-rect-md {
-		width: clamp(200px, 18vw, 280px);
-		height: clamp(150px, 14vw, 210px);
-		border-radius: 16px;
-		top: 44%;
-		left: 14%;
-		box-shadow: 0 10px 32px rgba(0, 0, 0, 0.3);
-		animation: collageFloat 6s ease-in-out 2s infinite;
+	/* Navy hex with cross icon */
+	.hex-navy {
+		background: #1e3a5f;
+		opacity: 0;
+		animation: hexFadeIn 0.5s ease forwards;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.hex-cross {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 40px;
+		height: 40px;
+	}
+	.hex-cross::before,
+	.hex-cross::after {
+		content: '';
+		position: absolute;
+		background: #d4a234;
+		border-radius: 2px;
+	}
+	.hex-cross::before {
+		top: 50%;
+		left: 0;
+		width: 100%;
+		height: 8px;
+		transform: translateY(-50%);
+	}
+	.hex-cross::after {
+		left: 50%;
+		top: 0;
+		width: 8px;
+		height: 100%;
+		transform: translateX(-50%);
 	}
 
-	/* Small circle — delivery (bottom, overlapping) */
-	.collage-circle-sm {
-		width: clamp(160px, 14vw, 220px);
-		height: clamp(160px, 14vw, 220px);
-		border-radius: 50%;
-		bottom: 10%;
-		right: 20%;
-		box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
-		animation: collageFloat 6s ease-in-out 4s infinite;
+	/* Float animation — each hex gets a custom delay via inline style */
+	.hex-float {
+		animation: hexFadeIn 0.5s ease forwards, hexFloat 6s ease-in-out infinite;
 	}
 
-	@keyframes collageFloat {
+	@keyframes hexFadeIn {
+		from { opacity: 0; transform: scale(0.85) translateY(20px); }
+		to   { opacity: 1; transform: scale(1) translateY(0); }
+	}
+	@keyframes hexFloat {
 		0%, 100% { transform: translateY(0); }
-		50% { transform: translateY(-10px); }
+		50%      { transform: translateY(-8px); }
 	}
+
+	/* Stagger delays (set via style attribute) */
 
 	/* Responsive: mobile */
 	@media (max-width: 900px) {
@@ -456,7 +457,7 @@
 			top: 0;
 			width: 100%;
 			height: 100%;
-			opacity: 0.25;
+			opacity: 0.2;
 			z-index: 0;
 		}
 		.hero-content {
@@ -465,22 +466,20 @@
 		.hero h1 {
 			font-size: clamp(2rem, 7vw, 2.75rem);
 		}
-		/* Hide smaller photos on mobile, show only main circle */
-		.collage-rect-md,
-		.collage-circle-sm {
+		.hex-grid {
+			transform: translate(-50%, -50%) rotate(0deg);
+		}
+		/* Hide rows 1 and 3, show only middle row of 3 */
+		.hex-row:first-child,
+		.hex-row:last-child {
 			display: none;
 		}
-		.collage-circle-lg {
-			width: 280px;
-			height: 280px;
-			top: 50%;
-			left: 50%;
-			right: auto;
-			transform: translate(-50%, -50%);
+		.hex-row.offset {
+			margin-top: 0;
 		}
-		.collage-accent,
-		.collage-cross {
-			display: none;
+		.hex {
+			width: 120px;
+			height: 120px;
 		}
 	}
 	@media (max-width: 480px) {
@@ -490,6 +489,10 @@
 		.hero-ctas {
 			flex-direction: column;
 			align-items: center;
+		}
+		.hex {
+			width: 100px;
+			height: 100px;
 		}
 	}
 
@@ -617,31 +620,45 @@
 			<p class="hero-trust-note">No obligation · Most inquiries answered within 4 hours</p>
 		</div>
 
-		<!-- Right: photo collage composition -->
+		<!-- Right: animated hexagon photo grid -->
 		<div class="hero-visual">
 			<div class="hero-glow"></div>
 
-			<!-- Gold accent blocks behind photos for depth -->
-			<div class="collage-accent accent-block-1"></div>
-			<div class="collage-accent accent-block-2"></div>
-			<div class="collage-accent accent-block-3"></div>
+			<div class="hex-grid">
+				<!-- Row 1: 2 photo hexagons + 1 gold accent -->
+				<div class="hex-row">
+					<div class="hex hex-float" style="animation-delay: 0s, 0s;">
+						<img src="/generated-photos/hero-technician.png" alt="DME technician assisting with wheelchair" />
+					</div>
+					<div class="hex hex-float" style="animation-delay: 0.1s, 1s;">
+						<img src="/generated-photos/hex-cpap.png" alt="CPAP machine" />
+					</div>
+					<div class="hex hex-accent hex-float" style="animation-delay: 0.2s, 2s;"></div>
+				</div>
 
-			<!-- Decorative gold cross peeking behind photos -->
-			<div class="collage-cross"></div>
+				<!-- Row 2 (offset): 3 photo hexagons -->
+				<div class="hex-row offset">
+					<div class="hex hex-float" style="animation-delay: 0.3s, 1.5s;">
+						<img src="/generated-photos/hero-products.png" alt="Medical equipment and products" />
+					</div>
+					<div class="hex hex-navy hex-float" style="animation-delay: 0.4s, 3s;">
+						<div class="hex-cross"></div>
+					</div>
+					<div class="hex hex-float" style="animation-delay: 0.5s, 0.5s;">
+						<img src="/generated-photos/hex-walker.png" alt="Elderly person with walker" />
+					</div>
+				</div>
 
-			<!-- Large circle — technician photo -->
-			<div class="collage-photo collage-circle-lg">
-				<img src="/generated-photos/hero-technician.png" alt="DME technician assisting with wheelchair" />
-			</div>
-
-			<!-- Medium rounded rectangle — products photo -->
-			<div class="collage-photo collage-rect-md">
-				<img src="/generated-photos/hero-products.png" alt="Medical equipment and products" />
-			</div>
-
-			<!-- Small circle — delivery photo -->
-			<div class="collage-photo collage-circle-sm">
-				<img src="/generated-photos/hero-delivery.png" alt="Equipment delivery at healthcare clinic" />
+				<!-- Row 3: 2 photo hexagons + 1 gold accent -->
+				<div class="hex-row">
+					<div class="hex hex-accent hex-float" style="animation-delay: 0.6s, 2.5s;"></div>
+					<div class="hex hex-float" style="animation-delay: 0.7s, 1.2s;">
+						<img src="/generated-photos/hex-rehab.png" alt="Rehabilitation and wheelchair therapy" />
+					</div>
+					<div class="hex hex-float" style="animation-delay: 0.8s, 3.5s;">
+						<img src="/generated-photos/hex-monitoring.png" alt="Nurse with blood pressure monitor" />
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
