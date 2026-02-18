@@ -391,7 +391,7 @@
 <!-- Navigation Header -->
 <header class="site-header" class:scrolled>
 	<div class="container header-inner">
-		<img class="header-logo is-visible" src={logo} alt="BG Clear" />
+		<a href="/"><img class="header-logo is-visible" src={logo} alt="BG Clear" /></a>
 		<nav class="header-nav">
 			<a href="/about">About Us</a>
 			<a href="#capabilities" class:nav-active={activeSection === 'capabilities'}>Capabilities</a>
@@ -746,7 +746,7 @@
 		<div class="container">
 			<div class="footer-grid">
 				<div class="footer-brand">
-					<img class="header-logo" src={logo} alt="BG Clear" />
+					<a href="/"><img class="header-logo" src={logo} alt="BG Clear" /></a>
 					<p>Tech-forward DME distribution for modern healthcare providers. Fast, compliant, reliable.</p>
 					<div class="footer-social">
 						<!-- TODO: Replace # with real social media URLs when available -->
