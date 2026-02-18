@@ -292,8 +292,8 @@
 		background: linear-gradient(
 			to top,
 			rgba(15, 39, 68, 0.92) 0%,
-			rgba(15, 39, 68, 0.75) 40%,
-			rgba(15, 39, 68, 0.55) 100%
+			rgba(15, 39, 68, 0.85) 40%,
+			rgba(15, 39, 68, 0.65) 100%
 		);
 	}
 
@@ -322,7 +322,8 @@
 		text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 	}
 
-	.bento-tile--has-bg.bento-tile--gold {
+	.bento-tile--has-bg.bento-tile--gold,
+	.bento-tile--has-bg.bento-tile--navy {
 		color: #fff;
 	}
 
