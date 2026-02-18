@@ -409,52 +409,33 @@
 	}
 
 	/* Provider grid */
-	.provider-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: var(--space-4);
-		margin-top: var(--space-4);
-	}
-	.provider-item {
+	.provider-chips {
 		display: flex;
-		flex-direction: column;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: var(--space-4);
+		justify-content: center;
+	}
+	.provider-chip {
+		display: inline-flex;
 		align-items: center;
-		text-align: center;
-		gap: var(--space-2);
-		padding: var(--space-3);
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-lg);
-		transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+		padding: 0.625rem 1.25rem;
+		background: var(--color-primary, #1e3a5f);
+		color: #ffffff;
+		font-size: 0.9375rem;
+		font-weight: 600;
+		border-radius: 2rem;
+		letter-spacing: 0.01em;
+		transition: transform 200ms ease, box-shadow 200ms ease;
 	}
-	.provider-item:hover {
+	.provider-chip:hover {
 		transform: translateY(-2px);
-		box-shadow: var(--shadow-sm);
-		border-color: color-mix(in srgb, var(--color-accent), transparent 70%);
-	}
-	.provider-icon {
-		width: 72px;
-		height: 72px;
-		object-fit: contain;
-	}
-	.provider-item span {
-		font-size: var(--text-small);
-		font-weight: 500;
-		color: var(--color-ink);
-	}
-	@media (max-width: 768px) {
-		.provider-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
+		box-shadow: 0 4px 12px rgba(15, 39, 68, 0.25);
 	}
 	@media (max-width: 480px) {
-		.provider-grid {
-			grid-template-columns: 1fr 1fr;
-			gap: var(--space-3);
-		}
-		.provider-icon {
-			width: 56px;
-			height: 56px;
+		.provider-chip {
+			font-size: 0.8125rem;
+			padding: 0.5rem 1rem;
 		}
 	}
 
@@ -630,41 +611,6 @@
 		</div>
 	</section>
 
-	<!-- WHO WE SERVE -->
-	<section class="section">
-		<div class="container">
-			<p class="eyebrow">Who we serve</p>
-			<h2>Built for the teams delivering care.</h2>
-			<p class="subhead">From primary care to home health, we serve providers who need equipment they can count on.</p>
-			<div class="provider-grid">
-				<div class="provider-item">
-					<img class="provider-icon" src={iconPrimaryCare} alt="" loading="lazy" />
-					<span>Primary care clinics</span>
-				</div>
-				<div class="provider-item">
-					<img class="provider-icon" src={iconSpecialty} alt="" loading="lazy" />
-					<span>Specialty clinics</span>
-				</div>
-				<div class="provider-item">
-					<img class="provider-icon" src={iconHospital} alt="" loading="lazy" />
-					<span>Hospitals & outpatient</span>
-				</div>
-				<div class="provider-item">
-					<img class="provider-icon" src={iconHomeHealth} alt="" loading="lazy" />
-					<span>Home health agencies</span>
-				</div>
-				<div class="provider-item">
-					<img class="provider-icon" src={iconLongTermCare} alt="" loading="lazy" />
-					<span>Long-term care</span>
-				</div>
-				<div class="provider-item">
-					<img class="provider-icon" src={iconPharmacy} alt="" loading="lazy" />
-					<span>Pharmacies & retailers</span>
-				</div>
-			</div>
-		</div>
-	</section>
-
 	<!-- COMBINED PRODUCTS & TRUSTED PARTNERS BENTO GRID -->
 	<ProductsPartnersBento />
 
@@ -672,6 +618,23 @@
 	<div id="capabilities">
 		<BentoGrid />
 	</div>
+
+	<!-- WHO WE SERVE -->
+	<section class="section">
+		<div class="container">
+			<p class="eyebrow">Who we serve</p>
+			<h2>Built for the teams delivering care.</h2>
+			<p class="subhead">From primary care to home health, we serve providers who need equipment they can count on.</p>
+			<div class="provider-chips">
+				<span class="provider-chip">Primary Care Clinics</span>
+				<span class="provider-chip">Specialty Clinics</span>
+				<span class="provider-chip">Hospitals &amp; Outpatient</span>
+				<span class="provider-chip">Home Health Agencies</span>
+				<span class="provider-chip">Long-Term Care</span>
+				<span class="provider-chip">Pharmacies &amp; Retailers</span>
+			</div>
+		</div>
+	</section>
 
 	<!-- HOW WE WORK -->
 	<section class="section" id="how-we-work">
