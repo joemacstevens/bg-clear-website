@@ -5,9 +5,7 @@
 	import logo from '$lib/assets/bg-clear-logo-640.png';
 	import HeroVideo from '$lib/components/HeroVideo.svelte';
 	import BentoGrid from '$lib/components/BentoGrid.svelte';
-	import imgHealth from '$lib/assets/visuals/product-health-monitoring.jpg';
-	import imgMobility from '$lib/assets/visuals/product-mobility-safety.jpg';
-	import imgSpecialized from '$lib/assets/visuals/product-specialized-support.jpg';
+	import ProductsPartnersBento from '$lib/components/ProductsPartnersBento.svelte';
 
 	// New visual assets
 	import capCompliance from '$lib/assets/visuals/cap-compliance.png';
@@ -22,12 +20,6 @@
 	import iconLongTermCare from '$lib/assets/visuals/icon-long-term-care.png';
 	import iconPharmacy from '$lib/assets/visuals/icon-pharmacy.png';
 
-	// Partner logos
-	import logoMckesson from '$lib/assets/partners/mckesson.svg';
-	import logoDrive from '$lib/assets/partners/drive-medical.svg';
-	import logoPride from '$lib/assets/partners/pride-mobility.png';
-	import logoInvacare from '$lib/assets/partners/invacare.svg';
-	import logoMedline from '$lib/assets/partners/medline.svg';
 
 	type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -124,70 +116,6 @@
 </script>
 
 <style>
-	/* Product category cards */
-	.product-card {
-		display: flex;
-		flex-direction: column;
-		overflow: hidden;
-		padding: 0;
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-lg);
-		box-shadow: var(--shadow-sm);
-		transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
-		text-decoration: none;
-		color: inherit;
-	}
-	.product-card:hover {
-		transform: translateY(-4px);
-		box-shadow: var(--shadow-lg);
-		border-color: var(--color-gold);
-	}
-	.product-card-img {
-		position: relative;
-		width: 100%;
-		height: 220px;
-		overflow: hidden;
-		background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-	}
-	.product-card-img img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		transition: transform 500ms ease;
-	}
-	.product-card:hover .product-card-img img {
-		transform: scale(1.06);
-	}
-	.product-card-body {
-		padding: var(--space-4);
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-	}
-	.product-card-body h3 {
-		font-size: clamp(1.125rem, 1.5vw, 1.25rem);
-		margin-bottom: 0.5rem;
-	}
-	.product-card-desc {
-		color: var(--color-muted);
-		font-size: 0.925rem;
-		line-height: 1.6;
-		flex: 1;
-	}
-	.product-card-link {
-		display: inline-block;
-		font-weight: 600;
-		font-size: 0.95rem;
-		color: var(--color-primary);
-		margin-top: auto;
-		padding-top: var(--space-2);
-		transition: color 160ms ease;
-	}
-	.product-card:hover .product-card-link {
-		color: var(--color-gold);
-	}
-
 	/* Hero enhancements */
 	.hero {
 		padding-top: clamp(7rem, 14vw, 10rem);
@@ -625,66 +553,13 @@
 		</div>
 	</section>
 
-	<section class="section section-alt" id="products">
-		<div class="container">
-			<p class="eyebrow">Products</p>
-			<h2>Equipment for chronic care, mobility, and specialized support.</h2>
-			<p class="subhead">
-				FDA/CMS-compliant equipment across core DME categories, ready for provider workflows.
-			</p>
-			<div class="grid-3">
-				<a class="product-card" href="/products/health-monitoring">
-					<div class="product-card-img">
-						<img src={imgHealth} alt="Health monitoring devices" loading="lazy" />
-					</div>
-					<div class="product-card-body">
-						<h3>Health Monitoring &amp; Management</h3>
-						<p class="product-card-desc">Blood pressure monitors, glucometers, pulse oximeters, RPM devices, and thermometers for chronic care management.</p>
-						<span class="product-card-link">Explore Products &rarr;</span>
-					</div>
-				</a>
-				<a class="product-card" href="/products/mobility-safety">
-					<div class="product-card-img">
-						<img src={imgMobility} alt="Mobility and safety equipment" loading="lazy" />
-					</div>
-					<div class="product-card-body">
-						<h3>Mobility &amp; Safety Equipment</h3>
-						<p class="product-card-desc">Walkers, wheelchairs, canes, patient lifts, bathroom safety products, and fall prevention devices.</p>
-						<span class="product-card-link">Explore Products &rarr;</span>
-					</div>
-				</a>
-				<a class="product-card" href="/products/specialized-support">
-					<div class="product-card-img">
-						<img src={imgSpecialized} alt="Specialized medical support equipment" loading="lazy" />
-					</div>
-					<div class="product-card-body">
-						<h3>Specialized Medical Support</h3>
-						<p class="product-card-desc">Nebulizers, CPAP/BiPAP machines, hospital beds, wound care devices, and compression therapy equipment.</p>
-						<span class="product-card-link">Explore Products &rarr;</span>
-					</div>
-				</a>
-			</div>
-		</div>
-	</section>
+	<!-- COMBINED PRODUCTS & TRUSTED PARTNERS BENTO GRID -->
+	<ProductsPartnersBento />
 
 	<!-- CAPABILITIES / VALUE GRID (bento mosaic) -->
 	<div id="capabilities">
 		<BentoGrid />
 	</div>
-
-	<!-- TRUSTED MANUFACTURERS -->
-	<section class="partner-logos">
-		<div class="container">
-			<p class="partner-logos-label">Trusted manufacturers &amp; distributors we work with</p>
-			<div class="partner-logos-strip">
-				<img src={logoMckesson} alt="McKesson" class="partner-logo" />
-				<img src={logoDrive} alt="Drive Medical" class="partner-logo" />
-				<img src={logoMedline} alt="Medline" class="partner-logo" />
-				<img src={logoInvacare} alt="Invacare" class="partner-logo" />
-				<img src={logoPride} alt="Pride Mobility" class="partner-logo" />
-			</div>
-		</div>
-	</section>
 
 	<!-- HOW WE WORK -->
 	<section class="section" id="how-we-work">
