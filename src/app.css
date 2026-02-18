@@ -778,7 +778,7 @@ html {
 }
 
 .header-logo {
-	height: clamp(52px, 4.5vw, 72px);
+	height: clamp(72px, 7vw, 110px);
 	width: auto;
 	flex: 0 0 auto;
 	opacity: 1;
@@ -787,7 +787,7 @@ html {
 
 @media (max-width: 900px) {
 	.header-logo {
-		height: 48px;
+		height: 64px;
 	}
 }
 
