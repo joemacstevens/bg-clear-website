@@ -124,28 +124,40 @@
 </script>
 
 <style>
-	/* Product cards with image headers */
+	/* Product category cards */
 	.product-card {
-		overflow: hidden;
-		padding: 0;
 		display: flex;
 		flex-direction: column;
+		overflow: hidden;
+		padding: 0;
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-sm);
+		transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+		text-decoration: none;
+		color: inherit;
+	}
+	.product-card:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-lg);
+		border-color: var(--color-gold);
 	}
 	.product-card-img {
 		position: relative;
 		width: 100%;
-		height: 200px;
+		height: 220px;
 		overflow: hidden;
-		background: linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%);
+		background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
 	}
 	.product-card-img img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		transition: transform 400ms ease;
+		transition: transform 500ms ease;
 	}
 	.product-card:hover .product-card-img img {
-		transform: scale(1.04);
+		transform: scale(1.06);
 	}
 	.product-card-body {
 		padding: var(--space-4);
@@ -153,9 +165,27 @@
 		display: flex;
 		flex-direction: column;
 	}
-	.product-card-btn {
+	.product-card-body h3 {
+		font-size: clamp(1.125rem, 1.5vw, 1.25rem);
+		margin-bottom: 0.5rem;
+	}
+	.product-card-desc {
+		color: var(--color-muted);
+		font-size: 0.925rem;
+		line-height: 1.6;
+		flex: 1;
+	}
+	.product-card-link {
+		display: inline-block;
+		font-weight: 600;
+		font-size: 0.95rem;
+		color: var(--color-primary);
 		margin-top: auto;
-		align-self: flex-start;
+		padding-top: var(--space-2);
+		transition: color 160ms ease;
+	}
+	.product-card:hover .product-card-link {
+		color: var(--color-gold);
 	}
 
 	/* Hero enhancements */
@@ -602,55 +632,36 @@
 				FDA/CMS-compliant equipment across core DME categories, ready for provider workflows.
 			</p>
 			<div class="grid-3">
-				<article class="capability-card product-card">
+				<a class="product-card" href="/products/health-monitoring">
 					<div class="product-card-img">
-						<img src={imgHealth} alt="Health monitoring devices including blood pressure monitor, glucometer, pulse oximeter, and thermometer" loading="lazy" />
+						<img src={imgHealth} alt="Health monitoring devices" loading="lazy" />
 					</div>
 					<div class="product-card-body">
-						<h3>Health monitoring &amp; management</h3>
-						<ul class="list">
-							<li>Blood pressure monitors (digital &amp; manual)</li>
-							<li>Glucometers &amp; diabetes management tools</li>
-							<li>Pulse oximeters</li>
-							<li>Telehealth-enabled RPM devices</li>
-							<li>Thermometers (infrared &amp; digital)</li>
-						</ul>
-						<a class="button button-primary product-card-btn" href="#request-call">Learn More</a>
+						<h3>Health Monitoring &amp; Management</h3>
+						<p class="product-card-desc">Blood pressure monitors, glucometers, pulse oximeters, RPM devices, and thermometers for chronic care management.</p>
+						<span class="product-card-link">Explore Products &rarr;</span>
 					</div>
-				</article>
-				<article class="capability-card product-card">
+				</a>
+				<a class="product-card" href="/products/mobility-safety">
 					<div class="product-card-img">
-						<img src={imgMobility} alt="Mobility equipment including walker, wheelchair, shower chair, and grab bars" loading="lazy" />
+						<img src={imgMobility} alt="Mobility and safety equipment" loading="lazy" />
 					</div>
 					<div class="product-card-body">
-						<h3>Mobility &amp; safety equipment</h3>
-						<ul class="list">
-							<li>Walkers (standard &amp; rollators)</li>
-							<li>Wheelchairs (manual &amp; transport)</li>
-							<li>Canes &amp; crutches</li>
-							<li>Patient lifts &amp; slings</li>
-							<li>Bathroom safety (grab bars, shower chairs)</li>
-							<li>Fall prevention devices</li>
-						</ul>
-						<a class="button button-primary product-card-btn" href="#request-call">Learn More</a>
+						<h3>Mobility &amp; Safety Equipment</h3>
+						<p class="product-card-desc">Walkers, wheelchairs, canes, patient lifts, bathroom safety products, and fall prevention devices.</p>
+						<span class="product-card-link">Explore Products &rarr;</span>
 					</div>
-				</article>
-				<article class="capability-card product-card">
+				</a>
+				<a class="product-card" href="/products/specialized-support">
 					<div class="product-card-img">
-						<img src={imgSpecialized} alt="Specialized medical equipment including CPAP machine, nebulizer, hospital bed, and wound care device" loading="lazy" />
+						<img src={imgSpecialized} alt="Specialized medical support equipment" loading="lazy" />
 					</div>
 					<div class="product-card-body">
-						<h3>Specialized medical support</h3>
-						<ul class="list">
-							<li>Nebulizers &amp; respiratory therapy</li>
-							<li>Sleep apnea equipment (CPAP/BiPAP)</li>
-							<li>Hospital beds &amp; support surfaces</li>
-							<li>Wound care devices</li>
-							<li>Compression therapy equipment</li>
-						</ul>
-						<a class="button button-primary product-card-btn" href="#request-call">Learn More</a>
+						<h3>Specialized Medical Support</h3>
+						<p class="product-card-desc">Nebulizers, CPAP/BiPAP machines, hospital beds, wound care devices, and compression therapy equipment.</p>
+						<span class="product-card-link">Explore Products &rarr;</span>
 					</div>
-				</article>
+				</a>
 			</div>
 		</div>
 	</section>
