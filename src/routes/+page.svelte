@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import logo from '$lib/assets/bg-clear-logo-640.png';
 	import HeroVideo from '$lib/components/HeroVideo.svelte';
+	import BentoGrid from '$lib/components/BentoGrid.svelte';
 	import imgHealth from '$lib/assets/visuals/product-health-monitoring.jpg';
 	import imgMobility from '$lib/assets/visuals/product-mobility-safety.jpg';
 	import imgSpecialized from '$lib/assets/visuals/product-specialized-support.jpg';
@@ -631,31 +632,8 @@
 		</div>
 	</section>
 
-	<!-- WHY BG CLEAR (placeholder — waiting on client copy) -->
-	<section class="section" id="why-bg-clear">
-		<div class="container">
-			<p class="eyebrow">Why BG Clear</p>
-			<h2>Built for compliance, speed, and real support.</h2>
-			<!-- TODO: Client copy needed — mission statement + differentiator copy from Gina/Evan -->
-			<p class="subhead">
-				We combine PDAC-approved compliance, fast fulfillment, and dedicated specialists who actually answer the phone — so your team stays focused on patient care.
-			</p>
-			<div class="grid-3">
-				<article class="capability-card">
-					<h3>Compliance-first</h3>
-					<p>Documentation, sourcing standards, and process rigor that keeps your team moving fast without cutting corners.</p>
-				</article>
-				<article class="capability-card">
-					<h3>Fast fulfillment</h3>
-					<p>Consistent inventory, clean logistics, and dependable turnaround so your patients get what they need without delays.</p>
-				</article>
-				<article class="capability-card">
-					<h3>Real people</h3>
-					<p>Dedicated specialists who answer the phone, troubleshoot fast, and make sure the equipment fits the workflow.</p>
-				</article>
-			</div>
-		</div>
-	</section>
+	<!-- CAPABILITIES / VALUE GRID (bento mosaic) -->
+	<BentoGrid />
 
 	<!-- TRUSTED MANUFACTURERS -->
 	<section class="partner-logos">
