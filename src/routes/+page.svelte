@@ -222,8 +222,11 @@
 		position: relative;
 		z-index: 2;
 		width: 50%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 		padding: clamp(2rem, 5vw, 5rem);
-		padding-left: clamp(2rem, 6vw, 7rem);
+		padding-left: 80px;
 		color: #ffffff;
 	}
 	.hero .eyebrow {
@@ -235,7 +238,7 @@
 		margin-bottom: 1rem;
 	}
 	.hero h1 {
-		font-size: clamp(2.5rem, 4.5vw, 4rem);
+		font-size: clamp(3.5rem, 6vw, 5rem);
 		font-weight: 700;
 		letter-spacing: -0.025em;
 		line-height: 1.08;
@@ -251,6 +254,7 @@
 	}
 	.hero-ctas {
 		display: flex;
+		flex-direction: row;
 		flex-wrap: wrap;
 		gap: 1rem;
 		margin-bottom: 1.25rem;
@@ -329,16 +333,60 @@
 		height: 100px;
 		border-radius: 12px;
 		opacity: 0.7;
-		top: 12%;
-		right: 8%;
+		top: 10%;
+		left: 8%;
 	}
 	.gold-block-2 {
 		width: 80px;
 		height: 80px;
 		border-radius: 12px;
 		opacity: 0.5;
-		bottom: 18%;
-		right: 6%;
+		bottom: 15%;
+		left: 55%;
+	}
+	.gold-block-3 {
+		width: 60px;
+		height: 90px;
+		border-radius: 10px;
+		opacity: 0.6;
+		top: 55%;
+		right: 5%;
+	}
+	.gold-block-4 {
+		width: 100px;
+		height: 50px;
+		border-radius: 8px;
+		opacity: 0.55;
+		bottom: 30%;
+		left: 15%;
+	}
+
+	/* Gold dot accents */
+	.gold-dot {
+		position: absolute;
+		background: #d4a234;
+		border-radius: 50%;
+		z-index: 2;
+	}
+	.gold-dot-1 { width: 20px; height: 20px; top: 18%; left: 35%; opacity: 0.6; }
+	.gold-dot-2 { width: 15px; height: 15px; top: 72%; left: 5%; opacity: 0.5; }
+	.gold-dot-3 { width: 25px; height: 25px; bottom: 10%; right: 15%; opacity: 0.7; }
+	.gold-dot-4 { width: 18px; height: 18px; top: 5%; left: 50%; opacity: 0.5; }
+
+	/* Gold cross shape */
+	.gold-cross {
+		position: absolute;
+		z-index: 2;
+		top: 30%;
+		right: 8%;
+	}
+
+	/* Gold swoosh arc */
+	.gold-swoosh {
+		position: absolute;
+		z-index: 2;
+		bottom: 22%;
+		left: 25%;
 	}
 
 	/* Layer 3: Photo shapes */
@@ -350,30 +398,30 @@
 		animation: photoFloat 6s ease-in-out infinite;
 	}
 	.hero-photo-1 {
-		width: 280px;
-		height: 280px;
+		width: 320px;
+		height: 320px;
 		border-radius: 50%;
 		border: 4px solid rgba(212, 162, 52, 0.6);
-		top: 8%;
-		right: 5%;
+		top: 5%;
+		left: 25%;
 		animation-delay: 0s;
 	}
 	.hero-photo-2 {
-		width: 260px;
-		height: 200px;
+		width: 300px;
+		height: 220px;
 		border-radius: 20px;
 		border: 4px solid rgba(212, 162, 52, 0.4);
-		top: 38%;
-		left: 10%;
+		top: 40%;
+		left: 5%;
 		animation-delay: -2s;
 	}
 	.hero-photo-3 {
-		width: 220px;
-		height: 220px;
+		width: 260px;
+		height: 260px;
 		border-radius: 50%;
 		border: 4px solid rgba(212, 162, 52, 0.5);
-		bottom: 8%;
-		right: 10%;
+		bottom: 5%;
+		left: 35%;
 		animation-delay: -4s;
 	}
 	@keyframes photoFloat {
@@ -390,6 +438,7 @@
 		.hero-content {
 			width: 100%;
 			padding: 2.5rem 1.5rem 2rem;
+			padding-left: 1.5rem;
 			text-align: center;
 		}
 		.hero .subhead {
@@ -559,8 +608,8 @@
 			<svg class="hex-wireframe" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
 				<defs>
 					<pattern id="hexGrid" width="80" height="138.56" patternUnits="userSpaceOnUse" patternTransform="translate(0,0)">
-						<polygon points="40,0 80,23.09 80,69.28 40,92.38 0,69.28 0,23.09" fill="none" stroke="#d4a234" stroke-width="1" opacity="0.15"/>
-						<polygon points="80,46.19 120,69.28 120,115.47 80,138.56 40,115.47 40,69.28" fill="none" stroke="#d4a234" stroke-width="1" opacity="0.15"/>
+						<polygon points="40,0 80,23.09 80,69.28 40,92.38 0,69.28 0,23.09" fill="none" stroke="#d4a234" stroke-width="1" opacity="0.25"/>
+						<polygon points="80,46.19 120,69.28 120,115.47 80,138.56 40,115.47 40,69.28" fill="none" stroke="#d4a234" stroke-width="1" opacity="0.25"/>
 					</pattern>
 				</defs>
 				<rect width="100%" height="100%" fill="url(#hexGrid)" />
@@ -569,6 +618,25 @@
 			<!-- Layer 2: Gold accent blocks -->
 			<div class="gold-block gold-block-1"></div>
 			<div class="gold-block gold-block-2"></div>
+			<div class="gold-block gold-block-3"></div>
+			<div class="gold-block gold-block-4"></div>
+
+			<!-- Gold dot accents -->
+			<div class="gold-dot gold-dot-1"></div>
+			<div class="gold-dot gold-dot-2"></div>
+			<div class="gold-dot gold-dot-3"></div>
+			<div class="gold-dot gold-dot-4"></div>
+
+			<!-- Gold cross shape -->
+			<svg class="gold-cross" width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+				<rect x="22" y="0" width="16" height="60" rx="4" fill="#d4a234" opacity="0.6"/>
+				<rect x="0" y="22" width="60" height="16" rx="4" fill="#d4a234" opacity="0.6"/>
+			</svg>
+
+			<!-- Gold swoosh arc -->
+			<svg class="gold-swoosh" width="180" height="60" viewBox="0 0 180 60" xmlns="http://www.w3.org/2000/svg">
+				<path d="M10 50 Q90 -10 170 40" stroke="#d4a234" stroke-width="2.5" fill="none" opacity="0.5" stroke-linecap="round"/>
+			</svg>
 
 			<!-- Layer 3: Photo shapes -->
 			<img class="hero-photo hero-photo-1" src="/generated-photos/hero-technician.png" alt="DME technician" />
