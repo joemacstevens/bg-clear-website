@@ -242,6 +242,9 @@
 		text-align: center;
 		padding: 0 1.5rem;
 		color: #ffffff;
+		margin: 0 auto;
+		width: 100%;
+		max-width: 72rem;
 	}
 	.hero .eyebrow {
 		color: #d4a234;
