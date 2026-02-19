@@ -255,13 +255,14 @@
 		margin-bottom: 1.25rem;
 	}
 	.hero h1 {
-		font-size: clamp(3.5rem, 8vw, 6rem);
+		font-size: clamp(3rem, 7vw, 5rem);
 		font-weight: 700;
-		letter-spacing: -0.025em;
-		line-height: 1.08;
+		letter-spacing: -0.01em;
+		line-height: 1.12;
 		color: #ffffff;
 		margin-bottom: 1.5rem;
-		max-width: 1000px;
+		max-width: 100%;
+		width: 100%;
 	}
 	.hero .subhead {
 		font-size: clamp(1.1rem, 1.5vw, 1.35rem);
