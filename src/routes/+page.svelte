@@ -494,6 +494,7 @@
 		<a href="/"><img class="header-logo is-visible" src={logo} alt="BG Clear" /></a>
 		<nav class="header-nav">
 			<a href="/about">About Us</a>
+			<a href="/blog">Resources</a>
 			<a href="#capabilities" class:nav-active={activeSection === 'capabilities'}>Capabilities</a>
 			<a href="#products" class:nav-active={activeSection === 'products'}>Products</a>
 			<a href="#how-we-work" class:nav-active={activeSection === 'how-we-work'}>Process</a>
@@ -728,26 +729,13 @@
 		</div>
 	</section>
 
-	<!-- BLOG (placeholder) -->
+	<!-- BLOG -->
 	<section class="section section-alt" id="blog">
 		<div class="container">
-			<p class="eyebrow">Blog</p>
+			<p class="eyebrow">Resources</p>
 			<h2>Insights for DME providers.</h2>
-			<!-- TODO: Automated blog generation for SEO — separate task -->
-			<div class="grid-3">
-				<article class="capability-card">
-					<h3>Coming soon</h3>
-					<p>Industry insights, compliance updates, and best practices for DME providers. Check back soon.</p>
-				</article>
-				<article class="capability-card">
-					<h3>Coming soon</h3>
-					<p>Tips for streamlining your DME ordering process and improving patient outcomes.</p>
-				</article>
-				<article class="capability-card">
-					<h3>Coming soon</h3>
-					<p>The latest in Medicare/Medicaid compliance and what it means for your practice.</p>
-				</article>
-			</div>
+			<p class="subhead" style="margin-bottom: var(--space-4);">Industry guides, compliance updates, and best practices — all in one place.</p>
+			<a class="button button-primary" href="/blog">View All Resources &rarr;</a>
 		</div>
 	</section>
 
@@ -899,6 +887,7 @@
 					<h4 class="footer-heading">Company</h4>
 					<ul class="footer-links">
 						<li><a href="/about">About Us</a></li>
+						<li><a href="/blog">Resources</a></li>
 						<li><a href="#capabilities">Capabilities</a></li>
 						<li><a href="#products">Products</a></li>
 						<li><a href="#how-we-work">Process</a></li>
