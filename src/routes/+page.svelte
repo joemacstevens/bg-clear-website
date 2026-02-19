@@ -207,55 +207,71 @@
 		padding: var(--space-4);
 	}
 
-	/* ── Animated Geometric Hero ── */
+	/* ── Centered Hero with Scrolling Marquee ── */
 	.hero {
 		position: relative;
 		width: 100%;
 		min-height: 100vh;
 		display: flex;
-		align-items: center;
+		flex-direction: column;
+		justify-content: center;
 		background: linear-gradient(105deg, #1e3a5f 0%, #0f2744 100%);
 		overflow: hidden;
-		padding: 0;
+		padding: 10rem 0 3rem;
 	}
+
+	/* Hex wireframe grid background */
+	.hex-wireframe {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		opacity: 0.15;
+		animation: hexDrift 20s ease-in-out infinite alternate;
+	}
+	@keyframes hexDrift {
+		0%   { transform: translate(0, 0); }
+		100% { transform: translate(20px, 20px); }
+	}
+
 	.hero-content {
 		position: relative;
 		z-index: 2;
-		width: 50%;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
-		padding: clamp(2rem, 5vw, 5rem);
-		padding-left: 80px;
+		align-items: center;
+		text-align: center;
+		padding: 0 1.5rem;
 		color: #ffffff;
 	}
 	.hero .eyebrow {
 		color: #d4a234;
 		font-size: 0.8125rem;
 		font-weight: 700;
-		letter-spacing: 0.08em;
+		letter-spacing: 0.12em;
 		text-transform: uppercase;
-		margin-bottom: 1rem;
+		margin-bottom: 1.25rem;
 	}
 	.hero h1 {
-		font-size: clamp(3.5rem, 6vw, 5rem);
+		font-size: clamp(3rem, 7vw, 5.5rem);
 		font-weight: 700;
 		letter-spacing: -0.025em;
 		line-height: 1.08;
 		color: #ffffff;
 		margin-bottom: 1.25rem;
+		max-width: 900px;
 	}
 	.hero .subhead {
 		font-size: clamp(1.05rem, 1.4vw, 1.25rem);
 		color: rgba(255, 255, 255, 0.8);
 		line-height: 1.5;
 		margin-bottom: 2rem;
-		max-width: 520px;
+		max-width: 560px;
 	}
 	.hero-ctas {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
+		justify-content: center;
 		gap: 1rem;
 		margin-bottom: 1.25rem;
 	}
@@ -299,179 +315,96 @@
 		margin: 0;
 	}
 
-	/* Right side: photo circles + hex wireframe grid */
-	.hero-visual {
+	/* ── Scrolling Marquee ── */
+	.marquee-area {
+		position: relative;
+		z-index: 2;
+		margin-top: 3.5rem;
+		transform: rotate(-3deg);
+		overflow: hidden;
+	}
+	.marquee-area::before,
+	.marquee-area::after {
+		content: '';
 		position: absolute;
-		right: 0;
 		top: 0;
-		width: 55%;
-		height: 100%;
-		overflow: visible;
+		bottom: 0;
+		width: 120px;
+		z-index: 3;
 		pointer-events: none;
 	}
-
-	/* Layer 1: Hex wireframe grid background */
-	.hex-wireframe {
-		position: absolute;
-		inset: 0;
-		z-index: 1;
-		animation: hexDrift 20s ease-in-out infinite alternate;
+	.marquee-area::before {
+		left: 0;
+		background: linear-gradient(to right, #0f2744, transparent);
 	}
-	@keyframes hexDrift {
-		0%   { transform: translate(0, 0); }
-		100% { transform: translate(20px, 20px); }
+	.marquee-area::after {
+		right: 0;
+		background: linear-gradient(to left, #0f2744, transparent);
 	}
-
-	/* Layer 2: Gold accent blocks */
-	.gold-block {
-		position: absolute;
-		background: #d4a234;
-		z-index: 2;
+	.marquee-row {
+		display: flex;
+		gap: 12px;
+		width: max-content;
+		padding: 6px 0;
 	}
-	.gold-block-1 {
+	.marquee-row-1 {
+		animation: scrollLeft 30s linear infinite;
+	}
+	.marquee-row-2 {
+		animation: scrollRight 25s linear infinite;
+	}
+	@keyframes scrollLeft {
+		from { transform: translateX(0); }
+		to   { transform: translateX(-50%); }
+	}
+	@keyframes scrollRight {
+		from { transform: translateX(-50%); }
+		to   { transform: translateX(0); }
+	}
+	.marquee-tile {
 		width: 120px;
-		height: 100px;
-		border-radius: 12px;
-		opacity: 0.7;
-		top: 10%;
-		left: 8%;
+		height: 120px;
+		border-radius: 16px;
+		border: 2px solid #d4a234;
+		overflow: hidden;
+		flex-shrink: 0;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 	}
-	.gold-block-2 {
-		width: 80px;
-		height: 80px;
-		border-radius: 12px;
-		opacity: 0.5;
-		bottom: 15%;
-		left: 55%;
-	}
-	.gold-block-3 {
-		width: 60px;
-		height: 90px;
-		border-radius: 10px;
-		opacity: 0.6;
-		top: 55%;
-		right: 5%;
-	}
-	.gold-block-4 {
-		width: 100px;
-		height: 50px;
-		border-radius: 8px;
-		opacity: 0.55;
-		bottom: 30%;
-		left: 15%;
-	}
-
-	/* Gold dot accents */
-	.gold-dot {
-		position: absolute;
-		background: #d4a234;
-		border-radius: 50%;
-		z-index: 2;
-	}
-	.gold-dot-1 { width: 20px; height: 20px; top: 18%; left: 35%; opacity: 0.6; }
-	.gold-dot-2 { width: 15px; height: 15px; top: 72%; left: 5%; opacity: 0.5; }
-	.gold-dot-3 { width: 25px; height: 25px; bottom: 10%; right: 15%; opacity: 0.7; }
-	.gold-dot-4 { width: 18px; height: 18px; top: 5%; left: 50%; opacity: 0.5; }
-
-	/* Gold cross shape */
-	.gold-cross {
-		position: absolute;
-		z-index: 2;
-		top: 30%;
-		right: 8%;
-	}
-
-	/* Gold swoosh arc */
-	.gold-swoosh {
-		position: absolute;
-		z-index: 2;
-		bottom: 22%;
-		left: 25%;
-	}
-
-	/* Layer 3: Photo shapes */
-	.hero-photo {
-		position: absolute;
-		z-index: 3;
+	.marquee-tile img {
+		width: 100%;
+		height: 100%;
 		object-fit: cover;
-		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-		animation: photoFloat 6s ease-in-out infinite;
+		display: block;
 	}
-	.hero-photo-1 {
-		width: 320px;
-		height: 320px;
-		border-radius: 50%;
-		border: 4px solid rgba(212, 162, 52, 0.6);
-		top: 5%;
-		left: 25%;
-		animation-delay: 0s;
-	}
-	.hero-photo-2 {
-		width: 300px;
-		height: 220px;
-		border-radius: 20px;
-		border: 4px solid rgba(212, 162, 52, 0.4);
-		top: 40%;
-		left: 5%;
-		animation-delay: -2s;
-	}
-	.hero-photo-3 {
-		width: 260px;
-		height: 260px;
-		border-radius: 50%;
-		border: 4px solid rgba(212, 162, 52, 0.5);
-		bottom: 5%;
-		left: 35%;
-		animation-delay: -4s;
-	}
-	@keyframes photoFloat {
-		0%, 100% { transform: translateY(0); }
-		50%      { transform: translateY(10px); }
+	.marquee-tile-accent {
+		width: 120px;
+		height: 120px;
+		border-radius: 16px;
+		background: #d4a234;
+		flex-shrink: 0;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 	}
 
-	/* Responsive: tablet */
-	@media (max-width: 900px) {
+	/* Responsive */
+	@media (max-width: 768px) {
 		.hero {
-			min-height: auto;
-			padding-top: 5rem;
-		}
-		.hero-content {
-			width: 100%;
-			padding: 2.5rem 1.5rem 2rem;
-			padding-left: 1.5rem;
-			text-align: center;
-		}
-		.hero .subhead {
-			margin-left: auto;
-			margin-right: auto;
-		}
-		.hero-ctas {
-			justify-content: center;
-		}
-		.hero-trust-note {
-			text-align: center;
-		}
-		.hero-visual {
-			opacity: 0.3;
-			width: 100%;
-		}
-		.hero-content {
-			z-index: 2;
+			padding-top: 7rem;
 		}
 		.hero h1 {
-			font-size: clamp(2rem, 7vw, 2.75rem);
+			font-size: clamp(2rem, 8vw, 3rem);
 		}
-	}
-	/* Mobile: hide visual or show as faint background */
-	@media (max-width: 768px) {
-		.hero-visual {
-			display: none;
+		.marquee-tile,
+		.marquee-tile-accent {
+			width: 80px;
+			height: 80px;
+			border-radius: 12px;
+		}
+		.marquee-area::before,
+		.marquee-area::after {
+			width: 60px;
 		}
 	}
 	@media (max-width: 480px) {
-		.hero-content {
-			padding: 2rem 1.25rem 1.5rem;
-		}
 		.hero-ctas {
 			flex-direction: column;
 			align-items: center;
@@ -588,10 +521,21 @@
 
 <main class="page">
 	<section class="hero">
-		<!-- Left: content -->
+		<!-- Hex wireframe grid background -->
+		<svg class="hex-wireframe" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+			<defs>
+				<pattern id="hexGrid" width="80" height="138.56" patternUnits="userSpaceOnUse">
+					<polygon points="40,0 80,23.09 80,69.28 40,92.38 0,69.28 0,23.09" fill="none" stroke="#d4a234" stroke-width="1"/>
+					<polygon points="80,46.19 120,69.28 120,115.47 80,138.56 40,115.47 40,69.28" fill="none" stroke="#d4a234" stroke-width="1"/>
+				</pattern>
+			</defs>
+			<rect width="100%" height="100%" fill="url(#hexGrid)" />
+		</svg>
+
+		<!-- Centered hero content -->
 		<div class="hero-content">
 			<p class="eyebrow">A Tech-Forward DME &amp; HME Distribution Company</p>
-			<h1>Real People Who<br/>Answer the Phone</h1>
+			<h1>Real People Who Answer the Phone</h1>
 			<p class="subhead">
 				Fast, compliant DME access for providers and care partners.
 			</p>
@@ -602,46 +546,49 @@
 			<p class="hero-trust-note">No obligation · Most inquiries answered within 4 hours</p>
 		</div>
 
-		<!-- Right: photo circles + gold hex wireframe grid -->
-		<div class="hero-visual">
-			<!-- Layer 1: Hex wireframe grid -->
-			<svg class="hex-wireframe" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-				<defs>
-					<pattern id="hexGrid" width="80" height="138.56" patternUnits="userSpaceOnUse" patternTransform="translate(0,0)">
-						<polygon points="40,0 80,23.09 80,69.28 40,92.38 0,69.28 0,23.09" fill="none" stroke="#d4a234" stroke-width="1" opacity="0.25"/>
-						<polygon points="80,46.19 120,69.28 120,115.47 80,138.56 40,115.47 40,69.28" fill="none" stroke="#d4a234" stroke-width="1" opacity="0.25"/>
-					</pattern>
-				</defs>
-				<rect width="100%" height="100%" fill="url(#hexGrid)" />
-			</svg>
+		<!-- Scrolling Marquee -->
+		<div class="marquee-area">
+			<!-- Row 1: scrolls left -->
+			<div class="marquee-row marquee-row-1">
+				<div class="marquee-tile"><img src="/generated-photos/hero-technician.png" alt="DME technician" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-bed.png" alt="Hospital bed" /></div>
+				<div class="marquee-tile-accent"></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-nebulizer.png" alt="Nebulizer" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/hero-products.png" alt="Medical equipment" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-walker.png" alt="Walker" /></div>
+				<div class="marquee-tile-accent"></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-oximeter.png" alt="Pulse oximeter" /></div>
+				<!-- Duplicate for seamless loop -->
+				<div class="marquee-tile"><img src="/generated-photos/hero-technician.png" alt="DME technician" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-bed.png" alt="Hospital bed" /></div>
+				<div class="marquee-tile-accent"></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-nebulizer.png" alt="Nebulizer" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/hero-products.png" alt="Medical equipment" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-walker.png" alt="Walker" /></div>
+				<div class="marquee-tile-accent"></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-oximeter.png" alt="Pulse oximeter" /></div>
+			</div>
 
-			<!-- Layer 2: Gold accent blocks -->
-			<div class="gold-block gold-block-1"></div>
-			<div class="gold-block gold-block-2"></div>
-			<div class="gold-block gold-block-3"></div>
-			<div class="gold-block gold-block-4"></div>
-
-			<!-- Gold dot accents -->
-			<div class="gold-dot gold-dot-1"></div>
-			<div class="gold-dot gold-dot-2"></div>
-			<div class="gold-dot gold-dot-3"></div>
-			<div class="gold-dot gold-dot-4"></div>
-
-			<!-- Gold cross shape -->
-			<svg class="gold-cross" width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-				<rect x="22" y="0" width="16" height="60" rx="4" fill="#d4a234" opacity="0.6"/>
-				<rect x="0" y="22" width="60" height="16" rx="4" fill="#d4a234" opacity="0.6"/>
-			</svg>
-
-			<!-- Gold swoosh arc -->
-			<svg class="gold-swoosh" width="180" height="60" viewBox="0 0 180 60" xmlns="http://www.w3.org/2000/svg">
-				<path d="M10 50 Q90 -10 170 40" stroke="#d4a234" stroke-width="2.5" fill="none" opacity="0.5" stroke-linecap="round"/>
-			</svg>
-
-			<!-- Layer 3: Photo shapes -->
-			<img class="hero-photo hero-photo-1" src="/generated-photos/hero-technician.png" alt="DME technician" />
-			<img class="hero-photo hero-photo-2" src="/generated-photos/hero-products.png" alt="Medical equipment" />
-			<img class="hero-photo hero-photo-3" src="/generated-photos/hero-delivery.png" alt="DME delivery" />
+			<!-- Row 2: scrolls right -->
+			<div class="marquee-row marquee-row-2">
+				<div class="marquee-tile"><img src="/generated-photos/hero-delivery.png" alt="DME delivery" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-cpap.png" alt="CPAP machine" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/hex-walker.png" alt="Walker" /></div>
+				<div class="marquee-tile-accent"></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-compression.png" alt="Compression therapy" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/hex-monitoring.png" alt="Patient monitoring" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/hex-rehab.png" alt="Rehabilitation equipment" /></div>
+				<div class="marquee-tile-accent"></div>
+				<!-- Duplicate for seamless loop -->
+				<div class="marquee-tile"><img src="/generated-photos/hero-delivery.png" alt="DME delivery" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-cpap.png" alt="CPAP machine" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/hex-walker.png" alt="Walker" /></div>
+				<div class="marquee-tile-accent"></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-compression.png" alt="Compression therapy" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/hex-monitoring.png" alt="Patient monitoring" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/hex-rehab.png" alt="Rehabilitation equipment" /></div>
+				<div class="marquee-tile-accent"></div>
+			</div>
 		</div>
 	</section>
 
