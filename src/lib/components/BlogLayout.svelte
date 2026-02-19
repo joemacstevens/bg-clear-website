@@ -16,6 +16,19 @@
 <svelte:head>
 	<title>{title} — BG Clear Resources</title>
 	<meta name="description" content={excerpt} />
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		"@context": "https://schema.org",
+		"@type": "Article",
+		"headline": title,
+		"description": excerpt,
+		"datePublished": date,
+		"author": { "@type": "Organization", "name": author || "BG Clear LLC" },
+		"publisher": {
+			"@type": "Organization",
+			"name": "BG Clear LLC",
+			"url": "https://www.bgclear.com"
+		}
+	})}</script>`}
 </svelte:head>
 
 <header class="site-header scrolled">

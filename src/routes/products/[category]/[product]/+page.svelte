@@ -8,6 +8,21 @@
 <svelte:head>
 	<title>{data.product.name} — {data.category.title} — BG Clear</title>
 	<meta name="description" content={data.product.description} />
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		"@context": "https://schema.org",
+		"@type": "Product",
+		"name": data.product.name,
+		"description": data.product.description,
+		"brand": { "@type": "Brand", "name": data.product.manufacturer },
+		"manufacturer": { "@type": "Organization", "name": data.product.manufacturer },
+		"category": data.category.title,
+		"offers": {
+			"@type": "Offer",
+			"url": `https://www.bgclear.com/products/${data.categorySlug}/${data.product.slug}`,
+			"availability": "https://schema.org/InStock",
+			"seller": { "@type": "Organization", "name": "BG Clear LLC" }
+		}
+	})}</script>`}
 </svelte:head>
 
 <!-- Navigation Header -->

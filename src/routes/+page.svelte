@@ -555,43 +555,43 @@
 		<div class="marquee-area">
 			<!-- Row 1: scrolls left -->
 			<div class="marquee-row marquee-row-1">
-				<div class="marquee-tile"><img src="/generated-photos/hero-technician.png" alt="DME technician" /></div>
-				<div class="marquee-tile"><img src="/generated-photos/marquee-bed.png" alt="Hospital bed" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/hero-technician.png" alt="DME technician inspecting durable medical equipment" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-bed.png" alt="Semi-electric hospital bed for home care" /></div>
 				<div class="marquee-tile-accent"></div>
-				<div class="marquee-tile"><img src="/generated-photos/marquee-nebulizer.png" alt="Nebulizer" /></div>
-				<div class="marquee-tile"><img src="/generated-photos/hero-products.png" alt="Medical equipment" /></div>
-				<div class="marquee-tile"><img src="/generated-photos/marquee-walker.png" alt="Walker" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-nebulizer.png" alt="Compressor nebulizer system for respiratory therapy" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/hero-products.png" alt="Assortment of DME and HME medical equipment" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-walker.png" alt="Folding rollator walker with padded seat" /></div>
 				<div class="marquee-tile-accent"></div>
-				<div class="marquee-tile"><img src="/generated-photos/marquee-oximeter.png" alt="Pulse oximeter" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-oximeter.png" alt="Fingertip pulse oximeter for patient monitoring" /></div>
 				<!-- Duplicate for seamless loop -->
-				<div class="marquee-tile"><img src="/generated-photos/hero-technician.png" alt="DME technician" /></div>
-				<div class="marquee-tile"><img src="/generated-photos/marquee-bed.png" alt="Hospital bed" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/hero-technician.png" alt="DME technician inspecting durable medical equipment" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-bed.png" alt="Semi-electric hospital bed for home care" /></div>
 				<div class="marquee-tile-accent"></div>
-				<div class="marquee-tile"><img src="/generated-photos/marquee-nebulizer.png" alt="Nebulizer" /></div>
-				<div class="marquee-tile"><img src="/generated-photos/hero-products.png" alt="Medical equipment" /></div>
-				<div class="marquee-tile"><img src="/generated-photos/marquee-walker.png" alt="Walker" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-nebulizer.png" alt="Compressor nebulizer system for respiratory therapy" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/hero-products.png" alt="Assortment of DME and HME medical equipment" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-walker.png" alt="Folding rollator walker with padded seat" /></div>
 				<div class="marquee-tile-accent"></div>
-				<div class="marquee-tile"><img src="/generated-photos/marquee-oximeter.png" alt="Pulse oximeter" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-oximeter.png" alt="Fingertip pulse oximeter for patient monitoring" /></div>
 			</div>
 
 			<!-- Row 2: scrolls right -->
 			<div class="marquee-row marquee-row-2">
-				<div class="marquee-tile"><img src="/generated-photos/hero-delivery.png" alt="DME delivery" /></div>
-				<div class="marquee-tile"><img src="/generated-photos/marquee-cpap.png" alt="CPAP machine" /></div>
-				<div class="marquee-tile"><img src="/generated-photos/hex-walker.png" alt="Walker" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/hero-delivery.png" alt="Medical equipment delivery to healthcare provider" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-cpap.png" alt="CPAP machine with heated humidifier for sleep therapy" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/hex-walker.png" alt="Mobility walker for patient safety and independence" /></div>
 				<div class="marquee-tile-accent"></div>
-				<div class="marquee-tile"><img src="/generated-photos/marquee-compression.png" alt="Compression therapy" /></div>
-				<div class="marquee-tile"><img src="/generated-photos/hex-monitoring.png" alt="Patient monitoring" /></div>
-				<div class="marquee-tile"><img src="/generated-photos/hex-rehab.png" alt="Rehabilitation equipment" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-compression.png" alt="Graduated compression stockings for venous therapy" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/hex-monitoring.png" alt="Remote patient health monitoring devices" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/hex-rehab.png" alt="Rehabilitation and physical therapy equipment" /></div>
 				<div class="marquee-tile-accent"></div>
 				<!-- Duplicate for seamless loop -->
-				<div class="marquee-tile"><img src="/generated-photos/hero-delivery.png" alt="DME delivery" /></div>
-				<div class="marquee-tile"><img src="/generated-photos/marquee-cpap.png" alt="CPAP machine" /></div>
-				<div class="marquee-tile"><img src="/generated-photos/hex-walker.png" alt="Walker" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/hero-delivery.png" alt="Medical equipment delivery to healthcare provider" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-cpap.png" alt="CPAP machine with heated humidifier for sleep therapy" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/hex-walker.png" alt="Mobility walker for patient safety and independence" /></div>
 				<div class="marquee-tile-accent"></div>
-				<div class="marquee-tile"><img src="/generated-photos/marquee-compression.png" alt="Compression therapy" /></div>
-				<div class="marquee-tile"><img src="/generated-photos/hex-monitoring.png" alt="Patient monitoring" /></div>
-				<div class="marquee-tile"><img src="/generated-photos/hex-rehab.png" alt="Rehabilitation equipment" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/marquee-compression.png" alt="Graduated compression stockings for venous therapy" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/hex-monitoring.png" alt="Remote patient health monitoring devices" /></div>
+				<div class="marquee-tile"><img src="/generated-photos/hex-rehab.png" alt="Rehabilitation and physical therapy equipment" /></div>
 				<div class="marquee-tile-accent"></div>
 			</div>
 		</div>
