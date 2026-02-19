@@ -49,6 +49,15 @@ This is a major visual overhaul while keeping all the content and functionality 
 - [ ] **Blog topics** — what content would be useful? (equipment guides, insurance info, compliance tips)
 - [ ] **Any pages missing?** (About Us expansion, Careers, Insurance/Billing info?)
 
+### 🔍 SEO & Search Optimization (NEW — deployed today)
+- **Meta tags**: Every page now has proper title, description, Open Graph, and Twitter cards — links shared on social media will show rich previews
+- **Structured data (JSON-LD)**: Organization schema (Google Knowledge Panel eligible), Product schema on product pages, Article schema on blog posts
+- **Sitemap**: Auto-generated sitemap.xml covering all pages, products, and blog posts — submitted to search engines
+- **robots.txt**: Properly configured for crawler access
+- **Image alt text**: All images have descriptive alt text for accessibility and image search
+- **Heading hierarchy**: Clean H1 → H2 → H3 structure for search engine content understanding
+- **LLM/AI Search ready**: Structured data helps BG Clear appear in AI-powered search results (Google AI Overviews, Bing Chat, etc.)
+
 ## Still To Do (after feedback)
 - FAQ section
 - Contact form refinement
