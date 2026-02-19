@@ -38,7 +38,6 @@
 			<a href="/about">About Us</a>
 			<a href="/blog">Resources</a>
 			<a href="/#products">Products</a>
-			<a href="/#how-we-work">Process</a>
 			<a href="/#faq">FAQ</a>
 		</nav>
 		<div class="header-cta">

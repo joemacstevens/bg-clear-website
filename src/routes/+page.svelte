@@ -870,9 +870,7 @@
 					<ul class="footer-links">
 						<li><a href="/about">About Us</a></li>
 						<li><a href="/blog">Resources</a></li>
-						<li><a href="#capabilities">Capabilities</a></li>
 						<li><a href="#products">Products</a></li>
-						<li><a href="#how-we-work">Process</a></li>
 						<li><a href="#faq">FAQ</a></li>
 					</ul>
 				</div>
