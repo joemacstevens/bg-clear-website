@@ -601,11 +601,11 @@
 		<div class="container trust-strip-inner">
 			<div class="trust-badge">
 				<svg class="trust-badge-seal" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<circle cx="40" cy="40" r="38" stroke="#1e3a5f" stroke-width="2" fill="#f0f6fc"/>
+					<circle cx="40" cy="40" r="38" stroke="#1e3a5f" stroke-width="2" fill="#f0f4f8"/>
 					<circle cx="40" cy="40" r="32" stroke="#1e3a5f" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
-					<path d="M40 14 L44 24 L40 22 L36 24 Z" fill="#1e3a5f"/>
+					<path d="M40 14 L44 24 L40 22 L36 24 Z" fill="#d4a234"/>
 					<path d="M28 30 Q40 26 52 30 L52 48 Q40 58 28 48 Z" fill="#1e3a5f"/>
-					<path d="M34 40 L38 44 L47 35" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+					<path d="M34 40 L38 44 L47 35" stroke="#d4a234" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
 				</svg>
 				<div class="trust-badge-text">
 					<span class="trust-badge-label">ACHC</span>
@@ -614,13 +614,13 @@
 			</div>
 			<div class="trust-badge">
 				<svg class="trust-badge-seal" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<circle cx="40" cy="40" r="38" stroke="#0d5e3a" stroke-width="2" fill="#f0faf5"/>
-					<circle cx="40" cy="40" r="32" stroke="#0d5e3a" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
-					<rect x="28" y="28" width="24" height="18" rx="2" fill="#0d5e3a"/>
-					<path d="M28 33 L40 40 L52 33" stroke="#f0faf5" stroke-width="1.5" fill="none"/>
-					<rect x="35" y="48" width="10" height="6" rx="1" fill="#0d5e3a"/>
-					<path d="M37 50 L43 50 M37 52 L41 52" stroke="#f0faf5" stroke-width="0.8"/>
-					<text x="40" y="26" text-anchor="middle" font-size="5" font-weight="700" fill="#0d5e3a" font-family="system-ui">CMS</text>
+					<circle cx="40" cy="40" r="38" stroke="#1e3a5f" stroke-width="2" fill="#f0f4f8"/>
+					<circle cx="40" cy="40" r="32" stroke="#1e3a5f" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
+					<path d="M40 14 L44 24 L40 22 L36 24 Z" fill="#d4a234"/>
+					<path d="M28 28 Q40 24 52 28 L52 48 Q40 56 28 48 Z" fill="#1e3a5f"/>
+					<text x="40" y="37" text-anchor="middle" font-size="7" font-weight="800" fill="#ffffff" font-family="system-ui">CMS</text>
+					<path d="M33 40 L47 40" stroke="#d4a234" stroke-width="0.8"/>
+					<path d="M34 44 L38 48 L47 39" stroke="#d4a234" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
 				</svg>
 				<div class="trust-badge-text">
 					<span class="trust-badge-label">Medicare</span>
@@ -629,12 +629,13 @@
 			</div>
 			<div class="trust-badge">
 				<svg class="trust-badge-seal" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<circle cx="40" cy="40" r="38" stroke="#4338ca" stroke-width="2" fill="#f0f0ff"/>
-					<circle cx="40" cy="40" r="32" stroke="#4338ca" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
-					<path d="M30 30 L40 24 L50 30 L50 46 Q40 56 30 46 Z" fill="#4338ca"/>
+					<circle cx="40" cy="40" r="38" stroke="#1e3a5f" stroke-width="2" fill="#f0f4f8"/>
+					<circle cx="40" cy="40" r="32" stroke="#1e3a5f" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
+					<path d="M40 14 L44 24 L40 22 L36 24 Z" fill="#d4a234"/>
+					<path d="M30 30 L40 24 L50 30 L50 46 Q40 56 30 46 Z" fill="#1e3a5f"/>
 					<rect x="36" y="32" width="8" height="10" rx="4" fill="none" stroke="#ffffff" stroke-width="1.5"/>
 					<rect x="34" y="40" width="12" height="8" rx="1" fill="none" stroke="#ffffff" stroke-width="1.5"/>
-					<circle cx="40" cy="44" r="1.5" fill="#ffffff"/>
+					<circle cx="40" cy="44" r="1.5" fill="#d4a234"/>
 				</svg>
 				<div class="trust-badge-text">
 					<span class="trust-badge-label">HIPAA</span>
@@ -643,12 +644,13 @@
 			</div>
 			<div class="trust-badge">
 				<svg class="trust-badge-seal" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<circle cx="40" cy="40" r="38" stroke="#1a5276" stroke-width="2" fill="#f0f4f8"/>
-					<circle cx="40" cy="40" r="32" stroke="#1a5276" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
-					<path d="M30 30 Q40 26 50 30 L50 50 Q40 56 30 50 Z" fill="#1a5276"/>
+					<circle cx="40" cy="40" r="38" stroke="#1e3a5f" stroke-width="2" fill="#f0f4f8"/>
+					<circle cx="40" cy="40" r="32" stroke="#1e3a5f" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
+					<path d="M40 14 L44 24 L40 22 L36 24 Z" fill="#d4a234"/>
+					<path d="M30 30 Q40 26 50 30 L50 50 Q40 56 30 50 Z" fill="#1e3a5f"/>
 					<text x="40" y="38" text-anchor="middle" font-size="7" font-weight="800" fill="#ffffff" font-family="system-ui">FDA</text>
-					<path d="M33 42 L47 42" stroke="#ffffff" stroke-width="0.8"/>
-					<text x="40" y="48" text-anchor="middle" font-size="4.5" font-weight="600" fill="#ffffff" font-family="system-ui">REG.</text>
+					<path d="M33 42 L47 42" stroke="#d4a234" stroke-width="0.8"/>
+					<text x="40" y="48" text-anchor="middle" font-size="4.5" font-weight="600" fill="#d4a234" font-family="system-ui">REG.</text>
 				</svg>
 				<div class="trust-badge-text">
 					<span class="trust-badge-label">FDA</span>
