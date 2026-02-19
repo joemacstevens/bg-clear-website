@@ -217,7 +217,7 @@
 		justify-content: center;
 		background: linear-gradient(105deg, #1e3a5f 0%, #0f2744 100%);
 		overflow: hidden;
-		padding: 10rem 0 3rem;
+		padding: 12rem 0 3rem;
 	}
 
 	/* Hex wireframe grid background */
@@ -252,20 +252,20 @@
 		margin-bottom: 1.25rem;
 	}
 	.hero h1 {
-		font-size: clamp(3rem, 7vw, 5.5rem);
+		font-size: clamp(3.5rem, 8vw, 6rem);
 		font-weight: 700;
 		letter-spacing: -0.025em;
 		line-height: 1.08;
 		color: #ffffff;
-		margin-bottom: 1.25rem;
-		max-width: 900px;
+		margin-bottom: 1.5rem;
+		max-width: 1000px;
 	}
 	.hero .subhead {
-		font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+		font-size: clamp(1.1rem, 1.5vw, 1.35rem);
 		color: rgba(255, 255, 255, 0.8);
-		line-height: 1.5;
-		margin-bottom: 2rem;
-		max-width: 560px;
+		line-height: 1.6;
+		margin-bottom: 2.5rem;
+		max-width: 620px;
 	}
 	.hero-ctas {
 		display: flex;
