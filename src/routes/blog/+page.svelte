@@ -96,6 +96,7 @@
 		font-size: clamp(2rem, 5vw, 3rem);
 		font-weight: 700;
 		margin-bottom: 1rem;
+		color: #ffffff;
 	}
 	.blog-hero-sub {
 		font-size: 1.125rem;
