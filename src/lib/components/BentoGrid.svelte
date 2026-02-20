@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import { revealOnScroll } from '$lib/scrollReveal';
 
 	interface ClaimTile {
@@ -97,9 +97,18 @@
 
 	let expandedId: string | null = $state(null);
 	let gridEl: HTMLElement | null = $state(null);
+	let detailPanelEl: HTMLElement | null = $state(null);
 
-	function toggleClaim(id: string) {
+	function detailIdFor(id: string) {
+		return `bento-detail-${id}`;
+	}
+
+	async function toggleClaim(id: string) {
 		expandedId = expandedId === id ? null : id;
+		if (expandedId === id) {
+			await tick();
+			detailPanelEl?.focus();
+		}
 	}
 
 	function handleKeydown(e: KeyboardEvent, id: string) {
@@ -136,7 +145,9 @@
 			{@const isClaim = !tile.type}
 			{@const isExpanded = expandedId === tile.id}
 
-			<div
+			<svelte:element
+				this={isClaim ? 'button' : 'div'}
+				type={isClaim ? 'button' : undefined}
 				class="bento-tile reveal bento-tile-reveal"
 				use:revealOnScroll
 				style={`--tile-delay: ${index * 100}ms;`}
@@ -150,10 +161,10 @@
 				class:bento-tile--col2={tile.colSpan === 2}
 				class:bento-tile--row2={tile.rowSpan === 2}
 				role={isClaim ? 'listitem' : 'presentation'}
-				tabindex={isClaim ? 0 : -1}
 				onclick={isClaim ? () => toggleClaim(tile.id) : undefined}
 				onkeydown={isClaim ? (e: KeyboardEvent) => handleKeydown(e, tile.id) : undefined}
 				aria-expanded={isClaim ? isExpanded : undefined}
+				aria-controls={isClaim ? detailIdFor(tile.id) : undefined}
 			>
 				{#if isClaim}
 					{@const claim = tile as ClaimTile}
@@ -176,11 +187,18 @@
 						/>
 					</div>
 				{/if}
-			</div>
+			</svelte:element>
 
 			{#if isClaim && isExpanded}
 				{@const claim = getClaimById(tile.id)}
-				<div class="bento-detail" role="region" aria-label="{claim?.label} details">
+				<div
+					class="bento-detail"
+					id={detailIdFor(tile.id)}
+					bind:this={detailPanelEl}
+					tabindex="-1"
+					role="region"
+					aria-label="{claim?.label} details"
+				>
 					<div class="bento-detail__inner">
 						<p class="bento-detail__text">{claim?.description}</p>
 						<a class="bento-detail__cta" href={claim?.ctaHref}>{claim?.cta} &rarr;</a>
@@ -209,7 +227,7 @@
 		font-weight: 700;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
-		color: var(--color-gold, #d4a234);
+		color: var(--color-gold-text, #8b6914);
 		margin-bottom: var(--space-1, 0.5rem);
 	}
 
@@ -260,6 +278,9 @@
 		justify-content: flex-end;
 		padding: var(--space-4, 2rem);
 		user-select: none;
+		text-align: left;
+		border: 0;
+		width: 100%;
 	}
 
 	.bento-tile--claim:hover {

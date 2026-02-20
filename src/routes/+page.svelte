@@ -337,7 +337,7 @@
 	}
 	.hero-trust-note {
 		font-size: 0.8125rem;
-		color: rgba(255, 255, 255, 0.55);
+		color: rgba(255, 255, 255, 0.82);
 		margin: 0;
 	}
 
@@ -410,6 +410,10 @@
 	.marquee-row-2 {
 		animation: scrollRight 25s linear infinite;
 	}
+	.marquee-area:hover .marquee-row,
+	.marquee-area:focus-within .marquee-row {
+		animation-play-state: paused;
+	}
 	@keyframes scrollLeft {
 		from { transform: translateX(0); }
 		to   { transform: translateX(-50%); }
@@ -468,6 +472,28 @@
 		}
 	}
 
+	@media (prefers-reduced-motion: reduce) {
+		.hex-wireframe-inner,
+		.marquee-row,
+		.hero-headline,
+		.hero-eyebrow,
+		.hero-subhead,
+		.hero-ctas-entrance,
+		.hero-trust-note-entrance {
+			animation: none !important;
+		}
+		.hero-headline,
+		.hero-eyebrow,
+		.hero-subhead,
+		.hero-ctas-entrance,
+		.hero-trust-note-entrance {
+			opacity: 1;
+		}
+		.marquee-area {
+			transform: none;
+		}
+	}
+
 	/* Provider grid */
 	.provider-chips {
 		display: flex;
@@ -479,6 +505,7 @@
 	.provider-chip {
 		display: inline-flex;
 		align-items: center;
+		min-height: 44px;
 		padding: 0.625rem 1.25rem;
 		background: var(--color-primary, #1e3a5f);
 		color: #ffffff;
@@ -557,10 +584,10 @@
 	</div>
 </header>
 
-<main class="page">
+<main id="main-content" class="page" tabindex="-1">
 	<section class="hero">
 		<!-- Hex wireframe grid background -->
-		<svg class="hex-wireframe" style={`--hex-parallax:${hexParallax}px`} width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+		<svg class="hex-wireframe" aria-hidden="true" style={`--hex-parallax:${hexParallax}px`} width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
 			<defs>
 				<pattern id="hexGrid" width="80" height="138.56" patternUnits="userSpaceOnUse">
 					<polygon points="40,0 80,23.09 80,69.28 40,92.38 0,69.28 0,23.09" fill="none" stroke="#d4a234" stroke-width="1"/>
@@ -585,7 +612,7 @@
 		</div>
 
 		<!-- Scrolling Marquee -->
-		<div class="marquee-area">
+		<div class="marquee-area" aria-hidden="true">
 			<!-- Row 1: scrolls left -->
 			<div class="marquee-row marquee-row-1">
 				<div class="marquee-tile"><img src="/generated-photos/hero-technician.png" alt="DME technician inspecting durable medical equipment" /></div>
@@ -633,7 +660,7 @@
 	<section class="trust-strip">
 		<div class="container trust-strip-inner">
 			<div class="trust-badge reveal trust-badge-reveal" use:revealOnScroll style="--stagger-delay: 0s;">
-				<svg class="trust-badge-seal" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<svg class="trust-badge-seal" aria-hidden="true" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<circle cx="40" cy="40" r="38" stroke="#1e3a5f" stroke-width="2" fill="#f0f4f8"/>
 					<circle cx="40" cy="40" r="32" stroke="#1e3a5f" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
 					<path d="M40 14 L44 24 L40 22 L36 24 Z" fill="#d4a234"/>
@@ -646,7 +673,7 @@
 				</div>
 			</div>
 			<div class="trust-badge reveal trust-badge-reveal" use:revealOnScroll style="--stagger-delay: 0.1s;">
-				<svg class="trust-badge-seal" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<svg class="trust-badge-seal" aria-hidden="true" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<circle cx="40" cy="40" r="38" stroke="#1e3a5f" stroke-width="2" fill="#f0f4f8"/>
 					<circle cx="40" cy="40" r="32" stroke="#1e3a5f" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
 					<path d="M40 14 L44 24 L40 22 L36 24 Z" fill="#d4a234"/>
@@ -661,7 +688,7 @@
 				</div>
 			</div>
 			<div class="trust-badge reveal trust-badge-reveal" use:revealOnScroll style="--stagger-delay: 0.2s;">
-				<svg class="trust-badge-seal" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<svg class="trust-badge-seal" aria-hidden="true" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<circle cx="40" cy="40" r="38" stroke="#1e3a5f" stroke-width="2" fill="#f0f4f8"/>
 					<circle cx="40" cy="40" r="32" stroke="#1e3a5f" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
 					<path d="M40 14 L44 24 L40 22 L36 24 Z" fill="#d4a234"/>
@@ -676,7 +703,7 @@
 				</div>
 			</div>
 			<div class="trust-badge reveal trust-badge-reveal" use:revealOnScroll style="--stagger-delay: 0.3s;">
-				<svg class="trust-badge-seal" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<svg class="trust-badge-seal" aria-hidden="true" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<circle cx="40" cy="40" r="38" stroke="#1e3a5f" stroke-width="2" fill="#f0f4f8"/>
 					<circle cx="40" cy="40" r="32" stroke="#1e3a5f" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
 					<path d="M40 14 L44 24 L40 22 L36 24 Z" fill="#d4a234"/>
@@ -792,26 +819,26 @@
 			<p class="eyebrow reveal reveal-eyebrow">FAQ</p>
 			<h2>Common questions from providers.</h2>
 			<div class="faq-list">
-				<article class="faq-item reveal faq-item-reveal" use:revealOnScroll style="--faq-delay: 0.00s;">
-					<h3 class="faq-question">What geographic areas do you serve?</h3>
+				<details class="faq-item reveal faq-item-reveal" use:revealOnScroll style="--faq-delay: 0.00s;">
+					<summary class="faq-question">What geographic areas do you serve?</summary>
 					<p class="faq-answer">We currently serve healthcare providers across the continental United States, with fulfillment partnerships that enable fast delivery to most locations within 2-5 business days.</p>
-				</article>
-				<article class="faq-item reveal faq-item-reveal" use:revealOnScroll style="--faq-delay: 0.08s;">
-					<h3 class="faq-question">Do you work with insurance and Medicare/Medicaid?</h3>
+				</details>
+				<details class="faq-item reveal faq-item-reveal" use:revealOnScroll style="--faq-delay: 0.08s;">
+					<summary class="faq-question">Do you work with insurance and Medicare/Medicaid?</summary>
 					<p class="faq-answer">We sell directly to providers and healthcare organizations. Billing and reimbursement remain between your organization and payers—we provide the documentation you need for compliance.</p>
-				</article>
-				<article class="faq-item reveal faq-item-reveal" use:revealOnScroll style="--faq-delay: 0.16s;">
-					<h3 class="faq-question">What's your minimum order size?</h3>
+				</details>
+				<details class="faq-item reveal faq-item-reveal" use:revealOnScroll style="--faq-delay: 0.16s;">
+					<summary class="faq-question">What's your minimum order size?</summary>
 					<p class="faq-answer">We work with organizations of all sizes. Whether you need a single unit or ongoing inventory for multiple locations, we'll find the right arrangement for your needs.</p>
-				</article>
-				<article class="faq-item reveal faq-item-reveal" use:revealOnScroll style="--faq-delay: 0.24s;">
-					<h3 class="faq-question">How do you ensure equipment quality and compliance?</h3>
+				</details>
+				<details class="faq-item reveal faq-item-reveal" use:revealOnScroll style="--faq-delay: 0.24s;">
+					<summary class="faq-question">How do you ensure equipment quality and compliance?</summary>
 					<p class="faq-answer">All equipment meets FDA requirements and CMS guidelines where applicable. We maintain documentation and can provide certificates of compliance for your records.</p>
-				</article>
-				<article class="faq-item reveal faq-item-reveal" use:revealOnScroll style="--faq-delay: 0.32s;">
-					<h3 class="faq-question">Can you source equipment not listed on your site?</h3>
+				</details>
+				<details class="faq-item reveal faq-item-reveal" use:revealOnScroll style="--faq-delay: 0.32s;">
+					<summary class="faq-question">Can you source equipment not listed on your site?</summary>
 					<p class="faq-answer">Yes. If you have specific DME needs outside our core categories, reach out—we have supplier relationships that often allow us to source specialized equipment.</p>
-				</article>
+				</details>
 			</div>
 		</div>
 	</section>
@@ -830,35 +857,35 @@
 			<form
 				class="request-form"
 				method="POST"
-				action={env.PUBLIC_FORMSPREE_ENDPOINT || '#'}
-				on:submit={handleSubmit}
+				action={env.PUBLIC_FORMSPREE_ENDPOINT || ''}
+				onsubmit={handleSubmit}
 				bind:this={formEl}
 			>
 				<div class="field-row">
 					<label class="field">
 						<span>Name</span>
-						<input name="name" autocomplete="name" required />
+						<input id="name" name="name" autocomplete="name" required aria-required="true" aria-describedby="form-status-message" />
 					</label>
 					<label class="field">
 						<span>Organization</span>
-						<input name="organization" autocomplete="organization" />
+						<input id="organization" name="organization" autocomplete="organization" />
 					</label>
 				</div>
 
 				<div class="field-row">
 					<label class="field">
 						<span>Email</span>
-						<input type="email" name="email" autocomplete="email" required />
+						<input id="email" type="email" name="email" autocomplete="email" required aria-required="true" aria-describedby="form-status-message" />
 					</label>
 					<label class="field">
 						<span>Phone <span class="optional-label">(optional)</span></span>
-						<input type="tel" name="phone" autocomplete="tel" />
+						<input id="phone" type="tel" name="phone" autocomplete="tel" />
 					</label>
 				</div>
 
 				<label class="field">
 					<span>What are you looking for?</span>
-					<select name="inquiry_type" required>
+					<select id="inquiry_type" name="inquiry_type" required aria-required="true" aria-describedby="form-status-message">
 						<option value="" disabled selected>Select an option...</option>
 						<option value="pricing">Pricing / Quote</option>
 						<option value="availability">Product Availability</option>
@@ -870,7 +897,7 @@
 
 				<label class="field">
 					<span>Message</span>
-					<textarea name="message" rows="4" placeholder="Equipment category, quantities, timeline, or any other details…" required></textarea>
+					<textarea id="message" name="message" rows="4" placeholder="Equipment category, quantities, timeline, or any other details…" required aria-required="true" aria-describedby="form-status-message"></textarea>
 				</label>
 
 				<label class="field honeypot">
@@ -882,14 +909,16 @@
 
 				<div class="form-status" aria-live="polite" aria-atomic="true">
 					{#if status === 'success'}
-						<p class="form-success">
+						<p id="form-status-message" class="form-success" role="status">
 							<span class="form-success-check" aria-hidden="true"></span>
 							Thanks — we got your request. We'll follow up shortly.
 						</p>
 					{:else if status === 'error'}
-						<p class="form-error">
+						<p id="form-status-message" class="form-error" role="alert">
 							{errorMessage}
 						</p>
+					{:else}
+						<p id="form-status-message" class="sr-only">Form status updates will be announced here.</p>
 					{/if}
 				</div>
 
@@ -907,14 +936,13 @@
 					<a href="/"><img class="header-logo" src={logo} alt="BG Clear" /></a>
 					<p>Tech-forward DME distribution for modern healthcare providers. Fast, compliant, reliable.</p>
 					<div class="footer-social">
-						<!-- TODO: Replace # with real social media URLs when available -->
-						<a href="#" aria-label="Facebook" class="footer-social-link">
+						<a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="footer-social-link">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
 						</a>
-						<a href="#" aria-label="LinkedIn" class="footer-social-link">
+						<a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="footer-social-link">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
 						</a>
-						<a href="#" aria-label="Instagram" class="footer-social-link">
+						<a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="footer-social-link">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
 						</a>
 					</div>

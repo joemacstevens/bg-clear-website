@@ -163,7 +163,7 @@
 		font-weight: 700;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
-		color: var(--color-gold, #d4a234);
+		color: var(--color-gold-text, #8b6914);
 		margin-bottom: var(--space-1, 0.5rem);
 	}
 
@@ -211,6 +211,11 @@
 	.ppb-tile--product:hover {
 		transform: translateY(-3px);
 		box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18);
+	}
+
+	.ppb-tile--product:focus-visible {
+		outline: 3px solid var(--color-gold, #d4a234);
+		outline-offset: 3px;
 	}
 
 	.ppb-tile__img {

@@ -33,7 +33,7 @@
 </header>
 
 {#if category}
-	<main class="page">
+	<main id="main-content" class="page" tabindex="-1">
 		<!-- Category Hero -->
 		<section class="cat-hero">
 			<div class="container">
@@ -86,7 +86,7 @@
 		</section>
 	</main>
 {:else}
-	<main class="page">
+	<main id="main-content" class="page" tabindex="-1">
 		<section class="section" style="padding-top: 10rem; text-align: center;">
 			<div class="container">
 				<h1>Category Not Found</h1>

@@ -35,7 +35,7 @@
 	</div>
 </header>
 
-<main class="page">
+<main id="main-content" class="page" tabindex="-1">
 	<section class="blog-hero">
 		<div class="container">
 			<p class="eyebrow">Resources</p>

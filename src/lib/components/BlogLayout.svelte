@@ -46,7 +46,7 @@
 	</div>
 </header>
 
-<main class="page">
+<main id="main-content" class="page" tabindex="-1">
 	<article class="blog-post">
 		<div class="container blog-post-container">
 			<a href="/blog" class="blog-back-link">

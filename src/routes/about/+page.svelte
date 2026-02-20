@@ -23,7 +23,7 @@
 	</div>
 </header>
 
-<main class="page">
+<main id="main-content" class="page" tabindex="-1">
 	<!-- Hero -->
 	<section class="about-hero">
 		<div class="container">
