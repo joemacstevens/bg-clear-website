@@ -196,8 +196,8 @@
 		border-radius: var(--radius-lg, 1.25rem);
 		position: relative;
 		overflow: hidden;
-		transition: transform 0.25s ease, box-shadow 0.25s ease;
-		border: 1px solid rgba(255, 255, 255, 0.22);
+		transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+		border: 1px solid rgba(255, 255, 255, 0.25);
 	}
 
 	/* ─── Product tiles ─── */
@@ -210,8 +210,9 @@
 	}
 
 	.ppb-tile--product:hover {
-		transform: translateY(-3px);
-		box-shadow: 0 16px 36px rgba(8, 15, 30, 0.4);
+		transform: translateY(-4px);
+		box-shadow: 0 16px 40px rgba(212, 162, 52, 0.2), 0 8px 20px rgba(0, 0, 0, 0.3);
+		border-color: rgba(212, 162, 52, 0.4);
 	}
 
 	.ppb-tile--product:focus-visible {
@@ -236,7 +237,12 @@
 		position: absolute;
 		inset: 0;
 		z-index: 1;
-		background: linear-gradient(to top, rgba(15, 39, 68, 0.95) 0%, rgba(15, 39, 68, 0.7) 40%, rgba(15, 39, 68, 0.35) 100%);
+		background: linear-gradient(to top, rgba(15, 39, 68, 0.92) 0%, rgba(15, 39, 68, 0.6) 40%, rgba(15, 39, 68, 0.25) 100%);
+		transition: background 0.4s ease;
+	}
+
+	.ppb-tile--product:hover .ppb-tile__overlay {
+		background: linear-gradient(to top, rgba(15, 39, 68, 0.85) 0%, rgba(15, 39, 68, 0.45) 40%, rgba(15, 39, 68, 0.15) 100%);
 	}
 
 	.ppb-tile__content {
@@ -272,11 +278,12 @@
 		font-weight: 700;
 		font-size: 0.9rem;
 		color: var(--color-gold, #d4a234);
-		transition: opacity 0.2s ease;
+		transition: opacity 0.2s ease, letter-spacing 0.3s ease, color 0.2s ease;
 	}
 
 	.ppb-tile--product:hover .ppb-tile__link {
-		opacity: 0.85;
+		opacity: 1;
+		letter-spacing: 0.03em;
 	}
 
 	/* ─── Accent tiles (MIDDLE) ─── */
@@ -299,14 +306,28 @@
 	}
 
 	.ppb-tile--accent.ppb-tile--navy {
-		background: rgba(255, 255, 255, 0.08);
+		background: rgba(255, 255, 255, 0.12);
 		backdrop-filter: blur(8px);
 		color: #ffffff;
+		transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+	}
+
+	.ppb-tile--accent.ppb-tile--navy:hover {
+		background: rgba(255, 255, 255, 0.2);
+		transform: translateY(-3px);
+		box-shadow: 0 12px 32px rgba(212, 162, 52, 0.15);
 	}
 
 	.ppb-tile--accent.ppb-tile--gold {
 		background: var(--color-gold, #d4a234);
 		color: #0f2744;
+		transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+	}
+
+	.ppb-tile--accent.ppb-tile--gold:hover {
+		background: #e0b24a;
+		transform: translateY(-3px);
+		box-shadow: 0 12px 32px rgba(212, 162, 52, 0.3);
 	}
 
 	.ppb-tile__badge {
@@ -345,10 +366,15 @@
 		justify-content: center;
 		padding: var(--space-4, 2rem) var(--space-5, 3rem);
 		gap: var(--space-3, 1.5rem);
-		background: rgba(255, 255, 255, 0.08);
+		background: rgba(255, 255, 255, 0.12);
 		backdrop-filter: blur(8px);
-		border: 1px solid rgba(255, 255, 255, 0.2);
+		border: 1px solid rgba(255, 255, 255, 0.22);
 		border-radius: var(--radius-lg, 1.25rem);
+		transition: background 0.3s ease;
+	}
+
+	.ppb-partners-row:hover {
+		background: rgba(255, 255, 255, 0.18);
 	}
 
 	.ppb-partners-label {
@@ -415,16 +441,26 @@
 			min-height: 14rem;
 		}
 
+		/* Brighter default state on mobile (no hover available) */
+		.ppb-tile--accent.ppb-tile--navy {
+			background: rgba(255, 255, 255, 0.18);
+		}
+
+		.ppb-tile {
+			border-color: rgba(255, 255, 255, 0.3);
+		}
+
+		.ppb-partners-row {
+			padding: var(--space-3, 1.5rem);
+			background: rgba(255, 255, 255, 0.16);
+		}
+
 		.ppb-accents-grid {
 			grid-template-columns: 1fr;
 		}
 
 		.ppb-tile--accent {
 			min-height: 8rem;
-		}
-
-		.ppb-partners-row {
-			padding: var(--space-3, 1.5rem);
 		}
 
 		.ppb-partners-logos {
