@@ -106,7 +106,7 @@
 
 <style>
 	.blog-hero {
-		padding: 10rem 0 3rem;
+		padding: 12rem 0 3rem;
 		background: linear-gradient(105deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
 		color: #ffffff;
 		text-align: center;

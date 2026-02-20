@@ -154,7 +154,7 @@
 
 <style>
 	.about-hero {
-		padding-top: clamp(7rem, 12vw, 9rem);
+		padding-top: clamp(10rem, 14vw, 12rem);
 		padding-bottom: var(--space-6);
 		background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
 		color: #ffffff;
