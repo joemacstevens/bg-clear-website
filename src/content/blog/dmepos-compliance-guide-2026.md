@@ -3,7 +3,7 @@ title: "DMEPOS Compliance in 2026: What Every Supplier Needs to Know"
 date: "2026-02-21"
 excerpt: "From new face-to-face requirements to pre-payment audits on oxygen equipment, here's what changed for DMEPOS suppliers this year — and how to stay ahead of it."
 category: "Compliance"
-image: "/generated-photos/hero-technician.png"
+image: "/blog-thumbnails/dmepos-compliance-2026.png"
 author: "BG Clear Team"
 ---
 

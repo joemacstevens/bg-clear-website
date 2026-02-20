@@ -3,7 +3,7 @@ title: "CPAP Supplies and Compliance: Keeping Patients on Therapy"
 date: "2026-01-28"
 excerpt: "CPAP adherence is the biggest challenge in sleep therapy. Here's how providers and suppliers can work together to keep patients compliant."
 category: "Industry Guide"
-image: "/generated-photos/marquee-cpap.png"
+image: "/blog-thumbnails/cpap-supplies-compliance.png"
 author: "BG Clear Team"
 ---
 

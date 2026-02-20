@@ -3,7 +3,7 @@ title: "Medicare DME Coverage: What Providers Need to Know in 2026"
 date: "2026-02-15"
 excerpt: "A clear breakdown of Medicare Part B coverage for durable medical equipment — eligibility, documentation, and common denial pitfalls."
 category: "Compliance"
-image: "/generated-photos/hero-products.png"
+image: "/blog-thumbnails/medicare-dme-coverage.png"
 author: "BG Clear Team"
 ---
 

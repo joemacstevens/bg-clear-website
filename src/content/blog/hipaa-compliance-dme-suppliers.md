@@ -3,7 +3,7 @@ title: "HIPAA Compliance for DME Suppliers: A Practical Checklist"
 date: "2026-02-08"
 excerpt: "Protect your practice and your patients. Here's what DME suppliers and providers need to have in place for HIPAA compliance."
 category: "Compliance"
-image: "/generated-photos/hero-technician.png"
+image: "/blog-thumbnails/hipaa-compliance.png"
 author: "BG Clear Team"
 ---
 

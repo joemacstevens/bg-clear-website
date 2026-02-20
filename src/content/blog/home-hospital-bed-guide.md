@@ -3,7 +3,7 @@ title: "Home Hospital Beds: Types, Features, and What Insurance Covers"
 date: "2026-02-05"
 excerpt: "Everything providers need to know about prescribing home hospital beds — from semi-electric to full-electric, mattresses, and coverage rules."
 category: "Product Guide"
-image: "/generated-photos/marquee-bed.png"
+image: "/blog-thumbnails/home-hospital-bed-guide.png"
 author: "BG Clear Team"
 ---
 

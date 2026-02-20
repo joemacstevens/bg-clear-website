@@ -3,7 +3,7 @@ title: "Understanding DME Equipment: A Guide for Healthcare Providers"
 date: "2025-02-10"
 excerpt: "A practical overview of durable medical equipment categories, compliance basics, and what providers should know when sourcing DME for their patients."
 category: "Industry Guide"
-image: "/generated-photos/hero-products.png"
+image: "/blog-thumbnails/understanding-dme-equipment.png"
 author: "BG Clear Team"
 ---
 

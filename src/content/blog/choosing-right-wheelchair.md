@@ -3,7 +3,7 @@ title: "How to Choose the Right Wheelchair for Your Patient"
 date: "2026-02-12"
 excerpt: "Manual vs. power, sizing considerations, and insurance coverage — a practical guide for healthcare providers ordering wheelchairs."
 category: "Product Guide"
-image: "/generated-photos/marquee-walker.png"
+image: "/blog-thumbnails/choosing-right-wheelchair.png"
 author: "BG Clear Team"
 ---
 
