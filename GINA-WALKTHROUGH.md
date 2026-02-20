@@ -58,6 +58,24 @@ This is a major visual overhaul while keeping all the content and functionality 
 - **Heading hierarchy**: Clean H1 → H2 → H3 structure for search engine content understanding
 - **LLM/AI Search ready**: Structured data helps BG Clear appear in AI-powered search results (Google AI Overviews, Bing Chat, etc.)
 
+### ♿ Accessibility (WCAG 2.1 AA Compliant)
+- **Color contrast**: All text meets WCAG 4.5:1 contrast ratio — accessible gold text variant for light backgrounds
+- **Keyboard navigation**: Every interactive element reachable via Tab key with visible gold focus rings
+- **Skip-to-content link**: Screen reader users can jump directly to main content
+- **ARIA labels**: Decorative elements hidden from screen readers, form fields properly labeled with `aria-required` and error message linking
+- **FAQ keyboard accessible**: Native `<details>/<summary>` pattern — works with keyboard and screen readers out of the box
+- **Reduced motion**: All animations and micro-interactions automatically disabled for users who prefer reduced motion
+- **Touch targets**: All clickable elements meet 44x44px minimum size
+- **Semantic HTML**: Proper heading hierarchy, landmark regions, and form structure
+- **Why it matters for BG Clear**: Healthcare websites serve providers AND patients — many with visual or motor impairments. WCAG compliance also reduces legal liability and improves search rankings (Google factors accessibility into Core Web Vitals).
+
+### ✨ Premium Micro-Interactions (NEW — deployed today)
+- **Hero entrance**: Headline, subhead, and CTA stagger-fade in on page load
+- **Scroll reveals**: Sections, headings, and cards animate in as you scroll down
+- **Hover effects**: Gold button fills, card lifts, nav underline slides, trust badge shimmers
+- **Visual rhythm**: Alternating navy, gold, and warm section backgrounds break up the page and guide the eye
+- **All subtle and fast**: 200-600ms animations that feel premium without being distracting
+
 ## Still To Do (after feedback)
 - FAQ section
 - Contact form refinement
