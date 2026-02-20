@@ -1239,11 +1239,12 @@ html {
 	.header-nav {
 		display: none;
 	}
-	.header-phone span {
+	.header-cta .button-header {
 		display: none;
 	}
 	.header-cta {
-		display: none;
+		margin-left: auto;
+		margin-right: 0.5rem;
 	}
 }
 
