@@ -177,7 +177,14 @@
 					<svg class="bento-tile__arrow" class:bento-tile__arrow--open={isExpanded} width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
 						<path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
-				{:else if tile.type === 'photo'}
+				{:else if tile.type === 'color'}
+				<div class="bento-tile__cross-icon">
+					<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+						<rect x="35" y="10" width="30" height="80" rx="4" fill="#0d2239" />
+						<rect x="10" y="35" width="80" height="30" rx="4" fill="#0d2239" />
+					</svg>
+				</div>
+			{:else if tile.type === 'photo'}
 					<div class="bento-tile__photo">
 						<img
 							class="bento-tile__photo-img"
@@ -302,6 +309,20 @@
 	.bento-tile--gold {
 		background: var(--color-gold, #d4a234);
 		color: var(--color-primary, #1e3a5f);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.bento-tile__cross-icon {
+		width: 55%;
+		max-width: 120px;
+		opacity: 0.55;
+		transition: opacity 300ms ease, transform 300ms ease;
+	}
+	.bento-tile--gold:hover .bento-tile__cross-icon {
+		opacity: 0.65;
+		transform: scale(1.05);
 	}
 
 	/* ─── Claim tile background images ─── */
