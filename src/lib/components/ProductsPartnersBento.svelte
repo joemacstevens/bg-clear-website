@@ -87,16 +87,7 @@
 </script>
 
 <div class="ppb-section" id="products">
-	<!-- Hex wireframe texture -->
-	<svg class="ppb-hex-bg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-		<defs>
-			<pattern id="ppbHexGrid" width="80" height="138.56" patternUnits="userSpaceOnUse">
-				<polygon points="40,0 80,23.09 80,69.28 40,92.38 0,69.28 0,23.09" fill="none" stroke="#d4a234" stroke-width="0.6"/>
-				<polygon points="80,46.19 120,69.28 120,115.47 80,138.56 40,115.47 40,69.28" fill="none" stroke="#d4a234" stroke-width="0.6"/>
-			</pattern>
-		</defs>
-		<rect width="100%" height="100%" fill="url(#ppbHexGrid)" />
-	</svg>
+	<div class="ppb-hex-bg" aria-hidden="true"></div>
 	<div class="ppb-container">
 		<div class="ppb-header">
 			<p class="ppb-eyebrow">Products &amp; Partners</p>
@@ -165,7 +156,10 @@
 		width: 100%;
 		height: 100%;
 		z-index: 0;
-		opacity: 0.08;
+		opacity: 0.12;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='140'%3E%3Cpolygon points='40,0 80,23.09 80,69.28 40,92.38 0,69.28 0,23.09' fill='none' stroke='%23d4a234' stroke-width='0.7'/%3E%3Cpolygon points='80,46.19 120,69.28 120,115.47 80,138.56 40,115.47 40,69.28' fill='none' stroke='%23d4a234' stroke-width='0.7'/%3E%3C/svg%3E");
+		background-repeat: repeat;
+		background-size: 80px 140px;
 		animation: ppbHexDrift 25s ease-in-out infinite alternate;
 	}
 
