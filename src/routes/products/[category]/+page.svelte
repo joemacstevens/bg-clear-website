@@ -3,11 +3,10 @@
 	import logo from '$lib/assets/bg-clear-logo-640.png';
 	import { categories, getProductsByCategory } from '$lib/data/products';
 
-	$: slug = $page.params.category;
-	$: category = categories[slug];
-	$: products = slug ? getProductsByCategory(slug) : [];
-
 	let mobileNavOpen = $state(false);
+	let slug = $derived($page.params.category);
+	let category = $derived(categories[slug]);
+	let products = $derived(slug ? getProductsByCategory(slug) : []);
 </script>
 
 <svelte:head>
