@@ -838,7 +838,7 @@
 					Tell us about your practice and equipment requirements — we'll follow up with options and pricing.
 				</p>
 			</div>
-			<a class="button button-light" href="#request-call">Contact a DME Specialist</a>
+			<a class="button button-gold-pop" href="#request-call">Contact a DME Specialist</a>
 		</div>
 	</section>
 
@@ -1009,7 +1009,7 @@
 							<path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
 							<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
 						</svg>
-						<span>550 Sylvan Ave., Suite 202<br />Englewood Cliffs, NJ 07632</span>
+						<a href="https://maps.google.com/?q=550+Sylvan+Ave+Suite+202+Englewood+Cliffs+NJ+07632" target="_blank" rel="noopener noreferrer">550 Sylvan Ave., Suite 202<br />Englewood Cliffs, NJ 07632</a>
 					</div>
 				</div>
 				<div>

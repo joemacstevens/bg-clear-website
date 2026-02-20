@@ -45,7 +45,7 @@
 
 	/* Bolder typography scale */
 	--text-h1: clamp(2.75rem, 5vw, 4rem);
-	--text-h2: clamp(1.875rem, 3vw, 2.5rem);
+	--text-h2: clamp(2.125rem, 3.5vw, 3rem);
 	--text-h3: clamp(1.25rem, 1.8vw, 1.5rem);
 	--text-body: 1rem;
 	--text-small: 0.875rem;
@@ -332,6 +332,7 @@ main {
 	border: 1px solid var(--color-border);
 	border-radius: var(--radius-lg);
 	padding: var(--space-4);
+	box-shadow: 0 2px 8px rgba(15, 39, 68, 0.08);
 	transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
 }
 
@@ -413,6 +414,25 @@ main {
 	background: rgba(255, 255, 255, 0.92);
 	transform: translateY(-1px);
 	box-shadow: var(--shadow-md);
+}
+
+.button-gold-pop {
+	display: inline-flex;
+	align-items: center;
+	padding: 1rem 2.5rem;
+	background: var(--color-gold, #d4a234);
+	color: #0f2744;
+	font-weight: 700;
+	font-size: 1.125rem;
+	border-radius: 8px;
+	text-decoration: none;
+	box-shadow: 0 4px 16px rgba(212, 162, 52, 0.4);
+	transition: transform 220ms ease, box-shadow 220ms ease, background 200ms ease;
+}
+.button-gold-pop:hover {
+	transform: translateY(-2px) scale(1.03);
+	box-shadow: 0 8px 28px rgba(212, 162, 52, 0.5);
+	background: #e0b24a;
 }
 
 .cta-inner {
@@ -627,6 +647,7 @@ main {
 	background: #d4a234;
 	color: #0f2744;
 	box-shadow: 0 8px 20px rgba(139, 105, 20, 0.18);
+	white-space: nowrap;
 }
 
 .section--who-we-serve .provider-chip:hover {
@@ -1483,8 +1504,8 @@ html {
 }
 
 .footer-social-link svg {
-	width: 23px;
-	height: 23px;
+	width: 28px;
+	height: 28px;
 }
 
 .footer-social-link:hover {
@@ -1496,7 +1517,7 @@ html {
 .footer-heading {
 	font-family: var(--font-heading);
 	font-weight: 600;
-	font-size: 0.875rem;
+	font-size: 1rem;
 	color: var(--color-ink);
 	margin-bottom: var(--space-2);
 	text-transform: uppercase;
@@ -1515,7 +1536,7 @@ html {
 
 .footer-links a {
 	color: var(--color-muted);
-	font-size: 1.05rem;
+	font-size: 1.125rem;
 	transition: color 160ms ease;
 	position: relative;
 	display: inline-block;
@@ -1549,7 +1570,7 @@ html {
 	align-items: flex-start;
 	gap: 0.75rem;
 	color: var(--color-muted);
-	font-size: 1.05rem;
+	font-size: 1.125rem;
 	margin-bottom: 0.75rem;
 }
 

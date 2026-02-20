@@ -85,7 +85,7 @@
 	];
 
 	const photoSources: Record<string, string> = {
-		'photo-warehouse': '/generated-photos/hero-technician.png',
+		'photo-warehouse': '/generated-photos/compliance-review.png',
 		'photo-team': '/generated-photos/team.png',
 	};
 
