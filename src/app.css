@@ -257,10 +257,49 @@ main {
 	transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
 }
 
+.process-step-reveal {
+	transform: translateX(-26px);
+	transition-delay: var(--step-delay, 0s);
+}
+
+.process-step-reveal.is-visible {
+	transform: translateX(0);
+	opacity: 1;
+}
+
+.process-step-reveal .capability-number {
+	opacity: 0;
+	transform: translateY(8px);
+	transition: opacity 320ms ease, transform 320ms ease;
+	transition-delay: calc(var(--step-delay, 0s) + 0.12s);
+}
+
+.process-step-reveal.is-visible .capability-number {
+	opacity: 1;
+	transform: translateY(0);
+}
+
 .step:hover {
 	transform: translateY(-2px);
 	box-shadow: var(--shadow-sm);
 	border-color: color-mix(in srgb, var(--color-accent), transparent 70%);
+}
+
+.provider-chip-reveal {
+	transform: translateY(22px) scale(0.96);
+	transition-delay: var(--chip-delay, 0s);
+}
+
+.provider-chip-reveal.is-visible {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+	animation: chipBounce 420ms ease-out;
+}
+
+@keyframes chipBounce {
+	0% { transform: translateY(14px) scale(0.95); }
+	65% { transform: translateY(-3px) scale(1.02); }
+	100% { transform: translateY(0) scale(1); }
 }
 
 /* Section backgrounds for visual differentiation */
@@ -445,14 +484,45 @@ main {
 
 .reveal {
 	opacity: 0;
-	transform: translateY(10px);
-	transition: opacity 320ms ease, transform 320ms ease;
+	transform: translateY(30px);
+	transition: opacity 0.6s ease, transform 0.6s ease;
 	will-change: opacity, transform;
+}
+
+.reveal.reveal-eyebrow {
+	transition-delay: 0.08s;
+}
+
+.reveal.reveal-subhead {
+	transition-delay: 0.15s;
 }
 
 .reveal.is-visible {
 	opacity: 1;
 	transform: translateY(0);
+}
+
+.reveal h2,
+.reveal .eyebrow,
+.reveal .subhead {
+	opacity: 0;
+	transform: translateY(30px);
+	transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.is-visible h2,
+.reveal.is-visible .eyebrow,
+.reveal.is-visible .subhead {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.reveal.is-visible .eyebrow {
+	transition-delay: 0.08s;
+}
+
+.reveal.is-visible .subhead {
+	transition-delay: 0.15s;
 }
 
 @media (max-width: 959px) {
@@ -522,8 +592,8 @@ main {
 
 .field input:focus,
 .field textarea:focus {
-	border-color: color-mix(in srgb, var(--color-primary), #ffffff 30%);
-	box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-primary), transparent 88%);
+	border-color: color-mix(in srgb, var(--color-accent), #ffffff 35%);
+	box-shadow: inset 0 -2px 0 0 var(--color-accent), 0 0 0 4px color-mix(in srgb, var(--color-accent), transparent 86%);
 }
 
 .form-status {
@@ -539,6 +609,50 @@ main {
 	background: color-mix(in srgb, #16a34a, #ffffff 92%);
 	color: #14532d;
 	font-size: 0.95rem;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.55rem;
+}
+
+.form-success-check {
+	position: relative;
+	width: 18px;
+	height: 12px;
+}
+
+.form-success-check::before,
+.form-success-check::after {
+	content: '';
+	position: absolute;
+	background: #15803d;
+	border-radius: 2px;
+	transform-origin: left center;
+}
+
+.form-success-check::before {
+	left: 0;
+	top: 6px;
+	width: 7px;
+	height: 2px;
+	transform: rotate(45deg) scaleX(0);
+	animation: checkDrawA 180ms ease-out forwards;
+}
+
+.form-success-check::after {
+	left: 5px;
+	top: 8px;
+	width: 12px;
+	height: 2px;
+	transform: rotate(-45deg) scaleX(0);
+	animation: checkDrawB 220ms ease-out 120ms forwards;
+}
+
+@keyframes checkDrawA {
+	to { transform: rotate(45deg) scaleX(1); }
+}
+
+@keyframes checkDrawB {
+	to { transform: rotate(-45deg) scaleX(1); }
 }
 
 .form-error {
@@ -549,6 +663,26 @@ main {
 	background: color-mix(in srgb, #dc2626, #ffffff 94%);
 	color: #7f1d1d;
 	font-size: 0.95rem;
+}
+
+.request-form .button-primary {
+	position: relative;
+	overflow: hidden;
+	isolation: isolate;
+}
+
+.request-form .button-primary::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: var(--color-primary-dark);
+	transform: translateX(-102%);
+	transition: transform 240ms ease;
+	z-index: -1;
+}
+
+.request-form .button-primary:hover::before {
+	transform: translateX(0);
 }
 
 .button[disabled] {
@@ -662,6 +796,30 @@ html {
 	display: flex;
 	align-items: center;
 	gap: 0.75rem;
+	position: relative;
+	overflow: hidden;
+	border-radius: 14px;
+	padding: 0.25rem 0.4rem;
+}
+
+.trust-badge-reveal {
+	transition-delay: var(--stagger-delay, 0s);
+}
+
+.trust-badge::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: -120%;
+	width: 60%;
+	height: 100%;
+	background: linear-gradient(110deg, transparent 0%, rgba(212, 162, 52, 0.25) 50%, transparent 100%);
+	transition: left 420ms ease;
+	pointer-events: none;
+}
+
+.trust-badge:hover::after {
+	left: 130%;
 }
 
 .trust-badge-seal {
@@ -763,7 +921,7 @@ html {
 	-webkit-backdrop-filter: blur(12px);
 	border-bottom: 1px solid var(--color-border);
 	padding: 0.875rem 0;
-	transition: box-shadow 200ms ease;
+	transition: box-shadow 240ms ease, background-color 240ms ease, border-color 240ms ease;
 }
 
 .site-header.scrolled {
@@ -803,7 +961,21 @@ html {
 	color: var(--color-text);
 	padding: 0.3rem 0.75rem;
 	border-radius: var(--radius-pill);
-	transition: color 160ms ease, background-color 160ms ease;
+	transition: color 200ms ease, background-color 200ms ease;
+	position: relative;
+}
+
+.header-nav a::after {
+	content: '';
+	position: absolute;
+	left: 0.75rem;
+	right: 0.75rem;
+	bottom: 0.05rem;
+	height: 2px;
+	background: var(--color-accent);
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform 0.3s ease;
 }
 
 @media (min-width: 1100px) {
@@ -817,6 +989,11 @@ html {
 
 .header-nav a:hover {
 	color: var(--color-primary);
+}
+
+.header-nav a:hover::after,
+.header-nav a:focus-visible::after {
+	transform: scaleX(1);
 }
 
 .header-nav a.nav-active {
@@ -864,6 +1041,12 @@ html {
 .button-header {
 	padding: 0.6rem 1.25rem;
 	font-size: 0.875rem;
+	transition: transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+}
+
+.button-header:hover {
+	box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-accent), transparent 80%), 0 8px 22px color-mix(in srgb, var(--color-accent), transparent 72%);
+	transform: translateY(-1px);
 }
 
 @media (max-width: 768px) {
@@ -888,10 +1071,33 @@ html {
 	border-radius: var(--radius-md);
 	padding: var(--space-3) var(--space-4);
 	transition: border-color 200ms ease;
+	position: relative;
+	overflow: hidden;
+}
+
+.faq-item-reveal {
+	transition-delay: var(--faq-delay, 0s);
+}
+
+.faq-item::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 3px;
+	height: 100%;
+	background: var(--color-accent);
+	transform: scaleY(0);
+	transform-origin: bottom;
+	transition: transform 260ms ease;
 }
 
 .faq-item:hover {
 	border-color: color-mix(in srgb, var(--color-accent), transparent 70%);
+}
+
+.faq-item:hover::before {
+	transform: scaleY(1);
 }
 
 .faq-question {
@@ -943,7 +1149,7 @@ html {
 	height: 32px;
 	border-radius: 50%;
 	color: var(--color-muted);
-	transition: color 160ms ease, background-color 160ms ease;
+	transition: color 200ms ease, background-color 200ms ease, transform 220ms ease;
 }
 
 .footer-social-link svg {
@@ -954,6 +1160,7 @@ html {
 .footer-social-link:hover {
 	color: var(--color-primary);
 	background: var(--color-border-subtle);
+	transform: rotate(8deg) scale(1.08);
 }
 
 .footer-heading {
@@ -980,10 +1187,31 @@ html {
 	color: var(--color-muted);
 	font-size: 0.925rem;
 	transition: color 160ms ease;
+	position: relative;
+	display: inline-block;
+}
+
+.footer-links a::after,
+.footer-legal a::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: -2px;
+	width: 100%;
+	height: 2px;
+	background: var(--color-accent);
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform 0.28s ease;
 }
 
 .footer-links a:hover {
 	color: var(--color-primary);
+}
+
+.footer-links a:hover::after,
+.footer-legal a:hover::after {
+	transform: scaleX(1);
 }
 
 .footer-contact-item {
@@ -1023,6 +1251,8 @@ html {
 .footer-legal a {
 	color: var(--color-muted);
 	transition: color 160ms ease;
+	position: relative;
+	display: inline-block;
 }
 
 .footer-legal a:hover {

@@ -22,12 +22,14 @@
 
 	type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
-	let scrolled = false;
-	let activeSection = '';
+	let scrolled = $state(false);
+	let activeSection = $state('');
+	let hexParallax = $state(0);
 
 	onMount(() => {
 		const handleScroll = () => {
 			scrolled = window.scrollY > 20;
+			hexParallax = Math.min(window.scrollY * 0.04, 26);
 		};
 
 		window.addEventListener('scroll', handleScroll, { passive: true });
@@ -60,9 +62,9 @@
 		};
 	});
 
-	let status: FormStatus = 'idle';
-	let errorMessage = '';
-	let formEl: HTMLFormElement | null = null;
+	let status: FormStatus = $state('idle');
+	let errorMessage = $state('');
+	let formEl: HTMLFormElement | null = $state(null);
 
 	async function handleSubmit(event: SubmitEvent) {
 		// If JS is running, we take over the submission to provide inline success/error states.
@@ -226,6 +228,10 @@
 		inset: 0;
 		z-index: 0;
 		opacity: 0.15;
+		transform: translate3d(0, var(--hex-parallax, 0px), 0);
+		transition: transform 220ms ease-out;
+	}
+	.hex-wireframe-inner {
 		animation: hexDrift 20s ease-in-out infinite alternate;
 	}
 	@keyframes hexDrift {
@@ -289,11 +295,26 @@
 		font-size: 0.9375rem;
 		border-radius: 8px;
 		text-decoration: none;
-		transition: background 200ms ease, transform 200ms ease;
+		position: relative;
+		overflow: hidden;
+		isolation: isolate;
+		transition: transform 220ms ease, box-shadow 220ms ease;
+	}
+	.hero-btn-gold::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: #e0b24a;
+		transform: translateX(-101%);
+		transition: transform 240ms ease;
+		z-index: -1;
 	}
 	.hero-btn-gold:hover {
-		background: #e0b24a;
-		transform: translateY(-1px);
+		transform: translateY(-1px) scale(1.02);
+		box-shadow: 0 8px 24px rgba(212, 162, 52, 0.35);
+	}
+	.hero-btn-gold:hover::before {
+		transform: translateX(0);
 	}
 	.hero-btn-outline {
 		display: inline-flex;
@@ -306,17 +327,49 @@
 		border: 2px solid rgba(255, 255, 255, 0.5);
 		border-radius: 8px;
 		text-decoration: none;
-		transition: border-color 200ms ease, background 200ms ease, transform 200ms ease;
+		transition: border-color 220ms ease, background 220ms ease, transform 220ms ease, box-shadow 220ms ease;
 	}
 	.hero-btn-outline:hover {
 		border-color: #ffffff;
 		background: rgba(255, 255, 255, 0.08);
-		transform: translateY(-1px);
+		box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.14);
+		transform: translateY(-1px) scale(1.02);
 	}
 	.hero-trust-note {
 		font-size: 0.8125rem;
 		color: rgba(255, 255, 255, 0.55);
 		margin: 0;
+	}
+
+	.hero-headline,
+	.hero-eyebrow,
+	.hero-subhead,
+	.hero-ctas-entrance,
+	.hero-trust-note-entrance {
+		opacity: 0;
+	}
+	.hero-headline {
+		animation: fadeSlideUp 0.6s ease-out 0.2s forwards;
+	}
+	.hero-eyebrow {
+		animation: fadeOnly 0.4s ease-out 0.4s forwards;
+	}
+	.hero-subhead {
+		animation: fadeOnly 0.45s ease-out 0.5s forwards;
+	}
+	.hero-ctas-entrance {
+		animation: fadeSlideUp 0.5s ease-out 0.7s forwards;
+	}
+	.hero-trust-note-entrance {
+		animation: fadeOnly 0.4s ease-out 0.9s forwards;
+	}
+	@keyframes fadeSlideUp {
+		from { opacity: 0; transform: translateY(24px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+	@keyframes fadeOnly {
+		from { opacity: 0; }
+		to { opacity: 1; }
 	}
 
 	/* ── Scrolling Marquee ── */
@@ -436,8 +489,8 @@
 		transition: transform 200ms ease, box-shadow 200ms ease;
 	}
 	.provider-chip:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 4px 12px rgba(15, 39, 68, 0.25);
+		transform: translateY(-3px) scale(1.02);
+		box-shadow: 0 10px 22px rgba(15, 39, 68, 0.24);
 	}
 	@media (max-width: 480px) {
 		.provider-chip {
@@ -507,28 +560,28 @@
 <main class="page">
 	<section class="hero">
 		<!-- Hex wireframe grid background -->
-		<svg class="hex-wireframe" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+		<svg class="hex-wireframe" style={`--hex-parallax:${hexParallax}px`} width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
 			<defs>
 				<pattern id="hexGrid" width="80" height="138.56" patternUnits="userSpaceOnUse">
 					<polygon points="40,0 80,23.09 80,69.28 40,92.38 0,69.28 0,23.09" fill="none" stroke="#d4a234" stroke-width="1"/>
 					<polygon points="80,46.19 120,69.28 120,115.47 80,138.56 40,115.47 40,69.28" fill="none" stroke="#d4a234" stroke-width="1"/>
 				</pattern>
 			</defs>
-			<rect width="100%" height="100%" fill="url(#hexGrid)" />
+			<g class="hex-wireframe-inner"><rect width="100%" height="100%" fill="url(#hexGrid)" /></g>
 		</svg>
 
 		<!-- Centered hero content -->
 		<div class="hero-content">
-			<p class="eyebrow">A Tech-Forward DME &amp; HME Distribution Company</p>
-			<h1>Real People Who Answer the Phone</h1>
-			<p class="subhead">
+			<p class="eyebrow hero-eyebrow">A Tech-Forward DME &amp; HME Distribution Company</p>
+			<h1 class="hero-headline">Real People Who Answer the Phone</h1>
+			<p class="subhead hero-subhead">
 				Fast, compliant DME access for providers and care partners.
 			</p>
-			<div class="hero-ctas">
+			<div class="hero-ctas hero-ctas-entrance">
 				<a class="hero-btn-gold" href="#request-call">Contact a DME Specialist</a>
 				<a class="hero-btn-outline" href="#products">View Product Categories</a>
 			</div>
-			<p class="hero-trust-note">No obligation · Most inquiries answered within 4 hours</p>
+			<p class="hero-trust-note hero-trust-note-entrance">No obligation · Most inquiries answered within 4 hours</p>
 		</div>
 
 		<!-- Scrolling Marquee -->
@@ -579,7 +632,7 @@
 
 	<section class="trust-strip">
 		<div class="container trust-strip-inner">
-			<div class="trust-badge">
+			<div class="trust-badge reveal trust-badge-reveal" use:revealOnScroll style="--stagger-delay: 0s;">
 				<svg class="trust-badge-seal" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<circle cx="40" cy="40" r="38" stroke="#1e3a5f" stroke-width="2" fill="#f0f4f8"/>
 					<circle cx="40" cy="40" r="32" stroke="#1e3a5f" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
@@ -592,7 +645,7 @@
 					<span class="trust-badge-sub">Accredited</span>
 				</div>
 			</div>
-			<div class="trust-badge">
+			<div class="trust-badge reveal trust-badge-reveal" use:revealOnScroll style="--stagger-delay: 0.1s;">
 				<svg class="trust-badge-seal" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<circle cx="40" cy="40" r="38" stroke="#1e3a5f" stroke-width="2" fill="#f0f4f8"/>
 					<circle cx="40" cy="40" r="32" stroke="#1e3a5f" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
@@ -607,7 +660,7 @@
 					<span class="trust-badge-sub">Approved Supplier</span>
 				</div>
 			</div>
-			<div class="trust-badge">
+			<div class="trust-badge reveal trust-badge-reveal" use:revealOnScroll style="--stagger-delay: 0.2s;">
 				<svg class="trust-badge-seal" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<circle cx="40" cy="40" r="38" stroke="#1e3a5f" stroke-width="2" fill="#f0f4f8"/>
 					<circle cx="40" cy="40" r="32" stroke="#1e3a5f" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
@@ -622,7 +675,7 @@
 					<span class="trust-badge-sub">Compliant</span>
 				</div>
 			</div>
-			<div class="trust-badge">
+			<div class="trust-badge reveal trust-badge-reveal" use:revealOnScroll style="--stagger-delay: 0.3s;">
 				<svg class="trust-badge-seal" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<circle cx="40" cy="40" r="38" stroke="#1e3a5f" stroke-width="2" fill="#f0f4f8"/>
 					<circle cx="40" cy="40" r="32" stroke="#1e3a5f" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
@@ -642,7 +695,7 @@
 
 	<!-- WHAT WE DO -->
 	<section class="section">
-		<div class="container section-intro">
+		<div class="container section-intro reveal" use:revealOnScroll>
 			<div>
 				<p class="eyebrow">What we do</p>
 				<h2>Your DME fulfillment partner — from prescription to patient doorstep.</h2>
@@ -657,52 +710,52 @@
 	<ProductsPartnersBento />
 
 	<!-- CAPABILITIES / VALUE GRID (bento mosaic) -->
-	<div id="capabilities">
+	<div id="capabilities" class="reveal" use:revealOnScroll>
 		<BentoGrid />
 	</div>
 
 	<!-- WHO WE SERVE -->
 	<section class="section">
-		<div class="container">
-			<p class="eyebrow">Who we serve</p>
+		<div class="container reveal" use:revealOnScroll>
+			<p class="eyebrow reveal reveal-eyebrow">Who we serve</p>
 			<h2>Built for the teams delivering care.</h2>
-			<p class="subhead">From primary care to home health, we serve providers who need equipment they can count on.</p>
+			<p class="subhead hero-subhead">From primary care to home health, we serve providers who need equipment they can count on.</p>
 			<div class="provider-chips">
-				<span class="provider-chip">Primary Care Clinics</span>
-				<span class="provider-chip">Specialty Clinics</span>
-				<span class="provider-chip">Hospitals &amp; Outpatient</span>
-				<span class="provider-chip">Home Health Agencies</span>
-				<span class="provider-chip">Long-Term Care</span>
-				<span class="provider-chip">Pharmacies &amp; Retailers</span>
+				<span class="provider-chip reveal provider-chip-reveal" use:revealOnScroll style="--chip-delay: 0.00s;">Primary Care Clinics</span>
+				<span class="provider-chip reveal provider-chip-reveal" use:revealOnScroll style="--chip-delay: 0.05s;">Specialty Clinics</span>
+				<span class="provider-chip reveal provider-chip-reveal" use:revealOnScroll style="--chip-delay: 0.10s;">Hospitals &amp; Outpatient</span>
+				<span class="provider-chip reveal provider-chip-reveal" use:revealOnScroll style="--chip-delay: 0.15s;">Home Health Agencies</span>
+				<span class="provider-chip reveal provider-chip-reveal" use:revealOnScroll style="--chip-delay: 0.20s;">Long-Term Care</span>
+				<span class="provider-chip reveal provider-chip-reveal" use:revealOnScroll style="--chip-delay: 0.25s;">Pharmacies &amp; Retailers</span>
 			</div>
 		</div>
 	</section>
 
 	<!-- HOW WE WORK -->
 	<section class="section" id="how-we-work">
-		<div class="container">
-			<p class="eyebrow">How we work</p>
+		<div class="container reveal" use:revealOnScroll>
+			<p class="eyebrow reveal reveal-eyebrow">How we work</p>
 			<h2>From inquiry to delivery — here's how it works.</h2>
 			<div class="process-flow-container">
 				<img class="process-flow-img" src={processWide} alt="Our 4-step process: Reach out, Confirm fit, Fulfillment, Ongoing support" loading="lazy" />
 			</div>
 			<div class="steps">
-				<article class="step">
+				<article class="step reveal process-step-reveal" use:revealOnScroll style="--step-delay: 0.0s;">
 					<span class="capability-number">01</span>
 					<h3>Reach out</h3>
 					<p>Tell us what you need. Equipment type, quantity, timeline.</p>
 				</article>
-				<article class="step">
+				<article class="step reveal process-step-reveal" use:revealOnScroll style="--step-delay: 0.1s;">
 					<span class="capability-number">02</span>
 					<h3>We confirm fit</h3>
 					<p>We verify product availability, compliance requirements, and pricing.</p>
 				</article>
-				<article class="step">
+				<article class="step reveal process-step-reveal" use:revealOnScroll style="--step-delay: 0.2s;">
 					<span class="capability-number">03</span>
 					<h3>Fast fulfillment</h3>
 					<p>Your order ships. We handle logistics so you don't have to.</p>
 				</article>
-				<article class="step">
+				<article class="step reveal process-step-reveal" use:revealOnScroll style="--step-delay: 0.3s;">
 					<span class="capability-number">04</span>
 					<h3>Ongoing support</h3>
 					<p>Questions after delivery? We're here. Training, warranty, reorders — covered.</p>
@@ -713,16 +766,16 @@
 
 	<!-- BLOG -->
 	<section class="section section-alt" id="blog">
-		<div class="container">
-			<p class="eyebrow">Resources</p>
+		<div class="container reveal" use:revealOnScroll>
+			<p class="eyebrow reveal reveal-eyebrow">Resources</p>
 			<h2>Insights for DME providers.</h2>
-			<p class="subhead" style="margin-bottom: var(--space-4);">Industry guides, compliance updates, and best practices — all in one place.</p>
+			<p class="subhead reveal reveal-subhead" style="margin-bottom: var(--space-4);">Industry guides, compliance updates, and best practices — all in one place.</p>
 			<a class="button button-primary" href="/blog">View All Resources &rarr;</a>
 		</div>
 	</section>
 
 	<section class="section cta-band">
-		<div class="container cta-inner">
+		<div class="container cta-inner reveal" use:revealOnScroll>
 			<div>
 				<p class="eyebrow cta-eyebrow">Next step</p>
 				<h2 class="cta-heading">Let's talk about what you need.</h2>
@@ -735,27 +788,27 @@
 	</section>
 
 	<section class="section section-alt" id="faq">
-		<div class="container">
-			<p class="eyebrow">FAQ</p>
+		<div class="container reveal" use:revealOnScroll>
+			<p class="eyebrow reveal reveal-eyebrow">FAQ</p>
 			<h2>Common questions from providers.</h2>
 			<div class="faq-list">
-				<article class="faq-item">
+				<article class="faq-item reveal faq-item-reveal" use:revealOnScroll style="--faq-delay: 0.00s;">
 					<h3 class="faq-question">What geographic areas do you serve?</h3>
 					<p class="faq-answer">We currently serve healthcare providers across the continental United States, with fulfillment partnerships that enable fast delivery to most locations within 2-5 business days.</p>
 				</article>
-				<article class="faq-item">
+				<article class="faq-item reveal faq-item-reveal" use:revealOnScroll style="--faq-delay: 0.08s;">
 					<h3 class="faq-question">Do you work with insurance and Medicare/Medicaid?</h3>
 					<p class="faq-answer">We sell directly to providers and healthcare organizations. Billing and reimbursement remain between your organization and payers—we provide the documentation you need for compliance.</p>
 				</article>
-				<article class="faq-item">
+				<article class="faq-item reveal faq-item-reveal" use:revealOnScroll style="--faq-delay: 0.16s;">
 					<h3 class="faq-question">What's your minimum order size?</h3>
 					<p class="faq-answer">We work with organizations of all sizes. Whether you need a single unit or ongoing inventory for multiple locations, we'll find the right arrangement for your needs.</p>
 				</article>
-				<article class="faq-item">
+				<article class="faq-item reveal faq-item-reveal" use:revealOnScroll style="--faq-delay: 0.24s;">
 					<h3 class="faq-question">How do you ensure equipment quality and compliance?</h3>
 					<p class="faq-answer">All equipment meets FDA requirements and CMS guidelines where applicable. We maintain documentation and can provide certificates of compliance for your records.</p>
 				</article>
-				<article class="faq-item">
+				<article class="faq-item reveal faq-item-reveal" use:revealOnScroll style="--faq-delay: 0.32s;">
 					<h3 class="faq-question">Can you source equipment not listed on your site?</h3>
 					<p class="faq-answer">Yes. If you have specific DME needs outside our core categories, reach out—we have supplier relationships that often allow us to source specialized equipment.</p>
 				</article>
@@ -765,11 +818,11 @@
 
 	
 	<section class="section" id="request-call">
-		<div class="container request">
+		<div class="container request reveal" use:revealOnScroll>
 			<div class="request-intro">
-				<p class="eyebrow">Get in touch</p>
+				<p class="eyebrow reveal reveal-eyebrow">Get in touch</p>
 				<h2>Tell us what you need.</h2>
-				<p class="subhead">
+				<p class="subhead hero-subhead">
 					Share your equipment requirements and we'll reach out to discuss options and pricing.
 				</p>
 			</div>
@@ -830,6 +883,7 @@
 				<div class="form-status" aria-live="polite" aria-atomic="true">
 					{#if status === 'success'}
 						<p class="form-success">
+							<span class="form-success-check" aria-hidden="true"></span>
 							Thanks — we got your request. We'll follow up shortly.
 						</p>
 					{:else if status === 'error'}

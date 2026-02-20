@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { revealOnScroll } from '$lib/scrollReveal';
 
 	interface ClaimTile {
 		id: string;
@@ -131,12 +132,14 @@
 	</div>
 
 	<div class="bento-grid" bind:this={gridEl} role="list">
-		{#each tiles as tile (tile.id)}
+		{#each tiles as tile, index (tile.id)}
 			{@const isClaim = !tile.type}
 			{@const isExpanded = expandedId === tile.id}
 
 			<div
-				class="bento-tile"
+				class="bento-tile reveal bento-tile-reveal"
+				use:revealOnScroll
+				style={`--tile-delay: ${index * 100}ms;`}
 				class:bento-tile--claim={isClaim}
 				class:bento-tile--has-bg={isClaim && claimBackgrounds[tile.id]}
 				class:bento-tile--photo={tile.type === 'photo'}
@@ -235,6 +238,10 @@
 		position: relative;
 		overflow: hidden;
 		transition: transform 0.25s ease, box-shadow 0.25s ease;
+	}
+
+	.bento-tile-reveal {
+		transition-delay: var(--tile-delay, 0ms);
 	}
 
 	.bento-tile--col2 {
@@ -383,6 +390,11 @@
 		height: 100%;
 		object-fit: cover;
 		display: block;
+		transition: transform 280ms ease;
+	}
+
+	.bento-tile--photo:hover .bento-tile__photo-img {
+		transform: scale(1.05);
 	}
 
 	/* ─── Color block tiles ─── */
