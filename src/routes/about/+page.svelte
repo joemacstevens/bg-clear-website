@@ -53,12 +53,8 @@
 				</p>
 			</div>
 			<div class="about-story-visual">
-				<!-- TODO: Replace with real company/team photo -->
-				<div class="about-placeholder-img">
-					<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-						<path d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 0h.008v.008h-.008V7.5zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" stroke-linecap="round" stroke-linejoin="round"/>
-					</svg>
-					<span>Company Photo</span>
+				<div class="about-logo-card">
+					<img src={logo} alt="BG Clear LLC" class="about-logo-img" />
 				</div>
 			</div>
 		</div>
@@ -113,58 +109,6 @@
 		</div>
 	</section>
 
-	<!-- Team -->
-	<!-- TODO: Replace placeholders with real team photos and bios when available from Gina/Evan -->
-	<section class="section">
-		<div class="container">
-			<p class="eyebrow">Our Team</p>
-			<h2>The people behind BG Clear.</h2>
-			<p class="subhead">A team with deep roots in healthcare logistics, compliance, and provider relationships.</p>
-			<div class="team-grid">
-				<div class="team-member">
-					<div class="team-photo-placeholder">
-						<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-							<path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-					</div>
-					<!-- TODO: Real name and title -->
-					<h3 class="team-name">Team Member</h3>
-					<p class="team-role">Leadership</p>
-				</div>
-				<div class="team-member">
-					<div class="team-photo-placeholder">
-						<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-							<path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-					</div>
-					<!-- TODO: Real name and title -->
-					<h3 class="team-name">Team Member</h3>
-					<p class="team-role">Operations</p>
-				</div>
-				<div class="team-member">
-					<div class="team-photo-placeholder">
-						<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-							<path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-					</div>
-					<!-- TODO: Real name and title -->
-					<h3 class="team-name">Team Member</h3>
-					<p class="team-role">Client Relations</p>
-				</div>
-				<div class="team-member">
-					<div class="team-photo-placeholder">
-						<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-							<path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-					</div>
-					<!-- TODO: Real name and title -->
-					<h3 class="team-name">Team Member</h3>
-					<p class="team-role">Compliance</p>
-				</div>
-			</div>
-		</div>
-	</section>
-
 	<!-- CTA -->
 	<section class="section cta-band">
 		<div class="container cta-inner">
@@ -209,21 +153,19 @@
 		line-height: 1.7;
 	}
 
-	.about-placeholder-img {
+	.about-logo-card {
 		display: flex;
-		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: var(--space-2);
 		height: 360px;
-		background: linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%);
+		background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
 		border-radius: var(--radius-lg);
-		color: var(--color-muted);
-		opacity: 0.6;
+		padding: var(--space-5);
 	}
-	.about-placeholder-img span {
-		font-size: var(--text-small);
-		font-weight: 500;
+	.about-logo-img {
+		max-width: 220px;
+		height: auto;
+		filter: brightness(0) invert(1);
 	}
 
 	.about-mission-header {
@@ -267,52 +209,12 @@
 		margin-bottom: 0;
 	}
 
-	.team-grid {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		gap: var(--space-4);
-		margin-top: var(--space-4);
-	}
-	.team-member {
-		text-align: center;
-	}
-	.team-photo-placeholder {
-		width: 140px;
-		height: 140px;
-		border-radius: 50%;
-		background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin: 0 auto var(--space-2);
-		color: var(--color-muted);
-		opacity: 0.5;
-	}
-	.team-name {
-		font-size: 1rem;
-		margin-bottom: 0.25rem;
-	}
-	.team-role {
-		color: var(--color-muted);
-		font-size: var(--text-small);
-		margin: 0;
-	}
-
 	@media (max-width: 960px) {
 		.about-story {
 			grid-template-columns: 1fr;
 		}
 		.values-grid {
 			grid-template-columns: 1fr;
-		}
-		.team-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
-	}
-	@media (max-width: 480px) {
-		.team-grid {
-			grid-template-columns: 1fr 1fr;
-			gap: var(--space-3);
 		}
 	}
 </style>
