@@ -77,7 +77,7 @@
 
 	const tiles: Tile[] = [
 		claims[0],
-		{ id: 'photo-warehouse', type: 'photo', alt: 'BG Clear warehouse interior', color: '#3a5a7f', colSpan: 1, rowSpan: 1 },
+		{ id: 'photo-warehouse', type: 'photo', alt: 'DME specialist reviewing compliance documentation', color: '#3a5a7f', colSpan: 1, rowSpan: 1 },
 		claims[1],
 		{ id: 'color-gold', type: 'color', bg: 'gold', colSpan: 1, rowSpan: 2 },
 		claims[2],
@@ -85,7 +85,7 @@
 	];
 
 	const photoSources: Record<string, string> = {
-		'photo-warehouse': '/generated-photos/warehouse.png',
+		'photo-warehouse': '/generated-photos/hero-technician.png',
 		'photo-team': '/generated-photos/team.png',
 	};
 
@@ -279,7 +279,8 @@
 		padding: var(--space-4, 2rem);
 		user-select: none;
 		text-align: left;
-		border: 0;
+		border: 1px solid rgba(15, 39, 68, 0.22);
+		box-shadow: 0 10px 24px rgba(15, 39, 68, 0.16);
 		width: 100%;
 	}
 

@@ -427,14 +427,14 @@
 		height: 32px;
 		width: auto;
 		object-fit: contain;
-		opacity: 0.85;
-		filter: grayscale(100%) brightness(2);
+		opacity: 0.95;
+		filter: grayscale(100%) brightness(2.35);
 		transition: opacity 200ms ease, filter 200ms ease;
 	}
 
 	.ppb-partners-logo:hover {
 		opacity: 1;
-		filter: grayscale(0%) brightness(1.35);
+		filter: grayscale(0%) brightness(1.75);
 	}
 
 	/* ─── Tablet 2-col ─── */

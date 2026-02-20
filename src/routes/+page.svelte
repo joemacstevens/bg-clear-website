@@ -579,6 +579,7 @@
 			<a href="#faq" class:nav-active={activeSection === 'faq'}>FAQ</a>
 		</nav>
 		<div class="header-cta">
+			<a href="tel:+12015550100" class="header-phone">(201) 555-0100</a>
 			<a class="button button-primary button-header" href="#request-call">Contact Us</a>
 		</div>
 	</div>
@@ -601,7 +602,7 @@
 		<div class="hero-content">
 			<h1 class="hero-headline">Real People Who Answer the Phone</h1>
 			<p class="subhead hero-subhead">
-				Your DME partner. Fast, compliant, human.
+				Your tech-forward DME partner. Fast, compliant, human.
 			</p>
 			<div class="hero-ctas hero-ctas-entrance">
 				<a class="hero-btn-gold" href="#request-call">Contact a DME Specialist</a>
@@ -752,7 +753,7 @@
 				<span class="provider-chip reveal provider-chip-reveal" use:revealOnScroll style="--chip-delay: 0.10s;">Hospitals &amp; Outpatient</span>
 				<span class="provider-chip reveal provider-chip-reveal" use:revealOnScroll style="--chip-delay: 0.15s;">Home Health Agencies</span>
 				<span class="provider-chip reveal provider-chip-reveal" use:revealOnScroll style="--chip-delay: 0.20s;">Long-Term Care</span>
-				<span class="provider-chip reveal provider-chip-reveal" use:revealOnScroll style="--chip-delay: 0.25s;">Pharmacies &amp; Retailers</span>
+				<span class="provider-chip reveal provider-chip-reveal" use:revealOnScroll style="--chip-delay: 0.25s;">Pharmacy &amp; Retailers</span>
 			</div>
 		</div>
 	</section>

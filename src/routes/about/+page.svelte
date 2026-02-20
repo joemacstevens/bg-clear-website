@@ -18,6 +18,7 @@
 			<a href="/#faq">FAQ</a>
 		</nav>
 		<div class="header-cta">
+			<a href="tel:+12015550100" class="header-phone">(201) 555-0100</a>
 			<a class="button button-primary button-header" href="/#request-call">Contact Us</a>
 		</div>
 	</div>
@@ -110,7 +111,7 @@
 	</section>
 
 	<!-- CTA -->
-	<section class="section cta-band">
+	<section class="section section--gold section--cta-pop cta-band">
 		<div class="container cta-inner">
 			<div>
 				<p class="eyebrow cta-eyebrow">Work with us</p>
