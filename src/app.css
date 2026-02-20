@@ -1274,6 +1274,11 @@ html {
 	background: #ffffff;
 }
 @media (max-width: 768px) {
+	.scrolled .hamburger-line {
+		background: var(--color-primary, #1e3a5f);
+	}
+}
+@media (max-width: 768px) {
 	.hamburger {
 		display: flex;
 	}
