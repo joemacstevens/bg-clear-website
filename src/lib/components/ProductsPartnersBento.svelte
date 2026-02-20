@@ -87,6 +87,16 @@
 </script>
 
 <div class="ppb-section" id="products">
+	<!-- Hex wireframe texture -->
+	<svg class="ppb-hex-bg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+		<defs>
+			<pattern id="ppbHexGrid" width="80" height="138.56" patternUnits="userSpaceOnUse">
+				<polygon points="40,0 80,23.09 80,69.28 40,92.38 0,69.28 0,23.09" fill="none" stroke="#d4a234" stroke-width="0.6"/>
+				<polygon points="80,46.19 120,69.28 120,115.47 80,138.56 40,115.47 40,69.28" fill="none" stroke="#d4a234" stroke-width="0.6"/>
+			</pattern>
+		</defs>
+		<rect width="100%" height="100%" fill="url(#ppbHexGrid)" />
+	</svg>
 	<div class="ppb-container">
 		<div class="ppb-header">
 			<p class="ppb-eyebrow">Products &amp; Partners</p>
@@ -145,12 +155,37 @@
 	.ppb-section {
 		padding: 0;
 		background: transparent;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.ppb-hex-bg {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		opacity: 0.08;
+		animation: ppbHexDrift 25s ease-in-out infinite alternate;
+	}
+
+	@keyframes ppbHexDrift {
+		0%   { transform: translate(0, 0) scale(1); }
+		100% { transform: translate(15px, 10px) scale(1.02); }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.ppb-hex-bg {
+			animation: none;
+		}
 	}
 
 	.ppb-container {
 		max-width: 72rem;
 		margin: 0 auto;
 		padding: 0 var(--space-3, 1.5rem);
+		position: relative;
+		z-index: 1;
 	}
 
 	/* ─── Header ─── */
