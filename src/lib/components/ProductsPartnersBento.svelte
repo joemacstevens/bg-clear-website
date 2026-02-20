@@ -86,7 +86,7 @@
 	];
 </script>
 
-<section class="ppb-section" id="products">
+<div class="ppb-section" id="products">
 	<div class="ppb-container">
 		<div class="ppb-header">
 			<p class="ppb-eyebrow">Products &amp; Partners</p>
@@ -138,13 +138,13 @@
 			</div>
 		</div>
 	</div>
-</section>
+</div>
 
 <style>
 	/* ─── Section ─── */
 	.ppb-section {
-		padding: var(--space-6, 4rem) 0 var(--space-7, 6rem);
-		background: var(--color-bg, #fafbfc);
+		padding: 0;
+		background: transparent;
 	}
 
 	.ppb-container {
@@ -170,14 +170,14 @@
 	.ppb-heading {
 		font-size: var(--text-h2, clamp(1.875rem, 3vw, 2.5rem));
 		font-weight: 800;
-		color: var(--color-primary, #1e3a5f);
+		color: #ffffff;
 		line-height: 1.15;
 		margin: 0 0 var(--space-2, 1rem);
 	}
 
 	.ppb-subhead {
 		font-size: clamp(1rem, 1.2vw, 1.125rem);
-		color: var(--color-muted, #64748b);
+		color: rgba(255, 255, 255, 0.82);
 		line-height: 1.6;
 		max-width: 40rem;
 		margin: 0;
@@ -197,6 +197,7 @@
 		position: relative;
 		overflow: hidden;
 		transition: transform 0.25s ease, box-shadow 0.25s ease;
+		border: 1px solid rgba(255, 255, 255, 0.22);
 	}
 
 	/* ─── Product tiles ─── */
@@ -210,7 +211,7 @@
 
 	.ppb-tile--product:hover {
 		transform: translateY(-3px);
-		box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18);
+		box-shadow: 0 16px 36px rgba(8, 15, 30, 0.4);
 	}
 
 	.ppb-tile--product:focus-visible {
@@ -298,7 +299,8 @@
 	}
 
 	.ppb-tile--accent.ppb-tile--navy {
-		background: var(--color-navy-dark, #0f2744);
+		background: rgba(255, 255, 255, 0.08);
+		backdrop-filter: blur(8px);
 		color: #ffffff;
 	}
 
@@ -343,8 +345,9 @@
 		justify-content: center;
 		padding: var(--space-4, 2rem) var(--space-5, 3rem);
 		gap: var(--space-3, 1.5rem);
-		background: var(--color-surface, #fff);
-		border: 1px solid var(--color-border, #e2e8f0);
+		background: rgba(255, 255, 255, 0.08);
+		backdrop-filter: blur(8px);
+		border: 1px solid rgba(255, 255, 255, 0.2);
 		border-radius: var(--radius-lg, 1.25rem);
 	}
 
@@ -353,7 +356,7 @@
 		font-weight: 700;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
-		color: var(--color-muted, #64748b);
+		color: rgba(255, 255, 255, 0.82);
 		margin: 0;
 	}
 
@@ -369,14 +372,14 @@
 		height: 32px;
 		width: auto;
 		object-fit: contain;
-		opacity: 0.6;
-		filter: grayscale(100%);
+		opacity: 0.85;
+		filter: grayscale(100%) brightness(2);
 		transition: opacity 200ms ease, filter 200ms ease;
 	}
 
 	.ppb-partners-logo:hover {
 		opacity: 1;
-		filter: grayscale(0%);
+		filter: grayscale(0%) brightness(1.35);
 	}
 
 	/* ─── Tablet 2-col ─── */

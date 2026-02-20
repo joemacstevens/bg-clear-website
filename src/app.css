@@ -152,6 +152,60 @@ main {
 	padding-top: 0;
 }
 
+/* Reusable section rhythm utilities */
+.section--navy,
+.section--dark-navy,
+.section--gold,
+.section--warm {
+	padding-top: calc(var(--section-padding) + 0.5rem);
+	padding-bottom: calc(var(--section-padding) + 0.5rem);
+}
+
+.section--navy {
+	background: linear-gradient(135deg, #1e3a5f 0%, #173253 100%);
+}
+
+.section--dark-navy {
+	background: linear-gradient(135deg, #0f2744 0%, #142f4f 100%);
+}
+
+.section--warm {
+	background: #fdf3dc;
+}
+
+.section--gold {
+	background: linear-gradient(120deg, #d4a234 0%, #c7952d 100%);
+}
+
+.section--navy h2,
+.section--navy h3,
+.section--navy p,
+.section--navy .subhead,
+.section--dark-navy h2,
+.section--dark-navy h3,
+.section--dark-navy p,
+.section--dark-navy .subhead {
+	color: #ffffff;
+}
+
+.section--navy .eyebrow,
+.section--dark-navy .eyebrow {
+	color: #d4a234;
+}
+
+.section--gold h2,
+.section--gold h3,
+.section--gold p,
+.section--gold .subhead,
+.section--gold .eyebrow,
+.section--warm h2,
+.section--warm h3,
+.section--warm p,
+.section--warm .subhead,
+.section--warm .eyebrow {
+	color: #0f2744;
+}
+
 .eyebrow {
 	font-size: var(--text-small);
 	font-weight: 600;
@@ -332,21 +386,21 @@ main {
 }
 
 .cta-band {
-	background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
 	border-top: none;
 	border-bottom: none;
 }
 
 .cta-eyebrow {
-	color: var(--color-accent);
+	color: inherit;
 }
 
 .cta-heading {
-	color: #ffffff;
+	color: inherit;
 }
 
 .cta-subhead {
-	color: rgba(255, 255, 255, 0.72);
+	color: inherit;
+	opacity: 0.9;
 }
 
 .button-light {
@@ -556,6 +610,48 @@ main {
 	}
 }
 
+/* Section-specific rhythm refinements */
+.section--products-partners {
+	position: relative;
+}
+
+.section--products-partners::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(160deg, rgba(255, 255, 255, 0.04) 0%, transparent 55%);
+	pointer-events: none;
+}
+
+.section--who-we-serve .provider-chip {
+	background: #d4a234;
+	color: #0f2744;
+	box-shadow: 0 8px 20px rgba(139, 105, 20, 0.18);
+}
+
+.section--who-we-serve .provider-chip:hover {
+	box-shadow: 0 12px 24px rgba(139, 105, 20, 0.24);
+}
+
+.section--resources .button-primary {
+	background: #d4a234;
+	color: #0f2744;
+}
+
+.section--resources .button-primary:hover {
+	background: #e0b24a;
+}
+
+.section--cta-pop .button-light {
+	background: #0f2744;
+	color: #ffffff;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.section--cta-pop .button-light:hover {
+	background: #1e3a5f;
+}
+
 /* Request a call form */
 .request {
 	display: grid;
@@ -728,6 +824,38 @@ main {
 	margin-top: 0.75rem;
 	color: var(--color-muted);
 	font-size: 0.9rem;
+}
+
+.section--contact .request-form {
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	box-shadow: none;
+	backdrop-filter: blur(8px);
+}
+
+.section--contact .field span,
+.section--contact .optional-label {
+	color: rgba(255, 255, 255, 0.9);
+}
+
+.section--contact .field input,
+.section--contact .field textarea,
+.section--contact .field select {
+	background: rgba(255, 255, 255, 0.95);
+	border-color: rgba(255, 255, 255, 0.35);
+}
+
+.section--contact .request-form .button-primary {
+	background: #d4a234;
+	color: #0f2744;
+}
+
+.section--contact .request-form .button-primary::before {
+	background: #e0b24a;
+}
+
+.section--contact .form-footnote {
+	color: rgba(255, 255, 255, 0.76);
 }
 
 .sr-only {

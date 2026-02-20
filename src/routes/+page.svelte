@@ -734,7 +734,9 @@
 	</section>
 
 	<!-- COMBINED PRODUCTS & TRUSTED PARTNERS BENTO GRID -->
-	<ProductsPartnersBento />
+	<section class="section section--navy section--products-partners">
+		<ProductsPartnersBento />
+	</section>
 
 	<!-- CAPABILITIES / VALUE GRID (bento mosaic) -->
 	<div id="capabilities" class="reveal" use:revealOnScroll>
@@ -742,7 +744,7 @@
 	</div>
 
 	<!-- WHO WE SERVE -->
-	<section class="section">
+	<section class="section section--warm section--who-we-serve">
 		<div class="container reveal" use:revealOnScroll>
 			<p class="eyebrow reveal reveal-eyebrow">Who we serve</p>
 			<h2>Built for the teams delivering care.</h2>
@@ -792,7 +794,7 @@
 	</section>
 
 	<!-- BLOG -->
-	<section class="section section-alt" id="blog">
+	<section class="section section--navy section--resources" id="blog">
 		<div class="container reveal" use:revealOnScroll>
 			<p class="eyebrow reveal reveal-eyebrow">Resources</p>
 			<h2>Insights for DME providers.</h2>
@@ -801,7 +803,7 @@
 		</div>
 	</section>
 
-	<section class="section cta-band">
+	<section class="section section--gold section--cta-pop cta-band">
 		<div class="container cta-inner reveal" use:revealOnScroll>
 			<div>
 				<p class="eyebrow cta-eyebrow">Next step</p>
@@ -844,7 +846,7 @@
 	</section>
 
 	
-	<section class="section" id="request-call">
+	<section class="section section--dark-navy section--contact" id="request-call">
 		<div class="container request reveal" use:revealOnScroll>
 			<div class="request-intro">
 				<p class="eyebrow reveal reveal-eyebrow">Get in touch</p>
