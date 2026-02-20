@@ -599,16 +599,13 @@
 
 		<!-- Centered hero content -->
 		<div class="hero-content">
-			<p class="eyebrow hero-eyebrow">A Tech-Forward DME &amp; HME Distribution Company</p>
 			<h1 class="hero-headline">Real People Who Answer the Phone</h1>
 			<p class="subhead hero-subhead">
-				Fast, compliant DME access for providers and care partners.
+				Your DME partner. Fast, compliant, human.
 			</p>
 			<div class="hero-ctas hero-ctas-entrance">
 				<a class="hero-btn-gold" href="#request-call">Contact a DME Specialist</a>
-				<a class="hero-btn-outline" href="#products">View Product Categories</a>
 			</div>
-			<p class="hero-trust-note hero-trust-note-entrance">No obligation · Most inquiries answered within 4 hours</p>
 		</div>
 
 		<!-- Scrolling Marquee -->
