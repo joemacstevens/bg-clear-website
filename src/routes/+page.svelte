@@ -838,7 +838,7 @@
 					Tell us about your practice and equipment requirements — we'll follow up with options and pricing.
 				</p>
 			</div>
-			<a class="button button-gold-pop" href="#request-call">Contact a DME Specialist</a>
+			<a class="button button-navy-pop" href="#request-call">Contact a DME Specialist</a>
 		</div>
 	</section>
 

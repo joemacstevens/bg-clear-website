@@ -435,6 +435,25 @@ main {
 	background: #e0b24a;
 }
 
+.button-navy-pop {
+	display: inline-flex;
+	align-items: center;
+	padding: 1rem 2.5rem;
+	background: var(--color-primary, #1e3a5f);
+	color: #ffffff;
+	font-weight: 700;
+	font-size: 1.125rem;
+	border-radius: 8px;
+	text-decoration: none;
+	box-shadow: 0 4px 16px rgba(15, 39, 68, 0.35);
+	transition: transform 220ms ease, box-shadow 220ms ease, background 200ms ease;
+}
+.button-navy-pop:hover {
+	transform: translateY(-2px) scale(1.03);
+	box-shadow: 0 8px 28px rgba(15, 39, 68, 0.45);
+	background: #0d2239;
+}
+
 .cta-inner {
 	display: grid;
 	gap: var(--space-3);
