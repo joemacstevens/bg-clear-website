@@ -107,7 +107,7 @@
 
 <style>
 	.blog-post {
-		padding: 12rem 0 4rem;
+		padding: 14rem 0 4rem;
 	}
 	.blog-post-container {
 		max-width: 740px;
