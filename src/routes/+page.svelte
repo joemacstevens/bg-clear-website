@@ -278,6 +278,23 @@
 		margin-bottom: 2.5rem;
 		max-width: 620px;
 	}
+	.hero-accent {
+		color: var(--color-gold, #d4a234);
+		font-style: italic;
+		font-weight: 600;
+		position: relative;
+	}
+	.hero-accent::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		bottom: -2px;
+		width: 100%;
+		height: 2px;
+		background: var(--color-gold, #d4a234);
+		opacity: 0.4;
+		border-radius: 1px;
+	}
 	.hero-ctas {
 		display: flex;
 		flex-direction: row;
@@ -495,6 +512,31 @@
 		}
 	}
 
+	.header-email {
+		color: var(--color-gold);
+		font-weight: 600;
+		text-decoration: none;
+		font-size: 0.95rem;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		transition: color 160ms ease, opacity 160ms ease;
+	}
+	.header-email:hover,
+	.header-email:focus-visible {
+		color: color-mix(in srgb, var(--color-gold), #ffffff 18%);
+		opacity: 0.95;
+	}
+
+	.header-cta .button-header {
+		margin-left: 0.5rem;
+	}
+
+	.footer {
+		padding-top: var(--space-5);
+		margin-top: 0;
+	}
+
 	/* Provider grid */
 	.provider-chips {
 		display: flex;
@@ -580,7 +622,13 @@
 			<a href="#faq" class:nav-active={activeSection === 'faq'}>FAQ</a>
 		</nav>
 		<div class="header-cta">
-			<a href="tel:+12015550100" class="header-phone">(201) 555-0100</a>
+			<a href="mailto:customercare@bgclear.com" class="header-email" aria-label="Email us">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="18" height="18">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+				</svg>
+				customercare@bgclear.com
+			</a>
+			<a href="tel:+12017657171" class="header-phone">(201) 765-7171</a>
 			<a class="button button-primary button-header" href="#request-call">Contact Us</a>
 		</div>
 		<button class="hamburger" aria-label="Open menu" aria-expanded={mobileNavOpen} onclick={() => mobileNavOpen = true}>
@@ -608,7 +656,7 @@
 		<a href="#faq" onclick={() => mobileNavOpen = false}>FAQ</a>
 	</div>
 	<div class="mobile-nav-footer">
-		<a href="tel:+12015550100" class="mobile-nav-phone">(201) 555-0100</a>
+		<a href="tel:+12017657171" class="mobile-nav-phone">(201) 765-7171</a>
 		<a class="button button-primary" href="#request-call" onclick={() => mobileNavOpen = false}>Contact Us</a>
 	</div>
 </nav>
@@ -630,7 +678,7 @@
 		<div class="hero-content">
 			<h1 class="hero-headline">Real People Who Answer the Phone</h1>
 			<p class="subhead hero-subhead">
-				Your tech-forward DME partner. Fast, compliant, human.
+				Your <span class="hero-accent">tech-forward</span> DME partner. FAST. COMPLIANT. HUMAN.
 			</p>
 			<div class="hero-ctas hero-ctas-entrance">
 				<a class="hero-btn-gold" href="#request-call">Contact a DME Specialist</a>
