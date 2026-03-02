@@ -2,6 +2,7 @@
 	import { revealOnScroll } from '$lib/scrollReveal';
 	import { env } from '$env/dynamic/public';
 	import { onMount } from 'svelte';
+	import logo from '$lib/assets/bg-clear-logo-640.png';
 	import HeroVideo from '$lib/components/HeroVideo.svelte';
 	import BentoGrid from '$lib/components/BentoGrid.svelte';
 	import ProductsPartnersBento from '$lib/components/ProductsPartnersBento.svelte';
