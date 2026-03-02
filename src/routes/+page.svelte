@@ -517,6 +517,10 @@
 		margin-top: 0;
 	}
 
+	.hero {
+		padding-top: clamp(8rem, 16vw, 12rem);
+	}
+
 	/* Provider grid */
 	.provider-chips {
 		display: flex;
