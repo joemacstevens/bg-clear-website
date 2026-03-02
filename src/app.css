@@ -950,14 +950,14 @@ html {
 	height: 36px;
 	width: auto;
 	object-fit: contain;
-	opacity: 0.55;
-	filter: grayscale(100%);
+	opacity: 0.85;
+	filter: grayscale(0%) brightness(1.15);
 	transition: opacity 200ms ease, filter 200ms ease;
 }
 
 .partner-logo:hover {
 	opacity: 1;
-	filter: grayscale(0%);
+	filter: grayscale(0%) brightness(1.25);
 }
 
 @media (max-width: 768px) {
