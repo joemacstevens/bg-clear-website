@@ -1,5 +1,4 @@
 <script lang="ts">
-	import logo from '$lib/assets/bg-clear-logo-640.png';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();

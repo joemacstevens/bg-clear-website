@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import logo from '$lib/assets/bg-clear-logo-640.png';
 	import { categories, getProductsByCategory } from '$lib/data/products';
 
 	let slug = $derived($page.params.category);
