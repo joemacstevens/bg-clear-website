@@ -1,6 +1,5 @@
 <script lang="ts">
 	import logo from '$lib/assets/bg-clear-logo-640.png';
-	let mobileNavOpen = $state(false);
 
 	interface BlogPost {
 		slug: string;
@@ -47,26 +46,6 @@
 	</div>
 </header>
 
-{#if mobileNavOpen}
-<!-- svelte-ignore a11y_no_static_element_interactions -->
-<div class="mobile-nav-overlay" onclick={() => mobileNavOpen = false} onkeydown={(e) => e.key === 'Escape' && (mobileNavOpen = false)}></div>
-{/if}
-<nav class="mobile-nav-drawer" class:mobile-nav-drawer--open={mobileNavOpen} aria-label="Mobile navigation">
-	<button class="mobile-nav-close" aria-label="Close menu" onclick={() => mobileNavOpen = false}>
-		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-	</button>
-	<div class="mobile-nav-links">
-		<a href="/" onclick={() => mobileNavOpen = false}>Home</a>
-		<a href="/about" onclick={() => mobileNavOpen = false}>About Us</a>
-		<a href="/blog" onclick={() => mobileNavOpen = false}>Resources</a>
-		<a href="/#products" onclick={() => mobileNavOpen = false}>Products</a>
-		<a href="/#faq" onclick={() => mobileNavOpen = false}>FAQ</a>
-	</div>
-	<div class="mobile-nav-footer">
-		<a href="tel:+12017657171" class="mobile-nav-phone">(201) 765-7171</a>
-		<a class="button button-primary" href="/#request-call" onclick={() => mobileNavOpen = false}>Contact Us</a>
-	</div>
-</nav>
 
 <main id="main-content" class="page" tabindex="-1">
 	<section class="blog-hero">
