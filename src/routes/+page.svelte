@@ -14,9 +14,6 @@
 	import capTech from '$lib/assets/visuals/cap-tech.png';
 	import processWide from '$lib/assets/visuals/process-wide.png';
 	import heroWide from '$lib/assets/visuals/hero-wide-photo-wheelchair-v2-productforward.jpg';
-	import capStackCompliance from '$lib/assets/visuals/cap-stack-compliance-2-macro.jpg';
-	import capStackFulfillment from '$lib/assets/visuals/cap-stack-fulfillment-3-macro.jpg';
-	import capStackSupport from '$lib/assets/visuals/cap-stack-support-4-macro.jpg';
 	import iconPrimaryCare from '$lib/assets/visuals/icon-primary-care.png';
 	import iconSpecialty from '$lib/assets/visuals/icon-specialty.png';
 	import iconHospital from '$lib/assets/visuals/icon-hospital.png';
@@ -326,8 +323,7 @@
 		color: var(--color-ink);
 	}
 	.hero-shell--wide .hero-content p,
-	.hero-shell--wide .hero-content .subhead,
-	.hero-shell--wide .hero-content .eyebrow {
+	.hero-shell--wide .hero-content .subhead {
 		color: var(--color-text);
 	}
 	/* Tablet / small desktop: keep the card comfortably wide */
@@ -417,15 +413,6 @@
 		}
 	}
 
-	/* Capability visual images */
-	.cap-visual-img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		position: absolute;
-		inset: 0;
-	}
-
 	/* Provider grid */
 	.provider-grid {
 		display: grid;
@@ -476,116 +463,6 @@
 		}
 	}
 
-	/* Capabilities sticky stack (premium full-bleed tiles) */
-	.cap-stack-wrap {
-		margin-top: var(--space-6);
-	}
-
-	/* Separator between "What we do" and Capabilities stack */
-	.section-capabilities {
-		position: relative;
-		padding-top: calc(var(--section-padding) * 0.65);
-	}
-	.section-capabilities::before {
-		content: '';
-		position: absolute;
-		left: 50%;
-		top: 0;
-		transform: translateX(-50%);
-		width: min(1240px, calc(100% - 3rem));
-		height: 1px;
-		background: color-mix(in srgb, var(--color-border), transparent 20%);
-	}
-	.cap-stack-intro {
-		padding: 0 0 var(--space-5);
-	}
-
-	.cap-stack {
-		/* Full-bleed inside a container page */
-		margin-left: calc(-50vw + 50%);
-		margin-right: calc(-50vw + 50%);
-		width: 100vw;
-		/* Create enough scroll room for sticky stacking */
-		padding-bottom: var(--space-6);
-	}
-
-	.cap-stack-item {
-		position: sticky;
-		/* Account for the fixed header */
-		top: 92px;
-		min-height: calc(100vh - 92px);
-		display: flex;
-		align-items: flex-end;
-		justify-content: stretch;
-		isolation: isolate;
-		z-index: var(--cap-z, 1);
-		border-radius: 0;
-		overflow: hidden;
-		background: #0b1220;
-	}
-
-	.cap-stack-item + .cap-stack-item {
-		/* Less separation = quicker, more dynamic transitions */
-		margin-top: 4vh;
-	}
-
-	.cap-stack-bg {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		/* Avoid awkward cropping: allow per-tile focal point overrides */
-		object-position: var(--cap-pos, 50% 35%);
-		z-index: -2;
-	}
-
-	.cap-stack-overlay {
-		position: absolute;
-		inset: 0;
-		z-index: -1;
-		/* Keep it clean: the text card already has its own background */
-		background: linear-gradient(180deg, rgba(11,18,32,0.06) 0%, rgba(11,18,32,0.14) 100%);
-	}
-
-	.cap-stack-inner {
-		width: 100%;
-		padding-bottom: var(--space-6);
-	}
-
-	.cap-stack-card {
-		max-width: clamp(560px, 44vw, 760px);
-		padding: clamp(1.75rem, 3vw, 3rem);
-		background: rgba(255, 255, 255, 0.92);
-		border: 1px solid rgba(0, 43, 74, 0.12);
-		border-radius: var(--radius-lg);
-		box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
-		backdrop-filter: blur(6px);
-	}
-
-	.cap-stack-card h3 {
-		font-size: clamp(1.4rem, 2.4vw, 2rem);
-		margin: 0 0 var(--space-2);
-	}
-
-	.cap-stack-card .subhead {
-		margin: 0;
-		max-width: 60ch;
-	}
-
-	@media (max-width: 900px) {
-		.cap-stack-item {
-			top: 76px;
-			min-height: calc(100vh - 76px);
-		}
-		.cap-stack-overlay {
-			background: linear-gradient(180deg, rgba(11,18,32,0.04) 0%, rgba(11,18,32,0.12) 100%);
-		}
-		.cap-stack-card {
-			max-width: min(760px, 100%);
-		}
-	}
-
 	/* Process flow */
 	.process-flow-container {
 		margin: var(--space-4) 0 var(--space-5);
@@ -598,26 +475,58 @@
 		display: block;
 		border-radius: var(--radius-lg);
 	}
-	.process-flow-compact {
-		max-height: 140px;
-		object-fit: contain;
-		border-radius: var(--radius-sm);
+	/* What We Do cards */
+	.wwd-card {
+		text-align: center;
+		padding: var(--space-4) var(--space-3);
+	}
+	.wwd-icon {
+		width: 48px;
+		height: 48px;
+		margin: 0 auto var(--space-3);
+		color: var(--color-accent);
+	}
+	.wwd-icon svg {
+		width: 100%;
+		height: 100%;
+	}
+	.wwd-card p {
+		color: var(--color-muted);
+		margin: 0;
+		max-width: none;
 	}
 
-	/* Contact illustration */
-	.contact-illustration {
-		width: 100%;
-		max-width: 320px;
-		height: auto;
-		margin-top: var(--space-4);
-		border-radius: var(--radius-md);
+	/* Why BG Clear cards */
+	.why-card p {
+		color: var(--color-muted);
+		margin: 0;
 	}
-	@media (max-width: 959px) {
-		.contact-illustration {
-			max-width: 260px;
-			margin: var(--space-4) auto 0;
-		}
+
+	/* Contact details (email + phone) */
+	.contact-details {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+		margin-top: var(--space-3);
 	}
+	.contact-detail {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		font-size: 0.95rem;
+		font-weight: 500;
+		color: var(--color-primary);
+		transition: color 160ms ease;
+	}
+	.contact-detail:hover {
+		color: var(--color-primary-dark);
+	}
+	.contact-detail svg {
+		width: 20px;
+		height: 20px;
+		flex-shrink: 0;
+	}
+
 </style>
 
 <svelte:head>
@@ -633,7 +542,8 @@
 	<div class="container header-inner">
 		<img class="header-logo" class:is-visible={heroPassed} src={logo} alt="BG Clear" />
 		<nav class="header-nav">
-			<a href="#capabilities">Capabilities</a>
+			<a href="#what-we-do">What We Do</a>
+			<a href="#capabilities">Why BG Clear</a>
 			<a href="#products">Products</a>
 			<a href="#how-we-work">Process</a>
 			<a href="#faq">FAQ</a>
@@ -748,84 +658,48 @@
 		</div>
 	</section>
 
-	<section class="section">
-		<div class="container section-intro">
-			<div>
-				<p class="eyebrow">What we do</p>
-				<h2>Your DME fulfillment partner — from prescription to patient doorstep.</h2>
-			</div>
-			<p>
-				Send us the prescription, we handle the rest. BG Clear fulfills orders, manages documentation, and bills Medicare, Medicaid, and private insurance directly — so your team stays focused on care, not claims.
-			</p>
-		</div>
-	</section>
-
-	<section class="partner-logos">
+	<!-- What We Do -->
+	<section class="section" id="what-we-do">
 		<div class="container">
-			<p class="partner-logos-label">Trusted manufacturers &amp; distributors we work with</p>
-			<div class="partner-logos-strip">
-				<img src={logoMckesson} alt="McKesson" class="partner-logo" />
-				<img src={logoDrive} alt="Drive Medical" class="partner-logo" />
-				<img src={logoMedline} alt="Medline" class="partner-logo" />
-				<img src={logoInvacare} alt="Invacare" class="partner-logo" />
-				<img src={logoPride} alt="Pride Mobility" class="partner-logo" />
+			<p class="eyebrow">What we do</p>
+			<h2>DME distribution from prescription to patient delivery.</h2>
+			<p class="subhead">
+				BG Clear supports healthcare providers with efficient, compliant distribution of durable medical equipment from prescription intake to fulfillment and patient delivery.
+			</p>
+			<div class="grid-4">
+				<article class="capability-card wwd-card">
+					<div class="wwd-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+					</div>
+					<h3>Prescription &amp; Order Intake</h3>
+					<p>We coordinate with providers to review prescriptions and confirm equipment needs.</p>
+				</article>
+				<article class="capability-card wwd-card">
+					<div class="wwd-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H18.75m-7.5-10.5H6.375c-.621 0-1.125.504-1.125 1.125v12m10.5-2.25h.375a1.125 1.125 0 011.125 1.125v1.5" /></svg>
+					</div>
+					<h3>Equipment Distribution</h3>
+					<p>Reliable sourcing and distribution of high-quality durable medical equipment.</p>
+				</article>
+				<article class="capability-card wwd-card">
+					<div class="wwd-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-2.25-1.313M21 7.5v2.25m0-2.25l-2.25 1.313M3 7.5l2.25-1.313M3 7.5l2.25 1.313M3 7.5v2.25m9 3l2.25-1.313M12 12.75l-2.25-1.313M12 12.75V15m0 6.75l2.25-1.313M12 21.75V19.5m0 2.25l-2.25-1.313m0-16.875L12 2.25l2.25 1.313M21 14.25v2.25l-2.25 1.313m-13.5 0L3 16.5v-2.25" /></svg>
+					</div>
+					<h3>Fulfillment &amp; Delivery</h3>
+					<p>Fast, accurate order processing and delivery to providers or patients.</p>
+				</article>
+				<article class="capability-card wwd-card">
+					<div class="wwd-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>
+					</div>
+					<h3>Operational Support</h3>
+					<p>Ongoing support for documentation and coordination.</p>
+				</article>
 			</div>
 		</div>
 	</section>
 
-	<section class="section section-capabilities" id="capabilities">
-		<div class="cap-stack-wrap">
-			<div class="cap-stack-intro">
-				<div class="container">
-					<p class="eyebrow">Why BG Clear</p>
-					<h2>Why BG Clear — built for compliance, speed, and real support.</h2>
-					<p>
-						Scroll to see what makes us different: compliance-first processes, reliable fulfillment, and specialists who actually answer.
-					</p>
-				</div>
-			</div>
-
-			<div class="cap-stack">
-				<!-- z-index increases as you scroll so the next card can cover the previous -->
-				<section class="cap-stack-item" style="--cap-z: 1; --cap-pos: 50% 40%">
-					<img class="cap-stack-bg" src={capStackCompliance} alt="" loading="lazy" />
-					<div class="cap-stack-overlay" aria-hidden="true"></div>
-					<div class="container cap-stack-inner">
-						<div class="cap-stack-card">
-							<p class="eyebrow">Compliance</p>
-							<h3>Compliant by default.</h3>
-							<p class="subhead">Documentation, sourcing standards, and process rigor that keeps your team moving fast without cutting corners.</p>
-						</div>
-					</div>
-				</section>
-
-				<section class="cap-stack-item" style="--cap-z: 2; --cap-pos: 68% 18%">
-					<img class="cap-stack-bg" src={capStackFulfillment} alt="" loading="lazy" />
-					<div class="cap-stack-overlay" aria-hidden="true"></div>
-					<div class="container cap-stack-inner">
-						<div class="cap-stack-card">
-							<p class="eyebrow">Fulfillment</p>
-							<h3>Fast, reliable distribution.</h3>
-							<p class="subhead">Consistent inventory, clean logistics, and dependable turnaround so your patients get what they need without delays.</p>
-						</div>
-					</div>
-				</section>
-
-				<section class="cap-stack-item" style="--cap-z: 3; --cap-pos: 50% 32%">
-					<img class="cap-stack-bg" src={capStackSupport} alt="" loading="lazy" />
-					<div class="cap-stack-overlay" aria-hidden="true"></div>
-					<div class="container cap-stack-inner">
-						<div class="cap-stack-card">
-							<p class="eyebrow">Support</p>
-							<h3>Real people when you call.</h3>
-							<p class="subhead">Dedicated specialists who answer the phone, troubleshoot fast, and make sure the equipment fits the workflow.</p>
-						</div>
-					</div>
-				</section>
-			</div>
-		</div>
-	</section>
-
+	<!-- Who We Serve -->
 	<section class="section">
 		<div class="container">
 			<p class="eyebrow">Who we serve</p>
@@ -860,7 +734,38 @@
 		</div>
 	</section>
 
-	<section class="section section-alt" id="products">
+	<!-- Why BG Clear -->
+	<section class="section section-alt" id="capabilities">
+		<div class="container">
+			<p class="eyebrow">Why BG Clear</p>
+			<h2>Built for compliance, speed, and real support.</h2>
+			<div class="grid-4">
+				<article class="capability-card why-card">
+					<span class="capability-number">01</span>
+					<h3>Reliable Distribution</h3>
+					<p>Fast, accurate DME fulfillment supported by disciplined logistics.</p>
+				</article>
+				<article class="capability-card why-card">
+					<span class="capability-number">02</span>
+					<h3>Real Operational Support</h3>
+					<p>Dedicated specialists who answer the phone and resolve issues quickly.</p>
+				</article>
+				<article class="capability-card why-card">
+					<span class="capability-number">03</span>
+					<h3>Regulatory Discipline</h3>
+					<p>Processes aligned with documentation and compliance standards.</p>
+				</article>
+				<article class="capability-card why-card">
+					<span class="capability-number">04</span>
+					<h3>Technology-Enabled Efficiency</h3>
+					<p>Streamlined workflows from prescription intake to fulfillment.</p>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<!-- Products & Partners -->
+	<section class="section" id="products">
 		<div class="container">
 			<p class="eyebrow">Products</p>
 			<h2>Equipment for chronic care, mobility, and specialized support.</h2>
@@ -918,45 +823,60 @@
 		</div>
 	</section>
 
+	<section class="partner-logos">
+		<div class="container">
+			<p class="partner-logos-label">Trusted manufacturers &amp; distributors we work with</p>
+			<div class="partner-logos-strip">
+				<img src={logoMckesson} alt="McKesson" class="partner-logo" />
+				<img src={logoDrive} alt="Drive Medical" class="partner-logo" />
+				<img src={logoMedline} alt="Medline" class="partner-logo" />
+				<img src={logoInvacare} alt="Invacare" class="partner-logo" />
+				<img src={logoPride} alt="Pride Mobility" class="partner-logo" />
+			</div>
+		</div>
+	</section>
+
+	<!-- How We Work -->
 	<section class="section" id="how-we-work">
 		<div class="container">
 			<p class="eyebrow">How we work</p>
 			<h2>From inquiry to delivery — here's how it works.</h2>
 			<div class="process-flow-container">
-				<img class="process-flow-img" src={processWide} alt="Our 4-step process: Reach out, Confirm fit, Fulfillment, Ongoing support" loading="lazy" />
+				<img class="process-flow-img" src={processWide} alt="Our 4-step process: Consultation, Documentation, Fulfillment, Ongoing support" loading="lazy" />
 			</div>
 			<div class="steps">
 				<article class="step">
 					<span class="capability-number">01</span>
-					<h3>Reach out</h3>
-					<p>Tell us what you need. Equipment type, quantity, timeline.</p>
+					<h3>Consultation &amp; Review</h3>
+					<p>We begin with a brief consultation to understand your workflow, product needs, and compliance requirements. Our team reviews your setup and determines the most efficient path to support your patients.</p>
 				</article>
 				<article class="step">
 					<span class="capability-number">02</span>
-					<h3>We confirm fit</h3>
-					<p>We verify product availability, compliance requirements, and pricing.</p>
+					<h3>Documentation &amp; Setup</h3>
+					<p>We coordinate required documentation, onboarding, and account configuration to ensure a compliant and streamlined ordering process.</p>
 				</article>
 				<article class="step">
 					<span class="capability-number">03</span>
-					<h3>Fast fulfillment</h3>
-					<p>Your order ships. We handle logistics so you don't have to.</p>
+					<h3>Fulfillment &amp; Shipping</h3>
+					<p>Orders are processed quickly through our distribution network, ensuring accurate fulfillment and timely delivery to providers or directly to patients.</p>
 				</article>
 				<article class="step">
 					<span class="capability-number">04</span>
-					<h3>Ongoing support</h3>
-					<p>Questions after delivery? We're here. Training, warranty, reorders — covered.</p>
+					<h3>Ongoing Support</h3>
+					<p>Our team remains available to assist with order updates, operational questions, and continued support as your needs evolve.</p>
 				</article>
 			</div>
 		</div>
 	</section>
 
+	<!-- Start Your DME Partnership -->
 	<section class="section cta-band">
 		<div class="container cta-inner">
 			<div>
-				<p class="eyebrow cta-eyebrow">Next step</p>
+				<p class="eyebrow cta-eyebrow">Start your DME partnership</p>
 				<h2 class="cta-heading">Let's talk about what you need.</h2>
 				<p class="subhead cta-subhead">
-					Tell us about your practice and equipment requirements — we'll follow up with options and pricing.
+					Fast onboarding &middot; Dedicated support &middot; Responsive service
 				</p>
 			</div>
 			<a class="button button-light" href="#request-call">Talk to a DME Specialist</a>
@@ -1001,6 +921,16 @@
 				<p class="subhead">
 					Share your equipment requirements and we'll reach out to discuss options and pricing.
 				</p>
+				<div class="contact-details">
+					<a class="contact-detail" href="mailto:customercare@bgclear.com">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+						<span>customercare@bgclear.com</span>
+					</a>
+					<a class="contact-detail" href="tel:+12017657171">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>
+						<span>(201) 765-7171</span>
+					</a>
+				</div>
 			</div>
 
 			<form
