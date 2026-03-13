@@ -420,21 +420,22 @@
 		align-items: center;
 		justify-content: center;
 		flex-wrap: wrap;
-		gap: var(--space-4, 2rem) var(--space-5, 3rem);
+		gap: var(--space-3, 1.5rem) var(--space-5, 3rem);
 	}
 
 	.ppb-partners-logo {
-		height: 32px;
+		height: 36px;
+		max-width: 140px;
 		width: auto;
 		object-fit: contain;
-		opacity: 0.95;
-		filter: grayscale(100%) brightness(2.35);
-		transition: opacity 200ms ease, filter 200ms ease;
+		opacity: 1;
+		filter: brightness(2);
+		transition: opacity 200ms ease, transform 200ms ease;
 	}
 
 	.ppb-partners-logo:hover {
 		opacity: 1;
-		filter: grayscale(0%) brightness(1.75);
+		transform: scale(1.05);
 	}
 
 	/* ─── Tablet 2-col ─── */

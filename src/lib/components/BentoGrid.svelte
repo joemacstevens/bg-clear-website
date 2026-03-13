@@ -34,10 +34,10 @@
 	const claims: ClaimTile[] = [
 		{
 			id: 'compliance',
-			label: 'Compliance-First',
-			subtitle: 'PDAC Approved',
+			label: 'Reliable Distribution',
+			subtitle: 'Disciplined logistics',
 			description:
-				'Every product we distribute is PDAC-verified and backed by rigorous documentation standards. We handle the compliance burden so your team can focus on patient care — not paperwork.',
+				'Fast, accurate DME fulfillment supported by disciplined logistics.',
 			cta: 'Contact Us',
 			ctaHref: '#request-call',
 			bg: 'navy',
@@ -46,10 +46,10 @@
 		},
 		{
 			id: 'fulfillment',
-			label: 'Fast Fulfillment',
-			subtitle: 'Consistent & dependable',
+			label: 'Real Operational Support',
+			subtitle: 'Dedicated specialists',
 			description:
-				'Consistent inventory, clean logistics, and dependable turnaround. We keep your supply chain moving so patients get what they need without delays or backorders.',
+				'Dedicated specialists who answer the phone and resolve issues quickly.',
 			cta: 'Contact Us',
 			ctaHref: '#request-call',
 			bg: 'gold',
@@ -58,10 +58,10 @@
 		},
 		{
 			id: 'people',
-			label: 'Real People',
-			subtitle: 'Who answer the phone',
+			label: 'Regulatory Discipline',
+			subtitle: 'Compliance standards',
 			description:
-				'Dedicated specialists who pick up the phone, troubleshoot fast, and make sure every order fits your workflow. No bots, no hold music, no runaround.',
+				'Processes aligned with documentation and compliance standards.',
 			cta: 'Contact Us',
 			ctaHref: '#request-call',
 			bg: 'navy',
@@ -137,7 +137,7 @@
 <section class="bento-section" id="why-bg-clear">
 	<div class="bento-header">
 		<p class="bento-eyebrow">Why BG Clear</p>
-		<h2 class="bento-heading">Built for compliance, speed, and real support.</h2>
+		<h2 class="bento-heading">Reliable distribution, real support, and technology-enabled efficiency.</h2>
 	</div>
 
 	<div class="bento-grid" bind:this={gridEl} role="list">
