@@ -148,6 +148,11 @@ main {
 	padding: var(--section-padding) 0;
 }
 
+.section-divider {
+	height: 4px;
+	background: #ffffff;
+}
+
 .section-tight {
 	padding-top: 0;
 }
