@@ -395,15 +395,13 @@
 		justify-content: center;
 		padding: var(--space-4, 2rem) var(--space-5, 3rem);
 		gap: var(--space-3, 1.5rem);
-		background: rgba(255, 255, 255, 0.12);
-		backdrop-filter: blur(8px);
-		border: 1px solid rgba(255, 255, 255, 0.22);
+		background: #ffffff;
 		border-radius: var(--radius-lg, 1.25rem);
 		transition: background 0.3s ease;
 	}
 
 	.ppb-partners-row:hover {
-		background: rgba(255, 255, 255, 0.18);
+		background: #f8f8f8;
 	}
 
 	.ppb-partners-label {
@@ -411,7 +409,7 @@
 		font-weight: 700;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
-		color: rgba(255, 255, 255, 0.82);
+		color: #1e3a5f;
 		margin: 0;
 	}
 
@@ -428,8 +426,8 @@
 		max-width: 140px;
 		width: auto;
 		object-fit: contain;
-		opacity: 1;
-		filter: brightness(2);
+		opacity: 0.85;
+		filter: none;
 		transition: opacity 200ms ease, transform 200ms ease;
 	}
 

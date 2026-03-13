@@ -855,7 +855,6 @@
 	</section>
 
 	<!-- HOW WE WORK -->
-	<div class="section-divider"></div>
 	<section class="section" id="how-we-work">
 		<div class="container reveal" use:revealOnScroll>
 			<p class="eyebrow reveal reveal-eyebrow">How we work</p>
