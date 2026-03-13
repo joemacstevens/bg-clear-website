@@ -7,17 +7,7 @@
 	import BentoGrid from '$lib/components/BentoGrid.svelte';
 	import ProductsPartnersBento from '$lib/components/ProductsPartnersBento.svelte';
 
-	// New visual assets
-	import capCompliance from '$lib/assets/visuals/cap-compliance.png';
-	import capFulfillment from '$lib/assets/visuals/cap-fulfillment.png';
-	import capTech from '$lib/assets/visuals/cap-tech.png';
 	import processWide from '$lib/assets/visuals/process-wide.png';
-	import iconPrimaryCare from '$lib/assets/visuals/icon-primary-care.png';
-	import iconSpecialty from '$lib/assets/visuals/icon-specialty.png';
-	import iconHospital from '$lib/assets/visuals/icon-hospital.png';
-	import iconHomeHealth from '$lib/assets/visuals/icon-home-health.png';
-	import iconLongTermCare from '$lib/assets/visuals/icon-long-term-care.png';
-	import iconPharmacy from '$lib/assets/visuals/icon-pharmacy.png';
 
 
 	type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
@@ -545,6 +535,87 @@
 		border-radius: var(--radius-sm);
 	}
 
+	/* 4-column capability grid */
+	.capability-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: var(--space-3, 1.5rem);
+		margin-top: var(--space-4, 2rem);
+	}
+	.capability-card {
+		background: var(--color-surface, #ffffff);
+		border: 1px solid var(--color-border, #e2e8f0);
+		border-radius: var(--radius-lg, 1.25rem);
+		padding: var(--space-4, 2rem) var(--space-3, 1.5rem);
+		text-align: center;
+		transition: transform 200ms ease, box-shadow 200ms ease;
+	}
+	.capability-card:hover {
+		transform: translateY(-3px);
+		box-shadow: var(--shadow-md);
+	}
+	.capability-card-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 56px;
+		height: 56px;
+		margin: 0 auto var(--space-2, 1rem);
+		border-radius: 50%;
+		background: var(--color-accent-light, #fdf3dc);
+		color: var(--color-primary, #1e3a5f);
+	}
+	.capability-card h3 {
+		font-size: var(--text-h3, 1.25rem);
+		font-weight: 700;
+		color: var(--color-primary, #1e3a5f);
+		margin: 0 0 0.5rem;
+	}
+	.capability-card p {
+		font-size: 0.9375rem;
+		color: var(--color-muted, #64748b);
+		line-height: 1.5;
+		margin: 0;
+	}
+	@media (max-width: 1024px) {
+		.capability-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	@media (max-width: 640px) {
+		.capability-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	/* Contact info row */
+	.contact-info-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.5rem;
+		margin-bottom: 1rem;
+	}
+	.contact-info-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: rgba(255, 255, 255, 0.9);
+		font-size: 0.95rem;
+		font-weight: 500;
+		text-decoration: none;
+	}
+	.contact-info-link:hover {
+		color: #ffffff;
+	}
+	.contact-info-link svg {
+		flex-shrink: 0;
+		color: var(--color-gold, #d4a234);
+	}
+	.contact-info-link a {
+		color: inherit;
+		text-decoration: none;
+	}
+
 	/* Contact illustration */
 	.contact-illustration {
 		width: 100%;
@@ -711,20 +782,50 @@
 				<h2>Your DME fulfillment partner — from prescription to patient doorstep.</h2>
 			</div>
 			<p>
-				Send us the prescription, we handle the rest. BG Clear fulfills orders, manages documentation, and bills Medicare, Medicaid, and private insurance directly — so your team stays focused on care, not claims.
+				BG Clear supports healthcare providers with efficient, compliant distribution of durable medical equipment from prescription intake to fulfillment and patient delivery.
 			</p>
 		</div>
+		<div class="container">
+			<div class="capability-grid reveal" use:revealOnScroll>
+				<div class="capability-card">
+					<div class="capability-card-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="32" height="32">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+						</svg>
+					</div>
+					<h3>Prescription &amp; Order Intake</h3>
+					<p>We coordinate with providers to review prescriptions and confirm equipment needs.</p>
+				</div>
+				<div class="capability-card">
+					<div class="capability-card-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="32" height="32">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+						</svg>
+					</div>
+					<h3>Equipment Distribution</h3>
+					<p>Reliable sourcing and distribution of high-quality durable medical equipment.</p>
+				</div>
+				<div class="capability-card">
+					<div class="capability-card-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="32" height="32">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+						</svg>
+					</div>
+					<h3>Fulfillment &amp; Delivery</h3>
+					<p>Fast, accurate order processing and delivery to providers or patients.</p>
+				</div>
+				<div class="capability-card">
+					<div class="capability-card-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="32" height="32">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+						</svg>
+					</div>
+					<h3>Operational Support</h3>
+					<p>Ongoing support for documentation and coordination.</p>
+				</div>
+			</div>
+		</div>
 	</section>
-
-	<!-- COMBINED PRODUCTS & TRUSTED PARTNERS BENTO GRID -->
-	<section class="section section--navy section--products-partners">
-		<ProductsPartnersBento />
-	</section>
-
-	<!-- CAPABILITIES / VALUE GRID (bento mosaic) -->
-	<div id="capabilities" class="reveal" use:revealOnScroll>
-		<BentoGrid />
-	</div>
 
 	<!-- WHO WE SERVE -->
 	<section class="section section--warm section--who-we-serve">
@@ -743,56 +844,57 @@
 		</div>
 	</section>
 
+	<!-- WHY BG CLEAR (moved UP, before Products) -->
+	<div id="capabilities" class="reveal" use:revealOnScroll>
+		<BentoGrid />
+	</div>
+
+	<!-- PRODUCTS & PARTNERS -->
+	<section class="section section--navy section--products-partners">
+		<ProductsPartnersBento />
+	</section>
+
 	<!-- HOW WE WORK -->
 	<section class="section" id="how-we-work">
 		<div class="container reveal" use:revealOnScroll>
 			<p class="eyebrow reveal reveal-eyebrow">How we work</p>
 			<h2>From inquiry to delivery — here's how it works.</h2>
 			<div class="process-flow-container">
-				<img class="process-flow-img" src={processWide} alt="Our 4-step process: Reach out, Confirm fit, Fulfillment, Ongoing support" loading="lazy" />
+				<img class="process-flow-img" src={processWide} alt="Our 4-step process: Consultation, Documentation, Fulfillment, Ongoing support" loading="lazy" />
 			</div>
 			<div class="steps">
 				<article class="step reveal process-step-reveal" use:revealOnScroll style="--step-delay: 0.0s;">
 					<span class="capability-number">01</span>
-					<h3>Reach out</h3>
-					<p>Tell us what you need. Equipment type, quantity, timeline.</p>
+					<h3>Consultation &amp; Review</h3>
+					<p>We begin with a brief consultation to understand your workflow, product needs, and compliance requirements. Our team reviews your setup and determines the most efficient path to support your patients.</p>
 				</article>
 				<article class="step reveal process-step-reveal" use:revealOnScroll style="--step-delay: 0.1s;">
 					<span class="capability-number">02</span>
-					<h3>We confirm fit</h3>
-					<p>We verify product availability, compliance requirements, and pricing.</p>
+					<h3>Documentation &amp; Setup</h3>
+					<p>We coordinate required documentation, onboarding, and account configuration to ensure a compliant and streamlined ordering process.</p>
 				</article>
 				<article class="step reveal process-step-reveal" use:revealOnScroll style="--step-delay: 0.2s;">
 					<span class="capability-number">03</span>
-					<h3>Fast fulfillment</h3>
-					<p>Your order ships. We handle logistics so you don't have to.</p>
+					<h3>Fulfillment &amp; Shipping</h3>
+					<p>Orders are processed quickly through our distribution network, ensuring accurate fulfillment and timely delivery to providers or directly to patients.</p>
 				</article>
 				<article class="step reveal process-step-reveal" use:revealOnScroll style="--step-delay: 0.3s;">
 					<span class="capability-number">04</span>
-					<h3>Ongoing support</h3>
-					<p>Questions after delivery? We're here. Training, warranty, reorders — covered.</p>
+					<h3>Ongoing Support</h3>
+					<p>Our team remains available to assist with order updates, operational questions, and continued support as your needs evolve.</p>
 				</article>
 			</div>
 		</div>
 	</section>
 
-	<!-- BLOG -->
-	<section class="section section--navy section--resources" id="blog">
-		<div class="container reveal" use:revealOnScroll>
-			<p class="eyebrow reveal reveal-eyebrow">Resources</p>
-			<h2>Insights for DME providers.</h2>
-			<p class="subhead reveal reveal-subhead" style="margin-bottom: var(--space-4);">Industry guides, compliance updates, and best practices — all in one place.</p>
-			<a class="button button-primary" href="/blog">View All Resources &rarr;</a>
-		</div>
-	</section>
-
+	<!-- START YOUR DME PARTNERSHIP (renamed from Next Steps) -->
 	<section class="section section--gold section--cta-pop cta-band">
 		<div class="container cta-inner reveal" use:revealOnScroll>
 			<div>
-				<p class="eyebrow cta-eyebrow">Next step</p>
+				<p class="eyebrow cta-eyebrow">Start your DME partnership</p>
 				<h2 class="cta-heading">Let's talk about what you need.</h2>
 				<p class="subhead cta-subhead">
-					Tell us about your practice and equipment requirements — we'll follow up with options and pricing.
+					Fast onboarding &middot; Dedicated support &middot; Responsive service
 				</p>
 			</div>
 			<a class="button button-navy-pop" href="#request-call">Contact a DME Specialist</a>
@@ -829,11 +931,26 @@
 	</section>
 
 	
-	<section class="section section--dark-navy section--contact" id="request-call">
+	<div id="request-call" style="scroll-margin-top: 6rem;"></div>
+	<section class="section section--dark-navy section--contact">
 		<div class="container request reveal" use:revealOnScroll>
 			<div class="request-intro">
 				<p class="eyebrow reveal reveal-eyebrow">Get in touch</p>
 				<h2>Tell us what you need.</h2>
+				<div class="contact-info-row">
+					<a href="mailto:customercare@bgclear.com" class="contact-info-link">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="20" height="20">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+						</svg>
+						customercare@bgclear.com
+					</a>
+					<span class="contact-info-link">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="20" height="20">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+						</svg>
+						<a href="tel:+12017657171">(201) 765-7171</a>
+					</span>
+				</div>
 				<p class="subhead hero-subhead">
 					Share your equipment requirements and we'll reach out to discuss options and pricing.
 				</p>
