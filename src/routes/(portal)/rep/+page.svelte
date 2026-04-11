@@ -1,287 +1,134 @@
 <script lang="ts">
+	import StatCard from '$lib/components/portal/StatCard.svelte';
+	import StatusBadge from '$lib/components/portal/StatusBadge.svelte';
+	import { QUOTE_STATUS_LABELS, QUOTE_STATUS_COLORS } from '$lib/utils/statuses';
+	import { formatCurrency, formatDateTime } from '$lib/utils/format';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
-
-	let filterCategory = $state<string>('');
-	let search = $state('');
-
-	const categoryLabels: Record<string, string> = {
-		health_monitoring: 'Health Monitoring',
-		mobility_safety: 'Mobility & Safety',
-		specialized_support: 'Specialized Support',
-		capital_equipment: 'Capital Equipment'
-	};
-
-	const filteredProducts = $derived(
-		data.products.filter((p) => {
-			if (filterCategory && p.category !== filterCategory) return false;
-			if (search && !p.name.toLowerCase().includes(search.toLowerCase())) return false;
-			return true;
-		})
-	);
-
-	function formatCurrency(amount: number) {
-		return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
-	}
 </script>
 
 <svelte:head>
 	<title>Rep Dashboard | BG Clear</title>
 </svelte:head>
 
-<div class="rep-page">
-	<div class="rep-header">
-		<h1>Sales Rep Dashboard</h1>
-		<p>View product pricing, manage quotes, and process orders.</p>
+<div class="dashboard">
+	<h1>Dashboard</h1>
+
+	<div class="stats-grid">
+		<StatCard value={data.stats.assignedCustomers} label="Assigned Customers" />
+		<StatCard value={data.stats.pendingQuotes} label="Pending Quotes" color="#f59e0b" />
+		<StatCard value={data.stats.activeOrders} label="Active Orders" color="#3b82f6" />
+		<StatCard value={formatCurrency(data.stats.totalCommission)} label="Total Commission" color="#059669" />
 	</div>
 
-	<!-- Quick Stats -->
-	<div class="stats-row">
-		<div class="stat-card">
-			<span class="stat-value">{data.products.length}</span>
-			<span class="stat-label">Active Products</span>
-		</div>
-		<div class="stat-card">
-			<span class="stat-value">{data.quoteRequests.length}</span>
-			<span class="stat-label">Quote Requests</span>
-		</div>
-		<div class="stat-card">
-			<span class="stat-value">{data.quoteRequests.filter((q) => q.status === 'pending').length}</span>
-			<span class="stat-label">Pending Quotes</span>
-		</div>
-	</div>
-
-	<!-- Product Pricing Table -->
 	<div class="section">
-		<h2>Product Pricing Schedule</h2>
-		<div class="table-controls">
-			<select bind:value={filterCategory}>
-				<option value="">All Categories</option>
-				{#each Object.entries(categoryLabels) as [value, label]}
-					<option {value}>{label}</option>
-				{/each}
-			</select>
-			<input type="search" placeholder="Search products..." bind:value={search} />
+		<div class="section-header">
+			<h2>Quotes Needing Attention</h2>
+			<a href="/rep/quotes" class="view-all">View all quotes</a>
 		</div>
 
-		<div class="table-wrap">
-			<table class="pricing-table">
-				<thead>
-					<tr>
-						<th>Product</th>
-						<th>Category</th>
-						<th>Vendor</th>
-						<th class="price-col">BG Cost</th>
-						<th class="price-col target">Target Price</th>
-						<th class="price-col suggested">Suggested Price</th>
-						<th class="price-col commission">Commission @ Target</th>
-						<th class="price-col commission">Commission @ Suggested</th>
-					</tr>
-				</thead>
-				<tbody>
-					{#each filteredProducts as product}
-						<tr>
-							<td>
-								<span class="product-name">{product.name}</span>
-							</td>
-							<td><span class="cat-badge">{categoryLabels[product.category] ?? product.category}</span></td>
-							<td class="muted">{product.vendor_name}</td>
-							<td class="mono">{formatCurrency(product.bg_cost)}</td>
-							<td class="mono target">{formatCurrency(product.target_price)}</td>
-							<td class="mono suggested">{formatCurrency(product.suggested_price)}</td>
-							<td class="mono commission">{formatCurrency(product.commission_at_target)}</td>
-							<td class="mono commission">{formatCurrency(product.commission_at_suggested)}</td>
-						</tr>
-					{/each}
-				</tbody>
-			</table>
-		</div>
-	</div>
-
-	<!-- Quote Requests -->
-	{#if data.quoteRequests.length > 0}
-		<div class="section">
-			<h2>Recent Quote Requests</h2>
+		{#if data.recentQuotes.length === 0}
+			<div class="empty-card">
+				<p>No pending quotes. New quote requests from customers will appear here.</p>
+			</div>
+		{:else}
 			<div class="quote-list">
-				{#each data.quoteRequests as quote}
-					<div class="quote-card">
-						<div class="quote-meta">
-							<span class="quote-status" class:pending={quote.status === 'pending'}>{quote.status}</span>
-							<span class="quote-date">{new Date(quote.created_at).toLocaleDateString()}</span>
+				{#each data.recentQuotes as quote}
+					<a href="/rep/quotes/{quote.id}" class="quote-row">
+						<div class="quote-info">
+							<StatusBadge status={quote.status} labels={QUOTE_STATUS_LABELS} colors={QUOTE_STATUS_COLORS} />
+							<span class="quote-items">
+								{quote.quote_request_items?.length ?? 0} items
+								{#if quote.quote_request_items?.[0]?.products}
+									— {quote.quote_request_items[0].products.name}{quote.quote_request_items.length > 1 ? ` +${quote.quote_request_items.length - 1} more` : ''}
+								{/if}
+							</span>
 						</div>
-						<div class="quote-items">
-							{quote.quote_request_items?.length ?? 0} items
-						</div>
-					</div>
+						<span class="quote-date">{formatDateTime(quote.created_at)}</span>
+					</a>
 				{/each}
 			</div>
-		</div>
-	{/if}
+		{/if}
+	</div>
+
+	<div class="quick-links">
+		<a href="/rep/pricing" class="quick-link">Pricing Table</a>
+		<a href="/rep/orders" class="quick-link">Manage Orders</a>
+		<a href="/rep/commissions" class="quick-link">Commission Report</a>
+		<a href="/rep/customers" class="quick-link">My Customers</a>
+	</div>
 </div>
 
 <style>
-	.rep-page { padding-bottom: var(--space-8); }
-
-	.rep-header {
-		margin-bottom: var(--space-4);
-	}
-
-	.rep-header h1 {
+	.dashboard h1 {
 		font-family: var(--font-heading);
 		font-size: var(--text-h2);
 		font-weight: 700;
 		color: var(--color-ink);
-		margin: 0 0 0.25rem;
+		margin: 0 0 var(--space-4);
 	}
-
-	.rep-header p {
-		color: var(--color-muted);
-		margin: 0;
-	}
-
-	.stats-row {
+	.stats-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 		gap: var(--space-3);
 		margin-bottom: var(--space-5);
 	}
-
-	.stat-card {
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-md);
-		padding: var(--space-3);
-		text-align: center;
-	}
-
-	.stat-value {
-		display: block;
-		font-family: var(--font-heading);
-		font-size: 1.75rem;
-		font-weight: 700;
-		color: var(--color-primary);
-	}
-
-	.stat-label {
-		font-size: var(--text-small);
-		color: var(--color-muted);
-	}
-
-	.section {
-		margin-bottom: var(--space-5);
-	}
-
-	.section h2 {
-		font-family: var(--font-heading);
-		font-size: var(--text-h3);
-		font-weight: 700;
-		margin: 0 0 var(--space-3);
-	}
-
-	.table-controls {
-		display: flex;
-		gap: var(--space-2);
-		margin-bottom: var(--space-3);
-	}
-
-	.table-controls select,
-	.table-controls input {
-		padding: 0.375rem 0.75rem;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-sm);
-		font-size: var(--text-small);
-		font-family: var(--font-body);
-	}
-
-	.table-controls input { flex: 1; max-width: 280px; }
-
-	.table-wrap {
-		overflow-x: auto;
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-md);
-	}
-
-	.pricing-table {
-		width: 100%;
-		border-collapse: collapse;
-		font-size: var(--text-small);
-	}
-
-	.pricing-table th {
-		text-align: left;
-		padding: 0.75rem;
-		border-bottom: 2px solid var(--color-border);
-		font-weight: 600;
-		white-space: nowrap;
-		background: var(--color-border-subtle);
-	}
-
-	.pricing-table td {
-		padding: 0.75rem;
-		border-bottom: 1px solid var(--color-border-subtle);
-		vertical-align: middle;
-	}
-
-	.product-name { font-weight: 500; }
-	.muted { color: var(--color-muted); }
-	.mono { font-variant-numeric: tabular-nums; }
-
-	.cat-badge {
-		font-size: 0.7rem;
-		font-weight: 600;
-		padding: 0.125rem 0.5rem;
-		border-radius: var(--radius-pill);
-		background: var(--color-border-subtle);
-		white-space: nowrap;
-	}
-
-	th.target, td.target { color: #b45309; }
-	th.suggested, td.suggested { color: #16a34a; font-weight: 600; }
-	th.commission, td.commission { color: var(--color-primary); }
-
-	.price-col { text-align: right; }
-	td.mono.target, td.mono.suggested, td.mono.commission { text-align: right; }
-
-	.quote-list {
-		display: grid;
-		gap: var(--space-2);
-	}
-
-	.quote-card {
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-sm);
-		padding: var(--space-2) var(--space-3);
+	.section { margin-bottom: var(--space-5); }
+	.section-header {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		margin-bottom: var(--space-3);
 	}
-
-	.quote-meta { display: flex; gap: var(--space-2); align-items: center; }
-
-	.quote-status {
-		font-size: 0.7rem;
+	.section-header h2 {
+		font-family: var(--font-heading);
+		font-size: var(--text-h3);
+		font-weight: 700;
+		margin: 0;
+	}
+	.view-all { font-size: var(--text-small); font-weight: 600; color: var(--color-primary); }
+	.empty-card {
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		padding: var(--space-4);
+		text-align: center;
+		color: var(--color-muted);
+	}
+	.empty-card p { margin: 0 auto; }
+	.quote-list {
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		overflow: hidden;
+	}
+	.quote-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: var(--space-2) var(--space-3);
+		border-bottom: 1px solid var(--color-border-subtle);
+		text-decoration: none;
+		color: inherit;
+		transition: background 0.1s;
+	}
+	.quote-row:last-child { border-bottom: none; }
+	.quote-row:hover { background: var(--color-border-subtle); }
+	.quote-info { display: flex; align-items: center; gap: var(--space-2); }
+	.quote-items { font-size: var(--text-small); color: var(--color-muted); }
+	.quote-date { font-size: var(--text-small); color: var(--color-muted); }
+	.quick-links { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+	.quick-link {
+		padding: 0.5rem 1.25rem;
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		font-size: var(--text-small);
 		font-weight: 600;
-		text-transform: uppercase;
-		padding: 0.125rem 0.5rem;
-		border-radius: var(--radius-pill);
-		background: var(--color-border-subtle);
+		color: var(--color-primary);
+		text-decoration: none;
+		transition: all 0.15s;
 	}
-
-	.quote-status.pending {
-		background: #fef3c7;
-		color: #92400e;
-	}
-
-	.quote-date {
-		font-size: var(--text-small);
-		color: var(--color-muted);
-	}
-
-	.quote-items {
-		font-size: var(--text-small);
-		color: var(--color-muted);
-	}
+	.quick-link:hover { background: var(--color-primary); color: white; border-color: var(--color-primary); }
 </style>
