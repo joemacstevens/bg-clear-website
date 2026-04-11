@@ -16,7 +16,7 @@
 		if (data.profile?.role === 'admin') {
 			items.push({ href: '/admin', label: 'Admin' });
 		}
-		items.push({ href: '/account', label: 'Account' });
+		items.push({ href: '/catalog/account', label: 'Account' });
 		return items;
 	});
 
