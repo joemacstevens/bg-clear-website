@@ -26,6 +26,10 @@ export const actions: Actions = {
 			return fail(400, { error: 'Cart is empty' });
 		}
 
+		if (items.some((i) => !Number.isInteger(i.quantity) || i.quantity <= 0)) {
+			return fail(400, { error: 'All quantities must be positive integers' });
+		}
+
 		const { data: quote, error } = await createQuoteRequest(
 			locals.supabase,
 			user.id,

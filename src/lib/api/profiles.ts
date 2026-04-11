@@ -23,6 +23,27 @@ export async function assignRep(supabase: SupabaseClient<Database>, customerId: 
 	return supabase.from('profiles').update({ assigned_rep_id: repId }).eq('id', customerId);
 }
 
-export async function changeRole(supabase: SupabaseClient<Database>, userId: string, role: UserRole) {
-	return supabase.from('profiles').update({ role }).eq('id', userId);
+/**
+ * Change a user's role in both the profiles table and auth.users metadata.
+ * Requires an admin client (service role) to update auth metadata so that
+ * RLS policies (which read JWT claims) reflect the new role immediately.
+ */
+export async function changeRole(
+	supabase: SupabaseClient<Database>,
+	adminClient: SupabaseClient<Database>,
+	userId: string,
+	role: UserRole
+) {
+	// Update the profiles table
+	const { error: profileErr } = await supabase.from('profiles').update({ role }).eq('id', userId);
+	if (profileErr) return { error: profileErr };
+
+	// Sync auth.users metadata so JWT claims reflect the new role
+	const { error: authErr } = await adminClient.auth.admin.updateUserById(userId, {
+		user_metadata: { role }
+	});
+
+	if (authErr) return { error: authErr };
+
+	return { error: null };
 }

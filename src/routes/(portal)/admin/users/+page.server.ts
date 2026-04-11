@@ -2,6 +2,7 @@ import { fail, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { getAllProfiles, changeRole, assignRep } from '$lib/api/profiles';
 import { logAuditEvent } from '$lib/api/audit';
+import { createSupabaseAdminClient } from '$lib/supabase';
 import type { UserRole } from '$lib/database.types';
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -25,7 +26,8 @@ export const actions: Actions = {
 		const userId = form.get('userId') as string;
 		const newRole = form.get('role') as UserRole;
 
-		const { error } = await changeRole(locals.supabase, userId, newRole);
+		const adminClient = createSupabaseAdminClient();
+		const { error } = await changeRole(locals.supabase, adminClient, userId, newRole);
 
 		if (error) {
 			return fail(500, { error: error.message });

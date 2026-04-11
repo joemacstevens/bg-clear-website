@@ -1,5 +1,7 @@
 import { error, redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
+import { createOrderFromQuote } from '$lib/api/orders';
+import { computeCommission, isPriceBelowTarget } from '$lib/utils/pricing';
 
 export const load: PageServerLoad = async ({ params, locals }) => {
 	// Get quote with items + product pricing
@@ -25,7 +27,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 	const { data: pricing } = await locals.supabase
 		.from('product_pricing')
-		.select('*')
+		.select('id, name, category, vendor_name, image_url, bg_cost, target_price, suggested_price, commission_at_target, commission_at_suggested')
 		.in('id', productIds.length ? productIds : ['none']);
 
 	// Merge pricing into items
@@ -48,27 +50,35 @@ export const actions: Actions = {
 		const itemIds = form.getAll('item_id') as string[];
 		const prices = form.getAll('quoted_price') as string[];
 
+		const errors: string[] = [];
+
 		for (let i = 0; i < itemIds.length; i++) {
 			const price = parseFloat(prices[i]);
 			if (!isNaN(price) && price > 0) {
-				await locals.supabase
+				const { error: itemErr } = await locals.supabase
 					.from('quote_request_items')
 					.update({ quoted_price: price })
 					.eq('id', itemIds[i]);
+				if (itemErr) errors.push(`Item update failed: ${itemErr.message}`);
 			}
 		}
 
 		// Update quote status to 'quoted'
-		await locals.supabase
+		const { error: statusErr } = await locals.supabase
 			.from('quote_requests')
 			.update({ status: 'quoted' })
 			.eq('id', params.quoteId);
+
+		if (statusErr) errors.push(`Status update failed: ${statusErr.message}`);
+
+		if (errors.length > 0) {
+			return { success: false, error: errors.join('; ') };
+		}
 
 		return { success: true };
 	},
 
 	createOrder: async ({ request, locals, params }) => {
-		const form = await request.formData();
 		const { profile } = await locals.safeGetSession();
 		if (!profile) return { success: false, error: 'Not authenticated' };
 
@@ -81,14 +91,14 @@ export const actions: Actions = {
 
 		if (!quote) return { success: false, error: 'Quote not found' };
 
-		// Get pricing for all products
+		// Get pricing for all products (including commission rate percentages)
 		const productIds = quote.quote_request_items
 			?.map((item: any) => item.products?.id)
 			.filter(Boolean) ?? [];
 
 		const { data: pricing } = await locals.supabase
 			.from('product_pricing')
-			.select('*')
+			.select('id, bg_cost, target_price, suggested_price, vendor_cost, commission_at_target_pct, commission_above_target_pct')
 			.in('id', productIds);
 
 		const pricingMap = new Map((pricing ?? []).map((p: any) => [p.id, p]));
@@ -100,12 +110,15 @@ export const actions: Actions = {
 			const p = pricingMap.get(item.products?.id);
 			if (!p || !item.quoted_price) continue;
 
-			if (item.quoted_price < p.target_price) requiresApproval = true;
+			if (isPriceBelowTarget(item.quoted_price, p.target_price)) requiresApproval = true;
 
-			// Calculate commission
-			const markupDollars = Math.max(0, Math.min(item.quoted_price, p.target_price) - p.bg_cost);
-			const aboveDollars = Math.max(0, item.quoted_price - p.target_price);
-			const commission = markupDollars * 0.5 + aboveDollars * 0.65;
+			const commissionAmount = computeCommission(
+				item.quoted_price,
+				p.bg_cost,
+				p.target_price,
+				p.commission_at_target_pct,
+				p.commission_above_target_pct
+			);
 
 			orderItems.push({
 				productId: item.products.id,
@@ -114,47 +127,22 @@ export const actions: Actions = {
 				vendorCost: p.vendor_cost,
 				bgCost: p.bg_cost,
 				targetPrice: p.target_price,
-				commissionAmount: Math.round(commission * 100) / 100
+				commissionAmount
 			});
 		}
 
-		const subtotal = orderItems.reduce((s, i) => s + i.unitPrice * i.quantity, 0);
-
-		const { data: order, error: orderErr } = await locals.supabase
-			.from('orders')
-			.insert({
-				customer_id: quote.customer_id,
-				rep_id: profile.id,
-				quote_request_id: quote.id,
-				status: requiresApproval ? 'pending_approval' : 'approved',
-				subtotal: Math.round(subtotal * 100) / 100,
-				requires_approval: requiresApproval,
-				approval_status: requiresApproval ? 'pending' : 'approved'
-			})
-			.select()
-			.single();
-
-		if (orderErr || !order) return { success: false, error: orderErr?.message ?? 'Failed to create order' };
-
-		// Insert order items
-		await locals.supabase.from('order_items').insert(
-			orderItems.map((i) => ({
-				order_id: order.id,
-				product_id: i.productId,
-				quantity: i.quantity,
-				unit_price: i.unitPrice,
-				vendor_cost: i.vendorCost,
-				bg_cost: i.bgCost,
-				target_price: i.targetPrice,
-				commission_amount: i.commissionAmount
-			}))
+		const { data: order, error: orderErr } = await createOrderFromQuote(
+			locals.supabase,
+			params.quoteId,
+			quote.customer_id,
+			profile.id,
+			orderItems,
+			requiresApproval
 		);
 
-		// Update quote status
-		await locals.supabase
-			.from('quote_requests')
-			.update({ status: 'accepted' })
-			.eq('id', params.quoteId);
+		if (orderErr || !order) {
+			return { success: false, error: (orderErr as any)?.message ?? 'Failed to create order' };
+		}
 
 		throw redirect(303, `/rep/orders/${order.id}`);
 	}

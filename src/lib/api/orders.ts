@@ -38,6 +38,19 @@ export async function createOrderFromQuote(
 	}[],
 	requiresApproval: boolean
 ) {
+	// Lock the quote by updating status — only succeeds if currently 'quoted'
+	const { data: updated, error: lockErr } = await supabase
+		.from('quote_requests')
+		.update({ status: 'accepted' })
+		.eq('id', quoteRequestId)
+		.eq('status', 'quoted')
+		.select()
+		.single();
+
+	if (lockErr || !updated) {
+		return { data: null, error: lockErr ?? { message: 'Quote already processed or not in quoted state' } };
+	}
+
 	const subtotal = items.reduce((sum, i) => sum + i.unitPrice * i.quantity, 0);
 
 	const { data: order, error: orderError } = await supabase
