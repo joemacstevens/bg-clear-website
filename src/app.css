@@ -1242,6 +1242,33 @@ html {
 	border-radius: var(--radius-pill);
 }
 
+.header-nav a.nav-portal-link {
+	color: var(--color-accent);
+	font-weight: 600;
+	border: 1.5px solid var(--color-accent);
+	padding: 0.3rem 0.85rem;
+	border-radius: var(--radius-pill);
+}
+
+.header-nav a.nav-portal-link:hover {
+	background: var(--color-accent);
+	color: white;
+}
+
+.header-nav a.nav-portal-link::after {
+	display: none;
+}
+
+.mobile-portal-link {
+	color: var(--color-accent) !important;
+	font-weight: 600 !important;
+	border: 1.5px solid var(--color-accent);
+	padding: 0.5rem 1rem;
+	border-radius: var(--radius-pill);
+	text-align: center;
+	margin-top: var(--space-2);
+}
+
 .header-cta {
 	display: flex;
 	align-items: center;

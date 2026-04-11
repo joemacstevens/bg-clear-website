@@ -63,16 +63,16 @@
 	</div>
 
 	{#if quote.status === 'quoted'}
-		<div class="quote-total">
-			{@const totalItems = quote.quote_request_items?.filter((i: any) => i.quoted_price != null) ?? []}
-			{#if totalItems.length === (quote.quote_request_items?.length ?? 0)}
-				{@const total = totalItems.reduce((sum: number, i: any) => sum + (i.quoted_price * i.quantity), 0)}
+		{@const totalItems = quote.quote_request_items?.filter((i: any) => i.quoted_price != null) ?? []}
+		{#if totalItems.length === (quote.quote_request_items?.length ?? 0)}
+			{@const total = totalItems.reduce((sum: number, i: any) => sum + (i.quoted_price * i.quantity), 0)}
+			<div class="quote-total">
 				<div class="total-row">
 					<span>Quoted Total</span>
 					<strong>{formatCurrency(total)}</strong>
 				</div>
-			{/if}
-		</div>
+			</div>
+		{/if}
 	{/if}
 </div>
 

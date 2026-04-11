@@ -2,12 +2,20 @@ import { createSupabaseServerClient } from '$lib/supabase';
 import { redirect, type Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
+	// Track whether response has been sent to avoid cookie errors
+	let responseSent = false;
+
 	event.locals.supabase = createSupabaseServerClient({
 		getAll: () => event.cookies.getAll(),
 		setAll: (cookiesToSet) => {
-			cookiesToSet.forEach(({ name, value, options }) => {
-				event.cookies.set(name, value, { ...options, path: '/' });
-			});
+			if (responseSent) return;
+			try {
+				cookiesToSet.forEach(({ name, value, options }) => {
+					event.cookies.set(name, value, { ...options, path: '/' });
+				});
+			} catch {
+				// Cookies can't be set after response — safe to ignore
+			}
 		}
 	});
 
@@ -54,9 +62,12 @@ export const handle: Handle = async ({ event, resolve }) => {
 		}
 	}
 
-	return resolve(event, {
+	const response = await resolve(event, {
 		filterSerializedResponseHeaders(name) {
 			return name === 'content-range' || name === 'x-supabase-api-version';
 		}
 	});
+
+	responseSent = true;
+	return response;
 };

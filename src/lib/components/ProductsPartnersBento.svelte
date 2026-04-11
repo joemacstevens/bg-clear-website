@@ -32,7 +32,7 @@
 			id: 'health-monitoring',
 			name: 'Health Monitoring & Management',
 			tagline: 'Blood pressure monitors, glucometers, pulse oximeters, RPM devices',
-			href: '/products/health-monitoring',
+			href: '/catalog?category=health_monitoring',
 			img: imgHealth
 		},
 		{
@@ -40,7 +40,7 @@
 			id: 'mobility-safety',
 			name: 'Mobility & Safety Equipment',
 			tagline: 'Walkers, wheelchairs, canes, patient lifts, bathroom safety',
-			href: '/products/mobility-safety',
+			href: '/catalog?category=mobility_safety',
 			img: imgMobility
 		},
 		{
@@ -48,7 +48,7 @@
 			id: 'specialized-support',
 			name: 'Specialized Medical Support',
 			tagline: 'Nebulizers, CPAP/BiPAP, hospital beds, wound care, compression therapy',
-			href: '/products/specialized-support',
+			href: '/catalog?category=specialized_support',
 			img: imgSpecialized
 		}
 	];

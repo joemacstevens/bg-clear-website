@@ -55,6 +55,7 @@
 			<a href="/blog">Resources</a>
 			<a href="/#products" class:nav-active={activeSection === 'products'}>Products</a>
 			<a href="/#faq" class:nav-active={activeSection === 'faq'}>FAQ</a>
+			<a href="/catalog" class="nav-portal-link">Client Portal</a>
 		</nav>
 		<div class="header-cta">
 			<a href="mailto:customercare@bgclear.com" class="header-icon" aria-label="Email us" title="Email us">
@@ -88,6 +89,7 @@
 		<a href="/blog" onclick={() => mobileNavOpen = false}>Resources</a>
 		<a href="/#products" onclick={() => mobileNavOpen = false}>Products</a>
 		<a href="/#faq" onclick={() => mobileNavOpen = false}>FAQ</a>
+		<a href="/catalog" onclick={() => mobileNavOpen = false} class="mobile-portal-link">Client Portal</a>
 	</div>
 	<div class="mobile-nav-footer">
 		<a href="tel:+12017657171" class="mobile-nav-phone">(201) 765-7171</a>
