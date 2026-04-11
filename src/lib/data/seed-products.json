@@ -1,0 +1,611 @@
+[
+  {
+    "name": "Omron Platinum Blood Pressure Monitor BP5450",
+    "category": "health_monitoring",
+    "description": "Upper arm blood pressure monitor with dual-display and TruRead technology that automatically takes three consecutive readings. Stores up to 200 readings for two users with Bluetooth connectivity for remote monitoring.",
+    "vendor": "Vive Health",
+    "vendor_sku": "VH-BPM-5450",
+    "vendor_cost": 54.99,
+    "image_url": null,
+    "specs": {
+      "cuff_size": "9–17 in (22–42 cm)",
+      "memory": "200 readings x 2 users",
+      "connectivity": "Bluetooth",
+      "power": "4 AA batteries or AC adapter",
+      "weight": "12.6 oz"
+    }
+  },
+  {
+    "name": "Zacurate Pro Series 500DL Fingertip Pulse Oximeter",
+    "category": "health_monitoring",
+    "description": "Clinical-grade fingertip pulse oximeter with OLED display showing SpO2 and pulse rate. Designed for spot-check monitoring in pharmacy and home health settings.",
+    "vendor": "Vive Health",
+    "vendor_sku": "VH-POX-500DL",
+    "vendor_cost": 21.50,
+    "image_url": null,
+    "specs": {
+      "spo2_range": "70–100%",
+      "pulse_range": "25–250 bpm",
+      "accuracy": "±2%",
+      "display": "OLED dual-color",
+      "battery_life": "30 hours continuous",
+      "weight": "1.76 oz"
+    }
+  },
+  {
+    "name": "OneTouch Verio Reflect Blood Glucose Monitor System",
+    "category": "health_monitoring",
+    "description": "Blood glucose monitoring system with color-coded range indicator and Bluetooth sync to the OneTouch Reveal app. Provides pattern recognition to help patients and clinicians identify trends.",
+    "vendor": "Cardinal Health",
+    "vendor_sku": "CH-GLU-VR100",
+    "vendor_cost": 28.75,
+    "image_url": null,
+    "specs": {
+      "test_time": "5 seconds",
+      "sample_size": "0.4 µL",
+      "memory": "500 results",
+      "connectivity": "Bluetooth",
+      "strips": "OneTouch Verio test strips"
+    }
+  },
+  {
+    "name": "FreeStyle Libre 3 CGM Sensor Kit",
+    "category": "health_monitoring",
+    "description": "Continuous glucose monitoring sensor providing real-time glucose readings every minute without fingerstick calibration. Each sensor lasts 14 days with smartphone-based alerts for high and low glucose.",
+    "vendor": "Cardinal Health",
+    "vendor_sku": "CH-CGM-FL3-14",
+    "vendor_cost": 68.00,
+    "image_url": null,
+    "specs": {
+      "sensor_life": "14 days",
+      "reading_interval": "Every 1 minute",
+      "warmup_time": "60 minutes",
+      "glucose_range": "40–500 mg/dL",
+      "connectivity": "Bluetooth Low Energy",
+      "water_resistant": "IP27 (1 meter, 30 min)"
+    }
+  },
+  {
+    "name": "Philips InnoSpire Elegance Compressor Nebulizer",
+    "category": "health_monitoring",
+    "description": "Compact tabletop compressor nebulizer for aerosol drug delivery in respiratory patients. Quiet operation suitable for home use with adult and pediatric masks included.",
+    "vendor": "Vive Health",
+    "vendor_sku": "VH-NEB-INSP-E",
+    "vendor_cost": 42.00,
+    "image_url": null,
+    "specs": {
+      "nebulization_rate": "0.22 mL/min",
+      "sound_level": "58 dBA",
+      "medication_capacity": "6 mL",
+      "operating_pressure": "14.5 PSI",
+      "includes": "Adult mask, pediatric mask, tubing, mouthpiece"
+    }
+  },
+  {
+    "name": "TENS 7000 Digital TENS Unit with Accessories",
+    "category": "health_monitoring",
+    "description": "Dual-channel digital TENS unit for pain management with adjustable pulse width, rate, and intensity. FDA-cleared for over-the-counter use in treating chronic and acute pain.",
+    "vendor": "Vive Health",
+    "vendor_sku": "VH-TENS-7000",
+    "vendor_cost": 23.99,
+    "image_url": null,
+    "specs": {
+      "channels": 2,
+      "modes": "5 (Normal, Burst, Modulation, SD1, SD2)",
+      "pulse_width": "50–300 µs",
+      "pulse_rate": "2–150 Hz",
+      "timer": "5–60 minutes",
+      "power": "1x 9V battery"
+    }
+  },
+  {
+    "name": "Braun ThermoScan 7+ Digital Ear Thermometer",
+    "category": "health_monitoring",
+    "description": "Professional-grade tympanic thermometer with Age Precision technology and color-coded fever guidance. Pre-warmed tip ensures accurate readings in clinical and home settings.",
+    "vendor": "VGM",
+    "vendor_sku": "VGM-THERM-BT7P",
+    "vendor_cost": 38.50,
+    "image_url": null,
+    "specs": {
+      "accuracy": "±0.2°C (±0.4°F)",
+      "measurement_time": "2 seconds",
+      "memory": "9 readings",
+      "age_precision": "0–3 mo, 3–36 mo, 36+ mo",
+      "probe_covers": "Disposable, BPA-free"
+    }
+  },
+  {
+    "name": "Withings Body Comp Wi-Fi Smart Scale",
+    "category": "health_monitoring",
+    "description": "Medical-grade connected body composition scale measuring weight, body fat, muscle mass, bone mass, and body water. Syncs to health platforms for remote patient monitoring programs.",
+    "vendor": "Vive Health",
+    "vendor_sku": "VH-SCL-WTHBC",
+    "vendor_cost": 89.00,
+    "image_url": null,
+    "specs": {
+      "capacity": "440 lbs (200 kg)",
+      "measurements": "Weight, BMI, body fat %, water %, muscle mass, bone mass",
+      "connectivity": "Wi-Fi, Bluetooth",
+      "users": "Up to 8",
+      "display": "Color LCD",
+      "accuracy": "±0.2 lb"
+    }
+  },
+  {
+    "name": "Vive Health Rechargeable Portable Nebulizer",
+    "category": "health_monitoring",
+    "description": "Handheld mesh nebulizer for on-the-go respiratory treatments. USB-C rechargeable with silent vibrating mesh technology, suitable for both children and adults.",
+    "vendor": "Vive Health",
+    "vendor_sku": "VH-NEB-PORT-R",
+    "vendor_cost": 34.50,
+    "image_url": null,
+    "specs": {
+      "nebulization_rate": "0.25 mL/min",
+      "medication_capacity": "8 mL",
+      "battery": "USB-C rechargeable, 2000 mAh",
+      "treatments_per_charge": "3–4",
+      "weight": "3.5 oz",
+      "sound_level": "<25 dBA"
+    }
+  },
+  {
+    "name": "Bioland RPM Gateway + Blood Pressure Bundle",
+    "category": "health_monitoring",
+    "description": "Remote patient monitoring bundle with cellular gateway hub, Bluetooth blood pressure cuff, and pulse oximeter. Data auto-transmits to clinic dashboards for chronic care management programs.",
+    "vendor": "BGM",
+    "vendor_sku": "BGM-RPM-BPBUN",
+    "vendor_cost": 145.00,
+    "image_url": null,
+    "specs": {
+      "gateway_connectivity": "4G LTE cellular",
+      "devices_included": "BP cuff, pulse oximeter",
+      "data_transmission": "Automatic, real-time",
+      "compatibility": "HL7/FHIR",
+      "battery_backup": "8 hours",
+      "monthly_data_plan": "Included first 12 months"
+    }
+  },
+  {
+    "name": "Drive Medical Nitro Euro Style Rollator Walker",
+    "category": "mobility_safety",
+    "description": "Lightweight aluminum rollator with European-style design, cross-brace frame, and built-in seat with backrest. Features 10-inch front casters for indoor and outdoor use.",
+    "vendor": "Vive Health",
+    "vendor_sku": "VH-MOB-NITRO-R",
+    "vendor_cost": 142.00,
+    "image_url": null,
+    "specs": {
+      "weight_capacity": "300 lbs",
+      "frame_weight": "15.8 lbs",
+      "seat_height": "21 in",
+      "caster_size": "10 in front, 8 in rear",
+      "folding": "Side-to-side, compact",
+      "handle_height": "33.5–38.5 in adjustable"
+    }
+  },
+  {
+    "name": "Vive Health Folding Steel Walker with Wheels",
+    "category": "mobility_safety",
+    "description": "Standard two-button folding walker with 5-inch front wheels and rear glide caps. Height-adjustable legs accommodate users from 5'4\" to 6'2\" with a 300 lb weight capacity.",
+    "vendor": "Vive Health",
+    "vendor_sku": "VH-MOB-WLK-STD",
+    "vendor_cost": 34.00,
+    "image_url": null,
+    "specs": {
+      "weight_capacity": "300 lbs",
+      "frame_weight": "6.5 lbs",
+      "height_range": "32–39 in adjustable",
+      "front_wheels": "5 in",
+      "rear_tips": "Rubber glide caps",
+      "material": "Steel with powder coat"
+    }
+  },
+  {
+    "name": "Medline Lightweight Transport Wheelchair",
+    "category": "mobility_safety",
+    "description": "Compact 19 lb transport chair with 12-inch rear wheels and swing-away footrests. Nylon upholstery with desk-length armrests, designed for caregiver-assisted mobility.",
+    "vendor": "Cardinal Health",
+    "vendor_sku": "CH-MOB-TC-LW19",
+    "vendor_cost": 119.00,
+    "image_url": null,
+    "specs": {
+      "weight_capacity": "300 lbs",
+      "chair_weight": "19 lbs",
+      "seat_width": "19 in",
+      "rear_wheels": "12 in",
+      "front_casters": "8 in",
+      "footrests": "Swing-away, detachable"
+    }
+  },
+  {
+    "name": "Drive Medical Silver Sport 2 Wheelchair",
+    "category": "mobility_safety",
+    "description": "Dual-axle manual wheelchair with quick-release 24-inch rear wheels and padded armrests. Chrome-plated steel frame with embossed vinyl upholstery for durability in high-use clinical settings.",
+    "vendor": "Vive Health",
+    "vendor_sku": "VH-MOB-WC-SS2",
+    "vendor_cost": 178.00,
+    "image_url": null,
+    "specs": {
+      "weight_capacity": "300 lbs",
+      "chair_weight": "41 lbs",
+      "seat_widths": "16, 18, 20 in available",
+      "rear_wheels": "24 in quick-release",
+      "armrests": "Desk-length, padded",
+      "frame": "Chrome-plated steel"
+    }
+  },
+  {
+    "name": "KneeRover Economy Knee Walker Scooter",
+    "category": "mobility_safety",
+    "description": "Steerable knee scooter for lower leg injuries as a crutch alternative. Features adjustable knee pad height, dual rear brakes, and a front basket for personal items.",
+    "vendor": "VGM",
+    "vendor_sku": "VGM-MOB-KW-ECO",
+    "vendor_cost": 98.00,
+    "image_url": null,
+    "specs": {
+      "weight_capacity": "300 lbs",
+      "unit_weight": "23 lbs",
+      "wheel_size": "7.5 in",
+      "knee_height": "17–21 in adjustable",
+      "brakes": "Dual rear drum",
+      "includes": "Front basket, knee pad cover"
+    }
+  },
+  {
+    "name": "Vive Health Adjustable Bath Bench with Back",
+    "category": "mobility_safety",
+    "description": "Lightweight aluminum shower bench with drainage holes and non-slip rubber feet. Tool-free assembly with adjustable height legs and a contoured seat for comfort and stability.",
+    "vendor": "Vive Health",
+    "vendor_sku": "VH-BATH-BB-ADJ",
+    "vendor_cost": 39.50,
+    "image_url": null,
+    "specs": {
+      "weight_capacity": "300 lbs",
+      "seat_width": "19 in",
+      "height_range": "14–20.5 in",
+      "material": "Aluminum frame, PE seat",
+      "assembly": "Tool-free",
+      "anti_slip": "Rubber suction-cup feet"
+    }
+  },
+  {
+    "name": "Drive Medical Padded Shower Chair with Armrests",
+    "category": "mobility_safety",
+    "description": "Heavy-duty shower chair with padded seat and armrests for patient comfort. Corrosion-resistant aluminum frame with drainage holes and suction-tip legs for wet surface safety.",
+    "vendor": "Vive Health",
+    "vendor_sku": "VH-BATH-SC-PAD",
+    "vendor_cost": 62.00,
+    "image_url": null,
+    "specs": {
+      "weight_capacity": "350 lbs",
+      "seat_dimensions": "16 x 16 in",
+      "height_range": "15.5–19.5 in",
+      "armrests": "Padded, fixed",
+      "material": "Aluminum, corrosion-resistant",
+      "drainage": "Holes in seat"
+    }
+  },
+  {
+    "name": "Carex Raised Toilet Seat with Handles",
+    "category": "mobility_safety",
+    "description": "Elevated toilet seat adding 3.5 inches of height with padded locking armrests. Universal fit for standard and elongated bowls, reducing strain for patients with hip or knee limitations.",
+    "vendor": "VGM",
+    "vendor_sku": "VGM-BATH-RTS-35",
+    "vendor_cost": 42.00,
+    "image_url": null,
+    "specs": {
+      "weight_capacity": "300 lbs",
+      "height_added": "3.5 in",
+      "fits": "Standard and elongated bowls",
+      "armrests": "Padded, locking",
+      "material": "Molded plastic",
+      "width_between_arms": "18 in"
+    }
+  },
+  {
+    "name": "Vive Health Chrome Grab Bar 18-Inch",
+    "category": "mobility_safety",
+    "description": "ADA-compliant wall-mounted grab bar for bathroom safety. Chrome-plated steel with concealed flanges and textured grip surface for secure hold in wet conditions.",
+    "vendor": "Vive Health",
+    "vendor_sku": "VH-BATH-GB-18C",
+    "vendor_cost": 18.50,
+    "image_url": null,
+    "specs": {
+      "weight_capacity": "500 lbs",
+      "length": "18 in",
+      "diameter": "1.25 in",
+      "material": "Chrome-plated steel",
+      "mounting": "Concealed flange, wall-mount",
+      "compliance": "ADA"
+    }
+  },
+  {
+    "name": "Medline Assist Bed Rail with Storage Pocket",
+    "category": "mobility_safety",
+    "description": "Adjustable height bed assist rail that slides between mattress and box spring for secure installation. Features an integrated storage pocket and padded grip handle for safe transfers.",
+    "vendor": "Cardinal Health",
+    "vendor_sku": "CH-MOB-BR-AST",
+    "vendor_cost": 48.00,
+    "image_url": null,
+    "specs": {
+      "weight_capacity": "300 lbs",
+      "handle_height": "17–22 in adjustable",
+      "base_length": "20 in (under mattress)",
+      "fits": "Twin to king mattresses",
+      "includes": "Storage pocket, safety strap",
+      "assembly": "Tool-free"
+    }
+  },
+  {
+    "name": "ResMed AirSense 11 AutoSet CPAP Machine",
+    "category": "specialized_support",
+    "description": "Auto-adjusting CPAP device with integrated humidifier and quiet motor for sleep apnea therapy. Features personal therapy assistant, nightly sleep score, and cloud-connected data reporting for clinician monitoring.",
+    "vendor": "VGM",
+    "vendor_sku": "VGM-RESP-AS11-A",
+    "vendor_cost": 625.00,
+    "image_url": null,
+    "specs": {
+      "pressure_range": "4–20 cm H₂O",
+      "sound_level": "26.6 dBA",
+      "humidifier": "Integrated, heated",
+      "connectivity": "Wi-Fi, Bluetooth, cellular",
+      "compliance_tracking": "myAir app + AirView cloud",
+      "weight": "2.75 lbs"
+    }
+  },
+  {
+    "name": "Inogen One G5 Portable Oxygen Concentrator",
+    "category": "specialized_support",
+    "description": "Lightweight portable oxygen concentrator delivering up to 6 pulse-dose settings for ambulatory patients. FAA-approved for air travel with long-lasting battery options up to 13 hours.",
+    "vendor": "BGM",
+    "vendor_sku": "BGM-RESP-IOG5",
+    "vendor_cost": 1895.00,
+    "image_url": null,
+    "specs": {
+      "flow_settings": "1–6 pulse dose",
+      "weight": "4.7 lbs with single battery",
+      "battery_life": "Up to 13 hours (double battery)",
+      "sound_level": "38 dBA",
+      "faa_approved": true,
+      "oxygen_concentration": "87–96% ± 3%"
+    }
+  },
+  {
+    "name": "Philips Respironics DreamStation 2 BiPAP Auto",
+    "category": "specialized_support",
+    "description": "Auto-adjusting bilevel positive airway pressure device for complex sleep apnea and respiratory insufficiency. Integrated heated humidifier with advanced event detection and DreamMapper app connectivity.",
+    "vendor": "VGM",
+    "vendor_sku": "VGM-RESP-DS2-BA",
+    "vendor_cost": 895.00,
+    "image_url": null,
+    "specs": {
+      "ipap_range": "4–30 cm H₂O",
+      "epap_range": "4–25 cm H₂O",
+      "modes": "Auto, S, T, S/T",
+      "humidifier": "Integrated, heated tube compatible",
+      "sound_level": "28 dBA",
+      "data": "DreamMapper app, Bluetooth/cellular"
+    }
+  },
+  {
+    "name": "ResMed AirFit F30i Full Face CPAP Mask",
+    "category": "specialized_support",
+    "description": "Top-of-head tube connection full face mask for unrestricted sleep positioning. Minimal-contact cushion design reduces facial pressure marks with magnetic clips for easy on/off.",
+    "vendor": "Vive Health",
+    "vendor_sku": "VH-RESP-AF30I",
+    "vendor_cost": 89.00,
+    "image_url": null,
+    "specs": {
+      "type": "Full face, top-connect",
+      "sizes": "Small, Medium, Wide",
+      "cushion": "InfinitySeal silicone",
+      "headgear": "QuietAir diffuser, magnetic clips",
+      "compatibility": "All standard CPAP/BiPAP",
+      "weight": "Under 3 oz (cushion + frame)"
+    }
+  },
+  {
+    "name": "DeVilbiss Suction Machine 7305 Series",
+    "category": "specialized_support",
+    "description": "Portable suction unit for airway clearance in home health and clinical settings. Provides continuous and intermittent suction with adjustable vacuum regulation up to 560 mmHg.",
+    "vendor": "Cardinal Health",
+    "vendor_sku": "CH-RESP-SUC-7305",
+    "vendor_cost": 245.00,
+    "image_url": null,
+    "specs": {
+      "max_vacuum": "560 mmHg",
+      "flow_rate": "27 L/min",
+      "jar_capacity": "800 mL",
+      "modes": "Continuous, intermittent",
+      "power": "AC with internal battery backup",
+      "weight": "8.5 lbs"
+    }
+  },
+  {
+    "name": "Compat Ella Enteral Feeding Pump",
+    "category": "specialized_support",
+    "description": "Programmable enteral feeding pump for tube-fed patients in home and facility settings. Supports continuous, intermittent, and bolus delivery modes with occlusion and empty-bag alarms.",
+    "vendor": "Cardinal Health",
+    "vendor_sku": "CH-ENT-ELLA-P",
+    "vendor_cost": 475.00,
+    "image_url": null,
+    "specs": {
+      "flow_rate": "1–300 mL/hr",
+      "delivery_modes": "Continuous, intermittent, bolus",
+      "accuracy": "±10%",
+      "battery_life": "24 hours",
+      "alarms": "Occlusion, empty bag, low battery, system error",
+      "weight": "2.2 lbs"
+    }
+  },
+  {
+    "name": "Roho Dry Flotation Pressure Relief Wheelchair Cushion",
+    "category": "specialized_support",
+    "description": "Air-cell pressure redistribution cushion for wheelchair-bound patients at risk for pressure injuries. Individually adjustable air cells conform to body contours, reducing peak pressure and shear forces.",
+    "vendor": "Vive Health",
+    "vendor_sku": "VH-PR-ROHO-STD",
+    "vendor_cost": 285.00,
+    "image_url": null,
+    "specs": {
+      "sizes": "15x16, 16x16, 16x18, 18x18, 18x20 in",
+      "cell_height": "4 in",
+      "weight_capacity": "300 lbs",
+      "cover": "Machine-washable stretch",
+      "inflation": "Hand pump included",
+      "material": "Neoprene rubber cells"
+    }
+  },
+  {
+    "name": "Drive Medical Alternating Pressure Mattress Pad System",
+    "category": "specialized_support",
+    "description": "Alternating pressure pad with variable-cycle pump for hospital bed pressure injury prevention. Fits standard hospital mattresses with adjustable comfort settings and low-pressure alarm.",
+    "vendor": "Vive Health",
+    "vendor_sku": "VH-PR-APMP-DRV",
+    "vendor_cost": 198.00,
+    "image_url": null,
+    "specs": {
+      "dimensions": "78 x 35 x 2.5 in",
+      "cycle_time": "5, 10, 15, 20, 25 min adjustable",
+      "cell_type": "Bubble pad, alternating",
+      "pump": "Whisper-quiet, variable pressure",
+      "alarm": "Low pressure",
+      "weight_capacity": "300 lbs"
+    }
+  },
+  {
+    "name": "Hoyer Advance Hydraulic Patient Lift",
+    "category": "specialized_support",
+    "description": "Manual hydraulic patient lift for safe seated and supine transfers. Six-point spreader bar with 360-degree rotation accommodates standard and bariatric slings for caregiver-assisted transfers.",
+    "vendor": "BGM",
+    "vendor_sku": "BGM-LIFT-HYD-ADV",
+    "vendor_cost": 685.00,
+    "image_url": null,
+    "specs": {
+      "weight_capacity": "400 lbs",
+      "lift_range": "9.5–61 in",
+      "base_width": "23.25–43.25 in adjustable",
+      "spreader_bar": "6-point, 360° rotation",
+      "casters": "3 in, dual-lock rear",
+      "assembly": "Minimal, included tools"
+    }
+  },
+  {
+    "name": "Philips IntelliVue MX450 Patient Monitor",
+    "category": "capital_equipment",
+    "description": "Multi-parameter bedside monitoring platform tracking ECG, SpO2, NIBP, temperature, and capnography. Touchscreen display with alarm management and HL7 integration for hospital information systems.",
+    "vendor": "Apollo Med",
+    "vendor_sku": "APM-MON-MX450",
+    "vendor_cost": 12500.00,
+    "image_url": null,
+    "specs": {
+      "display": "15 in touchscreen",
+      "parameters": "ECG, SpO2, NIBP, Temp, EtCO2, IBP",
+      "alarms": "Smart alarm management",
+      "connectivity": "HL7, Wi-Fi, LAN",
+      "battery": "Up to 6 hours",
+      "mounting": "Roll stand, wall, rail"
+    }
+  },
+  {
+    "name": "GE Venue Go Portable Ultrasound System",
+    "category": "capital_equipment",
+    "description": "Compact point-of-care ultrasound with 12-inch touchscreen and advanced imaging modes. Portable design supports emergency, critical care, and musculoskeletal applications with DICOM connectivity.",
+    "vendor": "Apollo Med",
+    "vendor_sku": "APM-US-VENUE-GO",
+    "vendor_cost": 28500.00,
+    "image_url": null,
+    "specs": {
+      "display": "12 in full touchscreen",
+      "imaging_modes": "B-Mode, M-Mode, Color Doppler, PW Doppler",
+      "probes": "Up to 3 active simultaneously",
+      "battery_life": "75 minutes",
+      "connectivity": "DICOM, Wi-Fi, USB",
+      "weight": "8.6 lbs"
+    }
+  },
+  {
+    "name": "Midmark 630 Barrier-Free Power Examination Table",
+    "category": "capital_equipment",
+    "description": "ADA-compliant power examination table with low height access for wheelchair transfers. Programmable positions for routine exams, procedures, and barrier-free patient access.",
+    "vendor": "Apollo Med",
+    "vendor_sku": "APM-TBL-630-BF",
+    "vendor_cost": 8200.00,
+    "image_url": null,
+    "specs": {
+      "height_range": "18–37 in",
+      "weight_capacity": "500 lbs",
+      "width": "27 in",
+      "length": "72 in (flat)",
+      "positions": "Flat, Chair, Power back, Barrier-free",
+      "compliance": "ADA",
+      "upholstery": "Seamless, antimicrobial"
+    }
+  },
+  {
+    "name": "OEC Elite MiniView C-Arm Fluoroscopy System",
+    "category": "capital_equipment",
+    "description": "Compact mobile C-arm for orthopedic, vascular, and pain management procedures. High-resolution flat panel detector with low-dose imaging and touchscreen workflow controls.",
+    "vendor": "Apollo Med",
+    "vendor_sku": "APM-IMG-OEC-MV",
+    "vendor_cost": 38500.00,
+    "image_url": null,
+    "specs": {
+      "detector": "9 in flat panel CMOS",
+      "resolution": "1536 x 1536 pixels",
+      "c_arm_depth": "26 in",
+      "rotation": "180° orbital, ±12.5° wig-wag",
+      "display": "Dual 19 in monitors",
+      "dose_management": "SmartDose technology"
+    }
+  },
+  {
+    "name": "GE Carestation 750 Anesthesia System",
+    "category": "capital_equipment",
+    "description": "Advanced anesthesia workstation with integrated ventilator and electronic gas mixing for surgical environments. Supports volume, pressure, and spontaneous ventilation modes with compliance monitoring.",
+    "vendor": "Apollo Med",
+    "vendor_sku": "APM-ANES-CS750",
+    "vendor_cost": 35000.00,
+    "image_url": null,
+    "specs": {
+      "ventilation_modes": "VCV, PCV, PSV, Manual/Spontaneous",
+      "display": "15 in touchscreen",
+      "agent_capacity": "3 vaporizer positions",
+      "flow_range": "0.2–12 L/min",
+      "battery_backup": "45 minutes",
+      "compliance": "IEC 60601"
+    }
+  },
+  {
+    "name": "Hausmann 1392 Parallel Bars – Wall Mounted",
+    "category": "capital_equipment",
+    "description": "Wall-mounted parallel bars for physical therapy gait training in clinics and rehab facilities. Heavy-gauge steel construction with adjustable height and width to accommodate diverse patient populations.",
+    "vendor": "BGM",
+    "vendor_sku": "BGM-REHAB-PB-1392",
+    "vendor_cost": 3200.00,
+    "image_url": null,
+    "specs": {
+      "length": "10 ft",
+      "height_range": "26–39 in adjustable",
+      "width_range": "16–24 in adjustable",
+      "weight_capacity": "500 lbs",
+      "material": "Heavy-gauge steel, chrome handrails",
+      "mounting": "Wall-mounted with floor supports"
+    }
+  },
+  {
+    "name": "Clinton 8570 Multi-Use Hi-Lo Treatment Table",
+    "category": "capital_equipment",
+    "description": "Electric hi-lo treatment table for physical therapy and rehabilitation. Power height adjustment with manual backrest positioning, 600 lb capacity, and durable laminate base with nosedrop section.",
+    "vendor": "BGM",
+    "vendor_sku": "BGM-REHAB-TT-8570",
+    "vendor_cost": 4500.00,
+    "image_url": null,
+    "specs": {
+      "height_range": "18–37 in (power)",
+      "weight_capacity": "600 lbs",
+      "top_dimensions": "76 x 27 in",
+      "backrest": "Manual, 0–75°",
+      "nosedrop": "Yes, adjustable",
+      "upholstery": "2 in foam, antimicrobial vinyl"
+    }
+  }
+]

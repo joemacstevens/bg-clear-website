@@ -287,6 +287,11 @@ main {
 	gap: var(--space-4);
 }
 
+.grid-4 {
+	display: grid;
+	gap: var(--space-4);
+}
+
 .capability-list {
 	display: grid;
 	gap: var(--space-6);
@@ -574,6 +579,10 @@ main {
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 	}
 
+	.grid-4 {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+
 	.steps {
 		grid-template-columns: repeat(4, minmax(0, 1fr));
 	}
@@ -583,9 +592,18 @@ main {
 	}
 }
 
+@media (max-width: 959px) {
+	.grid-4 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
 @media (max-width: 640px) {
 	.container {
 		padding: 0 1rem;
+	}
+	.grid-4 {
+		grid-template-columns: 1fr;
 	}
 }
 
@@ -917,6 +935,7 @@ main {
 
 html {
 	scroll-behavior: smooth;
+	scroll-padding-top: 100px;
 }
 
 @media (max-width: 959px) {
@@ -952,8 +971,9 @@ html {
 }
 
 .partner-logo {
-	height: 36px;
+	height: 40px;
 	width: auto;
+	max-width: 140px;
 	object-fit: contain;
 	opacity: 0.85;
 	filter: grayscale(0%) brightness(1.15);
@@ -973,7 +993,8 @@ html {
 		gap: var(--space-4) var(--space-5);
 	}
 	.partner-logo {
-		height: 28px;
+		height: 32px;
+		max-width: 120px;
 	}
 }
 
@@ -982,7 +1003,8 @@ html {
 		gap: var(--space-3) var(--space-4);
 	}
 	.partner-logo {
-		height: 24px;
+		height: 28px;
+		max-width: 100px;
 	}
 }
 
