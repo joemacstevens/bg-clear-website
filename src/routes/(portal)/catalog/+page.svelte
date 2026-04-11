@@ -1,23 +1,29 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import type { ProductCategory } from '$lib/database.types';
+	import { quoteCart } from '$lib/stores/quote-cart';
+	import { toasts } from '$lib/stores/toast';
+	import { categoryLabel } from '$lib/utils/categories';
 
 	let { data }: { data: PageData } = $props();
 
-	const categories: { value: ProductCategory | null; label: string; icon: string }[] = [
-		{ value: null, label: 'All Products', icon: '⊞' },
-		{ value: 'health_monitoring', label: 'Health Monitoring', icon: '♡' },
-		{ value: 'mobility_safety', label: 'Mobility & Safety', icon: '♿' },
-		{ value: 'specialized_support', label: 'Specialized Support', icon: '⚕' },
-		{ value: 'capital_equipment', label: 'Capital Equipment', icon: '🏥' }
+	const categories: { value: ProductCategory | null; label: string }[] = [
+		{ value: null, label: 'All Products' },
+		{ value: 'health_monitoring', label: 'Health Monitoring' },
+		{ value: 'mobility_safety', label: 'Mobility & Safety' },
+		{ value: 'specialized_support', label: 'Specialized Support' },
+		{ value: 'capital_equipment', label: 'Capital Equipment' }
 	];
 
 	let search = $state('');
+	let cartItems: import('$lib/stores/quote-cart').CartItem[] = $state([]);
+	quoteCart.subscribe((items) => { cartItems = items; });
 
 	const filteredProducts = $derived(
 		data.products.filter((p) =>
 			!search || p.name.toLowerCase().includes(search.toLowerCase())
 			|| p.description?.toLowerCase().includes(search.toLowerCase())
+			|| p.vendor_name.toLowerCase().includes(search.toLowerCase())
 		)
 	);
 
@@ -31,8 +37,13 @@
 		return groups;
 	});
 
-	function categoryLabel(cat: string) {
-		return categories.find((c) => c.value === cat)?.label ?? cat;
+	function isInCart(productId: string): boolean {
+		return cartItems.some((i) => i.productId === productId);
+	}
+
+	function addToCart(product: typeof data.products[0]) {
+		quoteCart.addItem(product.id, product.name, product.category);
+		toasts.success(`${product.name} added to quote cart`);
 	}
 </script>
 
@@ -42,8 +53,18 @@
 
 <div class="catalog-page">
 	<div class="catalog-header">
-		<h1>Product Catalog</h1>
-		<p>Browse our durable medical equipment. Select products to request a quote from your sales representative.</p>
+		<div class="header-row">
+			<div>
+				<h1>Product Catalog</h1>
+				<p>Browse our durable medical equipment. Select products to request a quote from your sales representative.</p>
+			</div>
+			<a href="/catalog/quote" class="cart-link">
+				Quote Cart
+				{#if cartItems.length > 0}
+					<span class="cart-count">{cartItems.length}</span>
+				{/if}
+			</a>
+		</div>
 	</div>
 
 	<div class="catalog-controls">
@@ -75,22 +96,26 @@
 	{:else}
 		{#each Object.entries(groupedProducts()) as [category, products]}
 			<section class="category-section">
-				<h2 class="category-title">{categoryLabel(category)}</h2>
+				<h2 class="category-title">{categoryLabel(category, true)}</h2>
 				<div class="product-grid">
 					{#each products as product}
 						<div class="product-card">
-							<div class="product-image">
-								{#if product.image_url}
-									<img src={product.image_url} alt={product.name} />
-								{:else}
-									<div class="placeholder-image">
-										<span>{categoryLabel(product.category).charAt(0)}</span>
-									</div>
-								{/if}
-							</div>
+							<a href="/catalog/{product.id}" class="product-image-link">
+								<div class="product-image">
+									{#if product.image_url}
+										<img src={product.image_url} alt={product.name} />
+									{:else}
+										<div class="placeholder-image">
+											<span>{categoryLabel(product.category, true).charAt(0)}</span>
+										</div>
+									{/if}
+								</div>
+							</a>
 							<div class="product-info">
 								<span class="product-vendor">{product.vendor_name}</span>
-								<h3 class="product-name">{product.name}</h3>
+								<a href="/catalog/{product.id}" class="product-name-link">
+									<h3 class="product-name">{product.name}</h3>
+								</a>
 								<p class="product-desc">{product.description}</p>
 								{#if product.specs && Object.keys(product.specs).length > 0}
 									<div class="product-specs">
@@ -99,9 +124,15 @@
 										{/each}
 									</div>
 								{/if}
-								<button class="add-to-quote-btn">
-									+ Add to Quote Request
-								</button>
+								{#if isInCart(product.id)}
+									<button class="add-to-quote-btn in-cart" disabled>
+										In Quote Cart
+									</button>
+								{:else}
+									<button class="add-to-quote-btn" onclick={() => addToCart(product)}>
+										+ Add to Quote Request
+									</button>
+								{/if}
 							</div>
 						</div>
 					{/each}
@@ -120,6 +151,13 @@
 		margin-bottom: var(--space-4);
 	}
 
+	.header-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: var(--space-3);
+	}
+
 	.catalog-header h1 {
 		font-family: var(--font-heading);
 		font-size: var(--text-h2);
@@ -131,6 +169,39 @@
 	.catalog-header p {
 		color: var(--color-muted);
 		margin: 0;
+	}
+
+	.cart-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem 1.25rem;
+		background: var(--color-primary);
+		color: white;
+		border-radius: var(--radius-sm);
+		font-size: var(--text-small);
+		font-weight: 600;
+		text-decoration: none;
+		white-space: nowrap;
+		transition: background 0.15s;
+	}
+
+	.cart-link:hover {
+		background: var(--color-primary-dark);
+	}
+
+	.cart-count {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 1.25rem;
+		height: 1.25rem;
+		padding: 0 0.375rem;
+		background: white;
+		color: var(--color-primary);
+		border-radius: 999px;
+		font-size: 0.7rem;
+		font-weight: 700;
 	}
 
 	.catalog-controls {
@@ -220,6 +291,11 @@
 		transform: translateY(-2px);
 	}
 
+	.product-image-link {
+		display: block;
+		text-decoration: none;
+	}
+
 	.product-image {
 		aspect-ratio: 4/3;
 		overflow: hidden;
@@ -260,6 +336,11 @@
 		color: var(--color-accent);
 	}
 
+	.product-name-link {
+		text-decoration: none;
+		color: inherit;
+	}
+
 	.product-name {
 		font-family: var(--font-heading);
 		font-size: 1rem;
@@ -267,6 +348,10 @@
 		color: var(--color-ink);
 		margin: 0.25rem 0 0.5rem;
 		line-height: 1.3;
+	}
+
+	.product-name-link:hover .product-name {
+		color: var(--color-primary);
 	}
 
 	.product-desc {
@@ -314,6 +399,13 @@
 		color: white;
 	}
 
+	.add-to-quote-btn.in-cart {
+		background: var(--color-accent-light);
+		color: var(--color-accent);
+		border-color: var(--color-accent-light);
+		cursor: default;
+	}
+
 	.empty-state {
 		text-align: center;
 		padding: var(--space-8) var(--space-4);
@@ -328,6 +420,9 @@
 			width: 100%;
 		}
 		.catalog-controls {
+			flex-direction: column;
+		}
+		.header-row {
 			flex-direction: column;
 		}
 	}
