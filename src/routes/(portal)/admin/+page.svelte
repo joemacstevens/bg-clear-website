@@ -1,210 +1,148 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import type { PageData } from './$types';
-	import type { ProductCategory } from '$lib/database.types';
+	import StatCard from '$lib/components/portal/StatCard.svelte';
+	import StatusBadge from '$lib/components/portal/StatusBadge.svelte';
+	import { formatCurrency, formatDateTime } from '$lib/utils/format';
+	import EmptyState from '$lib/components/portal/EmptyState.svelte';
 
 	let { data }: { data: PageData } = $props();
-
-	let showAddForm = $state(false);
-	let filterCategory = $state<string>('');
-
-	const categoryLabels: Record<string, string> = {
-		health_monitoring: 'Health Monitoring & Management',
-		mobility_safety: 'Mobility & Safety',
-		specialized_support: 'Specialized Medical Support',
-		capital_equipment: 'Capital Medical Equipment'
-	};
-
-	const filteredProducts = $derived(
-		filterCategory
-			? data.products.filter((p) => p.category === filterCategory)
-			: data.products
-	);
-
-	function formatCurrency(amount: number) {
-		return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
-	}
-
-	// Compute pricing from category rules
-	function computePricing(vendorCost: number, category: string) {
-		const rule = data.pricingRules.find((r) => r.category === category);
-		if (!rule) return { bgCost: 0, target: 0, suggested: 0 };
-		const bgCost = vendorCost * (1 + rule.margin_reserve_default / 100);
-		const target = bgCost * (1 + rule.markup_to_target_default / 100);
-		const suggested = target * (1 + rule.suggested_premium_default / 100);
-		return { bgCost, target, suggested };
-	}
 </script>
 
 <svelte:head>
-	<title>Admin - Product Management | BG Clear</title>
+	<title>Admin Dashboard | BG Clear</title>
 </svelte:head>
 
-<div class="admin-page">
-	<div class="admin-header">
-		<div>
-			<h1>Product Management</h1>
-			<p>{data.products.length} products in catalog</p>
-		</div>
-		<button class="btn-primary" onclick={() => showAddForm = !showAddForm}>
-			{showAddForm ? 'Cancel' : '+ Add Product'}
-		</button>
+<div class="admin-dashboard">
+	<div class="header">
+		<h1>Admin Dashboard</h1>
+		<p>Welcome back. Here's what's happening today.</p>
 	</div>
 
-	{#if showAddForm}
-		<div class="add-form-card">
-			<h2>Add New Product</h2>
-			<form method="POST" action="?/addProduct" use:enhance={() => { return async ({ update }) => { showAddForm = false; update(); }; }}>
-				<div class="form-grid">
-					<div class="form-group">
-						<label for="name">Product Name *</label>
-						<input id="name" name="name" type="text" required placeholder="e.g. Drive Medical Nitro Rollator" />
-					</div>
+	<div class="stats-grid">
+		<StatCard
+			label="Total Products"
+			value={data.productCount.toString()}
+			color="var(--color-primary)"
+		/>
+		<StatCard
+			label="Active Orders"
+			value={data.activeOrderCount.toString()}
+			color="var(--color-accent)"
+		/>
+		<StatCard
+			label="Pending Approvals"
+			value={data.pendingApprovalCount.toString()}
+			color="#f59e0b"
+		/>
+		<StatCard
+			label="Total Revenue"
+			value={formatCurrency(data.totalRevenue)}
+			color="#10b981"
+		/>
+	</div>
 
-					<div class="form-group">
-						<label for="category">Category *</label>
-						<select id="category" name="category" required>
-							{#each Object.entries(categoryLabels) as [value, label]}
-								<option {value}>{label}</option>
-							{/each}
-						</select>
+	<div class="dashboard-grid">
+		<div class="quick-links card">
+			<h2>Quick Links</h2>
+			<div class="links-grid">
+				<a href="/admin/products" class="quick-link">
+					<span class="icon">📦</span>
+					<div class="link-text">
+						<strong>Product Management</strong>
+						<span>Add, edit, or disable products</span>
 					</div>
-
-					<div class="form-group">
-						<label for="vendor_name">Vendor *</label>
-						<input id="vendor_name" name="vendor_name" type="text" required placeholder="e.g. Vive Health" />
+				</a>
+				<a href="/admin/products/import" class="quick-link">
+					<span class="icon">📥</span>
+					<div class="link-text">
+						<strong>Import Products</strong>
+						<span>Bulk upload from CSV</span>
 					</div>
-
-					<div class="form-group">
-						<label for="vendor_cost">Vendor Cost *</label>
-						<input id="vendor_cost" name="vendor_cost" type="number" step="0.01" min="0" required placeholder="0.00" />
+				</a>
+				<a href="/admin/pricing" class="quick-link">
+					<span class="icon">💰</span>
+					<div class="link-text">
+						<strong>Pricing Rules</strong>
+						<span>Edit category margins and markup</span>
 					</div>
-
-					<div class="form-group">
-						<label for="vendor_sku">Vendor SKU</label>
-						<input id="vendor_sku" name="vendor_sku" type="text" placeholder="Optional" />
+				</a>
+				<a href="/admin/users" class="quick-link">
+					<span class="icon">👥</span>
+					<div class="link-text">
+						<strong>User Management</strong>
+						<span>Assign reps and roles</span>
 					</div>
-
-					<div class="form-group">
-						<label for="sku">BG Clear SKU</label>
-						<input id="sku" name="sku" type="text" placeholder="Optional" />
+				</a>
+				<a href="/admin/approvals" class="quick-link">
+					<span class="icon">✓</span>
+					<div class="link-text">
+						<strong>Approval Queue</strong>
+						<span>Review below-target orders</span>
 					</div>
-
-					<div class="form-group full-width">
-						<label for="description">Description</label>
-						<textarea id="description" name="description" rows="2" placeholder="Brief product description"></textarea>
+				</a>
+				<a href="/admin/audit" class="quick-link">
+					<span class="icon">📋</span>
+					<div class="link-text">
+						<strong>Audit Log</strong>
+						<span>View system activity</span>
 					</div>
-				</div>
-
-				<button type="submit" class="btn-primary">Save Product</button>
-			</form>
+				</a>
+			</div>
 		</div>
-	{/if}
 
-	<!-- Pricing Rules Reference -->
-	<details class="pricing-rules-panel">
-		<summary>Category Pricing Rules (Evans' Schedule)</summary>
-		<div class="rules-table-wrap">
-			<table class="rules-table">
-				<thead>
-					<tr>
-						<th>Category</th>
-						<th>Internal Margin</th>
-						<th>Markup to Target</th>
-						<th>Suggested Premium</th>
-						<th>Commission @ Target</th>
-						<th>Commission Above</th>
-					</tr>
-				</thead>
-				<tbody>
-					{#each data.pricingRules as rule}
-						<tr>
-							<td class="bold">{categoryLabels[rule.category] ?? rule.category}</td>
-							<td>{rule.margin_reserve_default}% ({rule.margin_reserve_min}-{rule.margin_reserve_max}%)</td>
-							<td>{rule.markup_to_target_default}% ({rule.markup_to_target_min}-{rule.markup_to_target_max}%)</td>
-							<td>{rule.suggested_premium_default}% ({rule.suggested_premium_min}-{rule.suggested_premium_max}%)</td>
-							<td>{rule.commission_at_target}%</td>
-							<td>{rule.commission_above_target}%</td>
-						</tr>
+		<div class="recent-activity card">
+			<div class="activity-header">
+				<h2>Recent Activity</h2>
+				<a href="/admin/audit" class="view-all">View All</a>
+			</div>
+			
+			{#if data.auditEntries.length === 0}
+				<EmptyState
+					message="No recent activity found."
+					actionLabel="Refresh"
+					actionHref="/admin"
+				/>
+			{:else}
+				<div class="activity-list">
+					{#each data.auditEntries as entry}
+						<div class="activity-item">
+							<div class="activity-icon">
+								{#if entry.action.includes('create')}
+									<span class="badge create">+</span>
+								{:else if entry.action.includes('update') || entry.action.includes('status')}
+									<span class="badge update">↻</span>
+								{:else if entry.action.includes('delete')}
+									<span class="badge delete">×</span>
+								{:else}
+									<span class="badge other">•</span>
+								{/if}
+							</div>
+							<div class="activity-content">
+								<p class="activity-text">
+									<strong>{entry.action}</strong> {entry.entity_type} {entry.entity_id}
+								</p>
+								<p class="activity-meta">
+									{formatDateTime(entry.created_at)}
+								</p>
+							</div>
+						</div>
 					{/each}
-				</tbody>
-			</table>
+				</div>
+			{/if}
 		</div>
-	</details>
-
-	<!-- Product List -->
-	<div class="filter-bar">
-		<select bind:value={filterCategory}>
-			<option value="">All Categories</option>
-			{#each Object.entries(categoryLabels) as [value, label]}
-				<option {value}>{label}</option>
-			{/each}
-		</select>
-		<span class="count">{filteredProducts.length} products</span>
-	</div>
-
-	<div class="product-table-wrap">
-		<table class="product-table">
-			<thead>
-				<tr>
-					<th>Product</th>
-					<th>Category</th>
-					<th>Vendor</th>
-					<th>Vendor Cost</th>
-					<th>BG Cost</th>
-					<th>Target</th>
-					<th>Suggested</th>
-					<th>Status</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				{#each filteredProducts as product}
-					{@const pricing = computePricing(product.vendor_cost, product.category)}
-					<tr class:inactive={!product.is_active}>
-						<td>
-							<div class="product-cell">
-								<span class="product-cell-name">{product.name}</span>
-								{#if product.sku}<span class="product-cell-sku">{product.sku}</span>{/if}
-							</div>
-						</td>
-						<td><span class="cat-badge">{categoryLabels[product.category]?.split(' ')[0]}</span></td>
-						<td>{product.vendor_name}</td>
-						<td class="mono">{formatCurrency(product.vendor_cost)}</td>
-						<td class="mono">{formatCurrency(pricing.bgCost)}</td>
-						<td class="mono">{formatCurrency(pricing.target)}</td>
-						<td class="mono">{formatCurrency(pricing.suggested)}</td>
-						<td>
-							<span class="status-dot" class:active={product.is_active}></span>
-							{product.is_active ? 'Active' : 'Inactive'}
-						</td>
-						<td>
-							<div class="action-btns">
-								<form method="POST" action="?/toggleProduct" use:enhance>
-									<input type="hidden" name="id" value={product.id} />
-									<input type="hidden" name="is_active" value={String(product.is_active)} />
-									<button type="submit" class="action-btn">{product.is_active ? 'Disable' : 'Enable'}</button>
-								</form>
-							</div>
-						</td>
-					</tr>
-				{/each}
-			</tbody>
-		</table>
 	</div>
 </div>
 
 <style>
-	.admin-page { padding-bottom: var(--space-8); }
-
-	.admin-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-start;
-		margin-bottom: var(--space-4);
+	.admin-dashboard {
+		padding-bottom: var(--space-8);
 	}
 
-	.admin-header h1 {
+	.header {
+		margin-bottom: var(--space-6);
+	}
+
+	.header h1 {
 		font-family: var(--font-heading);
 		font-size: var(--text-h2);
 		font-weight: 700;
@@ -212,206 +150,174 @@
 		margin: 0 0 0.25rem;
 	}
 
-	.admin-header p {
+	.header p {
 		color: var(--color-muted);
 		font-size: var(--text-small);
 		margin: 0;
 	}
 
-	.btn-primary {
-		padding: 0.5rem 1.25rem;
-		background: var(--color-primary);
-		color: white;
-		border: none;
-		border-radius: var(--radius-sm);
-		font-size: var(--text-small);
-		font-weight: 600;
-		font-family: var(--font-heading);
-		cursor: pointer;
-		white-space: nowrap;
+	.stats-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: var(--space-4);
+		margin-bottom: var(--space-6);
 	}
 
-	.btn-primary:hover { background: var(--color-primary-dark); }
-
-	.add-form-card {
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-md);
-		padding: var(--space-4);
-		margin-bottom: var(--space-4);
-	}
-
-	.add-form-card h2 {
-		font-family: var(--font-heading);
-		font-size: 1.125rem;
-		margin: 0 0 var(--space-3);
-	}
-
-	.form-grid {
+	.dashboard-grid {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: var(--space-2) var(--space-3);
-		margin-bottom: var(--space-3);
+		gap: var(--space-6);
 	}
 
-	.full-width { grid-column: 1 / -1; }
-
-	.form-group label {
-		display: block;
-		font-size: var(--text-small);
-		font-weight: 500;
-		margin-bottom: 0.25rem;
+	@media (max-width: 1024px) {
+		.dashboard-grid {
+			grid-template-columns: 1fr;
+		}
 	}
 
-	.form-group input,
-	.form-group select,
-	.form-group textarea {
-		width: 100%;
-		padding: 0.5rem 0.75rem;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-sm);
-		font-size: var(--text-small);
-		font-family: var(--font-body);
-		box-sizing: border-box;
-	}
-
-	.pricing-rules-panel {
+	.card {
 		background: var(--color-surface);
 		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		padding: var(--space-5);
+		box-shadow: var(--shadow-sm);
+	}
+
+	.card h2 {
+		font-family: var(--font-heading);
+		font-size: var(--text-h3);
+		margin: 0 0 var(--space-4);
+		color: var(--color-ink);
+	}
+
+	.links-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-3);
+	}
+
+	@media (max-width: 600px) {
+		.links-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.quick-link {
+		display: flex;
+		align-items: flex-start;
+		gap: var(--space-3);
+		padding: var(--space-3);
+		border: 1px solid var(--color-border);
 		border-radius: var(--radius-md);
+		text-decoration: none;
+		color: inherit;
+		transition: all 0.2s;
+	}
+
+	.quick-link:hover {
+		border-color: var(--color-primary);
+		background: var(--color-bg);
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-sm);
+	}
+
+	.quick-link .icon {
+		font-size: 1.5rem;
+		background: var(--color-bg);
+		width: 40px;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: var(--radius-sm);
+	}
+
+	.link-text {
+		display: flex;
+		flex-direction: column;
+		gap: 0.125rem;
+	}
+
+	.link-text strong {
+		font-weight: 600;
+		color: var(--color-ink);
+		font-size: var(--text-small);
+	}
+
+	.link-text span {
+		font-size: 0.75rem;
+		color: var(--color-muted);
+	}
+
+	.activity-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 		margin-bottom: var(--space-4);
 	}
 
-	.pricing-rules-panel summary {
-		padding: var(--space-2) var(--space-3);
-		font-weight: 600;
+	.view-all {
 		font-size: var(--text-small);
-		cursor: pointer;
+		color: var(--color-primary);
+		text-decoration: none;
+		font-weight: 500;
+	}
+
+	.view-all:hover {
+		text-decoration: underline;
+	}
+
+	.activity-list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-3);
+	}
+
+	.activity-item {
+		display: flex;
+		gap: var(--space-3);
+		padding-bottom: var(--space-3);
+		border-bottom: 1px solid var(--color-border-subtle);
+	}
+
+	.activity-item:last-child {
+		border-bottom: none;
+		padding-bottom: 0;
+	}
+
+	.badge {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 28px;
+		height: 28px;
+		border-radius: 50%;
+		font-weight: bold;
+		font-size: 1.2rem;
+	}
+	
+	.badge.create { background: #dcfce7; color: #16a34a; }
+	.badge.update { background: #dbeafe; color: #2563eb; }
+	.badge.delete { background: #fee2e2; color: #dc2626; }
+	.badge.other { background: #f1f5f9; color: #64748b; font-size: 1rem; }
+
+	.activity-content {
+		flex: 1;
+	}
+
+	.activity-text {
+		margin: 0 0 0.125rem;
+		font-size: var(--text-small);
 		color: var(--color-text);
 	}
 
-	.rules-table-wrap { overflow-x: auto; padding: 0 var(--space-3) var(--space-3); }
-
-	.rules-table {
-		width: 100%;
-		border-collapse: collapse;
-		font-size: var(--text-small);
+	.activity-text strong {
+		color: var(--color-ink);
 	}
 
-	.rules-table th {
-		text-align: left;
-		padding: 0.5rem;
-		border-bottom: 2px solid var(--color-border);
-		font-weight: 600;
-		white-space: nowrap;
-	}
-
-	.rules-table td {
-		padding: 0.5rem;
-		border-bottom: 1px solid var(--color-border-subtle);
-	}
-
-	.bold { font-weight: 600; }
-
-	.filter-bar {
-		display: flex;
-		align-items: center;
-		gap: var(--space-2);
-		margin-bottom: var(--space-3);
-	}
-
-	.filter-bar select {
-		padding: 0.375rem 0.75rem;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-sm);
-		font-size: var(--text-small);
-		font-family: var(--font-body);
-	}
-
-	.count {
-		font-size: var(--text-small);
+	.activity-meta {
+		margin: 0;
+		font-size: 0.75rem;
 		color: var(--color-muted);
-	}
-
-	.product-table-wrap {
-		overflow-x: auto;
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-md);
-	}
-
-	.product-table {
-		width: 100%;
-		border-collapse: collapse;
-		font-size: var(--text-small);
-	}
-
-	.product-table th {
-		text-align: left;
-		padding: 0.75rem;
-		border-bottom: 2px solid var(--color-border);
-		font-weight: 600;
-		white-space: nowrap;
-		background: var(--color-border-subtle);
-	}
-
-	.product-table td {
-		padding: 0.75rem;
-		border-bottom: 1px solid var(--color-border-subtle);
-		vertical-align: middle;
-	}
-
-	tr.inactive { opacity: 0.5; }
-
-	.product-cell-name {
-		font-weight: 500;
-		display: block;
-	}
-
-	.product-cell-sku {
-		font-size: 0.7rem;
-		color: var(--color-muted);
-	}
-
-	.cat-badge {
-		font-size: 0.7rem;
-		font-weight: 600;
-		padding: 0.125rem 0.5rem;
-		border-radius: var(--radius-pill);
-		background: var(--color-border-subtle);
-		white-space: nowrap;
-	}
-
-	.mono { font-variant-numeric: tabular-nums; }
-
-	.status-dot {
-		display: inline-block;
-		width: 6px;
-		height: 6px;
-		border-radius: 50%;
-		background: #dc2626;
-		margin-right: 0.25rem;
-	}
-
-	.status-dot.active { background: #16a34a; }
-
-	.action-btns { display: flex; gap: 0.25rem; }
-
-	.action-btn {
-		padding: 0.25rem 0.5rem;
-		font-size: 0.7rem;
-		border: 1px solid var(--color-border);
-		background: var(--color-surface);
-		border-radius: var(--radius-sm);
-		cursor: pointer;
-		font-family: var(--font-body);
-	}
-
-	.action-btn:hover {
-		background: var(--color-border-subtle);
-	}
-
-	@media (max-width: 768px) {
-		.form-grid { grid-template-columns: 1fr; }
 	}
 </style>
