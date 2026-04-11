@@ -7,7 +7,7 @@
 
 	let { form }: { form: ActionData } = $props();
 
-	let fileInput: HTMLInputElement;
+	let fileInput: HTMLInputElement | undefined = $state();
 	let parsedProducts = $state<any[]>([]);
 	let validationErrors = $state<number>(0);
 	let isImporting = $state(false);

@@ -1,11 +1,11 @@
 <script lang="ts">
-	let { open = false, title = '', onclose = () => {} }: {
+	let { open = false, title = '', onclose = () => {}, children, footer }: {
 		open: boolean;
 		title?: string;
 		onclose?: () => void;
+		children: any;
+		footer?: any;
 	} = $props();
-
-	let { children, footer }: { children: any; footer?: any } = $props();
 
 	function handleBackdrop(e: MouseEvent) {
 		if (e.target === e.currentTarget) onclose();
