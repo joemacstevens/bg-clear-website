@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageData, ActionData } from './$types';
+	import { enhance } from '$app/forms';
 	import { quoteCart } from '$lib/stores/quote-cart';
 	import { toasts } from '$lib/stores/toast';
 	import { categoryLabel } from '$lib/utils/categories';
@@ -82,7 +83,22 @@
 			<p class="item-count">{cartItems.length} product{cartItems.length !== 1 ? 's' : ''} in cart</p>
 			<p class="price-note">Pricing will be provided by your sales representative after review.</p>
 
-			<form method="POST" action="?/submit" onsubmit={() => { submitting = true; }}>
+			<form method="POST" action="?/submit" use:enhance={() => {
+				submitting = true;
+				return async ({ result }) => {
+					if (result.type === 'success') {
+						quoteCart.clear();
+						toasts.success('Quote request submitted successfully!');
+						goto('/catalog/quotes');
+					} else if (result.type === 'failure') {
+						toasts.error((result.data as any)?.error ?? 'Submission failed');
+						submitting = false;
+					} else {
+						toasts.error('Something went wrong');
+						submitting = false;
+					}
+				};
+			}}>
 				<input type="hidden" name="items" value={JSON.stringify(cartItems.map(i => ({ productId: i.productId, quantity: i.quantity })))} />
 				<button type="submit" class="submit-btn" disabled={submitting}>
 					{submitting ? 'Submitting...' : 'Submit Quote Request'}

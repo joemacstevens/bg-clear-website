@@ -42,7 +42,7 @@
 			return;
 		}
 
-		const { error: authError } = await supabase.auth.signUp({
+		const { data: signUpData, error: authError } = await supabase.auth.signUp({
 			email,
 			password,
 			options: {
@@ -59,6 +59,19 @@
 			return;
 		}
 
+		// If email confirmation is required, the session will be null
+		if (!signUpData.session) {
+			// Try to sign in immediately (works if email confirmation is disabled)
+			const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+			if (signInError) {
+				// Email confirmation is likely required
+				error = 'Account created! Please check your email to confirm, then sign in.';
+				mode = 'login';
+				loading = false;
+				return;
+			}
+		}
+
 		// Update profile with additional info
 		const { data: { user } } = await supabase.auth.getUser();
 		if (user) {
@@ -68,7 +81,8 @@
 			}).eq('id', user.id);
 		}
 
-		goto('/catalog');
+		const redirect = $page.url.searchParams.get('redirect') || '/catalog';
+		goto(redirect);
 	}
 
 	function handleSubmit(e: SubmitEvent) {
