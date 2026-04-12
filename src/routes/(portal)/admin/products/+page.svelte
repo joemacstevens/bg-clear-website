@@ -181,7 +181,19 @@
 						<td>
 							<div class="action-btns">
 								<button class="action-btn" onclick={() => editProduct(product)}>Edit</button>
-								<form method="POST" action="?/toggleProduct" use:enhance>
+								<form method="POST" action="?/toggleProduct" use:enhance={() => {
+									const btn = document.activeElement as HTMLButtonElement;
+									const originalText = btn?.textContent ?? '';
+									if (btn) btn.textContent = 'Saving...';
+									return async ({ update, result }) => {
+										if (result.type === 'success') {
+											await update();
+										} else {
+											if (btn) btn.textContent = originalText;
+											alert('Failed to update product status.');
+										}
+									};
+								}}>
 									<input type="hidden" name="id" value={product.id} />
 									<input type="hidden" name="is_active" value={String(product.is_active)} />
 									<button type="submit" class="action-btn">{product.is_active ? 'Disable' : 'Enable'}</button>

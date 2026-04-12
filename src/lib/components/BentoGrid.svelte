@@ -38,8 +38,8 @@
 			subtitle: 'Disciplined logistics',
 			description:
 				'Fast, accurate DME fulfillment supported by disciplined logistics.',
-			cta: 'Contact Us',
-			ctaHref: '#request-call',
+			cta: 'Browse Catalog',
+			ctaHref: '/catalog',
 			bg: 'navy',
 			colSpan: 2,
 			rowSpan: 1
@@ -50,8 +50,8 @@
 			subtitle: 'Dedicated specialists',
 			description:
 				'Dedicated specialists who answer the phone and resolve issues quickly.',
-			cta: 'Contact Us',
-			ctaHref: '#request-call',
+			cta: 'Browse Catalog',
+			ctaHref: '/catalog',
 			bg: 'gold',
 			colSpan: 1,
 			rowSpan: 1
@@ -62,8 +62,8 @@
 			subtitle: 'Compliance standards',
 			description:
 				'Processes aligned with documentation and compliance standards.',
-			cta: 'Contact Us',
-			ctaHref: '#request-call',
+			cta: 'Browse Catalog',
+			ctaHref: '/catalog',
 			bg: 'navy',
 			colSpan: 1,
 			rowSpan: 1

@@ -43,7 +43,7 @@
 		</nav>
 		<div class="header-cta">
 			<a href="tel:+12015550100" class="header-phone">(201) 555-0100</a>
-			<a class="button button-primary button-header" href="/#request-call">Contact Us</a>
+			<a class="button button-primary button-header" href="/catalog">Browse Catalog</a>
 		</div>
 		<button class="hamburger" aria-label="Open menu" aria-expanded={mobileNavOpen} onclick={() => mobileNavOpen = true}>
 			<span class="hamburger-line"></span>
@@ -70,7 +70,7 @@
 	</div>
 	<div class="mobile-nav-footer">
 		<a href="tel:+12015550100" class="mobile-nav-phone">(201) 555-0100</a>
-		<a class="button button-primary" href="/#request-call" onclick={() => mobileNavOpen = false}>Contact Us</a>
+		<a class="button button-primary" href="/catalog" onclick={() => mobileNavOpen = false}>Browse Catalog</a>
 	</div>
 </nav>
 

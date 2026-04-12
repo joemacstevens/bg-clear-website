@@ -636,7 +636,7 @@
 	<title>BG Clear — Durable Medical Equipment Distribution</title>
 	<meta
 		name="description"
-		content="DME distribution for healthcare providers. Compliant equipment, fast fulfillment, and a team that picks up the phone."
+		content="Browse our full DME catalog, request quotes, and order compliant medical equipment — all from your provider portal."
 	/>
 </svelte:head>
 
@@ -661,7 +661,8 @@
 				FAST. COMPLIANT. HUMAN.
 			</p>
 			<div class="hero-ctas hero-ctas-entrance">
-				<a class="hero-btn-gold" href="#request-call">Contact a DME Specialist</a>
+				<a class="hero-btn-gold" href="/catalog">Browse the Catalog</a>
+				<a class="hero-btn-outline" href="#request-call">Talk to a Specialist</a>
 			</div>
 		</div>
 
@@ -858,20 +859,20 @@
 	<section class="section" id="how-we-work">
 		<div class="container reveal" use:revealOnScroll>
 			<p class="eyebrow reveal reveal-eyebrow">How we work</p>
-			<h2>From inquiry to delivery — here's how it works.</h2>
+			<h2>From catalog to delivery — here's how it works.</h2>
 			<div class="process-flow-container">
 				<img class="process-flow-img" src={processWide} alt="Our 4-step process: Consultation, Documentation, Fulfillment, Ongoing support" loading="lazy" />
 			</div>
 			<div class="steps">
 				<article class="step reveal process-step-reveal" use:revealOnScroll style="--step-delay: 0.0s;">
 					<span class="capability-number">01</span>
-					<h3>Consultation &amp; Review</h3>
-					<p>We begin with a brief consultation to understand your workflow, product needs, and compliance requirements. Our team reviews your setup and determines the most efficient path to support your patients.</p>
+					<h3>Browse &amp; Select</h3>
+					<p>Create your free account and explore our full DME catalog. Filter by category, compare products, and add what you need to a quote request — all at your own pace.</p>
 				</article>
 				<article class="step reveal process-step-reveal" use:revealOnScroll style="--step-delay: 0.1s;">
 					<span class="capability-number">02</span>
-					<h3>Documentation &amp; Setup</h3>
-					<p>We coordinate required documentation, onboarding, and account configuration to ensure a compliant and streamlined ordering process.</p>
+					<h3>Request a Quote</h3>
+					<p>Submit your selections through the portal. A dedicated rep reviews your request, provides competitive pricing, and handles all compliance documentation.</p>
 				</article>
 				<article class="step reveal process-step-reveal" use:revealOnScroll style="--step-delay: 0.2s;">
 					<span class="capability-number">03</span>
@@ -892,12 +893,12 @@
 		<div class="container cta-inner reveal" use:revealOnScroll>
 			<div>
 				<p class="eyebrow cta-eyebrow">Start your DME partnership</p>
-				<h2 class="cta-heading">Let's talk about what you need.</h2>
+				<h2 class="cta-heading">See our full catalog — pricing available on request.</h2>
 				<p class="subhead cta-subhead">
-					Fast onboarding &middot; Dedicated support &middot; Responsive service
+					Free account &middot; Instant catalog access &middot; Request quotes online
 				</p>
 			</div>
-			<a class="button button-navy-pop" href="#request-call">Contact a DME Specialist</a>
+			<a class="button button-navy-pop" href="/catalog">Browse the Catalog</a>
 		</div>
 	</section>
 
@@ -935,8 +936,8 @@
 	<section class="section section--dark-navy section--contact">
 		<div class="container request reveal" use:revealOnScroll>
 			<div class="request-intro">
-				<p class="eyebrow reveal reveal-eyebrow">Get in touch</p>
-				<h2>Tell us what you need.</h2>
+				<p class="eyebrow reveal reveal-eyebrow">Ready to talk?</p>
+				<h2>Prefer a conversation? We're here.</h2>
 				<div class="contact-info-row">
 					<a href="mailto:customercare@bgclear.com" class="contact-info-link">
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="20" height="20">
@@ -952,7 +953,7 @@
 					</span>
 				</div>
 				<p class="subhead hero-subhead">
-					Share your equipment requirements and we'll reach out to discuss options and pricing.
+					Have questions before creating an account? Drop us a line and we'll get back to you within 4 business hours.
 				</p>
 			</div>
 
@@ -1025,7 +1026,7 @@
 				</div>
 
 				<button class="button button-primary" type="submit" disabled={status === 'submitting'}>
-					{status === 'submitting' ? 'Sending…' : 'Contact a DME Specialist'}
+					{status === 'submitting' ? 'Sending…' : 'Send Message'}
 				</button>
 				<p class="form-footnote">No obligation • We respond within 4 business hours</p>
 			</form>

@@ -12,8 +12,9 @@
 	// Track quoted prices reactively
 	let quotedPrices = $state<Record<string, number>>({});
 
-	// Initialize from existing data
+	// Initialize from existing data (skip during submission to avoid flash of empty inputs)
 	$effect(() => {
+		if (submitState === 'sending') return;
 		const initial: Record<string, number> = {};
 		for (const item of data.quote.quote_request_items ?? []) {
 			if (item.quoted_price) initial[item.id] = item.quoted_price;
@@ -68,6 +69,10 @@
 	);
 
 	const isOrderable = $derived(data.quote.status === 'quoted');
+
+	const hasItems = $derived((data.quote.quote_request_items ?? []).length > 0);
+
+	let submitState = $state<'idle' | 'sending' | 'sent' | 'error'>('idle');
 </script>
 
 <svelte:head>
@@ -94,7 +99,18 @@
 	</div>
 
 	<!-- Quote Items -->
-	<form method="POST" action="?/updatePrices" use:enhance>
+	<form method="POST" action="?/updatePrices" use:enhance={() => {
+		submitState = 'sending';
+		return async ({ update, result }) => {
+			if (result.type === 'success' && result.data?.success) {
+				submitState = 'sent';
+				await update();
+			} else {
+				submitState = 'error';
+				await update({ reset: false });
+			}
+		};
+	}}>
 		<div class="items-table-wrap">
 			<table class="items-table">
 				<thead>
@@ -144,7 +160,7 @@
 							</td>
 							<td>
 								<span class="guardrail-badge" style="color: {guardrailColors[guardrail]}; background: {guardrailColors[guardrail]}18">
-									{guardrailLabels[guardrail]?.split('—')[0]?.trim() ?? guardrail}
+									{guardrailLabels[guardrail] ?? guardrail}
 								</span>
 							</td>
 						</tr>
@@ -166,9 +182,23 @@
 			</div>
 		{/if}
 
+		{#if submitState === 'sent'}
+			<div class="success-banner">
+				Quote sent to customer successfully. Status has been updated to "Quoted".
+			</div>
+		{:else if submitState === 'error'}
+			<div class="error-banner">
+				Failed to send quote. Please try again.
+			</div>
+		{/if}
+
 		<div class="actions">
-			{#if isQuotable}
-				<button type="submit" class="btn-primary">Send Quote to Customer</button>
+			{#if isQuotable && hasItems}
+				<button type="submit" class="btn-primary" disabled={submitState === 'sending'}>
+					{submitState === 'sending' ? 'Sending...' : 'Send Quote to Customer'}
+				</button>
+			{:else if isQuotable && !hasItems}
+				<p class="empty-warning">This quote has no line items. Items must be added before sending.</p>
 			{/if}
 		</div>
 	</form>
@@ -322,4 +352,33 @@
 	.btn-primary:hover { background: var(--color-primary-dark); }
 	.btn-green { background: #059669; }
 	.btn-green:hover { background: #047857; }
+
+	.success-banner {
+		background: #d1fae5;
+		color: #065f46;
+		padding: var(--space-2) var(--space-3);
+		border-radius: var(--radius-sm);
+		font-size: var(--text-small);
+		font-weight: 500;
+		margin-bottom: var(--space-3);
+	}
+	.error-banner {
+		background: #fee2e2;
+		color: #991b1b;
+		padding: var(--space-2) var(--space-3);
+		border-radius: var(--radius-sm);
+		font-size: var(--text-small);
+		font-weight: 500;
+		margin-bottom: var(--space-3);
+	}
+	.empty-warning {
+		color: var(--color-muted);
+		font-size: var(--text-small);
+		font-style: italic;
+		margin: 0;
+	}
+	.btn-primary:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
 </style>

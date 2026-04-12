@@ -4,9 +4,6 @@
 
 	let scrolled = $state(false);
 	let mobileNavOpen = $state(false);
-	let activeSection = $state('');
-
-	const sectionIds = ['capabilities', 'products', 'how-we-work', 'faq'];
 
 	onMount(() => {
 		const handleScroll = () => {
@@ -16,32 +13,8 @@
 		window.addEventListener('scroll', handleScroll, { passive: true });
 		handleScroll();
 
-		const sectionEls = sectionIds
-			.map((id) => document.getElementById(id))
-			.filter((el): el is HTMLElement => el !== null);
-
-		let observer: IntersectionObserver | null = null;
-
-		if (sectionEls.length > 0) {
-			observer = new IntersectionObserver(
-				(entries) => {
-					for (const entry of entries) {
-						if (entry.isIntersecting) {
-							activeSection = entry.target.id;
-						}
-					}
-				},
-				{ rootMargin: '-40% 0px -55% 0px', threshold: 0 }
-			);
-
-			for (const el of sectionEls) {
-				observer.observe(el);
-			}
-		}
-
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
-			observer?.disconnect();
 		};
 	});
 </script>
@@ -51,11 +24,9 @@
 	<div class="container header-inner">
 		<a href="/"><img class="header-logo is-visible" src={logo} alt="BG Clear" /></a>
 		<nav class="header-nav">
-			<a href="/about">About Us</a>
+			<a href="/#products">Products</a>
+			<a href="/about">About</a>
 			<a href="/blog">Resources</a>
-			<a href="/#products" class:nav-active={activeSection === 'products'}>Products</a>
-			<a href="/#faq" class:nav-active={activeSection === 'faq'}>FAQ</a>
-			<a href="/catalog" class="nav-portal-link">Client Portal</a>
 		</nav>
 		<div class="header-cta">
 			<a href="mailto:customercare@bgclear.com" class="header-icon" aria-label="Email us" title="Email us">
@@ -64,7 +35,7 @@
 				</svg>
 			</a>
 			<a href="tel:+12017657171" class="header-phone">(201) 765-7171</a>
-			<a class="button button-primary button-header" href="/#request-call">Contact Us</a>
+			<a class="button button-primary button-header" href="/catalog">Browse Catalog</a>
 		</div>
 		<button class="hamburger" aria-label="Open menu" aria-expanded={mobileNavOpen} onclick={() => mobileNavOpen = true}>
 			<span class="hamburger-line"></span>
@@ -85,14 +56,12 @@
 	</button>
 	<div class="mobile-nav-links">
 		<a href="/" onclick={() => mobileNavOpen = false}>Home</a>
-		<a href="/about" onclick={() => mobileNavOpen = false}>About Us</a>
-		<a href="/blog" onclick={() => mobileNavOpen = false}>Resources</a>
 		<a href="/#products" onclick={() => mobileNavOpen = false}>Products</a>
-		<a href="/#faq" onclick={() => mobileNavOpen = false}>FAQ</a>
-		<a href="/catalog" onclick={() => mobileNavOpen = false} class="mobile-portal-link">Client Portal</a>
+		<a href="/about" onclick={() => mobileNavOpen = false}>About</a>
+		<a href="/blog" onclick={() => mobileNavOpen = false}>Resources</a>
 	</div>
 	<div class="mobile-nav-footer">
 		<a href="tel:+12017657171" class="mobile-nav-phone">(201) 765-7171</a>
-		<a class="button button-primary" href="/#request-call" onclick={() => mobileNavOpen = false}>Contact Us</a>
+		<a class="button button-primary" href="/catalog" onclick={() => mobileNavOpen = false}>Browse Catalog</a>
 	</div>
 </nav>

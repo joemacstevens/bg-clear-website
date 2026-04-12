@@ -65,8 +65,8 @@
 					{/each}
 				</div>
 				<div class="cat-cta">
-					<p>Need help choosing the right equipment for your practice?</p>
-					<a class="button button-primary" href="/#request-call">Contact a DME Specialist</a>
+					<p>Sign in to browse the full catalog, see detailed specs, and request a quote.</p>
+					<a class="button button-primary" href="/catalog">Browse the Catalog</a>
 				</div>
 			</div>
 		</section>

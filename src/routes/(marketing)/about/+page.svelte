@@ -100,10 +100,10 @@
 				<p class="eyebrow cta-eyebrow">Work with us</p>
 				<h2 class="cta-heading">Ready to streamline your DME supply chain?</h2>
 				<p class="subhead cta-subhead">
-					Tell us about your practice and equipment needs — we'll get back to you with options.
+					Create a free account to browse our full catalog, request quotes, and place orders online.
 				</p>
 			</div>
-			<a class="button button-light" href="/#request-call">Contact a DME Specialist</a>
+			<a class="button button-light" href="/catalog">Browse Our Catalog</a>
 		</div>
 	</section>
 </main>
