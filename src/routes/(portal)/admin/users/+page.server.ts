@@ -2,7 +2,7 @@ import { fail, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { getAllProfiles, changeRole, assignRep } from '$lib/api/profiles';
 import { logAuditEvent } from '$lib/api/audit';
-import { createSupabaseAdminClient } from '$lib/supabase';
+import { createSupabaseAdminClient } from '$lib/server/supabase-admin';
 import type { UserRole } from '$lib/database.types';
 
 export const load: PageServerLoad = async ({ locals }) => {
