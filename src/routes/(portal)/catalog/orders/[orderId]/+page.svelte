@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import StatusBadge from '$lib/components/portal/StatusBadge.svelte';
+	import ProductThumb from '$lib/components/ProductThumb.svelte';
 	import { ORDER_STATUS_LABELS, ORDER_STATUS_COLORS } from '$lib/utils/statuses';
 	import { formatDate, formatCurrency, formatOrderNumber } from '$lib/utils/format';
 
@@ -105,10 +106,18 @@
 			{#each order.order_items ?? [] as item}
 				<div class="table-row">
 					<div class="col-product">
-						<span class="product-name">{item.products?.name ?? 'Unknown'}</span>
-						{#if item.products?.vendor_name}
-							<span class="product-vendor">{item.products.vendor_name}</span>
-						{/if}
+						<ProductThumb
+							imageUrl={item.products?.image_url}
+							name={item.products?.name ?? 'Unknown'}
+							category={item.products?.category}
+							size={48}
+						/>
+						<div class="col-product-info">
+							<span class="product-name">{item.products?.name ?? 'Unknown'}</span>
+							{#if item.products?.vendor_name}
+								<span class="product-vendor">{item.products.vendor_name}</span>
+							{/if}
+						</div>
 					</div>
 					<span class="col-qty">{item.quantity}</span>
 					<span class="col-price">{formatCurrency(item.unit_price)}</span>
@@ -360,6 +369,17 @@
 		padding: var(--space-3);
 		border-top: 1px solid var(--color-border);
 		align-items: center;
+	}
+
+	.col-product {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2);
+		min-width: 0;
+	}
+
+	.col-product-info {
+		min-width: 0;
 	}
 
 	.col-product .product-name {

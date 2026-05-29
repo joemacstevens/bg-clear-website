@@ -1,5 +1,6 @@
 <script>
 	import logo from '$lib/assets/bg-clear-logo-640.png';
+	import { SITE_URL } from '$lib/site-config';
 
 	let { title, date, excerpt, category, author, children } = $props();
 	let mobileNavOpen = $state(false);
@@ -27,7 +28,7 @@
 		"publisher": {
 			"@type": "Organization",
 			"name": "BG Clear LLC",
-			"url": "https://www.bgclear.com"
+			"url": SITE_URL
 		}
 	})}</script>`}
 </svelte:head>

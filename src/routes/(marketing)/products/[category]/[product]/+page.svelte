@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import { SITE_URL } from '$lib/site-config';
 
 	let { data }: { data: PageData } = $props();
 </script>
@@ -17,7 +18,7 @@
 		"category": data.category.title,
 		"offers": {
 			"@type": "Offer",
-			"url": `https://www.bgclear.com/products/${data.categorySlug}/${data.product.slug}`,
+			"url": `${SITE_URL}/products/${data.categorySlug}/${data.product.slug}`,
 			"availability": "https://schema.org/InStock",
 			"seller": { "@type": "Organization", "name": "BG Clear LLC" }
 		}

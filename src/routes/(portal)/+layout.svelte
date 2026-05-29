@@ -3,6 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import type { LayoutData } from './$types';
+	import logo from '$lib/assets/bg-clear-logo-640.png';
 
 	let { data, children }: { data: LayoutData; children: any } = $props();
 	const supabase = createSupabaseBrowserClient();
@@ -30,7 +31,7 @@
 	<nav class="portal-nav">
 		<div class="nav-inner">
 			<a href="/" class="nav-logo">
-				<strong>BG Clear</strong>
+				<img src={logo} alt="BG Clear" class="nav-logo-img" />
 				<span class="nav-badge">{data.profile?.role?.replace('_', ' ') ?? 'Portal'}</span>
 			</a>
 
@@ -85,10 +86,16 @@
 	.nav-logo {
 		display: flex;
 		align-items: center;
-		gap: var(--space-1);
+		gap: var(--space-2);
 		font-family: var(--font-heading);
 		color: var(--color-ink);
 		text-decoration: none;
+	}
+
+	.nav-logo-img {
+		height: 28px;
+		width: auto;
+		display: block;
 	}
 
 	.nav-badge {

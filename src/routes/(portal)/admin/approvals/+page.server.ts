@@ -2,6 +2,7 @@ import { fail, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { logAuditEvent } from '$lib/api/audit';
 import { pushOrderToWoo } from '$lib/server/integrations/woo';
+import { enrichWithNewCustomerFlag } from '$lib/api/customer-rank';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const { data: orders, error } = await locals.supabase
@@ -16,7 +17,9 @@ export const load: PageServerLoad = async ({ locals }) => {
 		return { orders: [] };
 	}
 
-	return { orders };
+	const enriched = await enrichWithNewCustomerFlag(locals.supabase, (orders ?? []) as any);
+
+	return { orders: enriched };
 };
 
 export const actions: Actions = {

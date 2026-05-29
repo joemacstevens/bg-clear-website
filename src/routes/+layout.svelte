@@ -1,23 +1,26 @@
 <script lang="ts">
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
+	import { SITE_URL } from '$lib/site-config';
 
 	let { children } = $props();
+
+	const ogImage = `${SITE_URL}/generated-photos/hero-products.png`;
 </script>
 
 <svelte:head>
 	<title>BG Clear | DME & HME Medical Equipment Distributor</title>
 	<meta name="description" content="Your partner for fast, compliant, and reliable durable medical equipment (DME) and home medical equipment (HME) distribution. Serving healthcare providers nationwide." />
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://www.bgclear.com" />
+	<meta property="og:url" content={SITE_URL} />
 	<meta property="og:title" content="BG Clear | DME & HME Medical Equipment Distributor" />
 	<meta property="og:description" content="Your partner for fast, compliant, and reliable durable medical equipment (DME) and home medical equipment (HME) distribution. Serving healthcare providers nationwide." />
-	<meta property="og:image" content="https://www.bgclear.com/generated-photos/hero-products.png" />
+	<meta property="og:image" content={ogImage} />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="BG Clear | DME & HME Medical Equipment Distributor" />
 	<meta name="twitter:description" content="Your partner for fast, compliant, and reliable durable medical equipment (DME) and home medical equipment (HME) distribution. Serving healthcare providers nationwide." />
-	<meta name="twitter:image" content="https://www.bgclear.com/generated-photos/hero-products.png" />
-	<link rel="canonical" href="https://www.bgclear.com" />
+	<meta name="twitter:image" content={ogImage} />
+	<link rel="canonical" href={SITE_URL} />
 	<link rel="icon" href={favicon} />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
@@ -29,8 +32,8 @@
 		"@context": "https://schema.org",
 		"@type": "MedicalBusiness",
 		"name": "BG Clear LLC",
-		"url": "https://www.bgclear.com",
-		"logo": "https://www.bgclear.com/generated-photos/hero-products.png",
+		"url": SITE_URL,
+		"logo": ogImage,
 		"telephone": "+1-201-765-7171",
 		"email": "customercare@bgclear.com",
 		"address": {

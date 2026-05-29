@@ -45,7 +45,12 @@
 					<div class="quote-left">
 						<StatusBadge status={quote.status} labels={QUOTE_STATUS_LABELS} colors={QUOTE_STATUS_COLORS} />
 						<div class="quote-details">
-							<span class="customer-name">{customer?.company_name || customer?.full_name || 'Unknown Customer'}</span>
+							<div class="customer-row">
+								<span class="customer-name">{customer?.company_name || customer?.full_name || 'Unknown Customer'}</span>
+								{#if (quote as any).isNewCustomer}
+									<span class="new-customer-pill" title="This is the customer's first quote">NEW</span>
+								{/if}
+							</div>
 							<span class="item-count">{quote.quote_request_items?.length ?? 0} items</span>
 						</div>
 					</div>
@@ -104,6 +109,18 @@
 	.quote-left { display: flex; align-items: center; gap: var(--space-2); }
 	.quote-details { display: flex; flex-direction: column; }
 	.customer-name { font-weight: 600; font-size: var(--text-small); }
+	.customer-row { display: flex; align-items: center; gap: 0.5rem; }
+	.new-customer-pill {
+		display: inline-block;
+		padding: 0.1rem 0.5rem;
+		border-radius: var(--radius-pill);
+		background: var(--color-accent, #d4a234);
+		color: white;
+		font-size: 0.6rem;
+		font-weight: 700;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+	}
 	.item-count { font-size: 0.75rem; color: var(--color-muted); }
 	.quote-right { display: flex; align-items: center; gap: var(--space-2); }
 	.quote-date { font-size: var(--text-small); color: var(--color-muted); }

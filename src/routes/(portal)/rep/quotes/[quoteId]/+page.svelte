@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import StatusBadge from '$lib/components/portal/StatusBadge.svelte';
+	import ProductThumb from '$lib/components/ProductThumb.svelte';
 	import { QUOTE_STATUS_LABELS, QUOTE_STATUS_COLORS } from '$lib/utils/statuses';
 	import { formatCurrency, formatDateTime } from '$lib/utils/format';
 	import { categoryLabel } from '$lib/utils/categories';
@@ -132,7 +133,17 @@
 						{@const guardrail = getGuardrail(item.id, pricing)}
 						{@const commission = getCommission(item.id, pricing)}
 						<tr>
-							<td class="product-name">{item.products?.name ?? 'Unknown'}</td>
+							<td class="product-name">
+								<div class="product-cell">
+									<ProductThumb
+										imageUrl={item.products?.image_url}
+										name={item.products?.name ?? 'Unknown'}
+										category={item.products?.category}
+										size={40}
+									/>
+									<span>{item.products?.name ?? 'Unknown'}</span>
+								</div>
+							</td>
 							<td><span class="cat-badge">{categoryLabel(item.products?.category ?? '', true)}</span></td>
 							<td class="center">{item.quantity}</td>
 							<td class="num mono">{pricing ? formatCurrency(pricing.bg_cost) : '—'}</td>
@@ -283,6 +294,11 @@
 		border-top: 2px solid var(--color-border);
 	}
 	.product-name { font-weight: 500; }
+	.product-cell {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
 	.num { text-align: right; }
 	.center { text-align: center; }
 	.mono { font-variant-numeric: tabular-nums; }
