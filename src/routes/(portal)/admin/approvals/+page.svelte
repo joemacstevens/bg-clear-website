@@ -51,6 +51,7 @@
 							<div class="order-meta">
 								<span class="rep-name">Rep: {order.profiles?.full_name || order.profiles?.email || 'Unknown'}</span>
 								<span class="subtotal">Total: {formatCurrency(order.subtotal || 0)}</span>
+								<a href="/admin/orders/{order.id}" class="detail-link" onclick={(e) => e.stopPropagation()}>View detail →</a>
 							</div>
 						</div>
 						<div class="order-toggle">
@@ -249,6 +250,16 @@
 	.subtotal {
 		font-weight: 600;
 		color: var(--color-ink);
+	}
+
+	.detail-link {
+		color: var(--color-primary);
+		font-size: var(--text-small);
+		text-decoration: none;
+		font-weight: 500;
+	}
+	.detail-link:hover {
+		text-decoration: underline;
 	}
 
 	.chevron {

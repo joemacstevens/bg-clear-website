@@ -1,6 +1,7 @@
 import { fail, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { logAuditEvent } from '$lib/api/audit';
+import { pushOrderToWoo } from '$lib/server/integrations/woo';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const { data: orders, error } = await locals.supabase
@@ -48,7 +49,12 @@ export const actions: Actions = {
 			{ notes }
 		);
 
-		return { success: true, action: 'approve' };
+		// Push to WooCommerce for fulfillment. Never throws — failure is
+		// captured on the order row and surfaced on admin/orders/[orderId]
+		// where an admin can hit Retry.
+		const wooResult = await pushOrderToWoo(locals.supabase, orderId, session.user.id);
+
+		return { success: true, action: 'approve', wooSync: wooResult.status };
 	},
 	reject: async ({ request, locals }) => {
 		const session = await locals.safeGetSession();
