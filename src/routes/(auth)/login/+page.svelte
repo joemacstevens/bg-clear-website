@@ -2,6 +2,7 @@
 	import { createSupabaseBrowserClient } from '$lib/supabase';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import logo from '$lib/assets/bg-clear-logo-640.png';
 
 	let email = $state('');
 	let password = $state('');
@@ -99,11 +100,12 @@
 <div class="auth-page">
 	<div class="auth-card">
 		<div class="auth-header">
-			<h1>{mode === 'login' ? 'Sign In' : 'Create Account'}</h1>
+			<img src={logo} alt="BG Clear" class="auth-logo" />
+			<h1>{mode === 'login' ? 'Welcome back' : 'Thank you for your interest in BG Clear'}</h1>
 			<p>
 				{mode === 'login'
-					? 'Access the BG Clear product catalog'
-					: 'Register to view our DME product catalog'}
+					? 'Sign in to access our DME catalog and your quote history.'
+					: 'Create an account to browse our DME catalog and request a quote from your sales representative.'}
 			</p>
 		</div>
 
@@ -180,6 +182,13 @@
 	.auth-header {
 		text-align: center;
 		margin-bottom: var(--space-4);
+	}
+
+	.auth-logo {
+		height: 56px;
+		width: auto;
+		margin: 0 auto var(--space-3);
+		display: block;
 	}
 
 	.auth-header h1 {

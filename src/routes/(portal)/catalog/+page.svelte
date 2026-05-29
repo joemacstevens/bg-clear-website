@@ -4,6 +4,7 @@
 	import { quoteCart } from '$lib/stores/quote-cart';
 	import { toasts } from '$lib/stores/toast';
 	import { categoryLabel } from '$lib/utils/categories';
+	import logo from '$lib/assets/bg-clear-logo-640.png';
 
 	let { data }: { data: PageData } = $props();
 
@@ -42,7 +43,7 @@
 	}
 
 	function addToCart(product: typeof data.products[0]) {
-		quoteCart.addItem(product.id, product.name, product.category);
+		quoteCart.addItem(product.id, product.name, product.category, 1, product.image_url);
 		toasts.success(`${product.name} added to quote cart`);
 	}
 </script>
@@ -52,11 +53,22 @@
 </svelte:head>
 
 <div class="catalog-page">
+	<div class="welcome-hero">
+		<img src={logo} alt="BG Clear" class="welcome-logo" />
+		<div class="welcome-copy">
+			<h2 class="welcome-title">Welcome to the BG Clear catalog</h2>
+			<p class="welcome-sub">
+				Browse our full DME lineup, build a quote, and your sales representative
+				will follow up with pricing within 24 hours.
+			</p>
+		</div>
+	</div>
+
 	<div class="catalog-header">
 		<div class="header-row">
 			<div>
 				<h1>Product Catalog</h1>
-				<p>Browse our durable medical equipment. Select products to request a quote from your sales representative.</p>
+				<p>Select the products you'd like a quote on. Pricing will be provided by your sales representative after review.</p>
 			</div>
 			<a href="/catalog/quote" class="cart-link">
 				Quote Cart
@@ -145,6 +157,52 @@
 <style>
 	.catalog-page {
 		padding-bottom: var(--space-8);
+	}
+
+	.welcome-hero {
+		display: flex;
+		align-items: center;
+		gap: var(--space-4);
+		padding: var(--space-4);
+		margin-bottom: var(--space-4);
+		background: linear-gradient(135deg, var(--color-primary, #1e3a5f), var(--color-primary-dark, #0f2744));
+		border-radius: var(--radius-md);
+		color: #ffffff;
+		box-shadow: var(--shadow-sm);
+	}
+
+	.welcome-logo {
+		height: 48px;
+		width: auto;
+		flex-shrink: 0;
+		filter: brightness(0) invert(1);
+	}
+
+	.welcome-copy {
+		flex: 1;
+	}
+
+	.welcome-title {
+		font-family: var(--font-heading);
+		font-size: 1.25rem;
+		font-weight: 700;
+		margin: 0 0 0.25rem;
+		color: var(--color-accent, #d4a234);
+	}
+
+	.welcome-sub {
+		margin: 0;
+		font-size: var(--text-small);
+		line-height: 1.5;
+		color: rgba(255, 255, 255, 0.85);
+	}
+
+	@media (max-width: 640px) {
+		.welcome-hero {
+			flex-direction: column;
+			text-align: center;
+			gap: var(--space-2);
+		}
 	}
 
 	.catalog-header {

@@ -6,6 +6,7 @@
 	import { categoryLabel } from '$lib/utils/categories';
 	import { goto } from '$app/navigation';
 	import type { CartItem } from '$lib/stores/quote-cart';
+	import ProductThumb from '$lib/components/ProductThumb.svelte';
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 
@@ -56,6 +57,7 @@
 		<div class="cart-items">
 			{#each cartItems as item}
 				<div class="cart-item">
+					<ProductThumb imageUrl={item.imageUrl} name={item.productName} category={item.category} size={56} />
 					<div class="item-info">
 						<span class="item-category">{categoryLabel(item.category, true)}</span>
 						<h3>{item.productName}</h3>
@@ -177,6 +179,11 @@
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-md);
 		gap: var(--space-3);
+	}
+
+	.item-info {
+		flex: 1;
+		min-width: 0;
 	}
 
 	.item-info h3 {

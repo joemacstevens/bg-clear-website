@@ -1,7 +1,8 @@
 import { categories, products } from '$lib/data/products';
+import { SITE_URL } from '$lib/site-config';
 import type { RequestHandler } from './$types';
 
-const BASE = 'https://www.bgclear.com';
+const BASE = SITE_URL;
 
 export const GET: RequestHandler = async () => {
 	// Gather blog post slugs from markdown files

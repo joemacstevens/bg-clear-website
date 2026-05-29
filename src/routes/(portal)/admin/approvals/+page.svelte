@@ -51,6 +51,9 @@
 							<div class="order-meta">
 								<span class="rep-name">Rep: {order.profiles?.full_name || order.profiles?.email || 'Unknown'}</span>
 								<span class="subtotal">Total: {formatCurrency(order.subtotal || 0)}</span>
+								{#if (order as any).isNewCustomer}
+									<span class="new-customer-pill" title="First-time customer">NEW CUSTOMER</span>
+								{/if}
 								<a href="/admin/orders/{order.id}" class="detail-link" onclick={(e) => e.stopPropagation()}>View detail →</a>
 							</div>
 						</div>
@@ -260,6 +263,18 @@
 	}
 	.detail-link:hover {
 		text-decoration: underline;
+	}
+
+	.new-customer-pill {
+		display: inline-block;
+		padding: 0.125rem 0.5rem;
+		border-radius: var(--radius-pill);
+		background: var(--color-accent, #d4a234);
+		color: white;
+		font-size: 0.6rem;
+		font-weight: 700;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
 	}
 
 	.chevron {

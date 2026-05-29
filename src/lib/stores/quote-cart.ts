@@ -6,6 +6,7 @@ export interface CartItem {
 	productName: string;
 	quantity: number;
 	category: string;
+	imageUrl?: string | null;
 }
 
 const STORAGE_KEY = 'bgclear-quote-cart';
@@ -32,14 +33,21 @@ function createQuoteCart() {
 
 	return {
 		subscribe,
-		addItem(productId: string, productName: string, category: string, quantity = 1) {
+		addItem(
+			productId: string,
+			productName: string,
+			category: string,
+			quantity = 1,
+			imageUrl: string | null = null
+		) {
 			update((items) => {
 				const existing = items.find((i) => i.productId === productId);
 				if (existing) {
 					existing.quantity += quantity;
+					if (imageUrl && !existing.imageUrl) existing.imageUrl = imageUrl;
 					return [...items];
 				}
-				return [...items, { productId, productName, quantity, category }];
+				return [...items, { productId, productName, quantity, category, imageUrl }];
 			});
 		},
 		removeItem(productId: string) {
