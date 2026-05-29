@@ -16,6 +16,20 @@
 	];
 
 	const statusIndex = statusTimeline.indexOf(order.status);
+
+	// "Pay Invoice" is shown when the order has cleared approval but no
+	// successful payment has been recorded yet. Status moves to/through
+	// 'approved' → 'placed_with_supplier' → … → 'delivered' on the
+	// fulfillment side, but the invoice can be paid any time after
+	// approval.
+	const canPay = $derived(
+		!order.payment_collected &&
+			order.status !== 'cancelled' &&
+			order.status !== 'quote_requested' &&
+			order.status !== 'quote_sent' &&
+			order.status !== 'customer_accepted' &&
+			order.status !== 'pending_approval'
+	);
 </script>
 
 <svelte:head>
@@ -36,6 +50,23 @@
 			colors={ORDER_STATUS_COLORS}
 		/>
 	</div>
+
+	{#if canPay}
+		<div class="pay-cta">
+			<div>
+				<h3>Pay Invoice</h3>
+				<p>Pay by credit card via our secure Bank of America payment page.</p>
+			</div>
+			<a href="/catalog/orders/{order.id}/pay" class="btn-pay">Pay Invoice →</a>
+		</div>
+	{:else if order.payment_collected}
+		<div class="paid-banner">
+			<span class="checkmark">✓</span> Payment received
+			{#if order.payment_collected_at}
+				on {formatDate(order.payment_collected_at)}
+			{/if}
+		</div>
+	{/if}
 
 	{#if order.status !== 'cancelled' && statusIndex >= 0}
 		<div class="status-timeline">
@@ -134,6 +165,68 @@
 		color: var(--color-muted);
 		font-size: var(--text-small);
 		margin: var(--space-1) 0 0;
+	}
+
+	.pay-cta {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: var(--space-3);
+		padding: var(--space-4);
+		margin-bottom: var(--space-4);
+		background: linear-gradient(135deg, var(--color-accent-light, #ccfbf1), #ffffff);
+		border: 1px solid var(--color-accent, #0d9488);
+		border-radius: var(--radius-md);
+	}
+	.pay-cta h3 {
+		font-family: var(--font-heading);
+		font-size: 1rem;
+		font-weight: 700;
+		margin: 0 0 0.25rem;
+		color: var(--color-ink);
+	}
+	.pay-cta p {
+		margin: 0;
+		color: var(--color-text);
+		font-size: var(--text-small);
+	}
+	.btn-pay {
+		display: inline-block;
+		background: var(--color-accent, #0d9488);
+		color: white;
+		padding: var(--space-2) var(--space-4);
+		border-radius: var(--radius-sm);
+		font-weight: 600;
+		text-decoration: none;
+		white-space: nowrap;
+	}
+	.btn-pay:hover {
+		background: var(--color-primary-dark, #0f2744);
+	}
+
+	.paid-banner {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: var(--space-3) var(--space-4);
+		margin-bottom: var(--space-4);
+		background: #ecfdf5;
+		border: 1px solid #6ee7b7;
+		border-radius: var(--radius-md);
+		color: #065f46;
+		font-weight: 600;
+		font-size: var(--text-small);
+	}
+	.checkmark {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.25rem;
+		height: 1.25rem;
+		background: #059669;
+		color: white;
+		border-radius: 50%;
+		font-size: 0.75rem;
 	}
 
 	.status-timeline {

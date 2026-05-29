@@ -2,6 +2,7 @@ import { error, redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
 import { createOrderFromQuote } from '$lib/api/orders';
 import { computeCommission, isPriceBelowTarget } from '$lib/utils/pricing';
+import { pushOrderToWoo } from '$lib/server/integrations/woo';
 
 export const load: PageServerLoad = async ({ params, locals }) => {
 	// Get quote with items + product pricing
@@ -142,6 +143,12 @@ export const actions: Actions = {
 
 		if (orderErr || !order) {
 			return { success: false, error: (orderErr as any)?.message ?? 'Failed to create order' };
+		}
+
+		// Non-approval orders are immediately `approved` → push to Woo now.
+		// Approval-required orders push later, from the admin approve action.
+		if (!requiresApproval) {
+			await pushOrderToWoo(locals.supabase, order.id, profile.id);
 		}
 
 		throw redirect(303, `/rep/orders/${order.id}`);

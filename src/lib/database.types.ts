@@ -94,6 +94,10 @@ export interface QuoteRequestItem {
 	created_at: string;
 }
 
+export type WooSyncStatus = 'not_synced' | 'in_progress' | 'synced' | 'failed';
+export type PaymentLifecycleStatus = 'initiated' | 'completed' | 'failed';
+export type CybersourceDecision = 'ACCEPT' | 'DECLINE' | 'REVIEW' | 'ERROR' | 'CANCEL';
+
 export interface Order {
 	id: string;
 	order_number: string;
@@ -111,8 +115,32 @@ export interface Order {
 	payment_collected: boolean;
 	payment_collected_at: string | null;
 	notes: string | null;
+	// WooCommerce export tracking (added 2026-04-11 migration 000012)
+	woo_order_id: string | null;
+	woo_synced_at: string | null;
+	woo_sync_status: WooSyncStatus;
+	woo_sync_attempts: number;
+	woo_last_attempt_at: string | null;
+	woo_sync_error: string | null;
 	created_at: string;
 	updated_at: string;
+}
+
+export interface Payment {
+	id: string;
+	order_id: string;
+	cybersource_transaction_id: string | null;
+	amount_cents: number;
+	currency: string;
+	status: PaymentLifecycleStatus;
+	decision: CybersourceDecision | null;
+	decision_at: string | null;
+	reason_code: string | null;
+	auth_code: string | null;
+	card_last_four: string | null;
+	card_brand: string | null;
+	raw_response: Record<string, unknown> | null;
+	created_at: string;
 }
 
 export interface OrderItem {
@@ -139,6 +167,7 @@ export interface Database {
 			quote_request_items: { Row: QuoteRequestItem; Insert: Partial<QuoteRequestItem>; Update: Partial<QuoteRequestItem> };
 			orders: { Row: Order; Insert: Partial<Order>; Update: Partial<Order> };
 			order_items: { Row: OrderItem; Insert: Partial<OrderItem>; Update: Partial<OrderItem> };
+			payments: { Row: Payment; Insert: Partial<Payment> & { order_id: string; amount_cents: number }; Update: Partial<Payment> };
 		};
 		Views: {
 			product_pricing: { Row: ProductPricing };
