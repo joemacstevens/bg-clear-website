@@ -1,5 +1,74 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database, OrderStatus } from '$lib/database.types';
+import { computeCommission, isPriceBelowTarget } from '$lib/utils/pricing';
+
+export interface BuiltOrderItem {
+	productId: string;
+	quantity: number;
+	unitPrice: number;
+	vendorCost: number;
+	bgCost: number;
+	targetPrice: number;
+	commissionAmount: number;
+}
+
+/**
+ * Reconstruct order line items from a quote's current items + live pricing.
+ * Used by both the rep's direct create-order action and the customer's
+ * accept-quote action so the commission / approval logic lives in one place.
+ */
+export async function buildOrderItemsFromQuote(supabase: SupabaseClient<Database>, quoteId: string) {
+	const { data: quote, error: quoteErr } = await supabase
+		.from('quote_requests')
+		.select('*, quote_request_items(*, products(id))')
+		.eq('id', quoteId)
+		.single();
+
+	if (quoteErr || !quote) {
+		return { quote: null, orderItems: [] as BuiltOrderItem[], requiresApproval: false, error: quoteErr ?? { message: 'Quote not found' } };
+	}
+
+	const productIds = (quote.quote_request_items ?? [])
+		.map((item: any) => item.products?.id)
+		.filter(Boolean);
+
+	const { data: pricing } = await supabase
+		.from('product_pricing')
+		.select('id, bg_cost, target_price, suggested_price, vendor_cost, commission_at_target_pct, commission_above_target_pct')
+		.in('id', productIds.length ? productIds : ['none']);
+
+	const pricingMap = new Map((pricing ?? []).map((p: any) => [p.id, p]));
+
+	let requiresApproval = false;
+	const orderItems: BuiltOrderItem[] = [];
+
+	for (const item of (quote.quote_request_items ?? []) as any[]) {
+		const p = pricingMap.get(item.products?.id);
+		if (!p || !item.quoted_price) continue;
+
+		if (isPriceBelowTarget(item.quoted_price, p.target_price)) requiresApproval = true;
+
+		const commissionAmount = computeCommission(
+			item.quoted_price,
+			p.bg_cost,
+			p.target_price,
+			p.commission_at_target_pct,
+			p.commission_above_target_pct
+		);
+
+		orderItems.push({
+			productId: item.products.id,
+			quantity: item.quantity,
+			unitPrice: item.quoted_price,
+			vendorCost: p.vendor_cost,
+			bgCost: p.bg_cost,
+			targetPrice: p.target_price,
+			commissionAmount
+		});
+	}
+
+	return { quote, orderItems, requiresApproval, error: null };
+}
 
 export async function getOrders(supabase: SupabaseClient<Database>, filters: { customerId?: string; repId?: string; status?: OrderStatus } = {}) {
 	let query = supabase

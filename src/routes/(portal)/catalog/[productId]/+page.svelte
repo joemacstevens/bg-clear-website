@@ -15,7 +15,7 @@
 	const inCart = $derived(cartItems.some((i) => i.productId === product.id));
 
 	function addToCart() {
-		quoteCart.addItem(product.id, product.name, product.category, quantity);
+		quoteCart.addItem(product.id, product.name, product.category, quantity, product.image_url);
 		toasts.success(`${product.name} added to quote cart`);
 	}
 </script>

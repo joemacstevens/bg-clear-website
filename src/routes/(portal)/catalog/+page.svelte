@@ -42,7 +42,7 @@
 	}
 
 	function addToCart(product: typeof data.products[0]) {
-		quoteCart.addItem(product.id, product.name, product.category);
+		quoteCart.addItem(product.id, product.name, product.category, 1, product.image_url);
 		toasts.success(`${product.name} added to quote cart`);
 	}
 </script>

@@ -56,6 +56,11 @@
 		<div class="cart-items">
 			{#each cartItems as item}
 				<div class="cart-item">
+					{#if item.imageUrl}
+						<img class="item-thumb" src={item.imageUrl} alt={item.productName} />
+					{:else}
+						<div class="item-thumb item-thumb-placeholder" aria-hidden="true"></div>
+					{/if}
 					<div class="item-info">
 						<span class="item-category">{categoryLabel(item.category, true)}</span>
 						<h3>{item.productName}</h3>
@@ -177,6 +182,24 @@
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-md);
 		gap: var(--space-3);
+	}
+
+	.item-thumb {
+		width: 52px;
+		height: 52px;
+		border-radius: var(--radius-sm);
+		object-fit: cover;
+		background: var(--color-border-subtle);
+		flex-shrink: 0;
+	}
+
+	.item-thumb-placeholder {
+		border: 1px dashed var(--color-border);
+	}
+
+	.item-info {
+		flex: 1;
+		min-width: 0;
 	}
 
 	.item-info h3 {

@@ -1,7 +1,9 @@
 import { error, redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
-import { createOrderFromQuote } from '$lib/api/orders';
-import { computeCommission, isPriceBelowTarget } from '$lib/utils/pricing';
+import { env } from '$env/dynamic/private';
+import { createOrderFromQuote, buildOrderItemsFromQuote } from '$lib/api/orders';
+import { createSupabaseAdminClient } from '$lib/server/supabase-admin';
+import { notifyQuoteReady } from '$lib/server/email';
 
 export const load: PageServerLoad = async ({ params, locals }) => {
 	// Get quote with items + product pricing
@@ -45,7 +47,8 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 };
 
 export const actions: Actions = {
-	updatePrices: async ({ request, locals, params }) => {
+	updatePrices: async ({ request, locals, params, url }) => {
+		const { profile } = await locals.safeGetSession();
 		const form = await request.formData();
 		const itemIds = form.getAll('item_id') as string[];
 		const prices = form.getAll('quoted_price') as string[];
@@ -63,10 +66,15 @@ export const actions: Actions = {
 			}
 		}
 
-		// Update quote status to 'quoted'
+		// Mark quoted and record the pricing rep as the assigned rep — the rep
+		// who quotes the price owns the quote (and the resulting commission).
+		// This ensures customer acceptance always has a rep to attribute the order to.
+		const statusUpdate: { status: string; assigned_rep_id?: string } = { status: 'quoted' };
+		if (profile?.id) statusUpdate.assigned_rep_id = profile.id;
+
 		const { error: statusErr } = await locals.supabase
 			.from('quote_requests')
-			.update({ status: 'quoted' })
+			.update(statusUpdate)
 			.eq('id', params.quoteId);
 
 		if (statusErr) errors.push(`Status update failed: ${statusErr.message}`);
@@ -75,60 +83,41 @@ export const actions: Actions = {
 			return { success: false, error: errors.join('; ') };
 		}
 
+		// Notify the customer that their quote is priced and ready. Fire-and-forget.
+		try {
+			const admin = createSupabaseAdminClient();
+			const { data: q } = await admin
+				.from('quote_requests')
+				.select('customer:profiles!quote_requests_customer_id_fkey(email, full_name, company_name)')
+				.eq('id', params.quoteId)
+				.single();
+			const customer = (q as any)?.customer;
+			if (customer?.email) {
+				await notifyQuoteReady({
+					to: customer.email,
+					origin: url.origin,
+					quoteId: params.quoteId,
+					customerName: customer.full_name || customer.company_name || 'there'
+				});
+			}
+		} catch (e) {
+			console.error('[notify] quote-ready email failed', e);
+		}
+
 		return { success: true };
 	},
 
-	createOrder: async ({ request, locals, params }) => {
+	createOrder: async ({ locals, params }) => {
 		const { profile } = await locals.safeGetSession();
 		if (!profile) return { success: false, error: 'Not authenticated' };
 
-		// Get the quote with items and pricing
-		const { data: quote } = await locals.supabase
-			.from('quote_requests')
-			.select('*, quote_request_items(*, products(id))')
-			.eq('id', params.quoteId)
-			.single();
+		const { quote, orderItems, requiresApproval, error: buildErr } = await buildOrderItemsFromQuote(
+			locals.supabase,
+			params.quoteId
+		);
 
-		if (!quote) return { success: false, error: 'Quote not found' };
-
-		// Get pricing for all products (including commission rate percentages)
-		const productIds = quote.quote_request_items
-			?.map((item: any) => item.products?.id)
-			.filter(Boolean) ?? [];
-
-		const { data: pricing } = await locals.supabase
-			.from('product_pricing')
-			.select('id, bg_cost, target_price, suggested_price, vendor_cost, commission_at_target_pct, commission_above_target_pct')
-			.in('id', productIds);
-
-		const pricingMap = new Map((pricing ?? []).map((p: any) => [p.id, p]));
-
-		let requiresApproval = false;
-		const orderItems = [];
-
-		for (const item of (quote.quote_request_items ?? []) as any[]) {
-			const p = pricingMap.get(item.products?.id);
-			if (!p || !item.quoted_price) continue;
-
-			if (isPriceBelowTarget(item.quoted_price, p.target_price)) requiresApproval = true;
-
-			const commissionAmount = computeCommission(
-				item.quoted_price,
-				p.bg_cost,
-				p.target_price,
-				p.commission_at_target_pct,
-				p.commission_above_target_pct
-			);
-
-			orderItems.push({
-				productId: item.products.id,
-				quantity: item.quantity,
-				unitPrice: item.quoted_price,
-				vendorCost: p.vendor_cost,
-				bgCost: p.bg_cost,
-				targetPrice: p.target_price,
-				commissionAmount
-			});
+		if (buildErr || !quote) {
+			return { success: false, error: (buildErr as any)?.message ?? 'Quote not found' };
 		}
 
 		const { data: order, error: orderErr } = await createOrderFromQuote(
