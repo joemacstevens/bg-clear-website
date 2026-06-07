@@ -14,6 +14,9 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 	return { order };
 };
 
+// Statuses where an unpaid order can still be paid (must match the order page UI).
+const PAYABLE = ['approved', 'placed_with_supplier', 'shipped', 'delivered'];
+
 export const actions: Actions = {
 	// Hand off to WooCommerce for payment. Creates (or re-uses) a pending Woo
 	// order from this BG Clear order and redirects to the Woo/CyberSource pay page.
@@ -32,7 +35,7 @@ export const actions: Actions = {
 		if (orderErr || !order) return fail(404, { error: 'Order not found' });
 		if (order.customer_id !== profile.id) return fail(403, { error: 'Not your order' });
 		if (order.payment_collected) return fail(400, { error: 'This order is already paid' });
-		if (order.status !== 'approved') {
+		if (!PAYABLE.includes(order.status)) {
 			return fail(400, { error: 'This order is not ready for payment yet.' });
 		}
 
