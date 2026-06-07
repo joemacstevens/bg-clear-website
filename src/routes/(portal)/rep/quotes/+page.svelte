@@ -31,6 +31,22 @@
 <div class="quotes-page">
 	<h1>Quote Requests</h1>
 
+	{#if canAssign && unassignedCount > 0}
+		<div class="triage-banner" role="alert">
+			<div>
+				<strong>{unassignedCount} quote{unassignedCount === 1 ? '' : 's'} need{unassignedCount === 1 ? 's' : ''} a rep assigned.</strong>
+				<span>Route them to a rep so they can be priced and sent.</span>
+			</div>
+			<button
+				class="triage-btn"
+				class:active={showUnassignedOnly}
+				onclick={() => (showUnassignedOnly = !showUnassignedOnly)}
+			>
+				{showUnassignedOnly ? 'Show all' : 'Review unassigned'}
+			</button>
+		</div>
+	{/if}
+
 	<div class="controls">
 		<div class="filter-pills">
 			<button class="pill" class:active={!statusFilter} onclick={() => (statusFilter = '')}>
@@ -162,6 +178,45 @@
 		color: white;
 		border-color: var(--color-primary);
 	}
+	.triage-banner {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: var(--space-3);
+		padding: var(--space-3) var(--space-4);
+		margin-bottom: var(--space-3);
+		background: #fef3c7;
+		border: 1px solid #fcd34d;
+		border-left: 4px solid var(--color-accent);
+		border-radius: var(--radius-md);
+		flex-wrap: wrap;
+	}
+	.triage-banner strong {
+		color: #92400e;
+		font-size: var(--text-small);
+		display: block;
+	}
+	.triage-banner span {
+		color: #92400e;
+		font-size: 0.75rem;
+		opacity: 0.85;
+	}
+	.triage-btn {
+		flex-shrink: 0;
+		padding: 0.4rem 0.9rem;
+		border-radius: var(--radius-pill);
+		font-size: 0.75rem;
+		font-weight: 600;
+		border: none;
+		background: var(--color-accent);
+		color: var(--color-ink);
+		cursor: pointer;
+	}
+	.triage-btn.active {
+		background: var(--color-ink);
+		color: #fff;
+	}
+
 	.pill-unassigned {
 		color: var(--color-accent);
 	}

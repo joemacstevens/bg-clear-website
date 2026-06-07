@@ -1,12 +1,13 @@
-import { error, redirect } from '@sveltejs/kit';
+import { error, redirect, fail } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
 import { env } from '$env/dynamic/private';
 import { createOrderFromQuote, buildOrderItemsFromQuote } from '$lib/api/orders';
 import { createSupabaseAdminClient } from '$lib/server/supabase-admin';
 import { notifyQuoteReady } from '$lib/server/email';
 
+const EDITABLE = ['pending', 'in_progress', 'quoted'];
+
 export const load: PageServerLoad = async ({ params, locals }) => {
-	// Get quote with items + product pricing
 	const { data: quote, error: quoteErr } = await locals.supabase
 		.from('quote_requests')
 		.select(`
@@ -22,17 +23,14 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 	if (quoteErr || !quote) throw error(404, 'Quote not found');
 
-	// Get pricing data for the products in this quote
-	const productIds = quote.quote_request_items
-		?.map((item: any) => item.products?.id)
-		.filter(Boolean) ?? [];
-
+	// Full pricing catalog: powers both the line-item guardrails and the
+	// "add item" picker.
 	const { data: pricing } = await locals.supabase
 		.from('product_pricing')
 		.select('id, name, category, vendor_name, image_url, bg_cost, target_price, suggested_price, commission_at_target, commission_at_suggested')
-		.in('id', productIds.length ? productIds : ['none']);
+		.order('category')
+		.order('name');
 
-	// Merge pricing into items
 	const pricingMap = new Map((pricing ?? []).map((p) => [p.id, p]));
 
 	const itemsWithPricing = (quote.quote_request_items ?? []).map((item: any) => ({
@@ -40,52 +38,83 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		pricing: item.products ? pricingMap.get(item.products.id) ?? null : null
 	}));
 
+	// Products available to add (everything in the catalog; the rep can dedupe by eye).
+	const catalog = (pricing ?? []).map((p) => ({ id: p.id, name: p.name, category: p.category }));
+
 	return {
 		quote: { ...quote, quote_request_items: itemsWithPricing },
-		customer: (quote as any).profiles
+		customer: (quote as any).profiles,
+		catalog
 	};
 };
 
-export const actions: Actions = {
-	updatePrices: async ({ request, locals, params, url }) => {
-		const { profile } = await locals.safeGetSession();
-		const form = await request.formData();
-		const itemIds = form.getAll('item_id') as string[];
-		const prices = form.getAll('quoted_price') as string[];
+/** Guard: quote exists and is in an editable state. Returns the quote or a fail. */
+async function loadEditable(locals: App.Locals, quoteId: string) {
+	const { profile } = await locals.safeGetSession();
+	if (!profile || !['sales_rep', 'manager', 'admin'].includes(profile.role ?? '')) {
+		return { fail: fail(403, { error: 'Not allowed' }) } as const;
+	}
+	const { data: quote } = await locals.supabase
+		.from('quote_requests')
+		.select('id, status, customer_id, assigned_rep_id')
+		.eq('id', quoteId)
+		.single();
+	if (!quote) return { fail: fail(404, { error: 'Quote not found' }) } as const;
+	if (!EDITABLE.includes(quote.status)) {
+		return { fail: fail(400, { error: `A ${quote.status} quote can no longer be edited` }) } as const;
+	}
+	return { profile, quote } as const;
+}
 
-		const errors: string[] = [];
+/** Save price + quantity for every line on the quote (from the editor grid). */
+async function persistLines(admin: ReturnType<typeof createSupabaseAdminClient>, form: FormData, quoteId: string) {
+	const itemIds = form.getAll('item_id') as string[];
+	const prices = form.getAll('quoted_price') as string[];
+	const quantities = form.getAll('quantity') as string[];
 
-		for (let i = 0; i < itemIds.length; i++) {
-			const price = parseFloat(prices[i]);
-			if (!isNaN(price) && price > 0) {
-				const { error: itemErr } = await locals.supabase
-					.from('quote_request_items')
-					.update({ quoted_price: price })
-					.eq('id', itemIds[i]);
-				if (itemErr) errors.push(`Item update failed: ${itemErr.message}`);
-			}
+	for (let i = 0; i < itemIds.length; i++) {
+		const patch: { quoted_price?: number; quantity?: number } = {};
+		const price = parseFloat(prices[i]);
+		if (!isNaN(price) && price > 0) patch.quoted_price = price;
+		const qty = Math.max(1, Math.floor(Number(quantities[i])));
+		if (Number.isFinite(qty)) patch.quantity = qty;
+		if (Object.keys(patch).length) {
+			await admin.from('quote_request_items').update(patch).eq('id', itemIds[i]).eq('quote_request_id', quoteId);
 		}
+	}
+}
 
-		// Mark quoted and record the pricing rep as the assigned rep — the rep
-		// who quotes the price owns the quote (and the resulting commission).
-		// This ensures customer acceptance always has a rep to attribute the order to.
-		const statusUpdate: { status: string; assigned_rep_id?: string } = { status: 'quoted' };
-		if (profile?.id) statusUpdate.assigned_rep_id = profile.id;
+export const actions: Actions = {
+	// Save prices + quantities without sending.
+	saveQuote: async ({ request, locals, params }) => {
+		const guard = await loadEditable(locals, params.quoteId);
+		if ('fail' in guard) return guard.fail;
+		const admin = createSupabaseAdminClient();
+		await persistLines(admin, await request.formData(), params.quoteId);
+		return { success: true, saved: true };
+	},
 
-		const { error: statusErr } = await locals.supabase
+	// Save + mark 'quoted' + assign the pricing rep + email the customer.
+	sendQuote: async ({ request, locals, params, url }) => {
+		const guard = await loadEditable(locals, params.quoteId);
+		if ('fail' in guard) return guard.fail;
+		const { profile } = guard;
+		const admin = createSupabaseAdminClient();
+
+		await persistLines(admin, await request.formData(), params.quoteId);
+
+		await admin
+			.from('quote_request_items')
+			.select('id', { count: 'exact', head: true })
+			.eq('quote_request_id', params.quoteId);
+
+		await admin
 			.from('quote_requests')
-			.update(statusUpdate)
+			.update({ status: 'quoted', assigned_rep_id: profile.id })
 			.eq('id', params.quoteId);
 
-		if (statusErr) errors.push(`Status update failed: ${statusErr.message}`);
-
-		if (errors.length > 0) {
-			return { success: false, error: errors.join('; ') };
-		}
-
-		// Notify the customer that their quote is priced and ready. Fire-and-forget.
+		// Notify the customer their quote is ready (fire-and-forget).
 		try {
-			const admin = createSupabaseAdminClient();
 			const { data: q } = await admin
 				.from('quote_requests')
 				.select('customer:profiles!quote_requests_customer_id_fkey(email, full_name, company_name)')
@@ -104,21 +133,54 @@ export const actions: Actions = {
 			console.error('[notify] quote-ready email failed', e);
 		}
 
-		return { success: true };
+		return { success: true, sent: true };
 	},
 
+	// Add a catalog product to the quote.
+	addItem: async ({ request, locals, params }) => {
+		const guard = await loadEditable(locals, params.quoteId);
+		if ('fail' in guard) return guard.fail;
+		const form = await request.formData();
+		const productId = String(form.get('product_id') ?? '');
+		const quantity = Math.max(1, Math.floor(Number(form.get('add_quantity')) || 1));
+		if (!productId) return fail(400, { error: 'Pick a product to add' });
+
+		const admin = createSupabaseAdminClient();
+		const { error: insErr } = await admin
+			.from('quote_request_items')
+			.insert({ quote_request_id: params.quoteId, product_id: productId, quantity });
+		if (insErr) return fail(500, { error: insErr.message });
+		return { success: true, added: true };
+	},
+
+	// Remove a line from the quote.
+	removeItem: async ({ request, locals, params }) => {
+		const guard = await loadEditable(locals, params.quoteId);
+		if ('fail' in guard) return guard.fail;
+		const form = await request.formData();
+		const itemId = String(form.get('remove_item_id') ?? '');
+		if (!itemId) return fail(400, { error: 'Missing item' });
+
+		const admin = createSupabaseAdminClient();
+		const { error: delErr } = await admin
+			.from('quote_request_items')
+			.delete()
+			.eq('id', itemId)
+			.eq('quote_request_id', params.quoteId);
+		if (delErr) return fail(500, { error: delErr.message });
+		return { success: true, removed: true };
+	},
+
+	// Rep creates the order directly (in-person close).
 	createOrder: async ({ locals, params }) => {
 		const { profile } = await locals.safeGetSession();
-		if (!profile) return { success: false, error: 'Not authenticated' };
+		if (!profile) return fail(401, { error: 'Not authenticated' });
 
 		const { quote, orderItems, requiresApproval, error: buildErr } = await buildOrderItemsFromQuote(
 			locals.supabase,
 			params.quoteId
 		);
-
-		if (buildErr || !quote) {
-			return { success: false, error: (buildErr as any)?.message ?? 'Quote not found' };
-		}
+		if (buildErr || !quote) return fail(500, { error: (buildErr as any)?.message ?? 'Quote not found' });
 
 		const { data: order, error: orderErr } = await createOrderFromQuote(
 			locals.supabase,
@@ -128,10 +190,7 @@ export const actions: Actions = {
 			orderItems,
 			requiresApproval
 		);
-
-		if (orderErr || !order) {
-			return { success: false, error: (orderErr as any)?.message ?? 'Failed to create order' };
-		}
+		if (orderErr || !order) return fail(500, { error: (orderErr as any)?.message ?? 'Failed to create order' });
 
 		throw redirect(303, `/rep/orders/${order.id}`);
 	}
