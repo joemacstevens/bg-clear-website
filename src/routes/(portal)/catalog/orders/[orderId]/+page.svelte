@@ -1,11 +1,19 @@
 <script lang="ts">
-	import type { PageData } from './$types';
+	import type { PageData, ActionData } from './$types';
+	import { enhance, applyAction } from '$app/forms';
 	import StatusBadge from '$lib/components/portal/StatusBadge.svelte';
 	import { ORDER_STATUS_LABELS, ORDER_STATUS_COLORS } from '$lib/utils/statuses';
 	import { formatDate, formatCurrency, formatOrderNumber } from '$lib/utils/format';
 
-	let { data }: { data: PageData } = $props();
-	const order = data.order;
+	let { data, form }: { data: PageData; form: ActionData } = $props();
+	const order = $derived(data.order);
+
+	// Payment state for the WooCommerce/CyberSource handoff.
+	const isPaid = $derived(order.payment_collected || order.status === 'payment_collected');
+	const canPay = $derived(order.status === 'approved' && !order.payment_collected);
+	const awaitingApproval = $derived(order.status === 'pending_approval');
+
+	let paying = $state(false);
 
 	const statusTimeline = [
 		'approved',
@@ -94,6 +102,44 @@
 				<strong>{formatCurrency(order.subtotal)}</strong>
 			</div>
 		</div>
+	{/if}
+
+	{#if form?.error}
+		<div class="form-error">{form.error}</div>
+	{/if}
+
+	{#if isPaid}
+		<div class="pay-card pay-paid">
+			<span class="pay-check">✓</span> Payment received — your order is being processed.
+		</div>
+	{:else if awaitingApproval}
+		<div class="pay-card pay-pending">
+			This order is awaiting manager approval. You'll be able to pay once it's approved.
+		</div>
+	{:else if canPay}
+		<form
+			method="POST"
+			action="?/payNow"
+			class="pay-form"
+			use:enhance={() => {
+				paying = true;
+				return async ({ result }) => {
+					// The pay URL is on the Woo store (external origin) — do a full
+					// browser navigation, since SvelteKit's goto() is same-origin only.
+					if (result.type === 'redirect') {
+						window.location.href = result.location;
+						return;
+					}
+					await applyAction(result);
+					paying = false;
+				};
+			}}
+		>
+			<button class="pay-btn" type="submit" disabled={paying}>
+				{paying ? 'Connecting to secure checkout…' : 'Continue to Payment'}
+			</button>
+			<p class="pay-note">You'll be taken to our secure payment page to complete your order.</p>
+		</form>
 	{/if}
 </div>
 
@@ -313,6 +359,69 @@
 
 	.total-row strong {
 		color: var(--color-ink);
+	}
+
+	.form-error {
+		margin-top: var(--space-3);
+		padding: var(--space-3) var(--space-4);
+		background: #fdecea;
+		color: #b3261e;
+		border: 1px solid #f5c2c0;
+		border-radius: var(--radius-md);
+		font-size: var(--text-small);
+	}
+
+	.pay-form {
+		margin-top: var(--space-4);
+		text-align: center;
+	}
+
+	.pay-btn {
+		width: 100%;
+		padding: var(--space-3) var(--space-4);
+		background: var(--color-accent);
+		color: var(--color-ink);
+		border: none;
+		border-radius: var(--radius-pill);
+		font-family: var(--font-heading);
+		font-size: 1rem;
+		font-weight: 700;
+		cursor: pointer;
+	}
+
+	.pay-btn:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	.pay-note {
+		margin: var(--space-2) 0 0;
+		font-size: 0.75rem;
+		color: var(--color-muted);
+	}
+
+	.pay-card {
+		margin-top: var(--space-4);
+		padding: var(--space-3) var(--space-4);
+		border-radius: var(--radius-md);
+		font-size: var(--text-small);
+		line-height: 1.5;
+	}
+
+	.pay-paid {
+		background: #e6f4ea;
+		color: #1e7e34;
+		border: 1px solid #b7dfc2;
+	}
+
+	.pay-check {
+		font-weight: 700;
+	}
+
+	.pay-pending {
+		background: var(--color-border-subtle);
+		color: var(--color-text);
+		border: 1px solid var(--color-border);
 	}
 
 	@media (max-width: 640px) {

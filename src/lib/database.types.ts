@@ -108,6 +108,7 @@ export interface Order {
 	approval_notes: string | null;
 	supplier_order_ref: string | null;
 	tracking_number: string | null;
+	woo_order_id: string | null;
 	payment_collected: boolean;
 	payment_collected_at: string | null;
 	notes: string | null;
