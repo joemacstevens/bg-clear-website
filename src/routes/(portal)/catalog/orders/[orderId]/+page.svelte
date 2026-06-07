@@ -7,6 +7,12 @@
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 	const order = $derived(data.order);
+	const items = $derived(order.order_items ?? []);
+	const itemCount = $derived(items.reduce((n: number, i: any) => n + (i.quantity ?? 0), 0));
+	const computedTotal = $derived(
+		items.reduce((s: number, i: any) => s + (i.unit_price ?? 0) * (i.quantity ?? 0), 0)
+	);
+	const orderTotal = $derived(order.subtotal != null ? order.subtotal : computedTotal);
 
 	// Payment state for the WooCommerce/CyberSource handoff.
 	const PAYABLE = ['approved', 'placed_with_supplier', 'shipped', 'delivered'];
@@ -83,10 +89,17 @@
 			{#each order.order_items ?? [] as item}
 				<div class="table-row">
 					<div class="col-product">
-						<span class="product-name">{item.products?.name ?? 'Unknown'}</span>
-						{#if item.products?.vendor_name}
-							<span class="product-vendor">{item.products.vendor_name}</span>
+						{#if item.products?.image_url}
+							<img class="thumb" src={item.products.image_url} alt={item.products?.name ?? ''} />
+						{:else}
+							<div class="thumb thumb-placeholder" aria-hidden="true"></div>
 						{/if}
+						<span class="product-info">
+							<span class="product-name">{item.products?.name ?? 'Unknown'}</span>
+							{#if item.products?.vendor_name}
+								<span class="product-vendor">{item.products.vendor_name}</span>
+							{/if}
+						</span>
 					</div>
 					<span class="col-qty">{item.quantity}</span>
 					<span class="col-price">{formatCurrency(item.unit_price)}</span>
@@ -96,14 +109,16 @@
 		</div>
 	</div>
 
-	{#if order.subtotal != null}
-		<div class="order-total">
-			<div class="total-row">
-				<span>Order Total</span>
-				<strong>{formatCurrency(order.subtotal)}</strong>
-			</div>
+	<div class="order-total">
+		<div class="total-row total-sub">
+			<span>Subtotal ({itemCount} item{itemCount !== 1 ? 's' : ''})</span>
+			<span>{formatCurrency(orderTotal)}</span>
 		</div>
-	{/if}
+		<div class="total-row total-grand">
+			<span>Order Total</span>
+			<strong>{formatCurrency(orderTotal)}</strong>
+		</div>
+	</div>
 
 	{#if form?.error}
 		<div class="form-error">{form.error}</div>
@@ -316,6 +331,32 @@
 		align-items: center;
 	}
 
+	.col-product {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2);
+		min-width: 0;
+	}
+
+	.thumb {
+		width: 44px;
+		height: 44px;
+		border-radius: var(--radius-sm);
+		object-fit: cover;
+		background: var(--color-border-subtle);
+		flex-shrink: 0;
+	}
+
+	.thumb-placeholder {
+		border: 1px dashed var(--color-border);
+	}
+
+	.product-info {
+		display: flex;
+		flex-direction: column;
+		min-width: 0;
+	}
+
 	.col-product .product-name {
 		font-weight: 600;
 		color: var(--color-ink);
@@ -351,14 +392,29 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		font-size: 1.125rem;
 	}
 
-	.total-row span {
+	.total-sub {
+		font-size: var(--text-small);
+		color: var(--color-muted);
+		padding-bottom: var(--space-2);
+	}
+
+	.total-sub span {
 		color: var(--color-muted);
 	}
 
-	.total-row strong {
+	.total-grand {
+		font-size: 1.125rem;
+		padding-top: var(--space-2);
+		border-top: 1px solid var(--color-border);
+	}
+
+	.total-grand span {
+		color: var(--color-muted);
+	}
+
+	.total-grand strong {
 		color: var(--color-ink);
 	}
 
