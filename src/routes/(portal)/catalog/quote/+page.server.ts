@@ -1,6 +1,9 @@
 import type { PageServerLoad, Actions } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
+import { env } from '$env/dynamic/private';
 import { createQuoteRequest } from '$lib/api/quotes';
+import { createSupabaseAdminClient } from '$lib/server/supabase-admin';
+import { notifyNewQuote } from '$lib/server/email';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const { profile } = await locals.safeGetSession();
@@ -8,7 +11,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 };
 
 export const actions: Actions = {
-	submit: async ({ request, locals }) => {
+	submit: async ({ request, locals, url }) => {
 		const { user, profile } = await locals.safeGetSession();
 		if (!user) return fail(401, { error: 'Not authenticated' });
 
@@ -39,6 +42,31 @@ export const actions: Actions = {
 
 		if (error) {
 			return fail(500, { error: error.message });
+		}
+
+		// Fire-and-forget staff alert — never let an email failure break submission.
+		try {
+			const admin = createSupabaseAdminClient();
+			let staffEmail = env.INTERNAL_NOTIFY_EMAIL || null;
+			if (profile?.assigned_rep_id) {
+				const { data: rep } = await admin
+					.from('profiles')
+					.select('email')
+					.eq('id', profile.assigned_rep_id)
+					.single();
+				if (rep?.email) staffEmail = rep.email;
+			}
+			if (staffEmail && quote) {
+				await notifyNewQuote({
+					to: staffEmail,
+					origin: url.origin,
+					quoteId: quote.id,
+					customerName: profile?.company_name || profile?.full_name || 'A customer',
+					itemCount: items.length
+				});
+			}
+		} catch (e) {
+			console.error('[notify] new-quote email failed', e);
 		}
 
 		return { success: true, quoteId: quote?.id };
