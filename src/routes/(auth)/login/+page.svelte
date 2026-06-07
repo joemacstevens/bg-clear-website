@@ -7,7 +7,8 @@
 	let password = $state('');
 	let loading = $state(false);
 	let error = $state('');
-	let mode = $state<'login' | 'register'>('login');
+	let notice = $state('');
+	let mode = $state<'login' | 'register' | 'forgot'>('login');
 
 	// Registration fields
 	let fullName = $state('');
@@ -85,30 +86,71 @@
 		goto(redirect);
 	}
 
+	async function handleForgot() {
+		loading = true;
+		error = '';
+		notice = '';
+
+		if (!email.trim()) {
+			error = 'Enter your email and we’ll send a reset link.';
+			loading = false;
+			return;
+		}
+
+		const redirectTo = `${window.location.origin}/callback?next=/reset-password`;
+		const { error: resetError } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+			redirectTo
+		});
+
+		if (resetError) {
+			error = resetError.message;
+			loading = false;
+			return;
+		}
+
+		// Don't reveal whether the email exists — always show the same confirmation.
+		notice =
+			'If an account exists for that email, a password reset link is on its way. Check your inbox (and spam).';
+		loading = false;
+	}
+
+	function switchMode(next: 'login' | 'register' | 'forgot') {
+		mode = next;
+		error = '';
+		notice = '';
+	}
+
 	function handleSubmit(e: SubmitEvent) {
 		e.preventDefault();
 		if (mode === 'login') handleLogin();
+		else if (mode === 'forgot') handleForgot();
 		else handleRegister();
 	}
 </script>
 
 <svelte:head>
-	<title>{mode === 'login' ? 'Sign In' : 'Create Account'} | BG Clear</title>
+	<title>{mode === 'login' ? 'Sign In' : mode === 'forgot' ? 'Reset Password' : 'Create Account'} | BG Clear</title>
 </svelte:head>
 
 <div class="auth-page">
 	<div class="auth-card">
 		<div class="auth-header">
-			<h1>{mode === 'login' ? 'Sign In' : 'Create Account'}</h1>
+			<h1>{mode === 'login' ? 'Sign In' : mode === 'forgot' ? 'Reset Password' : 'Create Account'}</h1>
 			<p>
 				{mode === 'login'
 					? 'Access the BG Clear product catalog'
-					: 'Register to view our DME product catalog'}
+					: mode === 'forgot'
+						? 'Enter your email and we’ll send you a reset link.'
+						: 'Register to view our DME product catalog'}
 			</p>
 		</div>
 
 		{#if error}
 			<div class="error-banner">{error}</div>
+		{/if}
+
+		{#if notice}
+			<div class="notice-banner">{notice}</div>
 		{/if}
 
 		<form onsubmit={handleSubmit}>
@@ -134,25 +176,39 @@
 				<input id="email" type="email" bind:value={email} required placeholder="you@company.com" />
 			</div>
 
-			<div class="form-group">
-				<label for="password">Password</label>
-				<input id="password" type="password" bind:value={password} required minlength="6" placeholder="••••••••" />
-			</div>
+			{#if mode !== 'forgot'}
+				<div class="form-group">
+					<label for="password">Password</label>
+					<input id="password" type="password" bind:value={password} required minlength="6" placeholder="••••••••" />
+				</div>
+			{/if}
+
+			{#if mode === 'login'}
+				<div class="forgot-row">
+					<button type="button" class="link-btn" onclick={() => switchMode('forgot')}>Forgot password?</button>
+				</div>
+			{/if}
 
 			<button type="submit" class="btn-primary" disabled={loading}>
 				{#if loading}
 					Working...
+				{:else if mode === 'login'}
+					Sign In
+				{:else if mode === 'forgot'}
+					Send reset link
 				{:else}
-					{mode === 'login' ? 'Sign In' : 'Create Account'}
+					Create Account
 				{/if}
 			</button>
 		</form>
 
 		<div class="auth-footer">
 			{#if mode === 'login'}
-				<p>Don't have an account? <button class="link-btn" onclick={() => mode = 'register'}>Register here</button></p>
+				<p>Don't have an account? <button class="link-btn" onclick={() => switchMode('register')}>Register here</button></p>
+			{:else if mode === 'forgot'}
+				<p>Remembered it? <button class="link-btn" onclick={() => switchMode('login')}>Back to sign in</button></p>
 			{:else}
-				<p>Already registered? <button class="link-btn" onclick={() => mode = 'login'}>Sign in</button></p>
+				<p>Already registered? <button class="link-btn" onclick={() => switchMode('login')}>Sign in</button></p>
 			{/if}
 		</div>
 	</div>
@@ -203,6 +259,22 @@
 		border-radius: var(--radius-sm);
 		font-size: var(--text-small);
 		margin-bottom: var(--space-3);
+	}
+
+	.notice-banner {
+		background: #ecfdf5;
+		color: #047857;
+		padding: var(--space-2);
+		border-radius: var(--radius-sm);
+		font-size: var(--text-small);
+		margin-bottom: var(--space-3);
+		line-height: 1.4;
+	}
+
+	.forgot-row {
+		text-align: right;
+		margin-bottom: var(--space-3);
+		margin-top: calc(-1 * var(--space-1));
 	}
 
 	.form-group {

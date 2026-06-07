@@ -8,5 +8,10 @@ export const GET: RequestHandler = async ({ url, locals: { supabase } }) => {
 		await supabase.auth.exchangeCodeForSession(code);
 	}
 
-	throw redirect(303, '/catalog');
+	// Honor a `next` destination (e.g. password recovery → /reset-password),
+	// but only same-site relative paths to avoid open-redirect abuse.
+	const next = url.searchParams.get('next');
+	const safeNext = next && next.startsWith('/') && !next.startsWith('//') ? next : '/catalog';
+
+	throw redirect(303, safeNext);
 };
