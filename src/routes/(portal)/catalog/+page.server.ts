@@ -1,4 +1,5 @@
 import type { PageServerLoad } from './$types';
+import { getCategoryTree } from '$lib/api/categories';
 
 export const load: PageServerLoad = async ({ locals, url }) => {
 	const category = url.searchParams.get('category');
@@ -14,10 +15,14 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 		query = query.eq('category', category);
 	}
 
-	const { data: products, error } = await query;
+	const [{ data: products }, tree] = await Promise.all([
+		query,
+		getCategoryTree(locals.supabase)
+	]);
 
 	return {
 		products: products ?? [],
-		selectedCategory: category
+		selectedCategory: category,
+		tree
 	};
 };
