@@ -59,6 +59,13 @@
 						<span>Bulk upload from CSV</span>
 					</div>
 				</a>
+				<a href="/admin/categories" class="quick-link">
+					<span class="icon">🗂️</span>
+					<div class="link-text">
+						<strong>Browse Categories</strong>
+						<span>Manage the storefront category tree</span>
+					</div>
+				</a>
 				<a href="/admin/pricing" class="quick-link">
 					<span class="icon">💰</span>
 					<div class="link-text">
