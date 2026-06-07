@@ -36,7 +36,12 @@
 
 <div class="quotes-page">
 	<div class="page-header">
-		<a href="/catalog" class="back-link">&larr; Back to Catalog</a>
+		<a href="/catalog" class="back-link">
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="16" height="16">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+			</svg>
+			<span>Back to Catalog</span>
+		</a>
 		<h1>Your Quotes</h1>
 		<p>Quotes your rep has priced are ready to order below.</p>
 	</div>
@@ -117,8 +122,21 @@
 <style>
 	.quotes-page { padding-bottom: var(--space-8); }
 	.page-header { margin-bottom: var(--space-5); }
-	.back-link { display: inline-block; margin-bottom: var(--space-2); color: var(--color-primary); font-size: var(--text-small); font-weight: 500; text-decoration: none; }
-	.back-link:hover { text-decoration: underline; }
+	.back-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-bottom: var(--space-2);
+		color: var(--color-muted);
+		font-size: var(--text-small);
+		font-weight: 600;
+		text-decoration: none;
+		transition: color 0.15s ease, transform 0.15s ease;
+	}
+	.back-link:hover {
+		color: var(--color-primary);
+		transform: translateX(-4px);
+	}
 	.page-header h1 { font-family: var(--font-heading); font-size: var(--text-h2); font-weight: 700; color: var(--color-ink); margin: 0 0 var(--space-1); }
 	.page-header p { color: var(--color-muted); margin: 0; }
 

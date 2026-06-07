@@ -14,7 +14,12 @@
 
 <div class="orders-page">
 	<div class="page-header">
-		<a href="/catalog" class="back-link">&larr; Back to Catalog</a>
+		<a href="/catalog" class="back-link">
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="16" height="16">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+			</svg>
+			<span>Back to Catalog</span>
+		</a>
 		<h1>Order History</h1>
 		<p>Track the status of your orders.</p>
 	</div>
@@ -64,16 +69,20 @@
 	}
 
 	.back-link {
-		display: inline-block;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
 		margin-bottom: var(--space-2);
-		color: var(--color-primary);
+		color: var(--color-muted);
 		font-size: var(--text-small);
-		font-weight: 500;
+		font-weight: 600;
 		text-decoration: none;
+		transition: color 0.15s ease, transform 0.15s ease;
 	}
 
 	.back-link:hover {
-		text-decoration: underline;
+		color: var(--color-primary);
+		transform: translateX(-4px);
 	}
 
 	.page-header h1 {
