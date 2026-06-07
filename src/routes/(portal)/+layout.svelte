@@ -8,7 +8,11 @@
 	const supabase = createSupabaseBrowserClient();
 
 	const navItems = $derived(() => {
-		const items = [{ href: '/catalog', label: 'Catalog' }];
+		const items = [
+			{ href: '/catalog', label: 'Catalog' },
+			{ href: '/catalog/quotes', label: 'Quotes' },
+			{ href: '/catalog/orders', label: 'Orders' }
+		];
 
 		if (data.profile?.role === 'admin' || data.profile?.role === 'manager' || data.profile?.role === 'sales_rep') {
 			items.push({ href: '/rep', label: 'Rep Dashboard' });

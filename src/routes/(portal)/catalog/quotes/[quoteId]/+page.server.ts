@@ -11,7 +11,18 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 		throw error(404, 'Quote request not found');
 	}
 
-	return { quote };
+	// Once accepted, an order exists — surface it so the customer can pay.
+	let orderId: string | null = null;
+	if (quote.status === 'accepted') {
+		const { data: ord } = await locals.supabase
+			.from('orders')
+			.select('id')
+			.eq('quote_request_id', params.quoteId)
+			.maybeSingle();
+		orderId = ord?.id ?? null;
+	}
+
+	return { quote, orderId };
 };
 
 /**

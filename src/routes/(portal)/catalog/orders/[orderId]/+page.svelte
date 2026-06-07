@@ -9,8 +9,9 @@
 	const order = $derived(data.order);
 
 	// Payment state for the WooCommerce/CyberSource handoff.
+	const PAYABLE = ['approved', 'placed_with_supplier', 'shipped', 'delivered'];
 	const isPaid = $derived(order.payment_collected || order.status === 'payment_collected');
-	const canPay = $derived(order.status === 'approved' && !order.payment_collected);
+	const canPay = $derived(!order.payment_collected && PAYABLE.includes(order.status));
 	const awaitingApproval = $derived(order.status === 'pending_approval');
 
 	let paying = $state(false);

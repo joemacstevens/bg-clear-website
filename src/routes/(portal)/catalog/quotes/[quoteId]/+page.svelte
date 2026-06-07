@@ -182,6 +182,17 @@
 			</p>
 		</form>
 	{/if}
+
+	{#if quote.status === 'accepted'}
+		<div class="accepted-cta">
+			{#if data.orderId}
+				<a class="accept-btn" href="/catalog/orders/{data.orderId}">Continue to Payment</a>
+				<p class="accept-note">You've accepted this quote — finish checkout on your order.</p>
+			{:else}
+				<a class="accept-btn" href="/catalog/orders">View your orders</a>
+			{/if}
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -432,9 +443,16 @@
 		color: var(--color-ink);
 	}
 
-	.accept-form {
+	.accept-form,
+	.accepted-cta {
 		margin-top: var(--space-4);
 		text-align: center;
+	}
+
+	a.accept-btn {
+		display: block;
+		text-decoration: none;
+		box-sizing: border-box;
 	}
 
 	.accept-btn {
