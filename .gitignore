@@ -23,3 +23,18 @@ Thumbs.db
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .agent/
+
+# Secrets / keys — never commit or upload to deploys
+*.pem
+CyberSourceKey_*.pem
+cdp_api_key*.json
+*service-role*
+
+# Local data / staging (not part of the app build)
+catalog_staging/
+pdf_catalogs/
+*.csv
+
+# Tooling
+.claude/
+.env*.local
