@@ -80,11 +80,11 @@
 						<span>Assign reps and roles</span>
 					</div>
 				</a>
-				<a href="/admin/approvals" class="quick-link">
+				<a href="/admin/quote-approvals" class="quick-link">
 					<span class="icon">✓</span>
 					<div class="link-text">
-						<strong>Approval Queue</strong>
-						<span>Review below-target orders</span>
+						<strong>Quote Approvals</strong>
+						<span>Approve below-target pricing before it's sent</span>
 					</div>
 				</a>
 				<a href="/admin/audit" class="quick-link">

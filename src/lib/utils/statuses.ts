@@ -31,15 +31,19 @@ export const ORDER_STATUS_COLORS: Record<OrderStatus, string> = {
 export const QUOTE_STATUS_LABELS: Record<string, string> = {
 	pending: 'Pending',
 	in_progress: 'In Progress',
+	pending_approval: 'Pending Approval',
 	quoted: 'Quoted',
 	accepted: 'Accepted',
-	declined: 'Declined'
+	declined: 'Declined',
+	cancelled: 'Cancelled'
 };
 
 export const QUOTE_STATUS_COLORS: Record<string, string> = {
 	pending: '#f59e0b',
 	in_progress: '#3b82f6',
+	pending_approval: '#f97316',
 	quoted: '#6366f1',
 	accepted: '#22c55e',
-	declined: '#ef4444'
+	declined: '#ef4444',
+	cancelled: '#ef4444'
 };

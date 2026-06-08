@@ -129,13 +129,16 @@ export const actions: Actions = {
 			return fail(400, { error: 'No priced items to accept' });
 		}
 
+		// Approval now happens at the QUOTE stage (a rep can't send a below-target
+		// quote without admin sign-off), so an accepted quote is already cleared —
+		// the resulting order does not need a second approval gate.
 		const { data: order, error: orderErr } = await createOrderFromQuote(
 			admin,
 			params.quoteId,
 			quote.customer_id,
 			quote.assigned_rep_id,
 			orderItems,
-			requiresApproval
+			false
 		);
 
 		if (orderErr || !order) {

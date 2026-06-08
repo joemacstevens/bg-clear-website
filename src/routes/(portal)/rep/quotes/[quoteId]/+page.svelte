@@ -15,6 +15,9 @@
 	);
 	const isQuoted = $derived(data.quote.status === 'quoted');
 	const hasItems = $derived(items.length > 0);
+	const approvalStatus = $derived((data.quote as any).approval_status ?? 'none');
+	const isPendingApproval = $derived(data.quote.status === 'pending_approval');
+	const isApproved = $derived(approvalStatus === 'approved');
 
 	// Live per-row price/qty state for guardrails + commission preview.
 	let quotedPrices = $state<Record<string, number>>({});
@@ -95,6 +98,7 @@
 	{/if}
 	{#if form?.error}<div class="error-banner">{form.error}</div>{/if}
 	{#if form?.sent}<div class="success-banner">Quote sent to the customer.</div>
+	{:else if form?.submitted}<div class="success-banner">Submitted for admin approval.</div>
 	{:else if form?.saved}<div class="success-banner">Changes saved.</div>{/if}
 
 	<!-- Editor grid: one form; remove buttons override the action via formaction. -->
@@ -165,18 +169,37 @@
 			</table>
 		</div>
 
-		{#if anyBelowTarget}
+		{#if isPendingApproval}
+			<div class="approval-pending">
+				⏳ Submitted for admin approval — you'll be able to send it to the customer once it's approved.
+			</div>
+		{:else if approvalStatus === 'rejected'}
+			<div class="approval-rejected">
+				❌ An admin rejected this pricing{(data.quote as any).approval_notes
+					? `: “${(data.quote as any).approval_notes}”`
+					: ''}. Adjust the prices and resubmit.
+			</div>
+		{:else if isApproved}
+			<div class="approval-approved">✅ Pricing approved — you can send this quote to the customer.</div>
+		{:else if anyBelowTarget}
 			<div class="approval-warning">
-				One or more items are below target — the resulting order will require manager approval.
+				One or more items are <strong>below target</strong> — an admin must approve this pricing before
+				it can be sent to the customer.
 			</div>
 		{/if}
 
 		{#if isEditable && hasItems}
 			<div class="actions">
 				<button type="submit" class="btn-secondary" disabled={busy}>Save</button>
-				<button type="submit" class="btn-primary" formaction="?/sendQuote" disabled={busy}>
-					{busy ? 'Working…' : isQuoted ? 'Re-send to Customer' : 'Send Quote to Customer'}
-				</button>
+				{#if anyBelowTarget && !isApproved}
+					<button type="submit" class="btn-primary btn-amber" formaction="?/submitForApproval" disabled={busy}>
+						{busy ? 'Working…' : 'Submit for Approval'}
+					</button>
+				{:else}
+					<button type="submit" class="btn-primary" formaction="?/sendQuote" disabled={busy}>
+						{busy ? 'Working…' : isQuoted ? 'Re-send to Customer' : 'Send Quote to Customer'}
+					</button>
+				{/if}
 			</div>
 		{/if}
 	</form>
@@ -245,6 +268,11 @@
 	.total-value { font-size: 1rem; color: #059669; }
 
 	.approval-warning { background: #fef3c7; color: #92400e; padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); font-size: var(--text-small); font-weight: 500; margin-bottom: var(--space-3); }
+	.approval-pending { background: #fef3c7; color: #92400e; padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); font-size: var(--text-small); font-weight: 600; margin-bottom: var(--space-3); }
+	.approval-rejected { background: #fee2e2; color: #991b1b; padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); font-size: var(--text-small); font-weight: 500; margin-bottom: var(--space-3); }
+	.approval-approved { background: #d1fae5; color: #065f46; padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); font-size: var(--text-small); font-weight: 600; margin-bottom: var(--space-3); }
+	.btn-amber { background: #d97706 !important; }
+	.btn-amber:hover { background: #b45309 !important; }
 	.info-banner { background: var(--color-border-subtle); color: var(--color-text); padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); font-size: var(--text-small); margin-bottom: var(--space-3); }
 	.success-banner { background: #d1fae5; color: #065f46; padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); font-size: var(--text-small); font-weight: 500; margin-bottom: var(--space-3); }
 	.error-banner { background: #fee2e2; color: #991b1b; padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); font-size: var(--text-small); font-weight: 500; margin-bottom: var(--space-3); }
