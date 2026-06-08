@@ -29,6 +29,9 @@
 		<div class="success-panel">
 			<strong>✓ Account created for {form.createdEmail}</strong>
 			<p>Share these temporary sign-in details with the customer (they can reset the password later):</p>
+			{#if form.accountNumber}
+				<div class="cred-row"><span>Account #</span><code>{form.accountNumber}</code></div>
+			{/if}
 			<div class="cred-row"><span>Email</span><code>{form.createdEmail}</code></div>
 			<div class="cred-row"><span>Temp password</span><code>{form.tempPassword}</code></div>
 			<p class="success-hint">You can now build a quote for them from the catalog.</p>
@@ -88,6 +91,7 @@
 					<div class="customer-info">
 						<span class="company">{customer.company_name || '—'}</span>
 						<span class="name">{customer.full_name}</span>
+						{#if (customer as any).account_number}<span class="acct">{(customer as any).account_number}</span>{/if}
 						<span class="contact">{customer.email}</span>
 						{#if customer.phone}<span class="contact">{customer.phone}</span>{/if}
 					</div>
@@ -268,6 +272,13 @@
 	.contact {
 		font-size: 0.75rem;
 		color: var(--color-muted);
+	}
+	.acct {
+		font-size: 0.7rem;
+		font-weight: 700;
+		color: var(--color-primary);
+		font-variant-numeric: tabular-nums;
+		letter-spacing: 0.02em;
 	}
 	.joined {
 		font-size: 0.7rem;

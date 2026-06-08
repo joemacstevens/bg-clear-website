@@ -86,6 +86,7 @@
 							<div class="user-info">
 								<strong>{profile.full_name || 'No name'}</strong>
 								<span class="user-email">{profile.email}</span>
+								{#if (profile as any).account_number}<span class="user-acct">{(profile as any).account_number}</span>{/if}
 							</div>
 						</td>
 						<td>{profile.company_name || '-'}</td>
@@ -216,6 +217,13 @@
 	.user-email {
 		font-size: 0.75rem;
 		color: var(--color-muted);
+	}
+
+	.user-acct {
+		font-size: 0.7rem;
+		font-weight: 700;
+		color: var(--color-primary);
+		font-variant-numeric: tabular-nums;
 	}
 
 	.inline-form {

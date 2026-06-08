@@ -30,6 +30,12 @@
 
 	{#if data.profile}
 		<div class="account-info">
+			{#if (data.profile as any).account_number}
+				<div class="info-row">
+					<span class="info-label">Account #</span>
+					<span class="info-value account-number">{(data.profile as any).account_number}</span>
+				</div>
+			{/if}
 			<div class="info-row">
 				<span class="info-label">Email</span>
 				<span class="info-value">{data.profile.email}</span>
@@ -154,6 +160,13 @@
 	.info-value {
 		color: var(--color-ink);
 		font-weight: 500;
+	}
+
+	.account-number {
+		font-weight: 700;
+		color: var(--color-primary);
+		font-variant-numeric: tabular-nums;
+		letter-spacing: 0.02em;
 	}
 
 	.role-badge {

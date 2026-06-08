@@ -56,14 +56,16 @@ export const actions: Actions = {
 		// The trigger created the base profile (id, email, full_name, role=customer).
 		// Fill in the rest and assign to the creating rep (reps own their customers;
 		// admin/manager-created customers are left unassigned for routing).
-		const { error: updErr } = await admin
+		const { data: updatedProfile, error: updErr } = await admin
 			.from('profiles')
 			.update({
 				company_name: company || null,
 				phone: phone || null,
 				assigned_rep_id: profile.role === 'sales_rep' ? profile.id : null
 			})
-			.eq('id', created.user.id);
+			.eq('id', created.user.id)
+			.select('account_number')
+			.single();
 
 		if (updErr) {
 			return fail(500, { error: `Account created, but saving details failed: ${updErr.message}`, values });
@@ -79,6 +81,13 @@ export const actions: Actions = {
 			console.error('[notify] customer invite email failed', e);
 		}
 
-		return { success: true, createdEmail: email, tempPassword, createdId: created.user.id, emailed };
+		return {
+			success: true,
+			createdEmail: email,
+			tempPassword,
+			createdId: created.user.id,
+			accountNumber: (updatedProfile as any)?.account_number ?? null,
+			emailed
+		};
 	}
 };
