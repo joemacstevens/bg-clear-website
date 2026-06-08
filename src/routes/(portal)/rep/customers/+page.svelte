@@ -34,7 +34,9 @@
 			{/if}
 			<div class="cred-row"><span>Email</span><code>{form.createdEmail}</code></div>
 			<div class="cred-row"><span>Temp password</span><code>{form.tempPassword}</code></div>
-			<p class="success-hint">You can now build a quote for them from the catalog.</p>
+			{#if form.createdId}
+				<a class="build-now-btn" href="/rep/customers/{form.createdId}">Open customer &amp; build a quote →</a>
+			{/if}
 		</div>
 	{/if}
 
@@ -141,6 +143,17 @@
 	}
 	.success-hint {
 		font-style: italic;
+	}
+	.build-now-btn {
+		display: inline-block;
+		margin-top: var(--space-2);
+		padding: 0.55rem 1.1rem;
+		background: var(--color-accent);
+		color: var(--color-ink);
+		border-radius: var(--radius-pill);
+		font-weight: 700;
+		font-size: var(--text-small);
+		text-decoration: none;
 	}
 	.cred-row {
 		display: flex;

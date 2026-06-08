@@ -14,10 +14,14 @@
 
 	<div class="header">
 		<div class="avatar">{(data.customer.company_name || data.customer.full_name || '?').charAt(0).toUpperCase()}</div>
-		<div>
+		<div class="header-text">
 			<h1>{data.customer.company_name || data.customer.full_name}</h1>
 			{#if data.customer.company_name}<p class="subname">{data.customer.full_name}</p>{/if}
+			{#if (data.customer as any).account_number}<p class="acct">{(data.customer as any).account_number}</p>{/if}
 		</div>
+		<form method="POST" action="?/createQuote" class="build-form">
+			<button type="submit" class="build-btn">+ Build a Quote</button>
+		</form>
 	</div>
 
 	<div class="info-grid">
@@ -74,6 +78,11 @@
 	.customer-detail { padding-bottom: var(--space-8); }
 	.back-link { font-size: var(--text-small); color: var(--color-muted); display: block; margin-bottom: var(--space-2); }
 	.header { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4); }
+	.header-text { flex: 1; min-width: 0; }
+	.acct { margin: 0.15rem 0 0; font-size: 0.75rem; font-weight: 700; color: var(--color-primary); font-variant-numeric: tabular-nums; }
+	.build-form { flex-shrink: 0; }
+	.build-btn { padding: 0.7rem 1.3rem; background: var(--color-accent); color: var(--color-ink); border: none; border-radius: var(--radius-pill); font-family: var(--font-heading); font-weight: 700; font-size: var(--text-small); cursor: pointer; white-space: nowrap; }
+	.build-btn:hover { filter: brightness(0.96); }
 	.header h1 { font-family: var(--font-heading); font-size: var(--text-h2); font-weight: 700; margin: 0; }
 	.subname { color: var(--color-muted); font-size: var(--text-small); margin: 0; }
 	.avatar {
