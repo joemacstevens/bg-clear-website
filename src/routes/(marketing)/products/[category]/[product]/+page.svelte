@@ -99,8 +99,8 @@
 				<p class="detail-description">{data.product.description}</p>
 
 				<!-- CTA -->
-				<a class="button button-primary detail-cta-btn" href="/catalog">
-					Sign In to Request a Quote
+				<a class="button button-primary detail-cta-btn" href="/#request-call">
+					Talk to a Specialist
 				</a>
 			</div>
 		</div>
@@ -136,7 +136,7 @@
 		<div class="container">
 			<div class="bottom-cta">
 				<p>Sign in to browse the full catalog, see detailed specs, and request a quote.</p>
-				<a class="button button-primary" href="/catalog">Browse the Catalog</a>
+				<a class="button button-primary" href="/#request-call">Talk to a Specialist</a>
 			</div>
 		</div>
 	</section>

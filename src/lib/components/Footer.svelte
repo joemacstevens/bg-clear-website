@@ -64,8 +64,8 @@
 		<div class="footer-bottom">
 			<span>&copy; {new Date().getFullYear()} BG Clear. All rights reserved.</span>
 			<div class="footer-legal">
-				<a href="/#request-call">Privacy Policy</a>
-				<a href="/#request-call">Terms of Service</a>
+				<a href="/privacy">Privacy Statement</a>
+				<a href="/terms">Terms of Use</a>
 			</div>
 		</div>
 	</div>

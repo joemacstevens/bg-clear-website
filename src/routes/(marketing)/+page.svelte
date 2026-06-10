@@ -662,8 +662,8 @@
 				FAST. COMPLIANT. HUMAN.
 			</p>
 			<div class="hero-ctas hero-ctas-entrance">
-				<a class="hero-btn-gold" href="/catalog">Browse the Catalog</a>
-				<a class="hero-btn-outline" href="#request-call">Talk to a Specialist</a>
+				<a class="hero-btn-gold" href="#request-call">Talk to a Specialist</a>
+				<a class="hero-btn-outline" href="/about">Learn More</a>
 			</div>
 		</div>
 
@@ -894,12 +894,12 @@
 		<div class="container cta-inner reveal" use:revealOnScroll>
 			<div>
 				<p class="eyebrow cta-eyebrow">Start your DME partnership</p>
-				<h2 class="cta-heading">See our full catalog — pricing available on request.</h2>
+				<h2 class="cta-heading">Competitive DME pricing — available on request.</h2>
 				<p class="subhead cta-subhead">
-					Free account &middot; Instant catalog access &middot; Request quotes online
+					Talk to a specialist &middot; Competitive pricing &middot; Compliant, reliable fulfillment
 				</p>
 			</div>
-			<a class="button button-navy-pop" href="/catalog">Browse the Catalog</a>
+			<a class="button button-navy-pop" href="#request-call">Talk to a Specialist</a>
 		</div>
 	</section>
 

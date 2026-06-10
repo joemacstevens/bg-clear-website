@@ -35,7 +35,7 @@
 				</svg>
 			</a>
 			<a href="tel:+12017657171" class="header-phone">(201) 765-7171</a>
-			<a class="button button-primary button-header" href="/catalog">Browse Catalog</a>
+			<a class="button button-primary button-header" href="/#request-call">Talk to a Specialist</a>
 		</div>
 		<button class="hamburger" aria-label="Open menu" aria-expanded={mobileNavOpen} onclick={() => mobileNavOpen = true}>
 			<span class="hamburger-line"></span>
@@ -62,6 +62,6 @@
 	</div>
 	<div class="mobile-nav-footer">
 		<a href="tel:+12017657171" class="mobile-nav-phone">(201) 765-7171</a>
-		<a class="button button-primary" href="/catalog" onclick={() => mobileNavOpen = false}>Browse Catalog</a>
+		<a class="button button-primary" href="/#request-call" onclick={() => mobileNavOpen = false}>Talk to a Specialist</a>
 	</div>
 </nav>
