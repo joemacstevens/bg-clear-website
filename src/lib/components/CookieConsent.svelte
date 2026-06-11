@@ -34,8 +34,8 @@
 	>
 		<div class="cookie-inner">
 			<p class="cookie-text">
-				We use cookies to improve your experience. By continuing to use this site, you agree to our use of cookies.
-				<a href="/cookie-policy">Cookie Policy</a>
+				We use cookies to improve your experience. By continuing to use this site, you agree to our use of cookies. See our
+				<a href="/privacy">Privacy Statement</a> and <a href="/terms">Terms of Use</a>.
 			</p>
 			<div class="cookie-actions">
 				<button class="btn-accept" onclick={accept}>Accept All</button>
