@@ -89,7 +89,8 @@
 <style>
 	.legal {
 		background: var(--color-bg, #f7f9fb);
-		padding: clamp(2.5rem, 6vw, 5rem) 1.25rem;
+		/* Top padding clears the tall fixed site header (~140–200px). */
+		padding: clamp(165px, 16vw, 220px) 1.25rem clamp(2.5rem, 6vw, 5rem);
 	}
 	.legal-inner {
 		max-width: 820px;
