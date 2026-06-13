@@ -1,6 +1,33 @@
 # BG Clear Portal — Multi-Agent Development Guide
 
-> **If you are an AI agent working on this project, read this file AND `CLAUDE.md` for full project context.**
+> **If you are an AI agent working on this project (Claude Code, Codex, Cursor, etc.), read this file first.** `CLAUDE.md` imports it for Claude Code.
+
+## ⚠️ Agent Coordination & Deploy Rules — READ FIRST
+
+Multiple agents work in this repo. These rules exist because a deploy from a
+stale working copy already wiped shipped work in production (the Privacy/Terms
+pages and other marketing changes). Follow them every time:
+
+1. **Source of truth = the branch `feature/ecommerce-quote-to-payment`.** All
+   current work lives here; the original `feat/customer-portal` /
+   `feat/admin-portal` / `feat/rep-portal` branches are **historical — do not
+   start from them.**
+2. **Pull before you start.** `git fetch && git status`; make sure you're on the
+   latest tip of the active branch (rebase if behind) so you don't build on a
+   stale base.
+3. **Commit before you deploy. Always.** `vercel deploy --prod` ships your
+   **local working directory**, not a git branch — deploying from an
+   uncommitted or stale copy silently rolls back anything shipped after your
+   base. (That is exactly how the live Privacy/Terms pages got reverted.)
+4. **Build must pass first:** `./node_modules/.bin/vite build` before any prod
+   deploy.
+5. **Don't revert work you didn't write.** If something in the tree conflicts
+   with your task, flag it / ask — only the human decides to discard another
+   agent's work.
+6. **Deploy:** `vercel deploy --prod` → production domain **https://bgclear.com**.
+
+> **TL;DR:** be on the latest `feature/ecommerce-quote-to-payment` → commit →
+> `vite build` → `vercel deploy --prod`. Never deploy a stale working copy.
 
 ## Project Overview
 
@@ -99,10 +126,13 @@ Vendor Cost → (+internal margin%) → BG Cost → (+markup%) → Target Price 
 - Customers see: NOTHING (no pricing)
 - Admin sees: Everything including vendor cost
 
-### Demo Accounts (password: demo1234)
-- `admin@bgclear.com` — admin role
-- `rep@bgclear.com` — sales_rep role
-- `customer@demo.com` — customer role
+### Demo Accounts (shared password: `BGClearDemo2026!`)
+- `admin@bgclear.com` — admin role (Evens)
+- `rep@bgclear.com` — sales_rep role (Demo Sales Rep)
+- `maria.brooklyn@example.com` — clean demo customer, pre-assigned to the rep
+- `customer@demo.com` — customer role (has lots of demo history)
+
+See `docs/demo-walkthrough.md` for the role-by-role demo script.
 
 ## SvelteKit Patterns
 
@@ -305,12 +335,22 @@ nvm use 24 && npm install && npm run dev
 
 ## Git Workflow
 
-1. Each agent works on its own branch: `feat/customer-portal`, `feat/admin-portal`, `feat/rep-portal`
-2. Only create/modify files within your assigned route directory
-3. Do NOT modify `$lib/`, `hooks.server.ts`, portal layout, or migration files
-4. If you need a shared component that doesn't exist, build it locally in your route directory and note it
-5. Commit frequently with clear messages
-6. Branches will be merged in order: customer → admin → rep
+> **The original 3-portal split below is historical.** All three portals are
+> built and merged. Current work happens on **`feature/ecommerce-quote-to-payment`**
+> (see the Coordination & Deploy Rules at the top). The role briefs further down
+> are kept as a map of who-owns-what, not as separate branches.
+
+Current rules:
+1. Work on `feature/ecommerce-quote-to-payment` (or a short-lived branch off it
+   that you merge back the same session). Don't resurrect the old `feat/*` branches.
+2. Pull/rebase to the latest tip before starting.
+3. Commit frequently with clear messages; **commit before any deploy.**
+4. `vite build` must pass before `vercel deploy --prod`.
+5. Don't revert another agent's work — flag conflicts to the human instead.
+
+_Historical (original build): each agent had its own branch
+(`feat/customer-portal`, `feat/admin-portal`, `feat/rep-portal`), merged in
+order customer → admin → rep._
 
 ---
 
