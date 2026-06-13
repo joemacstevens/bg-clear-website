@@ -656,7 +656,7 @@
 
 		<!-- Centered hero content -->
 		<div class="hero-content">
-			<h1 class="hero-headline">Real People Who Answer the Phone</h1>
+			<h1 class="hero-headline">Equipment You Need, From People Who Care</h1>
 			<p class="subhead hero-subhead">
 				Your <span class="hero-accent">tech-forward</span> DME partner.<br />
 				FAST. COMPLIANT. HUMAN.
