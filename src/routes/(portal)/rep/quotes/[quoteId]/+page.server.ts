@@ -226,7 +226,7 @@ export const actions: Actions = {
 
 	// Rep creates the order directly (in-person close).
 	// In-person close: turn the (possibly still-draft) quote directly into an order.
-	createOrder: async ({ locals, params }) => {
+	createOrder: async ({ request, locals, params }) => {
 		const { profile } = await locals.safeGetSession();
 		if (!profile || !['sales_rep', 'manager', 'admin'].includes(profile.role ?? '')) {
 			return fail(403, { error: 'Not allowed' });
@@ -235,6 +235,10 @@ export const actions: Actions = {
 		// Reps have no direct RLS write on quotes/orders — go through the
 		// service-role client, gated by the role check above.
 		const admin = createSupabaseAdminClient();
+
+		// Persist the on-screen prices/quantities first (the form may never have
+		// been saved), so the order is built from what the rep sees.
+		await persistLines(admin, await request.formData(), params.quoteId);
 
 		const { quote, orderItems, requiresApproval, error: buildErr } = await buildOrderItemsFromQuote(
 			admin,

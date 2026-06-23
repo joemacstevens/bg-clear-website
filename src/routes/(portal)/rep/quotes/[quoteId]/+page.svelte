@@ -109,7 +109,7 @@
 	{:else if form?.saved}<div class="success-banner">Changes saved.</div>{/if}
 
 	<!-- Editor grid: one form; remove buttons override the action via formaction. -->
-	<form method="POST" action="?/saveQuote" use:enhance={handle}>
+	<form id="quoteForm" method="POST" action="?/saveQuote" use:enhance={handle}>
 		<div class="items-table-wrap">
 			<table class="items-table">
 				<thead>
@@ -229,8 +229,8 @@
 	{/if}
 
 	{#if canCreateOrder}
-		<form method="POST" action="?/createOrder" use:enhance class="order-form">
-			<button type="submit" class="btn-primary btn-green">
+		<div class="order-form">
+			<button type="submit" form="quoteForm" formaction="?/createOrder" class="btn-primary btn-green" disabled={busy}>
 				Create Order Now {anyBelowTarget && !isApproved ? '(Needs Approval)' : ''}
 			</button>
 			<p class="order-note">
@@ -239,7 +239,7 @@
 					? ' Below-target pricing means the order will need manager approval before fulfillment.'
 					: ''}
 			</p>
-		</form>
+		</div>
 	{/if}
 </div>
 
