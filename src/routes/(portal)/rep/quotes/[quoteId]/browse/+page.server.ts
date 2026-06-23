@@ -14,7 +14,7 @@ export const load: PageServerLoad = async ({ locals, params, url }) => {
 	const { data: quote } = await locals.supabase
 		.from('quote_requests')
 		.select(
-			'id, status, customer:profiles!quote_requests_customer_id_fkey(full_name, company_name)'
+			'id, status, customer:profiles!quote_requests_customer_id_fkey(full_name, company_name, account_number)'
 		)
 		.eq('id', params.quoteId)
 		.single();

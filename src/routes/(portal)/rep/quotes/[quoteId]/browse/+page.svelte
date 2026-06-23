@@ -31,8 +31,17 @@
 <div class="browse">
 	<div class="bar">
 		<div class="bar-info">
-			<span class="bar-eyebrow">Adding to quote</span>
-			<strong>{data.customer?.company_name || data.customer?.full_name || 'Customer'}</strong>
+			<div class="avatar">
+				{(data.customer?.company_name || data.customer?.full_name || '?').charAt(0).toUpperCase()}
+			</div>
+			<div class="bar-text">
+				<span class="bar-eyebrow">🛒 You're building a quote for</span>
+				<strong>{data.customer?.company_name || data.customer?.full_name || 'Customer'}</strong>
+				<span class="bar-sub">
+					{#if data.customer?.company_name && data.customer?.full_name}{data.customer.full_name}{/if}
+					{#if data.customer?.account_number}<span class="acct">{data.customer.account_number}</span>{/if}
+				</span>
+			</div>
 		</div>
 		<a class="done-btn" href="/rep/quotes/{data.quoteId}">
 			Done — Back to Quote{added.size ? ` (${added.size})` : ''} →
@@ -112,9 +121,18 @@
 		border-radius: var(--radius-md);
 		margin-bottom: var(--space-3);
 	}
-	.bar-info { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
-	.bar-eyebrow { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.8; }
-	.bar-info strong { font-size: 1.05rem; }
+	.bar-info { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
+	.avatar {
+		width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0;
+		background: rgba(255, 255, 255, 0.18); color: #fff;
+		display: flex; align-items: center; justify-content: center;
+		font-family: var(--font-heading); font-weight: 700; font-size: 1.15rem;
+	}
+	.bar-text { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+	.bar-eyebrow { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.85; }
+	.bar-text strong { font-size: 1.15rem; }
+	.bar-sub { font-size: 0.8rem; opacity: 0.85; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+	.bar-sub .acct { font-weight: 700; font-variant-numeric: tabular-nums; }
 	.done-btn {
 		flex-shrink: 0;
 		background: var(--color-accent);
