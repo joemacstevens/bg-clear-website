@@ -209,6 +209,20 @@
 				{/if}
 			</div>
 		{/if}
+
+		{#if canCreateOrder}
+			<div class="order-form">
+				<button type="submit" class="btn-primary btn-green" formaction="?/createOrder" disabled={busy}>
+					Create Order Now {anyBelowTarget && !isApproved ? '(Needs Approval)' : ''}
+				</button>
+				<p class="order-note">
+					In-person close — turns this into an order now. The customer still pays from their own
+					portal.{anyBelowTarget && !isApproved
+						? ' Below-target pricing means the order will need manager approval before fulfillment.'
+						: ''}
+				</p>
+			</div>
+		{/if}
 	</form>
 
 	<!-- Add item -->
@@ -226,20 +240,6 @@
 				<button type="submit" class="btn-secondary" disabled={busy}>+ Add</button>
 			</div>
 		</form>
-	{/if}
-
-	{#if canCreateOrder}
-		<div class="order-form">
-			<button type="submit" form="quoteForm" formaction="?/createOrder" class="btn-primary btn-green" disabled={busy}>
-				Create Order Now {anyBelowTarget && !isApproved ? '(Needs Approval)' : ''}
-			</button>
-			<p class="order-note">
-				In-person close — turns this into an order now. The customer still pays from their own
-				portal.{anyBelowTarget && !isApproved
-					? ' Below-target pricing means the order will need manager approval before fulfillment.'
-					: ''}
-			</p>
-		</div>
 	{/if}
 </div>
 
