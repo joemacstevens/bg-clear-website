@@ -1,8 +1,19 @@
 <script lang="ts">
 	import type { CategoryNode } from '$lib/api/categories';
 
-	let { tree = [], activeSlug = null }: { tree?: CategoryNode[]; activeSlug?: string | null } =
-		$props();
+	let {
+		tree = [],
+		activeSlug = null,
+		linkBase = '/catalog/c/',
+		allHref = '/catalog'
+	}: {
+		tree?: CategoryNode[];
+		activeSlug?: string | null;
+		/** Prefix for category links — append the slug. Lets a rep page reuse this nav. */
+		linkBase?: string;
+		/** Href for the "All Products" link. */
+		allHref?: string;
+	} = $props();
 
 	let openSlug = $state<string | null>(null);
 	let closeTimer: ReturnType<typeof setTimeout> | null = null;
@@ -19,7 +30,7 @@
 
 <nav class="cat-nav" aria-label="Product categories">
 	<div class="cat-bar">
-		<a class="cat-top shop-all" class:active={!activeSlug} href="/catalog">All Products</a>
+		<a class="cat-top shop-all" class:active={!activeSlug} href={allHref}>All Products</a>
 		{#each tree as top (top.id)}
 			<div
 				class="cat-item"
@@ -31,7 +42,7 @@
 					class="cat-top"
 					class:active={activeSlug === top.slug}
 					class:open={openSlug === top.slug}
-					href="/catalog/c/{top.slug}"
+					href="{linkBase}{top.slug}"
 					onfocus={() => open(top.slug)}
 				>
 					{top.name}
@@ -40,10 +51,10 @@
 
 				{#if top.children.length && openSlug === top.slug}
 					<div class="flyout" onmouseenter={() => open(top.slug)} onmouseleave={scheduleClose}>
-						<a class="flyout-head" href="/catalog/c/{top.slug}">All {top.name} →</a>
+						<a class="flyout-head" href="{linkBase}{top.slug}">All {top.name} →</a>
 						<div class="flyout-grid">
 							{#each top.children as child (child.id)}
-								<a class="flyout-link" class:active={activeSlug === child.slug} href="/catalog/c/{child.slug}">
+								<a class="flyout-link" class:active={activeSlug === child.slug} href="{linkBase}{child.slug}">
 									{child.name}
 								</a>
 							{/each}

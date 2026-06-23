@@ -228,7 +228,10 @@
 	<!-- Add item -->
 	{#if isEditable}
 		<form method="POST" action="?/addItem" class="add-form" use:enhance={handle}>
-			<h3>Add an item</h3>
+			<div class="add-head">
+				<h3>Add an item</h3>
+				<a class="browse-link" href="/rep/quotes/{data.quote.id}/browse">🛒 Browse full catalog →</a>
+			</div>
 			<div class="add-row">
 				<select name="product_id" required>
 					<option value="" disabled selected>Select a product…</option>
@@ -298,6 +301,10 @@
 
 	.add-form { margin-top: var(--space-4); padding: var(--space-3); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); }
 	.add-form h3 { font-family: var(--font-heading); font-size: 0.9rem; font-weight: 700; margin: 0 0 var(--space-2); }
+	.add-head { display: flex; justify-content: space-between; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+	.add-head h3 { margin: 0; }
+	.browse-link { font-size: var(--text-small); font-weight: 700; color: var(--color-primary); text-decoration: none; }
+	.browse-link:hover { text-decoration: underline; }
 	.add-row { display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; }
 	.add-row select { flex: 1; min-width: 220px; padding: 0.45rem 0.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: var(--text-small); }
 
