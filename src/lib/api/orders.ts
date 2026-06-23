@@ -107,17 +107,20 @@ export async function createOrderFromQuote(
 	}[],
 	requiresApproval: boolean
 ) {
-	// Lock the quote by updating status — only succeeds if currently 'quoted'
+	// Lock the quote by flipping its status to 'accepted'. This is atomic — only
+	// the first caller whose quote is still in an open state wins, so an order is
+	// created exactly once. Customers accept 'quoted' quotes; reps can close a
+	// still-open draft ('pending'/'in_progress') into an order in person.
 	const { data: updated, error: lockErr } = await supabase
 		.from('quote_requests')
 		.update({ status: 'accepted' })
 		.eq('id', quoteRequestId)
-		.eq('status', 'quoted')
+		.in('status', ['pending', 'in_progress', 'quoted'])
 		.select()
 		.single();
 
 	if (lockErr || !updated) {
-		return { data: null, error: lockErr ?? { message: 'Quote already processed or not in quoted state' } };
+		return { data: null, error: lockErr ?? { message: 'Quote already processed or not in an open state' } };
 	}
 
 	const subtotal = items.reduce((sum, i) => sum + i.unitPrice * i.quantity, 0);

@@ -225,23 +225,40 @@ export const actions: Actions = {
 	},
 
 	// Rep creates the order directly (in-person close).
+	// In-person close: turn the (possibly still-draft) quote directly into an order.
 	createOrder: async ({ locals, params }) => {
 		const { profile } = await locals.safeGetSession();
-		if (!profile) return fail(401, { error: 'Not authenticated' });
+		if (!profile || !['sales_rep', 'manager', 'admin'].includes(profile.role ?? '')) {
+			return fail(403, { error: 'Not allowed' });
+		}
+
+		// Reps have no direct RLS write on quotes/orders — go through the
+		// service-role client, gated by the role check above.
+		const admin = createSupabaseAdminClient();
 
 		const { quote, orderItems, requiresApproval, error: buildErr } = await buildOrderItemsFromQuote(
-			locals.supabase,
+			admin,
 			params.quoteId
 		);
 		if (buildErr || !quote) return fail(500, { error: (buildErr as any)?.message ?? 'Quote not found' });
+		if (!EDITABLE.includes((quote as any).status)) {
+			return fail(400, { error: `A ${(quote as any).status} quote can no longer be turned into an order.` });
+		}
+		if (!orderItems.length) {
+			return fail(400, { error: 'Price all items before creating an order.' });
+		}
+
+		// Below-target pricing requires manager approval — UNLESS this quote was
+		// already approved at the quote stage (don't double-gate the same prices).
+		const needsApproval = requiresApproval && (quote as any).approval_status !== 'approved';
 
 		const { data: order, error: orderErr } = await createOrderFromQuote(
-			locals.supabase,
+			admin,
 			params.quoteId,
 			quote.customer_id,
 			profile.id,
 			orderItems,
-			requiresApproval
+			needsApproval
 		);
 		if (orderErr || !order) return fail(500, { error: (orderErr as any)?.message ?? 'Failed to create order' });
 

@@ -65,6 +65,13 @@
 		items.some((it: any) => ['below-target', 'below-cost'].includes(guardrail(it.id, it.pricing)))
 	);
 
+	// Every line has a price → the rep can close it into an order in person,
+	// straight from a draft (no need to send to the customer first).
+	const allPriced = $derived(
+		items.length > 0 && items.every((it: any) => (quotedPrices[it.id] ?? 0) > 0)
+	);
+	const canCreateOrder = $derived(isEditable && allPriced);
+
 	const handle = () => {
 		busy = true;
 		return async ({ update }: any) => { await update(); busy = false; };
@@ -221,12 +228,17 @@
 		</form>
 	{/if}
 
-	{#if isQuoted}
+	{#if canCreateOrder}
 		<form method="POST" action="?/createOrder" use:enhance class="order-form">
 			<button type="submit" class="btn-primary btn-green">
-				Create Order Now {anyBelowTarget ? '(Requires Approval)' : ''}
+				Create Order Now {anyBelowTarget && !isApproved ? '(Needs Approval)' : ''}
 			</button>
-			<p class="order-note">Use this only for in-person closes — normally the customer accepts &amp; pays.</p>
+			<p class="order-note">
+				In-person close — turns this into an order now. The customer still pays from their own
+				portal.{anyBelowTarget && !isApproved
+					? ' Below-target pricing means the order will need manager approval before fulfillment.'
+					: ''}
+			</p>
 		</form>
 	{/if}
 </div>
