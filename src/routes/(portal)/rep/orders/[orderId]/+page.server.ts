@@ -3,11 +3,15 @@ import type { PageServerLoad, Actions } from './$types';
 import type { OrderStatus } from '$lib/database.types';
 import { notifyOrderShipped } from '$lib/server/email';
 
+// Fulfillment is a linear pipeline. Payment is tracked separately via the
+// `payment_collected` boolean (set by the Woo webhook), so it's NOT a stage here.
+// `payment_collected` is kept as a starting point only for legacy orders that the
+// old webhook pushed into that status before payment was decoupled.
 const STATUS_TRANSITIONS: Record<string, string[]> = {
 	approved: ['placed_with_supplier'],
 	placed_with_supplier: ['shipped'],
 	shipped: ['delivered'],
-	delivered: ['payment_collected'],
+	delivered: ['commission_paid'],
 	payment_collected: ['commission_paid']
 };
 

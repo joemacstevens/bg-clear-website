@@ -45,12 +45,16 @@ export const POST: RequestHandler = async ({ request, url }) => {
 	const bgOrderId = (payload.meta_data ?? []).find((m: any) => m.key === 'bg_order_id')?.value;
 	const wooOrderId = String(payload.id);
 
+	// Payment is its own axis — set the paid flag ONLY, never the fulfillment
+	// status. Customers usually pay up front (right after approval), so writing
+	// status here would clobber the fulfillment pipeline (placed → shipped →
+	// delivered) and suppress the shipped email. The `payment_collected` boolean
+	// is the single source of truth for "paid".
 	let query = admin
 		.from('orders')
 		.update({
 			payment_collected: true,
-			payment_collected_at: new Date().toISOString(),
-			status: 'payment_collected'
+			payment_collected_at: new Date().toISOString()
 		})
 		.eq('payment_collected', false) // idempotent: only the first paid event sticks
 		.select('id, order_number, subtotal, customer_id, rep_id');

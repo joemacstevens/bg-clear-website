@@ -5,7 +5,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 	const { data: orders } = await locals.supabase
 		.from('orders')
-		.select('id, order_number, status, created_at, order_items(commission_amount, quantity, unit_price, products(name))')
+		.select('id, order_number, status, payment_collected, created_at, order_items(commission_amount, quantity, unit_price, products(name))')
 		.eq('rep_id', profile?.id ?? '')
 		.not('status', 'eq', 'cancelled')
 		.order('created_at', { ascending: false });
@@ -21,8 +21,11 @@ export const load: PageServerLoad = async ({ locals }) => {
 			orderRevenue += (item.unit_price ?? 0) * (item.quantity ?? 1);
 		}
 
+		// Commission is "earned" once the order is paid (boolean) or delivered;
+		// "paid" once the rep's commission itself has been disbursed.
 		if (['commission_paid'].includes(order.status)) paid += orderCommission;
-		else if (['delivered', 'payment_collected'].includes(order.status)) earned += orderCommission;
+		else if (order.payment_collected || ['delivered', 'payment_collected'].includes(order.status))
+			earned += orderCommission;
 		else pending += orderCommission;
 
 		orderSummaries.push({

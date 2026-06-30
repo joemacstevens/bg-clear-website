@@ -22,13 +22,9 @@
 
 	let paying = $state(false);
 
-	const statusTimeline = [
-		'approved',
-		'placed_with_supplier',
-		'shipped',
-		'delivered',
-		'payment_collected'
-	];
+	// Fulfillment timeline only — payment is a separate axis, surfaced by the
+	// pay-card below (a customer typically pays up front, before fulfillment).
+	const statusTimeline = ['approved', 'placed_with_supplier', 'shipped', 'delivered'];
 
 	const statusIndex = statusTimeline.indexOf(order.status);
 </script>
