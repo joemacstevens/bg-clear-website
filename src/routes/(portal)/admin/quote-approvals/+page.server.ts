@@ -1,7 +1,7 @@
 import type { PageServerLoad, Actions } from './$types';
 import { fail } from '@sveltejs/kit';
 import { createSupabaseAdminClient } from '$lib/server/supabase-admin';
-import { notifyQuoteReady } from '$lib/server/email';
+import { notifyQuoteReady, notifyQuoteRejected } from '$lib/server/email';
 import { logAuditEvent } from '$lib/api/audit';
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -93,7 +93,7 @@ export const actions: Actions = {
 		return { success: true, action: 'approve' };
 	},
 
-	reject: async ({ request, locals }) => {
+	reject: async ({ request, locals, url }) => {
 		const { user } = await locals.safeGetSession();
 		if (!user) return fail(401, { error: 'Unauthorized' });
 		const admin = createSupabaseAdminClient();
@@ -113,6 +113,32 @@ export const actions: Actions = {
 				status: 'in_progress'
 			})
 			.eq('id', quoteId);
+
+		// Tell the assigned rep their pricing needs revision.
+		try {
+			const { data: q } = await admin
+				.from('quote_requests')
+				.select(
+					`assigned_rep_id,
+					 rep:profiles!quote_requests_assigned_rep_id_fkey(email, full_name),
+					 customer:profiles!quote_requests_customer_id_fkey(full_name, company_name)`
+				)
+				.eq('id', quoteId)
+				.single();
+			const rep = (q as any)?.rep;
+			const customer = (q as any)?.customer;
+			if (rep?.email) {
+				await notifyQuoteRejected({
+					to: rep.email,
+					origin: url.origin,
+					quoteId,
+					customerName: customer?.company_name || customer?.full_name || 'a customer',
+					notes
+				});
+			}
+		} catch (e) {
+			console.error('[notify] quote-rejected email failed', e);
+		}
 
 		await logAuditEvent(locals.supabase, user.id, 'reject_quote', 'quote_requests', quoteId, { notes });
 		return { success: true, action: 'reject' };

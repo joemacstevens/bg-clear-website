@@ -116,4 +116,4 @@ the rep** (clean, no triage step needed).
   the catalog, quotes, and portals stay on BG Clear's own platform.
 - **Newest additions:** deep **category navigation** (mega-menu + landing pages)
   and a **rich search** (live dropdown + results), plus **self-service password
-  recovery**.
+  recovery

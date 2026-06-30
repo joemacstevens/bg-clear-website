@@ -3,7 +3,7 @@ import type { PageServerLoad, Actions } from './$types';
 import { env } from '$env/dynamic/private';
 import { createOrderFromQuote, buildOrderItemsFromQuote } from '$lib/api/orders';
 import { createSupabaseAdminClient } from '$lib/server/supabase-admin';
-import { notifyQuoteReady } from '$lib/server/email';
+import { notifyQuoteReady, notifyApprovalNeeded, notifyOrderConfirmation } from '$lib/server/email';
 
 const EDITABLE = ['pending', 'in_progress', 'quoted'];
 
@@ -163,7 +163,7 @@ export const actions: Actions = {
 
 		await persistLines(admin, await request.formData(), params.quoteId);
 
-		const { requiresApproval } = await buildOrderItemsFromQuote(admin, params.quoteId);
+		const { requiresApproval, orderItems } = await buildOrderItemsFromQuote(admin, params.quoteId);
 
 		// Nothing below target → no approval needed, just send it.
 		if (!requiresApproval) {
@@ -185,6 +185,32 @@ export const actions: Actions = {
 				assigned_rep_id: profile.id
 			})
 			.eq('id', params.quoteId);
+
+		// Alert an admin that a below-target quote is waiting for approval.
+		try {
+			const adminTo = env.INTERNAL_NOTIFY_EMAIL;
+			if (adminTo) {
+				const { data: q } = await admin
+					.from('quote_requests')
+					.select('customer:profiles!quote_requests_customer_id_fkey(full_name, company_name)')
+					.eq('id', params.quoteId)
+					.single();
+				const c = (q as any)?.customer;
+				const total = (orderItems ?? []).reduce(
+					(s: number, it: any) => s + (it.unitPrice ?? 0) * (it.quantity ?? 1),
+					0
+				);
+				await notifyApprovalNeeded({
+					to: adminTo,
+					origin: url.origin,
+					customerName: c?.company_name || c?.full_name || 'Customer',
+					repName: profile.full_name ?? undefined,
+					total
+				});
+			}
+		} catch (e) {
+			console.error('[notify] approval-needed email failed', e);
+		}
 
 		return { success: true, submitted: true };
 	},
@@ -226,7 +252,7 @@ export const actions: Actions = {
 
 	// Rep creates the order directly (in-person close).
 	// In-person close: turn the (possibly still-draft) quote directly into an order.
-	createOrder: async ({ request, locals, params }) => {
+	createOrder: async ({ request, locals, params, url }) => {
 		const { profile } = await locals.safeGetSession();
 		if (!profile || !['sales_rep', 'manager', 'admin'].includes(profile.role ?? '')) {
 			return fail(403, { error: 'Not allowed' });
@@ -265,6 +291,27 @@ export const actions: Actions = {
 			needsApproval
 		);
 		if (orderErr || !order) return fail(500, { error: (orderErr as any)?.message ?? 'Failed to create order' });
+
+		// Confirm the order to the customer (so they know to log in and pay).
+		try {
+			const { data: cust } = await admin
+				.from('profiles')
+				.select('email, full_name, company_name')
+				.eq('id', quote.customer_id)
+				.single();
+			if ((cust as any)?.email) {
+				await notifyOrderConfirmation({
+					to: (cust as any).email,
+					origin: url.origin,
+					orderId: order.id,
+					orderNumber: (order as any).order_number ?? order.id,
+					customerName: (cust as any).company_name || (cust as any).full_name || 'there',
+					total: (order as any).subtotal ?? 0
+				});
+			}
+		} catch (e) {
+			console.error('[notify] order-confirmation email failed', e);
+		}
 
 		throw redirect(303, `/rep/orders/${order.id}`);
 	}
