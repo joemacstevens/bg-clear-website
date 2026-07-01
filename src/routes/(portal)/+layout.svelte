@@ -5,9 +5,14 @@
 	import type { LayoutData } from './$types';
 	import logo from '$lib/assets/bg-clear-logo-640.png';
 	import Footer from '$lib/components/Footer.svelte';
+	import { quoteCart } from '$lib/stores/quote-cart';
 
 	let { data, children }: { data: LayoutData; children: any } = $props();
 	const supabase = createSupabaseBrowserClient();
+
+	// Number of distinct products in the quote-in-progress, for the nav badge.
+	// Matches the "Quote Cart" counter on the catalog page (line count, not qty).
+	const cartCount = $derived($quoteCart.length);
 
 	const navItems = $derived(() => {
 		const items = [
@@ -53,6 +58,21 @@
 			</div>
 
 			{#if $page.url.pathname.startsWith('/catalog')}
+				<a
+					href="/catalog/quote"
+					class="cart-btn"
+					class:active={$page.url.pathname === '/catalog/quote'}
+					aria-label={`Quote in progress — ${cartCount} item${cartCount === 1 ? '' : 's'}`}
+					title="Quote in progress"
+				>
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="19" height="19">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+					</svg>
+					{#if cartCount > 0}
+						<span class="cart-count">{cartCount}</span>
+					{/if}
+				</a>
+
 				<div class="header-contact-info">
 					<a href="mailto:customercare@bgclear.com" class="contact-icon" aria-label="Email us" title="Email us">
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="18" height="18">
@@ -180,6 +200,53 @@
 	.nav-link.active::after {
 		transform: scaleX(1);
 		background: var(--color-primary);
+	}
+
+	.cart-btn {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 34px;
+		height: 34px;
+		border-radius: 50%;
+		border: 1px solid var(--color-border);
+		color: var(--color-primary);
+		text-decoration: none;
+		transition: all 160ms ease;
+		flex-shrink: 0;
+	}
+
+	.cart-btn:hover {
+		background: var(--color-primary);
+		border-color: var(--color-primary);
+		color: #ffffff;
+		transform: scale(1.05);
+	}
+
+	.cart-btn.active {
+		background: rgba(30, 58, 95, 0.05);
+		border-color: var(--color-primary);
+	}
+
+	.cart-count {
+		position: absolute;
+		top: -5px;
+		right: -5px;
+		min-width: 17px;
+		height: 17px;
+		padding: 0 4px;
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: var(--color-gold);
+		color: var(--color-primary-dark);
+		font-size: 0.65rem;
+		font-weight: 700;
+		line-height: 1;
+		border-radius: var(--radius-pill);
+		font-variant-numeric: tabular-nums;
 	}
 
 	.header-contact-info {
