@@ -17,7 +17,7 @@ payment step; **admins** manage the catalog, categories, pricing, and users.
 
 ## Demo logins
 
-**Shared password for all three:** `BGClearDemo2026!`
+**Shared password for all three:** stored privately (ask Joe or check the password manager) — intentionally not committed to the repo.
 
 | Role | Email | Who |
 |---|---|---|
@@ -103,8 +103,8 @@ the rep** (clean, no triage step needed).
 - To run it again, just **submit a new quote as Maria** — the flow repeats.
 - To reset Maria to a clean slate (clear her quotes/orders), say the word and
   I'll wipe just her demo data.
-- All three demo passwords are `BGClearDemo2026!` (change anytime in Supabase →
-  Authentication → Users).
+- All three demo accounts share one password, kept out of the repo (ask Joe /
+  password manager). Change it anytime in Supabase → Authentication → Users.
 
 ---
 
