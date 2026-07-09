@@ -27,6 +27,7 @@
 			<a href="/#products">Products</a>
 			<a href="/about">About</a>
 			<a href="/blog">Resources</a>
+			<a href="/pay-invoice">Pay Invoice</a>
 		</nav>
 		<div class="header-cta">
 			<a href="mailto:customercare@bgclear.com" class="header-icon" aria-label="Email us" title="Email us">
@@ -59,6 +60,7 @@
 		<a href="/#products" onclick={() => mobileNavOpen = false}>Products</a>
 		<a href="/about" onclick={() => mobileNavOpen = false}>About</a>
 		<a href="/blog" onclick={() => mobileNavOpen = false}>Resources</a>
+			<a href="/pay-invoice" onclick={() => mobileNavOpen = false}>Pay Invoice</a>
 	</div>
 	<div class="mobile-nav-footer">
 		<a href="tel:+12017657171" class="mobile-nav-phone">(201) 765-7171</a>
