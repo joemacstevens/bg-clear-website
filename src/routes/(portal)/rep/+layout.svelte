@@ -8,6 +8,7 @@
 		{ href: '/rep/pricing', label: 'Pricing Table' },
 		{ href: '/rep/quotes', label: 'Quotes' },
 		{ href: '/rep/orders', label: 'Orders' },
+		{ href: '/rep/invoices', label: 'Pay Links' },
 		{ href: '/rep/commissions', label: 'Commissions' },
 		{ href: '/rep/customers', label: 'Customers' }
 	];

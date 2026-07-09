@@ -42,8 +42,24 @@ export const POST: RequestHandler = async ({ request, url }) => {
 
 	const admin = createSupabaseAdminClient();
 
-	const bgOrderId = (payload.meta_data ?? []).find((m: any) => m.key === 'bg_order_id')?.value;
+	const meta = (key: string) => (payload.meta_data ?? []).find((m: any) => m.key === key)?.value;
+	const bgOrderId = meta('bg_order_id');
+	const bgType = meta('bg_type');
 	const wooOrderId = String(payload.id);
+
+	// Manual pay-invoice links (rep/admin-generated, arbitrary amount) live in
+	// their own table — reconcile those separately from the orders pipeline.
+	if (bgType === 'manual_invoice') {
+		let invQuery = admin
+			.from('manual_invoices')
+			.update({ status: 'paid', paid_at: new Date().toISOString() })
+			.eq('status', 'pending'); // idempotent: only the first paid event sticks
+		// Prefer the invoice row id (from meta); fall back to the Woo order id.
+		invQuery = bgOrderId ? invQuery.eq('id', bgOrderId) : invQuery.eq('woo_order_id', wooOrderId);
+		const { error: invErr } = await invQuery;
+		if (invErr) return text('Update failed', { status: 500 });
+		return json({ ok: true, manual_invoice: true });
+	}
 
 	// Payment is its own axis — set the paid flag ONLY, never the fulfillment
 	// status. Customers usually pay up front (right after approval), so writing

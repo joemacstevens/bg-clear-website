@@ -129,6 +129,21 @@ export interface OrderItem {
 	created_at: string;
 }
 
+export interface ManualInvoice {
+	id: string;
+	invoice_number: string;
+	customer_name: string | null;
+	customer_email: string | null;
+	description: string | null;
+	amount: number;
+	status: 'pending' | 'paid' | 'void';
+	woo_order_id: string | null;
+	pay_url: string | null;
+	created_by: string | null;
+	created_at: string;
+	paid_at: string | null;
+}
+
 // Supabase client database type (simplified for now)
 export interface Database {
 	public: {
@@ -140,6 +155,7 @@ export interface Database {
 			quote_request_items: { Row: QuoteRequestItem; Insert: Partial<QuoteRequestItem>; Update: Partial<QuoteRequestItem> };
 			orders: { Row: Order; Insert: Partial<Order>; Update: Partial<Order> };
 			order_items: { Row: OrderItem; Insert: Partial<OrderItem>; Update: Partial<OrderItem> };
+			manual_invoices: { Row: ManualInvoice; Insert: Partial<ManualInvoice>; Update: Partial<ManualInvoice> };
 		};
 		Views: {
 			product_pricing: { Row: ProductPricing };

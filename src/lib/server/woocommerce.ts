@@ -29,6 +29,9 @@ function wooConfig() {
 export interface WooOrderInput {
 	bgOrderId: string;
 	bgOrderNumber: string;
+	// Tags the Woo order so the paid-webhook knows which BG table to reconcile.
+	// 'order' (default) → public.orders; 'manual_invoice' → public.manual_invoices.
+	orderType?: 'order' | 'manual_invoice';
 	billing: {
 		first_name?: string;
 		last_name?: string;
@@ -88,7 +91,8 @@ export async function createWooOrder(
 		fee_lines,
 		meta_data: [
 			{ key: 'bg_order_id', value: input.bgOrderId },
-			{ key: 'bg_order_number', value: input.bgOrderNumber }
+			{ key: 'bg_order_number', value: input.bgOrderNumber },
+			{ key: 'bg_type', value: input.orderType ?? 'order' }
 		]
 	};
 
