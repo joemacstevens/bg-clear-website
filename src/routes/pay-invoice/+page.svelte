@@ -4,6 +4,19 @@
 
 	let { form }: { form: ActionData } = $props();
 	let submitting = $state(false);
+
+	// Fields are bound to state, NOT `value={form?.values…}`. With a one-way
+	// value attribute, flipping `submitting` in onsubmit re-ran the attribute
+	// effect and wrote '' back into every input before the browser built the
+	// POST body — so every real submit arrived empty ("Enter your invoice number").
+	// Initial value only, on purpose: this form does a full-page POST (no
+	// use:enhance), so the page remounts with fresh `form` after every submit.
+	// svelte-ignore state_referenced_locally
+	const initial = form?.values;
+	let invoiceNumber = $state(initial?.invoice_number ?? '');
+	let amount = $state(initial?.amount ?? '');
+	let customerName = $state(initial?.customer_name ?? '');
+	let customerEmail = $state(initial?.customer_email ?? '');
 </script>
 
 <svelte:head><title>Pay an Invoice | BG Clear</title></svelte:head>
@@ -24,22 +37,22 @@
 
 			<label>
 				Invoice number
-				<input name="invoice_number" required placeholder="INV-123456" value={form?.values?.invoice_number ?? ''} />
+				<input name="invoice_number" required placeholder="INV-123456" bind:value={invoiceNumber} />
 			</label>
 			<label>
 				Amount due (USD)
 				<div class="amount-input">
 					<span>$</span>
-					<input name="amount" type="number" step="0.01" min="0.01" required placeholder="0.00" value={form?.values?.amount ?? ''} />
+					<input name="amount" type="number" step="0.01" min="0.01" required placeholder="0.00" bind:value={amount} />
 				</div>
 			</label>
 			<label>
 				Name <span class="opt">(optional)</span>
-				<input name="customer_name" placeholder="Jane Doe" value={form?.values?.customer_name ?? ''} />
+				<input name="customer_name" placeholder="Jane Doe" bind:value={customerName} />
 			</label>
 			<label>
 				Email <span class="opt">(optional — for your receipt)</span>
-				<input name="customer_email" type="email" placeholder="jane@example.com" value={form?.values?.customer_email ?? ''} />
+				<input name="customer_email" type="email" placeholder="jane@example.com" bind:value={customerEmail} />
 			</label>
 
 			<button class="pay-btn" type="submit" disabled={submitting}>
