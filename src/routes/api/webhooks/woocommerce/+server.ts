@@ -14,8 +14,14 @@ const PAID_STATUSES = new Set(['processing', 'completed']);
  * back FROM Woo (everything else is site → Woo).
  *
  * Configure in Woo: WooCommerce → Settings → Advanced → Webhooks →
- *   Topic: "Order updated", Delivery URL: https://<site>/api/webhooks/woocommerce,
+ *   Topic: "Order updated", API version: WP REST API v3,
+ *   Delivery URL: https://www.bgclear.com/api/webhooks/woocommerce,
  *   Secret: WOOCOMMERCE_WEBHOOK_SECRET.
+ *
+ * Use the `www` host: the apex bgclear.com 308-redirects to www, and webhook
+ * POSTs don't survive the redirect. Woo auto-DISABLES a webhook after repeated
+ * delivery failures, so if invoices stop flipping to paid, check its status
+ * there first (GET /wp-json/wc/v3/webhooks).
  */
 export const POST: RequestHandler = async ({ request, url }) => {
 	// Read the raw body for HMAC verification (don't use request.json()).
@@ -56,9 +62,18 @@ export const POST: RequestHandler = async ({ request, url }) => {
 			.eq('status', 'pending'); // idempotent: only the first paid event sticks
 		// Prefer the invoice row id (from meta); fall back to the Woo order id.
 		invQuery = bgOrderId ? invQuery.eq('id', bgOrderId) : invQuery.eq('woo_order_id', wooOrderId);
-		const { error: invErr } = await invQuery;
-		if (invErr) return text('Update failed', { status: 500 });
-		return json({ ok: true, manual_invoice: true });
+		const { data: flipped, error: invErr } = await invQuery.select('invoice_number');
+		if (invErr) {
+			console.error(`[woo-webhook] manual invoice update failed (woo #${wooOrderId}):`, invErr.message);
+			return text('Update failed', { status: 500 });
+		}
+		// Empty = a repeat paid event (already flipped) or no matching row.
+		console.log(
+			`[woo-webhook] woo #${wooOrderId} ${payload.status} → manual invoice ${
+				flipped?.[0]?.invoice_number ?? '(no pending row matched)'
+			}`
+		);
+		return json({ ok: true, manual_invoice: true, updated: flipped?.length ?? 0 });
 	}
 
 	// Payment is its own axis — set the paid flag ONLY, never the fulfillment

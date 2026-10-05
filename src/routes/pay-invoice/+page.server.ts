@@ -57,6 +57,7 @@ export const actions: Actions = {
 			.single();
 
 		if (insertErr || !invoice) {
+			console.error('[pay-invoice] manual_invoices insert failed', insertErr?.message);
 			return fail(500, { error: 'Could not start the payment. Please try again.', values });
 		}
 
@@ -75,7 +76,13 @@ export const actions: Actions = {
 				.from('manual_invoices')
 				.update({ woo_order_id: String(res.wooOrderId), pay_url: res.payUrl })
 				.eq('id', invoice.id);
-		} catch {
+		} catch (e) {
+			// Log the real cause — the payer only sees the generic message below, and
+			// without this an outage (e.g. the Woo site going down) leaves no trace.
+			console.error(
+				`[pay-invoice] Woo order creation failed for ${invoiceNumber}:`,
+				e instanceof Error ? e.message : e
+			);
 			// Roll back the dangling row if the payment system is unreachable.
 			await admin.from('manual_invoices').delete().eq('id', invoice.id);
 			return fail(502, {

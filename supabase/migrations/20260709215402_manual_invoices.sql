@@ -25,7 +25,7 @@ alter table public.manual_invoices enable row level security;
 
 -- Reps, managers, and admins can create and manage pay-invoice links. Reads the
 -- canonical role from profiles via the SECURITY DEFINER helper (never trust
--- user_metadata — see 20260608000001_harden_rls_use_profiles_role).
+-- user_metadata — see 20260608135830_harden_rls_use_profiles_role).
 drop policy if exists "manual_invoices_staff_all" on public.manual_invoices;
 create policy "manual_invoices_staff_all" on public.manual_invoices
   for all using (private.current_user_role() = any (array['admin', 'manager', 'sales_rep']))

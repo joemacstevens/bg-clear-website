@@ -93,6 +93,7 @@ export const actions: Actions = {
 		} catch (e) {
 			await locals.supabase.from('manual_invoices').delete().eq('id', invoice.id);
 			const msg = e instanceof Error ? e.message : 'WooCommerce order creation failed.';
+			console.error(`[rep/invoices] Woo order creation failed for ${invoiceNumber}:`, msg);
 			return { success: false, error: `Could not generate the pay link: ${msg}`, values };
 		}
 	}
