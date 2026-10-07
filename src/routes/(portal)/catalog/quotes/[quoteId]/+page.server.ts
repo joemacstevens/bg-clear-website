@@ -3,6 +3,7 @@ import { error, fail, redirect } from '@sveltejs/kit';
 import { getQuoteRequestById } from '$lib/api/quotes';
 import { buildOrderItemsFromQuote, createOrderFromQuote } from '$lib/api/orders';
 import { createSupabaseAdminClient } from '$lib/server/supabase-admin';
+import { notifyOrderConfirmation, notifyOrderPlacedToRep, staffRecipients } from '$lib/server/email';
 
 export const load: PageServerLoad = async ({ locals, params }) => {
 	const { data: quote, error: err } = await getQuoteRequestById(locals.supabase, params.quoteId);
@@ -108,7 +109,7 @@ export const actions: Actions = {
 	// Order creation touches orders/order_items and flips the quote status —
 	// all staff-only under RLS, so it runs server-side with the admin client
 	// after the ownership + 'quoted' status guard passes.
-	accept: async ({ locals, params }) => {
+	accept: async ({ locals, params, url }) => {
 		const guard = await loadEditableQuote(locals, params.quoteId);
 		if ('error' in guard) return guard.error;
 		const { quote } = guard;
@@ -143,6 +144,49 @@ export const actions: Actions = {
 
 		if (orderErr || !order) {
 			return fail(500, { error: (orderErr as any)?.message ?? 'Could not create order' });
+		}
+
+		// Notify both sides: confirmation to the customer, "order placed" to the rep + internal inbox.
+		try {
+			const [{ data: cust }, { data: rep }] = await Promise.all([
+				admin
+					.from('profiles')
+					.select('email, full_name, company_name')
+					.eq('id', quote.customer_id)
+					.single(),
+				admin
+					.from('profiles')
+					.select('email, full_name')
+					.eq('id', quote.assigned_rep_id)
+					.single()
+			]);
+			const orderNumber = (order as any).order_number ?? order.id;
+			const total = (order as any).subtotal ?? 0;
+			const customerName =
+				(cust as any)?.company_name || (cust as any)?.full_name || 'there';
+			if ((cust as any)?.email) {
+				await notifyOrderConfirmation({
+					to: (cust as any).email,
+					origin: url.origin,
+					orderId: order.id,
+					orderNumber,
+					customerName,
+					total
+				});
+			}
+			const staffTo = staffRecipients((rep as any)?.email);
+			if (staffTo.length) {
+				await notifyOrderPlacedToRep({
+					to: staffTo,
+					origin: url.origin,
+					orderId: order.id,
+					orderNumber,
+					customerName,
+					total
+				});
+			}
+		} catch (e) {
+			console.error('[notify] order emails failed', e);
 		}
 
 		// Order created — head to the order page (checkout/payment lands here next).

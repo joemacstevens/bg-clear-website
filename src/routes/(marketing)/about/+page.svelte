@@ -103,7 +103,7 @@
 					Talk to a specialist about our full DME catalog, competitive pricing, and compliant fulfillment.
 				</p>
 			</div>
-			<a class="button button-light" href="/#request-call">Talk to a Specialist</a>
+			<a class="button button-light" href="/catalog">Browse Our Catalog</a>
 		</div>
 	</section>
 </main>

@@ -1,12 +1,17 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
 import type { OrderStatus } from '$lib/database.types';
+import { notifyOrderShipped } from '$lib/server/email';
 
+// Fulfillment is a linear pipeline. Payment is tracked separately via the
+// `payment_collected` boolean (set by the Woo webhook), so it's NOT a stage here.
+// `payment_collected` is kept as a starting point only for legacy orders that the
+// old webhook pushed into that status before payment was decoupled.
 const STATUS_TRANSITIONS: Record<string, string[]> = {
 	approved: ['placed_with_supplier'],
 	placed_with_supplier: ['shipped'],
 	shipped: ['delivered'],
-	delivered: ['payment_collected'],
+	delivered: ['commission_paid'],
 	payment_collected: ['commission_paid']
 };
 
@@ -29,7 +34,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 };
 
 export const actions: Actions = {
-	updateStatus: async ({ request, locals, params }) => {
+	updateStatus: async ({ request, locals, params, url }) => {
 		const form = await request.formData();
 		const newStatus = form.get('status') as OrderStatus;
 
@@ -39,6 +44,34 @@ export const actions: Actions = {
 			.eq('id', params.orderId);
 
 		if (err) return { success: false, error: err.message };
+
+		// Let the customer know their order is on the way.
+		if (newStatus === 'shipped') {
+			try {
+				const { data: order } = await locals.supabase
+					.from('orders')
+					.select(
+						`order_number, tracking_number,
+						 customer:profiles!orders_customer_id_fkey(email, full_name, company_name)`
+					)
+					.eq('id', params.orderId)
+					.single();
+				const customer = (order as any)?.customer;
+				if (customer?.email) {
+					await notifyOrderShipped({
+						to: customer.email,
+						origin: url.origin,
+						orderId: params.orderId,
+						orderNumber: (order as any).order_number ?? params.orderId,
+						customerName: customer.company_name || customer.full_name || 'there',
+						trackingNumber: (order as any).tracking_number
+					});
+				}
+			} catch (e) {
+				console.error('[notify] order-shipped email failed', e);
+			}
+		}
+
 		return { success: true };
 	}
 };

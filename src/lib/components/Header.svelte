@@ -27,6 +27,7 @@
 			<a href="/#products">Products</a>
 			<a href="/about">About</a>
 			<a href="/blog">Resources</a>
+			<a href="/pay-invoice">Pay Invoice</a>
 		</nav>
 		<div class="header-cta">
 			<a href="mailto:customercare@bgclear.com" class="header-icon" aria-label="Email us" title="Email us">
@@ -35,7 +36,7 @@
 				</svg>
 			</a>
 			<a href="tel:+12017657171" class="header-phone">(201) 765-7171</a>
-			<a class="button button-primary button-header" href="/#request-call">Talk to a Specialist</a>
+			<a class="button button-primary button-header" href="/catalog">Browse Catalog</a>
 		</div>
 		<button class="hamburger" aria-label="Open menu" aria-expanded={mobileNavOpen} onclick={() => mobileNavOpen = true}>
 			<span class="hamburger-line"></span>
@@ -59,9 +60,10 @@
 		<a href="/#products" onclick={() => mobileNavOpen = false}>Products</a>
 		<a href="/about" onclick={() => mobileNavOpen = false}>About</a>
 		<a href="/blog" onclick={() => mobileNavOpen = false}>Resources</a>
+			<a href="/pay-invoice" onclick={() => mobileNavOpen = false}>Pay Invoice</a>
 	</div>
 	<div class="mobile-nav-footer">
 		<a href="tel:+12017657171" class="mobile-nav-phone">(201) 765-7171</a>
-		<a class="button button-primary" href="/#request-call" onclick={() => mobileNavOpen = false}>Talk to a Specialist</a>
+		<a class="button button-primary" href="/catalog" onclick={() => mobileNavOpen = false}>Browse Catalog</a>
 	</div>
 </nav>

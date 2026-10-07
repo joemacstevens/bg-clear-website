@@ -126,7 +126,7 @@ Vendor Cost → (+internal margin%) → BG Cost → (+markup%) → Target Price 
 - Customers see: NOTHING (no pricing)
 - Admin sees: Everything including vendor cost
 
-### Demo Accounts (shared password: `BGClearDemo2026!`)
+### Demo Accounts (shared password stored privately — ask Joe / password manager; NOT in this repo)
 - `admin@bgclear.com` — admin role (Evens)
 - `rep@bgclear.com` — sales_rep role (Demo Sales Rep)
 - `maria.brooklyn@example.com` — clean demo customer, pre-assigned to the rep

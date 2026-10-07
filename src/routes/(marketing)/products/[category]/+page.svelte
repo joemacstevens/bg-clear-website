@@ -65,8 +65,8 @@
 					{/each}
 				</div>
 				<div class="cat-cta">
-					<p>Talk to a specialist for detailed specs, competitive pricing, and a custom quote.</p>
-					<a class="button button-primary" href="/#request-call">Talk to a Specialist</a>
+					<p>Browse the full catalog for detailed specs, and request a custom quote online.</p>
+					<a class="button button-primary" href="/catalog">Browse the Catalog</a>
 				</div>
 			</div>
 		</section>
