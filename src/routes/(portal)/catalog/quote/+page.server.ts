@@ -1,9 +1,8 @@
 import type { PageServerLoad, Actions } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
-import { env } from '$env/dynamic/private';
 import { createQuoteRequest } from '$lib/api/quotes';
 import { createSupabaseAdminClient } from '$lib/server/supabase-admin';
-import { notifyNewQuote } from '$lib/server/email';
+import { notifyNewQuote, staffRecipients } from '$lib/server/email';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const { profile } = await locals.safeGetSession();
@@ -47,18 +46,20 @@ export const actions: Actions = {
 		// Fire-and-forget staff alert — never let an email failure break submission.
 		try {
 			const admin = createSupabaseAdminClient();
-			let staffEmail = env.INTERNAL_NOTIFY_EMAIL || null;
+			// Assigned rep (if any) + the internal inbox.
+			let repEmail: string | null = null;
 			if (profile?.assigned_rep_id) {
 				const { data: rep } = await admin
 					.from('profiles')
 					.select('email')
 					.eq('id', profile.assigned_rep_id)
 					.single();
-				if (rep?.email) staffEmail = rep.email;
+				repEmail = rep?.email ?? null;
 			}
-			if (staffEmail && quote) {
+			const staffTo = staffRecipients(repEmail);
+			if (staffTo.length && quote) {
 				await notifyNewQuote({
-					to: staffEmail,
+					to: staffTo,
 					origin: url.origin,
 					quoteId: quote.id,
 					customerName: profile?.company_name || profile?.full_name || 'A customer',

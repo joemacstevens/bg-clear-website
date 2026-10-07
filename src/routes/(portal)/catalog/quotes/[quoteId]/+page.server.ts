@@ -3,7 +3,7 @@ import { error, fail, redirect } from '@sveltejs/kit';
 import { getQuoteRequestById } from '$lib/api/quotes';
 import { buildOrderItemsFromQuote, createOrderFromQuote } from '$lib/api/orders';
 import { createSupabaseAdminClient } from '$lib/server/supabase-admin';
-import { notifyOrderConfirmation, notifyOrderPlacedToRep } from '$lib/server/email';
+import { notifyOrderConfirmation, notifyOrderPlacedToRep, staffRecipients } from '$lib/server/email';
 
 export const load: PageServerLoad = async ({ locals, params }) => {
 	const { data: quote, error: err } = await getQuoteRequestById(locals.supabase, params.quoteId);
@@ -146,7 +146,7 @@ export const actions: Actions = {
 			return fail(500, { error: (orderErr as any)?.message ?? 'Could not create order' });
 		}
 
-		// Notify both sides: confirmation to the customer, "order placed" to the rep.
+		// Notify both sides: confirmation to the customer, "order placed" to the rep + internal inbox.
 		try {
 			const [{ data: cust }, { data: rep }] = await Promise.all([
 				admin
@@ -174,9 +174,10 @@ export const actions: Actions = {
 					total
 				});
 			}
-			if ((rep as any)?.email) {
+			const staffTo = staffRecipients((rep as any)?.email);
+			if (staffTo.length) {
 				await notifyOrderPlacedToRep({
-					to: (rep as any).email,
+					to: staffTo,
 					origin: url.origin,
 					orderId: order.id,
 					orderNumber,

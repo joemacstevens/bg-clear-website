@@ -85,7 +85,7 @@ function money(n: number): string {
 
 /** Staff alert: a new quote request came in. */
 export async function notifyNewQuote(opts: {
-	to: string;
+	to: string | string[];
 	origin: string;
 	quoteId: string;
 	customerName: string;
@@ -209,9 +209,9 @@ export async function notifyOrderConfirmation(opts: {
 	});
 }
 
-/** Rep email: their customer accepted and an order was placed. */
+/** Staff email (rep + internal inbox): an order was placed. */
 export async function notifyOrderPlacedToRep(opts: {
-	to: string;
+	to: string | string[];
 	origin: string;
 	orderId: string;
 	orderNumber: string;

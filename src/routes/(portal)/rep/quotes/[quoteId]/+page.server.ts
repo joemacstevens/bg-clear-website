@@ -3,7 +3,13 @@ import type { PageServerLoad, Actions } from './$types';
 import { env } from '$env/dynamic/private';
 import { createOrderFromQuote, buildOrderItemsFromQuote } from '$lib/api/orders';
 import { createSupabaseAdminClient } from '$lib/server/supabase-admin';
-import { notifyQuoteReady, notifyApprovalNeeded, notifyOrderConfirmation } from '$lib/server/email';
+import {
+	notifyQuoteReady,
+	notifyApprovalNeeded,
+	notifyOrderConfirmation,
+	notifyOrderPlacedToRep,
+	staffRecipients
+} from '$lib/server/email';
 
 const EDITABLE = ['pending', 'in_progress', 'quoted'];
 
@@ -292,21 +298,30 @@ export const actions: Actions = {
 		);
 		if (orderErr || !order) return fail(500, { error: (orderErr as any)?.message ?? 'Failed to create order' });
 
-		// Confirm the order to the customer (so they know to log in and pay).
+		// Confirm the order to the customer (so they know to log in and pay), and
+		// give the internal inbox the same "order placed" alert as customer-accepted orders.
 		try {
 			const { data: cust } = await admin
 				.from('profiles')
 				.select('email, full_name, company_name')
 				.eq('id', quote.customer_id)
 				.single();
+			const orderInfo = {
+				origin: url.origin,
+				orderId: order.id,
+				orderNumber: (order as any).order_number ?? order.id,
+				customerName: (cust as any)?.company_name || (cust as any)?.full_name || 'there',
+				total: (order as any).subtotal ?? 0
+			};
 			if ((cust as any)?.email) {
-				await notifyOrderConfirmation({
-					to: (cust as any).email,
-					origin: url.origin,
-					orderId: order.id,
-					orderNumber: (order as any).order_number ?? order.id,
-					customerName: (cust as any).company_name || (cust as any).full_name || 'there',
-					total: (order as any).subtotal ?? 0
+				await notifyOrderConfirmation({ to: (cust as any).email, ...orderInfo });
+			}
+			const staffTo = staffRecipients();
+			if (staffTo.length) {
+				await notifyOrderPlacedToRep({
+					to: staffTo,
+					...orderInfo,
+					customerName: (cust as any)?.company_name || (cust as any)?.full_name || 'A customer'
 				});
 			}
 		} catch (e) {
