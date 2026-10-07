@@ -2,8 +2,7 @@ import type { RequestHandler } from './$types';
 import { json, text } from '@sveltejs/kit';
 import { verifyWooWebhook } from '$lib/server/woocommerce';
 import { createSupabaseAdminClient } from '$lib/server/supabase-admin';
-import { env } from '$env/dynamic/private';
-import { notifyPaymentReceipt, notifyOrderPaid } from '$lib/server/email';
+import { notifyPaymentReceipt, notifyOrderPaid, notifyInvoicePaid, staffRecipients } from '$lib/server/email';
 
 // Woo order statuses that mean the money was captured.
 const PAID_STATUSES = new Set(['processing', 'completed']);
@@ -62,7 +61,9 @@ export const POST: RequestHandler = async ({ request, url }) => {
 			.eq('status', 'pending'); // idempotent: only the first paid event sticks
 		// Prefer the invoice row id (from meta); fall back to the Woo order id.
 		invQuery = bgOrderId ? invQuery.eq('id', bgOrderId) : invQuery.eq('woo_order_id', wooOrderId);
-		const { data: flipped, error: invErr } = await invQuery.select('invoice_number');
+		const { data: flipped, error: invErr } = await invQuery.select(
+			'invoice_number, customer_name, customer_email, description, amount, paid_at, created_by'
+		);
 		if (invErr) {
 			console.error(`[woo-webhook] manual invoice update failed (woo #${wooOrderId}):`, invErr.message);
 			return text('Update failed', { status: 500 });
@@ -73,6 +74,33 @@ export const POST: RequestHandler = async ({ request, url }) => {
 				flipped?.[0]?.invoice_number ?? '(no pending row matched)'
 			}`
 		);
+
+		// Payment receipt to the internal inbox + the rep who issued the link.
+		// Only the first paid event flips the row, so this fires exactly once.
+		const inv = flipped?.[0] as any; // manual_invoices is missing from database.types
+		if (inv) {
+			try {
+				const { data: creator } = inv.created_by
+					? await admin.from('profiles').select('email').eq('id', inv.created_by).single()
+					: { data: null };
+				const to = staffRecipients((creator as any)?.email);
+				if (to.length) {
+					await notifyInvoicePaid({
+						to,
+						origin: url.origin,
+						invoiceNumber: inv.invoice_number,
+						customerName: inv.customer_name,
+						customerEmail: inv.customer_email,
+						description: inv.description,
+						amount: Number(inv.amount),
+						paidAt: inv.paid_at,
+						wooOrderId
+					});
+				}
+			} catch (e) {
+				console.error('[notify] invoice-paid email failed', e);
+			}
+		}
 		return json({ ok: true, manual_invoice: true, updated: flipped?.length ?? 0 });
 	}
 
@@ -126,7 +154,7 @@ export const POST: RequestHandler = async ({ request, url }) => {
 			}
 
 			// Notify the rep + the internal fulfillment inbox.
-			const staffTo = [(rep as any)?.email, env.INTERNAL_NOTIFY_EMAIL].filter(Boolean) as string[];
+			const staffTo = staffRecipients((rep as any)?.email);
 			if (staffTo.length) {
 				await notifyOrderPaid({
 					to: staffTo,

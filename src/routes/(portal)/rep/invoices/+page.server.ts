@@ -1,5 +1,6 @@
 import type { PageServerLoad, Actions } from './$types';
 import { createWooOrder } from '$lib/server/woocommerce';
+import { notifyInvoiceCreated, staffRecipients } from '$lib/server/email';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	// Staff-only page (RLS restricts the table to admin/manager/sales_rep).
@@ -18,7 +19,7 @@ function splitName(name: string): { first_name: string; last_name: string } {
 }
 
 export const actions: Actions = {
-	create: async ({ request, locals }) => {
+	create: async ({ request, locals, url }) => {
 		const form = await request.formData();
 		const customerName = (form.get('customer_name') as string)?.trim() ?? '';
 		const customerEmail = (form.get('customer_email') as string)?.trim() ?? '';
@@ -88,6 +89,23 @@ export const actions: Actions = {
 				.eq('id', invoice.id)
 				.select()
 				.single();
+
+			// Fire-and-forget internal copy — never let an email failure break the pay link.
+			try {
+				await notifyInvoiceCreated({
+					to: staffRecipients(),
+					origin: url.origin,
+					invoiceNumber,
+					customerName,
+					customerEmail,
+					description,
+					amount,
+					payUrl,
+					createdBy: profile?.full_name
+				});
+			} catch (e) {
+				console.error('[notify] invoice-created email failed', e);
+			}
 
 			return { success: true, invoice: finalized ?? { ...invoice, woo_order_id: String(wooOrderId), pay_url: payUrl } };
 		} catch (e) {
